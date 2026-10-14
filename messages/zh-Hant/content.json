@@ -36,6 +36,12 @@
     "empty": "該分類暫無優惠",
     "emptyHint": "換個分類看看 — 「全部」裡有所有優惠。"
   },
+  "promotionDetail": {
+    "back": "返回全部促銷",
+    "rulesTitle": "活動規則",
+    "previous": "上一個優惠",
+    "next": "下一個優惠"
+  },
   "placeholder": {
     "eyebrow": "P0 路由骨架",
     "body": "此頁仍為 T02 佔位頁。"

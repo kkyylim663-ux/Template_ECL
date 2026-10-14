@@ -53,6 +53,16 @@
     "working": "处理中…",
     "ok": "确定"
   },
+  "voucher": {
+    "title": "礼券(优惠码)",
+    "hint": "粘贴收件箱消息里的兑换码即可使用。",
+    "codeLabel": "优惠码",
+    "placeholder": "例如 WELCOME188",
+    "emptyCode": "请先输入兑换码",
+    "guestNotice": "登录后才能兑换礼券。",
+    "guestAction": "去登录",
+    "demoNotice": "兑换码 {code} 格式正确。演示版本不会真正兑换。"
+  },
   "rulesButton": "规则与条例",
   "dev": {
     "eyebrow": "仅供开发",

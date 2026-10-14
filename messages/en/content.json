@@ -36,6 +36,12 @@
     "empty": "No offers in this category yet",
     "emptyHint": "Pick another category — the full list is under All."
   },
+  "promotionDetail": {
+    "back": "Back to all promotions",
+    "rulesTitle": "Rules",
+    "previous": "Previous offer",
+    "next": "Next offer"
+  },
   "placeholder": {
     "eyebrow": "P0 route skeleton",
     "body": "This page is still the T02 placeholder."

@@ -36,6 +36,12 @@
     "empty": "Chưa có ưu đãi trong mục này",
     "emptyHint": "Chọn mục khác — danh sách đầy đủ ở Tất cả."
   },
+  "promotionDetail": {
+    "back": "Về danh sách ưu đãi",
+    "rulesTitle": "Thể lệ",
+    "previous": "Ưu đãi trước",
+    "next": "Ưu đãi sau"
+  },
   "placeholder": {
     "eyebrow": "Khung trang P0",
     "body": "Trang này vẫn là chỗ giữ chỗ T02."

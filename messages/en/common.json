@@ -53,6 +53,16 @@
     "working": "Working…",
     "ok": "OK"
   },
+  "voucher": {
+    "title": "Voucher (Promo Code)",
+    "hint": "Paste the code from your inbox message to redeem it.",
+    "codeLabel": "Promo code",
+    "placeholder": "e.g. WELCOME188",
+    "emptyCode": "Enter a code first",
+    "guestNotice": "Sign in to redeem a voucher.",
+    "guestAction": "Sign in",
+    "demoNotice": "Code {code} looks well-formed. Nothing is redeemed in this demo build."
+  },
   "rulesButton": "Rules & regulations",
   "dev": {
     "eyebrow": "Dev only",

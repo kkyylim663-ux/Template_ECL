@@ -53,6 +53,16 @@
     "working": "Đang xử lý…",
     "ok": "OK"
   },
+  "voucher": {
+    "title": "Voucher (mã khuyến mãi)",
+    "hint": "Dán mã từ tin nhắn trong hộp thư để đổi.",
+    "codeLabel": "Mã khuyến mãi",
+    "placeholder": "ví dụ WELCOME188",
+    "emptyCode": "Nhập mã trước đã",
+    "guestNotice": "Đăng nhập để đổi voucher.",
+    "guestAction": "Đăng nhập",
+    "demoNotice": "Mã {code} hợp lệ. Bản demo không đổi thật."
+  },
   "rulesButton": "Luật & quy định",
   "dev": {
     "eyebrow": "Chỉ dành cho dev",

@@ -8,6 +8,7 @@ import { brand, REGION_CODES } from '@/config/brand';
 import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { VoucherEntry } from '@/components/content/VoucherEntry';
 import { readDemoSessionFromDocument } from '@/lib/session';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
@@ -198,6 +199,11 @@ export function MobileChrome({ region }: { region: string }) {
               </div>
             );
           })}
+
+          {/* Voucher (Promo Code) — the same dialog the header opens. */}
+          <div className="border-line border-b py-[15px]" style={{ paddingLeft: 35, paddingRight: 35 }}>
+            <VoucherEntry region={region} variant="drawer" />
+          </div>
 
           {/* Region switch */}
           <div className="border-line border-b py-[15px]" style={{ paddingLeft: 35, paddingRight: 35 }}>

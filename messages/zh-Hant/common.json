@@ -53,6 +53,16 @@
     "working": "處理中…",
     "ok": "確定"
   },
+  "voucher": {
+    "title": "禮券(優惠碼)",
+    "hint": "貼上收件箱訊息裡的兌換碼即可使用。",
+    "codeLabel": "優惠碼",
+    "placeholder": "例如 WELCOME188",
+    "emptyCode": "請先輸入兌換碼",
+    "guestNotice": "登入後才能兌換禮券。",
+    "guestAction": "去登入",
+    "demoNotice": "兌換碼 {code} 格式正確。示範版本不會真正兌換。"
+  },
   "rulesButton": "規則與條例",
   "dev": {
     "eyebrow": "僅供開發",
