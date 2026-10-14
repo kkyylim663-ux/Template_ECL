@@ -166,3 +166,140 @@ export const leaderboardSchema = z.object({
 export type Leaderboard = z.infer<typeof leaderboardSchema>;
 
 export const leaderboardMapSchema = z.record(z.string(), leaderboardSchema);
+
+/* ------------------------------------------------------- account (demo data) */
+
+export const walletSchema = z.object({
+  code: z.string(),
+  name: z.string(),
+  kind: z.enum(['main', 'game']),
+  amountMinor: z.number().int(),
+  tone: z.number().int().min(0).max(359),
+  /** False when the provider is offline; the UI greys the row out. */
+  available: z.boolean(),
+});
+export type Wallet = z.infer<typeof walletSchema>;
+
+export const bankSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  accountName: z.string(),
+  accountNumber: z.string(),
+  tone: z.number().int().min(0).max(359),
+});
+
+export const savedBankAccountSchema = z.object({
+  id: z.string(),
+  bankId: z.string(),
+  accountName: z.string(),
+  accountNumberMasked: z.string(),
+  verified: z.boolean(),
+  addedAt: z.string(),
+});
+
+export const depositChannelSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  kind: z.enum(['ewallet', 'online-banking', 'qr']),
+  minAmountMinor: z.number().int(),
+  maxAmountMinor: z.number().int(),
+  feePct: z.number(),
+  tone: z.number().int().min(0).max(359),
+});
+
+export const TRANSACTION_KINDS = ['deposit', 'withdrawal', 'transfer', 'rebate', 'bonus'] as const;
+export const TRANSACTION_STATUSES = [
+  'pending',
+  'processing',
+  'approved',
+  'rejected',
+  'cancelled',
+] as const;
+
+export const accountTransactionSchema = z.object({
+  id: z.string(),
+  reference: z.string(),
+  kind: z.enum(TRANSACTION_KINDS),
+  status: z.enum(TRANSACTION_STATUSES),
+  amountMinor: z.number().int(),
+  methodLabel: z.string(),
+  createdAt: z.string(),
+  note: z.string().optional(),
+});
+export type AccountTransaction = z.infer<typeof accountTransactionSchema>;
+
+export const inboxMessageSchema = z.object({
+  id: z.string(),
+  kind: z.enum(['important', 'others']),
+  subject: z.string(),
+  body: z.string(),
+  read: z.boolean(),
+  receivedAt: z.string(),
+});
+
+export const rebateSchema = z.object({
+  id: z.string(),
+  period: z.string(),
+  product: z.string(),
+  turnoverMinor: z.number().int(),
+  ratePct: z.number(),
+  amountMinor: z.number().int(),
+  status: z.enum(['pending', 'claimable', 'claimed']),
+  claimableAt: z.string(),
+});
+
+export const achievementSchema = z.object({
+  id: z.string(),
+  gameType: z.enum(['livecasino', 'sports', 'slots']),
+  title: z.string(),
+  requirementMinor: z.number().int(),
+  progressMinor: z.number().int(),
+  rewardMinor: z.number().int(),
+  status: z.enum(['locked', 'in-progress', 'claimable', 'claimed']),
+});
+
+export const ticketEventSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  opensAt: z.string(),
+  closesAt: z.string(),
+  ticketsHeld: z.number().int(),
+  ticketsRequired: z.number().int(),
+  status: z.enum(['upcoming', 'open', 'closed']),
+});
+
+export const rolloverSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  requirementMinor: z.number().int(),
+  progressMinor: z.number().int(),
+  expiresAt: z.string(),
+});
+
+export const accountProfileSchema = z.object({
+  username: z.string(),
+  nickname: z.string(),
+  fullName: z.string(),
+  email: z.string(),
+  mobileMasked: z.string(),
+  vipTier: z.string(),
+  kycStatus: z.enum(['unverified', 'pending', 'verified']),
+  joinedAt: z.string(),
+});
+
+export const accountPayloadSchema = z.object({
+  profile: accountProfileSchema,
+  autoTransfer: z.boolean(),
+  wallets: z.array(walletSchema),
+  bankAccounts: z.array(savedBankAccountSchema),
+  banks: z.array(bankSchema),
+  channels: z.array(depositChannelSchema),
+  transactions: z.array(accountTransactionSchema),
+  inbox: z.array(inboxMessageSchema),
+  rebates: z.array(rebateSchema),
+  achievements: z.array(achievementSchema),
+  tickets: z.array(ticketEventSchema),
+  promotionRollover: z.array(rolloverSchema),
+});
+export type AccountPayload = z.infer<typeof accountPayloadSchema>;

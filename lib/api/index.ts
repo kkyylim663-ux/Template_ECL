@@ -1,3 +1,4 @@
+export * from './account';
 export * from './client';
 export * from './campaign';
 export * from './content';

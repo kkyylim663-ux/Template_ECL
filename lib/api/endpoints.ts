@@ -14,6 +14,8 @@ export const ENDPOINTS = {
   displayPage: 'getDisplayPage',
   /** Ranking boards. The reference build streams this (`ssoTournament`); P0 snapshots it. */
   leaderboard: 'getLeaderboard',
+  /** Member area payload (profile, wallets, transactions, inbox, rebates, tickets). */
+  account: 'getAccount',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

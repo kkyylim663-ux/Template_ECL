@@ -1,0 +1,366 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "profile": {
+      "username": "demo_player",
+      "nickname": "Demo Player",
+      "fullName": "Demo Player",
+      "email": "demo.player@brand.example",
+      "mobileMasked": "+60 12-*** 8899",
+      "vipTier": "silver",
+      "kycStatus": "pending",
+      "joinedAt": "2026-03-08T10:12:00+08:00"
+    },
+    "autoTransfer": true,
+    "wallets": [
+      {
+        "code": "main",
+        "name": "Main wallet",
+        "kind": "main",
+        "amountMinor": 123450,
+        "tone": 42,
+        "available": true
+      },
+      {
+        "code": "pragmatic",
+        "name": "Pragmatic",
+        "kind": "game",
+        "amountMinor": 25000,
+        "tone": 152,
+        "available": true
+      },
+      {
+        "code": "pt",
+        "name": "PT",
+        "kind": "game",
+        "amountMinor": 0,
+        "tone": 205,
+        "available": true
+      },
+      {
+        "code": "jili",
+        "name": "Jili",
+        "kind": "game",
+        "amountMinor": 8800,
+        "tone": 12,
+        "available": false
+      }
+    ],
+    "bankAccounts": [
+      {
+        "id": "ba-1",
+        "bankId": "maybank",
+        "accountName": "Demo Player",
+        "accountNumberMasked": "**** 4471",
+        "verified": true,
+        "addedAt": "2026-04-02T11:00:00+08:00"
+      },
+      {
+        "id": "ba-2",
+        "bankId": "cimb",
+        "accountName": "Demo Player",
+        "accountNumberMasked": "**** 8890",
+        "verified": false,
+        "addedAt": "2026-09-19T15:30:00+08:00"
+      }
+    ],
+    "banks": [
+      {
+        "id": "maybank",
+        "name": "Maybank",
+        "accountName": "BRAND ENTERTAINMENT",
+        "accountNumber": "5142 8890 4471",
+        "tone": 42
+      },
+      {
+        "id": "cimb",
+        "name": "CIMB Bank",
+        "accountName": "BRAND ENTERTAINMENT",
+        "accountNumber": "7021 3348 9912",
+        "tone": 12
+      },
+      {
+        "id": "rhb",
+        "name": "RHB Bank",
+        "accountName": "BRAND ENTERTAINMENT",
+        "accountNumber": "2140 5567 8801",
+        "tone": 205
+      },
+      {
+        "id": "public",
+        "name": "Public Bank",
+        "accountName": "BRAND ENTERTAINMENT",
+        "accountNumber": "3188 9024 6633",
+        "tone": 280
+      }
+    ],
+    "channels": [
+      {
+        "id": "tng",
+        "name": "Touch n Go",
+        "kind": "ewallet",
+        "minAmountMinor": 5000,
+        "maxAmountMinor": 1000000,
+        "feePct": 0,
+        "tone": 152
+      },
+      {
+        "id": "grabpay",
+        "name": "GrabPay",
+        "kind": "ewallet",
+        "minAmountMinor": 5000,
+        "maxAmountMinor": 800000,
+        "feePct": 1,
+        "tone": 100
+      },
+      {
+        "id": "fpx",
+        "name": "FPX online banking",
+        "kind": "online-banking",
+        "minAmountMinor": 5000,
+        "maxAmountMinor": 2000000,
+        "feePct": 0,
+        "tone": 205
+      },
+      {
+        "id": "duitnow",
+        "name": "DuitNow QR",
+        "kind": "qr",
+        "minAmountMinor": 5000,
+        "maxAmountMinor": 500000,
+        "feePct": 0,
+        "tone": 320
+      }
+    ],
+    "transactions": [
+      {
+        "id": "tx-1",
+        "reference": "DP-260214-8841",
+        "kind": "deposit",
+        "status": "approved",
+        "amountMinor": 50000,
+        "methodLabel": "Maybank transfer",
+        "createdAt": "2026-10-13T21:04:00+08:00"
+      },
+      {
+        "id": "tx-2",
+        "reference": "WD-260214-1190",
+        "kind": "withdrawal",
+        "status": "processing",
+        "amountMinor": 30000,
+        "methodLabel": "Maybank **** 4471",
+        "createdAt": "2026-10-13T18:22:00+08:00"
+      },
+      {
+        "id": "tx-3",
+        "reference": "TR-260214-0031",
+        "kind": "transfer",
+        "status": "approved",
+        "amountMinor": 12000,
+        "methodLabel": "Main to Pragmatic",
+        "createdAt": "2026-10-13T17:40:00+08:00"
+      },
+      {
+        "id": "tx-4",
+        "reference": "RB-260214-0007",
+        "kind": "rebate",
+        "status": "approved",
+        "amountMinor": 1840,
+        "methodLabel": "Slots rebate",
+        "createdAt": "2026-10-13T06:00:00+08:00"
+      },
+      {
+        "id": "tx-5",
+        "reference": "DP-260212-7712",
+        "kind": "deposit",
+        "status": "pending",
+        "amountMinor": 20000,
+        "methodLabel": "DuitNow QR",
+        "createdAt": "2026-10-12T20:15:00+08:00",
+        "note": "Receipt unreadable"
+      },
+      {
+        "id": "tx-6",
+        "reference": "BN-260211-0002",
+        "kind": "bonus",
+        "status": "approved",
+        "amountMinor": 8800,
+        "methodLabel": "Daily reload 18%",
+        "createdAt": "2026-10-11T12:00:00+08:00"
+      },
+      {
+        "id": "tx-7",
+        "reference": "WD-260210-4408",
+        "kind": "withdrawal",
+        "status": "rejected",
+        "amountMinor": 90000,
+        "methodLabel": "CIMB **** 8890",
+        "createdAt": "2026-10-10T09:30:00+08:00",
+        "note": "Bank account not verified"
+      },
+      {
+        "id": "tx-8",
+        "reference": "DP-260209-3320",
+        "kind": "deposit",
+        "status": "approved",
+        "amountMinor": 15000,
+        "methodLabel": "Touch n Go",
+        "createdAt": "2026-10-09T13:11:00+08:00"
+      }
+    ],
+    "inbox": [
+      {
+        "id": "msg-1",
+        "kind": "important",
+        "subject": "Your withdrawal is being reviewed",
+        "body": "WD-260214-1190 is with our payments team; most requests clear within 15 minutes.",
+        "read": false,
+        "receivedAt": "2026-10-13T18:25:00+08:00"
+      },
+      {
+        "id": "msg-2",
+        "kind": "important",
+        "subject": "Verify a bank account to withdraw",
+        "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
+        "read": false,
+        "receivedAt": "2026-10-13T09:02:00+08:00"
+      },
+      {
+        "id": "msg-3",
+        "kind": "others",
+        "subject": "Voucher: RELOAD18",
+        "body": "Redeem this code for an 18% reload bonus before Sunday.",
+        "read": true,
+        "receivedAt": "2026-10-12T10:00:00+08:00"
+      },
+      {
+        "id": "msg-4",
+        "kind": "others",
+        "subject": "Weekly turnover race started",
+        "body": "The top 100 entries share the pool. Check the ranking board for your place.",
+        "read": true,
+        "receivedAt": "2026-10-11T08:00:00+08:00"
+      }
+    ],
+    "rebates": [
+      {
+        "id": "rb-1",
+        "period": "2026-10-13",
+        "product": "Slots",
+        "turnoverMinor": 418000,
+        "ratePct": 0.8,
+        "amountMinor": 3344,
+        "status": "claimable",
+        "claimableAt": "2026-10-14T06:00:00+08:00"
+      },
+      {
+        "id": "rb-2",
+        "period": "2026-10-12",
+        "product": "Live casino",
+        "turnoverMinor": 960000,
+        "ratePct": 0.2,
+        "amountMinor": 1920,
+        "status": "claimable",
+        "claimableAt": "2026-10-13T06:00:00+08:00"
+      },
+      {
+        "id": "rb-3",
+        "period": "2026-10-11",
+        "product": "Slots",
+        "turnoverMinor": 302000,
+        "ratePct": 0.8,
+        "amountMinor": 2416,
+        "status": "claimed",
+        "claimableAt": "2026-10-12T06:00:00+08:00"
+      },
+      {
+        "id": "rb-4",
+        "period": "2026-10-14",
+        "product": "Sports",
+        "turnoverMinor": 88000,
+        "ratePct": 0.1,
+        "amountMinor": 88,
+        "status": "pending",
+        "claimableAt": "2026-10-15T06:00:00+08:00"
+      }
+    ],
+    "achievements": [
+      {
+        "id": "ac-1",
+        "gameType": "slots",
+        "title": "Slot explorer",
+        "requirementMinor": 500000,
+        "progressMinor": 418000,
+        "rewardMinor": 5000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-2",
+        "gameType": "livecasino",
+        "title": "Table regular",
+        "requirementMinor": 1000000,
+        "progressMinor": 960000,
+        "rewardMinor": 12000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-3",
+        "gameType": "sports",
+        "title": "First goal",
+        "requirementMinor": 100000,
+        "progressMinor": 100000,
+        "rewardMinor": 3000,
+        "status": "claimable"
+      }
+    ],
+    "tickets": [
+      {
+        "id": "tk-1",
+        "name": "Euro Mini Winner draw",
+        "description": "Use one ticket to enter this week’s draw.",
+        "opensAt": "2026-10-12T00:00:00+08:00",
+        "closesAt": "2026-10-18T23:59:00+08:00",
+        "ticketsHeld": 3,
+        "ticketsRequired": 1,
+        "status": "open"
+      },
+      {
+        "id": "tk-2",
+        "name": "VIP exclusive table",
+        "description": "Two tickets hold a seat at the Sunday live table.",
+        "opensAt": "2026-10-19T00:00:00+08:00",
+        "closesAt": "2026-10-25T23:59:00+08:00",
+        "ticketsHeld": 1,
+        "ticketsRequired": 2,
+        "status": "upcoming"
+      },
+      {
+        "id": "tk-3",
+        "name": "4D bonus draw",
+        "description": "Closed: three tickets were needed to enter.",
+        "opensAt": "2026-10-01T00:00:00+08:00",
+        "closesAt": "2026-10-08T23:59:00+08:00",
+        "ticketsHeld": 0,
+        "ticketsRequired": 3,
+        "status": "closed"
+      }
+    ],
+    "promotionRollover": [
+      {
+        "id": "ro-1",
+        "title": "Welcome bonus 188%",
+        "requirementMinor": 150400,
+        "progressMinor": 96400,
+        "expiresAt": "2026-11-12T23:59:00+08:00"
+      },
+      {
+        "id": "ro-2",
+        "title": "Daily reload 18%",
+        "requirementMinor": 44000,
+        "progressMinor": 44000,
+        "expiresAt": "2026-10-18T23:59:00+08:00"
+      }
+    ]
+  }
+}

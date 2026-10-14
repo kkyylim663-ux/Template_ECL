@@ -9,6 +9,7 @@
  * components must fetch `/api/*` route handlers instead.
  */
 import { ENDPOINTS } from '@/lib/api/endpoints';
+import account from './account.json';
 import announcements from './announcements.json';
 import banners from './banners.json';
 import display from './display.json';
@@ -26,4 +27,5 @@ export const MOCK_ENDPOINTS: Record<string, () => unknown> = {
   [ENDPOINTS.displayPromo]: () => promotions.d,
   [ENDPOINTS.displayPage]: () => display.d,
   [ENDPOINTS.leaderboard]: () => leaderboards.d,
+  [ENDPOINTS.account]: () => account.d,
 };
