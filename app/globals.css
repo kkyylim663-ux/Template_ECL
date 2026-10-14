@@ -31,9 +31,16 @@
   --radius-panel: 15px;
   --radius-tag: 0.5rem;
 
-  /* Type: Rubik 400/500 with the documented fallbacks */
+  /* Type: Rubik 400/500 (loaded in app/layout.tsx) with the documented fallbacks */
   --font-sans:
-    Rubik, Roboto, 'Noto Sans', 'Noto Sans Thai', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    var(--font-rubik), Rubik, Roboto, 'Noto Sans', 'Noto Sans Thai', system-ui, -apple-system,
+    'Segoe UI', sans-serif;
+
+  /*
+   * One breakpoint, per docs/UI_REFERENCE.md: <=768px is mobile, >=769px is
+   * desktop. `desktop:` and `max-desktop:` are the two halves.
+   */
+  --breakpoint-desktop: 769px;
 }
 
 /* Layout measurements that are not Tailwind utility namespaces. */
