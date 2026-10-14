@@ -1,0 +1,414 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "weekly": {
+      "kind": "weekly",
+      "title": "Weekly",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 480000,
+          "prizeMinor": 88800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 444000,
+          "prizeMinor": 82140
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 408000,
+          "prizeMinor": 75480
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 372000,
+          "prizeMinor": 68820
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 336000,
+          "prizeMinor": 62160
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 300000,
+          "prizeMinor": 55500
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 264000,
+          "prizeMinor": 48840
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 228000,
+          "prizeMinor": 42180
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 192000,
+          "prizeMinor": 35520
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 156000,
+          "prizeMinor": 28860
+        }
+      ]
+    },
+    "monthly": {
+      "kind": "monthly",
+      "title": "Monthly",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 2100000,
+          "prizeMinor": 388800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 1942500,
+          "prizeMinor": 359640
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 1785000,
+          "prizeMinor": 330480
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 1627500,
+          "prizeMinor": 301320
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 1470000,
+          "prizeMinor": 272160
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 1312500,
+          "prizeMinor": 243000
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 1155000,
+          "prizeMinor": 213840
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 997500,
+          "prizeMinor": 184680
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 840000,
+          "prizeMinor": 155520
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 682500,
+          "prizeMinor": 126360
+        }
+      ]
+    },
+    "supervip": {
+      "kind": "supervip",
+      "title": "Super VIP",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 5400000,
+          "prizeMinor": 888800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 4995000,
+          "prizeMinor": 822140
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 4590000,
+          "prizeMinor": 755480
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 4185000,
+          "prizeMinor": 688820
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 3780000,
+          "prizeMinor": 622160
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 3375000,
+          "prizeMinor": 555500
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 2970000,
+          "prizeMinor": 488840
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 2565000,
+          "prizeMinor": 422180
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 2160000,
+          "prizeMinor": 355520
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 1755000,
+          "prizeMinor": 288860
+        }
+      ]
+    },
+    "vip": {
+      "kind": "vip",
+      "title": "VIP",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 1200000,
+          "prizeMinor": 188800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 1110000,
+          "prizeMinor": 174640
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 1020000,
+          "prizeMinor": 160480
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 930000,
+          "prizeMinor": 146320
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 840000,
+          "prizeMinor": 132160
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 750000,
+          "prizeMinor": 118000
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 660000,
+          "prizeMinor": 103840
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 570000,
+          "prizeMinor": 89680
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 480000,
+          "prizeMinor": 75520
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 390000,
+          "prizeMinor": 61360
+        }
+      ]
+    },
+    "live": {
+      "kind": "live",
+      "title": "Current LIVE",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 96000,
+          "prizeMinor": 18800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 88800,
+          "prizeMinor": 17390
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 81600,
+          "prizeMinor": 15980
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 74400,
+          "prizeMinor": 14570
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 67200,
+          "prizeMinor": 13160
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 60000,
+          "prizeMinor": 11750
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 52800,
+          "prizeMinor": 10340
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 45600,
+          "prizeMinor": 8930
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 38400,
+          "prizeMinor": 7520
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 31200,
+          "prizeMinor": 6110
+        }
+      ]
+    },
+    "lastweek": {
+      "kind": "lastweek",
+      "title": "Last week",
+      "currency": "MYR",
+      "refreshedAt": "2026-10-14T09:00:00+08:00",
+      "rows": [
+        {
+          "rank": 1,
+          "displayName": "user_****8899",
+          "turnoverMinor": 452000,
+          "prizeMinor": 82800
+        },
+        {
+          "rank": 2,
+          "displayName": "user_****1024",
+          "turnoverMinor": 418100,
+          "prizeMinor": 76590
+        },
+        {
+          "rank": 3,
+          "displayName": "user_****7745",
+          "turnoverMinor": 384200,
+          "prizeMinor": 70380
+        },
+        {
+          "rank": 4,
+          "displayName": "user_****3312",
+          "turnoverMinor": 350300,
+          "prizeMinor": 64170
+        },
+        {
+          "rank": 5,
+          "displayName": "user_****9048",
+          "turnoverMinor": 316400,
+          "prizeMinor": 57960
+        },
+        {
+          "rank": 6,
+          "displayName": "user_****5561",
+          "turnoverMinor": 282500,
+          "prizeMinor": 51750
+        },
+        {
+          "rank": 7,
+          "displayName": "user_****2277",
+          "turnoverMinor": 248600,
+          "prizeMinor": 45540
+        },
+        {
+          "rank": 8,
+          "displayName": "user_****6634",
+          "turnoverMinor": 214700,
+          "prizeMinor": 39330
+        },
+        {
+          "rank": 9,
+          "displayName": "user_****4418",
+          "turnoverMinor": 180800,
+          "prizeMinor": 33120
+        },
+        {
+          "rank": 10,
+          "displayName": "user_****8802",
+          "turnoverMinor": 146900,
+          "prizeMinor": 26910
+        }
+      ]
+    }
+  }
+}

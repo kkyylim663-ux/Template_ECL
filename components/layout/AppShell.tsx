@@ -1,3 +1,4 @@
+import { AnnouncementMarquee } from './AnnouncementMarquee';
 import { DesktopSidebar } from './DesktopSidebar';
 import { Footer } from './Footer';
 import { Header } from './Header';
@@ -14,6 +15,7 @@ export function AppShell({ region, children }: { region: string; children: React
       <DesktopSidebar region={region} />
 
       <div className="flex min-h-dvh flex-col desktop:pl-[var(--sidebar-mini-width)]">
+        <AnnouncementMarquee />
         <Header region={region} />
         <MobileChrome region={region} />
 

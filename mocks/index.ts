@@ -12,6 +12,7 @@ import { ENDPOINTS } from '@/lib/api/endpoints';
 import announcements from './announcements.json';
 import banners from './banners.json';
 import display from './display.json';
+import leaderboards from './leaderboards.json';
 import promotions from './promotions.json';
 import gameList from './slots.gamelist.json';
 
@@ -24,4 +25,5 @@ export const MOCK_ENDPOINTS: Record<string, () => unknown> = {
   [ENDPOINTS.announcement]: () => announcements.d,
   [ENDPOINTS.displayPromo]: () => promotions.d,
   [ENDPOINTS.displayPage]: () => display.d,
+  [ENDPOINTS.leaderboard]: () => leaderboards.d,
 };

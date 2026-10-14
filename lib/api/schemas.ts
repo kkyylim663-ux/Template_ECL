@@ -140,3 +140,29 @@ export const displayPayloadSchema = z.object({
   prediction: z.array(predictionFixtureSchema),
 });
 export type DisplayPayload = z.infer<typeof displayPayloadSchema>;
+
+/* ------------------------------------------------------------------ campaigns */
+
+export const LEADERBOARD_KINDS = ['weekly', 'monthly', 'supervip', 'vip', 'live', 'lastweek'] as const;
+export const LeaderboardKindSchema = z.enum(LEADERBOARD_KINDS);
+export type LeaderboardKind = z.infer<typeof LeaderboardKindSchema>;
+
+export const leaderboardRowSchema = z.object({
+  rank: z.number().int().min(1),
+  /** Always masked: the public board never shows a full username. */
+  displayName: z.string(),
+  turnoverMinor: z.number().int().min(0),
+  prizeMinor: z.number().int().min(0),
+});
+export type LeaderboardRow = z.infer<typeof leaderboardRowSchema>;
+
+export const leaderboardSchema = z.object({
+  kind: LeaderboardKindSchema,
+  title: z.string(),
+  currency: z.string(),
+  refreshedAt: z.string(),
+  rows: z.array(leaderboardRowSchema),
+});
+export type Leaderboard = z.infer<typeof leaderboardSchema>;
+
+export const leaderboardMapSchema = z.record(z.string(), leaderboardSchema);

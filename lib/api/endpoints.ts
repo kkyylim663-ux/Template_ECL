@@ -12,6 +12,8 @@ export const ENDPOINTS = {
   webEvent: 'getWebEvent',
   /** Project-specific: one payload for the display-only pages (4D, number game, prediction). */
   displayPage: 'getDisplayPage',
+  /** Ranking boards. The reference build streams this (`ssoTournament`); P0 snapshots it. */
+  leaderboard: 'getLeaderboard',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];
