@@ -61,8 +61,41 @@ export function Modal({
   useEffect(() => {
     if (!open) return;
 
+    // Focus stays inside the dialog while it is open (T27), and goes back to
+    // whatever had it before the dialog opened — the button that opened it.
+    const restoreTo = document.activeElement as HTMLElement | null;
+    const focusable = () =>
+      Array.from(
+        panelRef.current?.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), textarea, select, [tabindex]:not([tabindex="-1"])',
+        ) ?? [],
+      ).filter((node) => node.offsetParent !== null);
+
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape' && canDismiss) onClose();
+      if (event.key !== 'Tab') return;
+
+      const nodes = focusable();
+      if (nodes.length === 0) {
+        event.preventDefault();
+        panelRef.current?.focus();
+        return;
+      }
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+      const inside = active === panelRef.current || (active && panelRef.current?.contains(active));
+
+      if (!inside) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
     document.addEventListener('keydown', onKeyDown);
 
@@ -73,6 +106,8 @@ export function Modal({
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = previousOverflow;
+      // The opener keeps focus after the dialog closes, as it should.
+      if (restoreTo && document.contains(restoreTo)) restoreTo.focus();
     };
   }, [open, canDismiss, onClose]);
 
@@ -119,7 +154,7 @@ export function Modal({
               type="button"
               onClick={onClose}
               aria-label={t('modal.closeDialog')}
-              className="text-muted hover:text-ink -mt-1 -mr-1 grid size-8 shrink-0 place-items-center"
+              className="text-muted hover:text-ink -mt-1 -mr-2 grid size-11 shrink-0 place-items-center"
             >
               <Icon name="close" size={18} />
             </button>

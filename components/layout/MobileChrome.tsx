@@ -57,7 +57,7 @@ export function MobileChrome({ region }: { region: string }) {
         <div className="bg-surface relative flex h-14 items-center">
           <Link
             href={regionPath(region, '/faq/downloadapp')}
-            className="flex min-w-0 flex-1 items-center gap-2 px-3"
+            className="flex h-full min-w-0 flex-1 items-center gap-2 px-3"
           >
             <Icon name="download" size={18} className="text-accent shrink-0" />
             <span className="min-w-0">
@@ -85,12 +85,12 @@ export function MobileChrome({ region }: { region: string }) {
           onClick={() => setDrawerOpen(true)}
           aria-label={t('ui.openMenu')}
           aria-expanded={drawerOpen}
-          className="text-ink grid size-9 place-items-center"
+          className="text-ink grid size-11 place-items-center"
         >
           <Icon name="menu" size={24} />
         </button>
 
-        <Link href={regionPath(region, '')} className="mx-auto flex items-center gap-2">
+        <Link href={regionPath(region, '')} className="mx-auto flex min-h-11 items-center gap-2">
           <Image
             src={brand.logo.src}
             alt={brand.logo.alt}
@@ -106,7 +106,7 @@ export function MobileChrome({ region }: { region: string }) {
           <Link
             href={regionPath(region, '/account/profile')}
             aria-label={t('primary.account')}
-            className="border-line bg-panel-soft text-accent grid size-9 shrink-0 place-items-center rounded-full border text-[10px] font-semibold"
+            className="border-line bg-panel-soft text-accent grid size-11 shrink-0 place-items-center rounded-full border text-[10px] font-semibold"
           >
             {brandInitials}
           </Link>
@@ -114,7 +114,7 @@ export function MobileChrome({ region }: { region: string }) {
           <Link
             href={regionPath(region, '/login')}
             aria-label={t('ui.signIn')}
-            className="text-ink grid size-9 shrink-0 place-items-center"
+            className="text-ink grid size-11 shrink-0 place-items-center"
           >
             <Icon name="user" size={22} />
           </Link>

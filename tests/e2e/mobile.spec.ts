@@ -69,3 +69,117 @@ test('mobile screenshots for the other key pages', async ({ page }) => {
     await page.screenshot({ path: `${SHOTS}/${name}.png` });
   }
 });
+
+/**
+ * T27: the mobile + accessibility gates on the content pages. The full sweep
+ * lives in `_scratch/audit-a11y.mjs` and `_scratch/audit-keyboard.mjs`; these are
+ * the same checks at a size that runs with the suite.
+ */
+test.describe('content pages, mobile and keyboard (T27)', () => {
+  test('every content-page control clears 44px', async ({ page }) => {
+    const selectors = [
+      ['/my/promotion', '[data-cat]'],
+      ['/my/promotion', 'a[href*="/promotion/"]'],
+      ['/my/tnc', '[data-toc="mobile"] [data-toc-link]'],
+      ['/my/faq/finance', '[data-topic]'],
+      ['/my/faq/finance', '[data-faq-item] button'],
+      ['/my/contact', '[data-social]'],
+      ['/my/contact', '[data-contact-form] button[type="submit"]'],
+      ['/my/contact', '[data-contact-form] input'],
+      ['/my/vip', '[data-vip-tier]'],
+      ['/my/vip', '[data-rule-toggle]'],
+      ['/my/sponsor', '[data-video]'],
+    ] as const;
+
+    for (const [route, selector] of selectors) {
+      await page.goto(route);
+      const nodes = page.locator(selector);
+      const count = await nodes.count();
+      expect(count, `${route} ${selector} matched nothing`).toBeGreaterThan(0);
+      for (let index = 0; index < count; index += 1) {
+        const box = await nodes.nth(index).boundingBox();
+        // A closed <details> renders its links at 0x0: not a target yet.
+        if (!box || box.height === 0) continue;
+        expect(
+          Math.round(box.height),
+          `${route} ${selector}[${index}] is ${Math.round(box.width)}×${Math.round(box.height)}`,
+        ).toBeGreaterThanOrEqual(44);
+      }
+    }
+  });
+
+  test('text keeps its contrast on the dark theme', async ({ page }) => {
+    for (const route of ['/my/promotion', '/my/vip', '/my/contact', '/my/tnc']) {
+      await page.goto(route);
+      const worst = await page.evaluate(() => {
+        type Rgba = { r: number; g: number; b: number; a: number };
+        const parse = (value: string): Rgba | null => {
+          const match = value.match(/rgba?\(([^)]+)\)/);
+          if (!match) return null;
+          const parts = match[1].split(',').map((n: string) => parseFloat(n));
+          return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1 };
+        };
+        const lum = (color: Rgba) => {
+          const channel = (c: number) => {
+            const v = c / 255;
+            return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+          };
+          return 0.2126 * channel(color.r) + 0.7152 * channel(color.g) + 0.0722 * channel(color.b);
+        };
+        const background = (node: HTMLElement): Rgba => {
+          let current: HTMLElement | null = node;
+          while (current) {
+            const parsed = parse(getComputedStyle(current).backgroundColor);
+            if (parsed && parsed.a > 0.6) return parsed;
+            current = current.parentElement;
+          }
+          return { r: 24, g: 25, b: 26, a: 1 };
+        };
+
+        let worst: { ratio: number; text: string } = { ratio: 21, text: '' };
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        let seen = 0;
+        while (walker.nextNode() && seen < 30) {
+          const text = walker.currentNode.textContent?.trim() ?? '';
+          const parent = walker.currentNode.parentElement;
+          if (text.length < 2 || !parent || parent.closest('script, [hidden], [inert]')) continue;
+          const style = getComputedStyle(parent);
+          const color = parse(style.color);
+          if (!color) continue;
+          const l1 = lum(color);
+          const l2 = lum(background(parent as HTMLElement));
+          const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+          seen += 1;
+          if (ratio < worst.ratio) worst = { ratio: Number(ratio.toFixed(2)), text: text.slice(0, 20) };
+        }
+        return worst;
+      });
+      expect(worst.ratio, `${route}: lowest contrast ${worst.ratio} at "${worst.text}"`).toBeGreaterThanOrEqual(
+        4.5,
+      );
+    }
+  });
+
+  test('the dialog traps focus, closes on Esc and hands focus back', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/my/vip');
+
+    const opener = page.locator('[data-voucher="header"]');
+    await opener.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('dialog')).toBeVisible();
+
+    for (let index = 0; index < 10; index += 1) {
+      await page.keyboard.press('Tab');
+      const inside = await page.evaluate(() => {
+        const dialog = document.querySelector('[role="dialog"]');
+        return dialog ? dialog.contains(document.activeElement) : false;
+      });
+      expect(inside, `Tab ${index + 1} left the dialog`).toBe(true);
+    }
+
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(opener).toBeFocused();
+  });
+});

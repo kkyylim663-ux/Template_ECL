@@ -72,7 +72,7 @@ export default async function UpdateListPage({
                   <p className="text-muted mt-1 text-xs">{update.summary}</p>
                   <Link
                     href={regionPath(region, `/update/${update.id}`)}
-                    className="border-accent text-accent hover:bg-panel-soft mt-4 inline-block rounded-[8px] border px-3 py-1.5 text-center text-xs font-semibold"
+                    className="border-accent text-accent hover:bg-panel-soft mt-4 inline-flex min-h-11 items-center justify-center rounded-[8px] border px-4 py-2.5 text-center text-xs font-semibold"
                   >
                     {t('update.read')}
                   </Link>

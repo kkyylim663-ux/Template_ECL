@@ -109,7 +109,7 @@ export default async function ContactPage({ params }: { params: Promise<{ region
                     <a
                       href={entry.href}
                       data-social={entry.id}
-                      className="border-line bg-panel text-muted hover:border-accent hover:text-ink flex items-center gap-2 rounded-[var(--radius-tag)] border px-3 py-2 text-xs transition-colors"
+                      className="border-line bg-panel text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-tag)] border px-3 py-2 text-xs transition-colors"
                     >
                       <Icon name={entry.id as IconName} size={16} />
                       {entry.label}

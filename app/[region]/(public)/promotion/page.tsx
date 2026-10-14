@@ -82,7 +82,7 @@ export default async function PromotionPage({
               href={href}
               data-cat={tab}
               aria-current={active ? 'true' : undefined}
-              className={`-mb-px border-b-2 px-4 py-2 text-xs font-semibold tracking-wide uppercase ${
+              className={`-mb-px inline-flex min-h-11 items-center border-b-2 px-4 py-3 text-xs font-semibold tracking-wide uppercase ${
                 active ? 'border-accent text-accent' : 'text-muted hover:text-ink border-transparent'
               }`}
             >
@@ -162,7 +162,7 @@ function PromotionCard({
 
         <Link
           href={regionPath(region, `/promotion/${promotion.id}`)}
-          className="border-accent text-accent hover:bg-panel-soft mt-4 inline-block rounded-[8px] border px-3 py-1.5 text-center text-xs font-semibold"
+          className="border-accent text-accent hover:bg-panel-soft mt-4 inline-flex min-h-11 items-center justify-center rounded-[8px] border px-4 py-2.5 text-center text-xs font-semibold"
         >
           {t('promotion.viewDetails')}
         </Link>

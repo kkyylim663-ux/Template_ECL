@@ -11,7 +11,7 @@ export function Header({ region }: { region: string }) {
   return (
     <header className="border-line bg-panel hidden border-b desktop:block">
       <div className="flex h-[68px] items-center gap-6 px-[var(--pad-page-x)]">
-        <Link href={`/${region}`} className="flex shrink-0 items-center gap-2.5">
+        <Link href={`/${region}`} className="flex min-h-11 shrink-0 items-center gap-2.5">
           <Image
             src={brand.logo.src}
             alt={brand.logo.alt}

@@ -85,7 +85,7 @@ export default async function UpdateDetailPage({
       <nav className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
         <Link
           href={regionPath(region, '/update')}
-          className="text-accent hover:underline"
+          className="text-accent hover:underline inline-flex min-h-11 items-center"
           data-part="update-detail__back"
         >
           ← {t('update.back')}
@@ -96,7 +96,7 @@ export default async function UpdateDetailPage({
             <Link
               href={regionPath(region, `/update/${newer.id}`)}
               rel="prev"
-              className="border-line text-muted hover:border-accent hover:text-ink rounded-[8px] border px-3 py-1.5"
+              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
             >
               {t('update.previous')}: {newer.title}
             </Link>
@@ -105,7 +105,7 @@ export default async function UpdateDetailPage({
             <Link
               href={regionPath(region, `/update/${older.id}`)}
               rel="next"
-              className="border-line text-muted hover:border-accent hover:text-ink rounded-[8px] border px-3 py-1.5"
+              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
             >
               {t('update.next')}: {older.title}
             </Link>

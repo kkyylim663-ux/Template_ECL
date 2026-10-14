@@ -21,7 +21,7 @@ export async function Footer({ region }: { region: string }) {
               <li key={channel.id}>
                 <a
                   href={channel.href}
-                  className="text-muted hover:text-accent flex items-center gap-2 text-xs"
+                  className="text-muted hover:text-accent inline-flex min-h-7 items-center gap-2 text-xs"
                 >
                   <Icon name={channel.icon} size={16} />
                   <span className="text-ink/80">{t(channel.labelKey)}:</span>
@@ -37,7 +37,7 @@ export async function Footer({ region }: { region: string }) {
                 <a
                   href={social.href}
                   aria-label={social.label}
-                  className="border-line text-muted hover:border-accent hover:text-accent grid size-9 place-items-center rounded-full border"
+                  className="border-line text-muted hover:border-accent hover:text-accent grid size-11 place-items-center rounded-full border"
                 >
                   <Icon name={social.id} size={18} />
                 </a>
@@ -52,7 +52,7 @@ export async function Footer({ region }: { region: string }) {
             <ul className="mt-3 space-y-2">
               {group.items.map((item) => (
                 <li key={item.href}>
-                  <Link href={regionPath(region, item.href)} className="text-muted hover:text-accent text-xs">
+                  <Link href={regionPath(region, item.href)} className="text-muted hover:text-accent inline-flex min-h-7 items-center text-xs">
                     {t(item.labelKey)}
                   </Link>
                 </li>

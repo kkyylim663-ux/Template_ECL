@@ -70,7 +70,7 @@ export default async function FaqTopicPage({
                       href={regionPath(region, `/faq/${entry.id}`)}
                       data-topic={entry.id}
                       aria-current={active ? 'true' : undefined}
-                      className={`flex items-center justify-between gap-2 rounded-[var(--radius-tag)] border px-3 py-2 text-xs whitespace-nowrap desktop:w-full desktop:whitespace-normal ${
+                      className={`flex min-h-11 items-center justify-between gap-2 rounded-[var(--radius-tag)] border px-3 py-2 text-xs whitespace-nowrap desktop:w-full desktop:whitespace-normal ${
                         active
                           ? 'border-accent text-accent bg-panel-soft'
                           : 'border-line text-muted hover:border-accent hover:text-ink'

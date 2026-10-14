@@ -99,7 +99,7 @@ export default async function PromotionDetailPage({
       <nav className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
         <Link
           href={regionPath(region, '/promotion')}
-          className="text-accent hover:underline"
+          className="text-accent hover:underline inline-flex min-h-11 items-center"
           data-part="promotion-detail__back"
         >
           ← {t('promotionDetail.back')}
@@ -110,7 +110,7 @@ export default async function PromotionDetailPage({
             <Link
               href={regionPath(region, `/promotion/${previous.id}`)}
               rel="prev"
-              className="border-line text-muted hover:border-accent hover:text-ink rounded-[8px] border px-3 py-1.5"
+              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
             >
               {t('promotionDetail.previous')}: {previous.title}
             </Link>
@@ -119,7 +119,7 @@ export default async function PromotionDetailPage({
             <Link
               href={regionPath(region, `/promotion/${next.id}`)}
               rel="next"
-              className="border-line text-muted hover:border-accent hover:text-ink rounded-[8px] border px-3 py-1.5"
+              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
             >
               {t('promotionDetail.next')}: {next.title}
             </Link>

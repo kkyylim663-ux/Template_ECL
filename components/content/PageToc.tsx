@@ -52,7 +52,7 @@ export function PageToc({ items }: { items: TocItem[] }) {
   }, [items]);
 
   const linkClass = (id: string) =>
-    `block border-l-2 py-1 pl-3 text-xs transition-colors ${
+    `flex min-h-11 items-center border-l-2 pl-3 text-xs transition-colors ${
       id === active
         ? 'border-accent text-ink font-medium'
         : 'border-transparent text-muted hover:text-ink'
@@ -102,7 +102,7 @@ export function PageToc({ items }: { items: TocItem[] }) {
                 data-toc-link={item.id}
                 aria-current={item.id === active ? 'true' : undefined}
                 onClick={() => setOpen(false)}
-                className="text-muted hover:text-ink block py-2 text-xs"
+                className="text-muted hover:text-ink flex min-h-11 items-center text-xs"
               >
                 {item.title}
               </a>

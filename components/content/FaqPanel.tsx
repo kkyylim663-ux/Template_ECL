@@ -51,7 +51,7 @@ export function FaqPanel({ topicId, items }: { topicId: string; items: FaqItem[]
           onChange={(event) => setQuery(event.target.value)}
           placeholder={t('faq.searchPlaceholder')}
           aria-label={t('faq.searchPlaceholder')}
-          className="border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border py-2 pr-3 pl-9 text-sm outline-none"
+          className="border-line bg-panel text-ink placeholder:text-muted focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border py-2 pr-3 pl-9 text-sm outline-none"
         />
       </div>
 
@@ -67,7 +67,7 @@ export function FaqPanel({ topicId, items }: { topicId: string; items: FaqItem[]
           <button
             type="button"
             onClick={() => setQuery('')}
-            className="border-line text-ink hover:border-accent mt-3 rounded-[8px] border px-4 py-2 text-xs"
+            className="border-line text-ink hover:border-accent mt-3 inline-flex min-h-11 items-center rounded-[8px] border px-4 py-2 text-xs"
           >
             {t('faq.clear')}
           </button>

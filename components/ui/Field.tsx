@@ -48,7 +48,7 @@ export function TextField({ id, label, error, hint, className, ...input }: TextF
         id={id}
         name={id}
         aria-invalid={error ? 'true' : undefined}
-        className={`border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
+        className={`border-line bg-panel text-ink placeholder:text-muted focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
           error ? 'border-[var(--color-danger)]' : ''
         } ${className ?? ''}`}
         {...input}
@@ -72,7 +72,7 @@ export function SelectField({ id, label, error, hint, options, ...select }: Sele
         id={id}
         name={id}
         aria-invalid={error ? 'true' : undefined}
-        className={`border-line bg-panel text-ink focus:border-accent w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
+        className={`border-line bg-panel text-ink focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
           error ? 'border-[var(--color-danger)]' : ''
         }`}
         {...select}
@@ -102,7 +102,7 @@ export function TextAreaField({ id, label, error, hint, ...textarea }: TextAreaF
         name={id}
         rows={5}
         aria-invalid={error ? 'true' : undefined}
-        className={`border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
+        className={`border-line bg-panel text-ink placeholder:text-muted focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
           error ? 'border-[var(--color-danger)]' : ''
         }`}
         {...textarea}
@@ -126,7 +126,7 @@ export function PrimaryButton({
   return (
     <button
       type="submit"
-      className="bg-accent hover:bg-accent-bright rounded-[8px] px-4 py-2 text-sm font-semibold text-[#1b1b1b] disabled:opacity-60"
+      className="bg-accent hover:bg-accent-bright inline-flex min-h-11 items-center rounded-[8px] px-4 py-2 text-sm font-semibold text-[#1b1b1b] disabled:opacity-60"
       {...props}
     >
       {children}
