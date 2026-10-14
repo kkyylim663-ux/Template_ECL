@@ -1,0 +1,8 @@
+# 自定义规则写在下方(ZCode 默认段已含 node_modules/.git 等,不重复)
+pnpm-lock.yaml
+.next/
+*.tsbuildinfo
+next-env.d.ts
+_scratch/
+test-results/
+playwright-report/
