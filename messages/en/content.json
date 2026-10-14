@@ -14,6 +14,28 @@
     "title": "Region selector",
     "note": "T03 redirects this to /my."
   },
+  "promotion": {
+    "tab": {
+      "all": "All",
+      "deposit": "Deposit",
+      "rebate": "Rebate",
+      "casino": "Live casino",
+      "sports": "Sports",
+      "slots": "Slots",
+      "referral": "Referral",
+      "vip": "VIP",
+      "events": "Events"
+    },
+    "count": "{count, plural, one {# offer} other {# offers}}",
+    "viewDetails": "View details",
+    "validFrom": "From {date}",
+    "validUntil": "Until {date}",
+    "rollover": "{value}x turnover",
+    "noRollover": "No turnover requirement",
+    "maxBonus": "Up to {amount}",
+    "empty": "No offers in this category yet",
+    "emptyHint": "Pick another category — the full list is under All."
+  },
   "placeholder": {
     "eyebrow": "P0 route skeleton",
     "body": "This page is still the T02 placeholder."

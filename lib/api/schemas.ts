@@ -77,7 +77,17 @@ export const announcementSchema = z.object({
 export type Announcement = z.infer<typeof announcementSchema>;
 
 /** Tabs on the promotion list page, minus the "all" tab the UI adds. */
-export const PROMOTION_CATEGORIES = ['deposit', 'rebate', 'casino', 'sports', 'slots', 'referral', 'vip'] as const;
+export const PROMOTION_CATEGORIES = [
+  'deposit',
+  'rebate',
+  'casino',
+  'sports',
+  'slots',
+  'referral',
+  'vip',
+  /** Tournament and event offers. Empty between campaigns — the UI says so. */
+  'events',
+] as const;
 
 export const promotionSchema = z.object({
   id: z.string(),

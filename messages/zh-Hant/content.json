@@ -14,6 +14,28 @@
     "title": "地區選擇",
     "note": "T03 會把此位址重導向到 /my。"
   },
+  "promotion": {
+    "tab": {
+      "all": "全部",
+      "deposit": "充值",
+      "rebate": "返水",
+      "casino": "真人賭場",
+      "sports": "體育",
+      "slots": "電子遊戲",
+      "referral": "推薦好友",
+      "vip": "VIP",
+      "events": "活動"
+    },
+    "count": "{count} 個優惠",
+    "viewDetails": "查看詳情",
+    "validFrom": "{date} 開始",
+    "validUntil": "截至 {date}",
+    "rollover": "流水 {value} 倍",
+    "noRollover": "無流水要求",
+    "maxBonus": "最高 {amount}",
+    "empty": "該分類暫無優惠",
+    "emptyHint": "換個分類看看 — 「全部」裡有所有優惠。"
+  },
   "placeholder": {
     "eyebrow": "P0 路由骨架",
     "body": "此頁仍為 T02 佔位頁。"

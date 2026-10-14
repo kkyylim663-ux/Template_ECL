@@ -14,6 +14,28 @@
     "title": "地区选择",
     "note": "T03 会把此地址重定向到 /my。"
   },
+  "promotion": {
+    "tab": {
+      "all": "全部",
+      "deposit": "充值",
+      "rebate": "返水",
+      "casino": "真人赌场",
+      "sports": "体育",
+      "slots": "电子游戏",
+      "referral": "推荐好友",
+      "vip": "VIP",
+      "events": "活动"
+    },
+    "count": "{count} 个优惠",
+    "viewDetails": "查看详情",
+    "validFrom": "{date} 开始",
+    "validUntil": "截至 {date}",
+    "rollover": "流水 {value} 倍",
+    "noRollover": "无流水要求",
+    "maxBonus": "最高 {amount}",
+    "empty": "该分类暂无优惠",
+    "emptyHint": "换个分类看看 — 「全部」里有所有优惠。"
+  },
   "placeholder": {
     "eyebrow": "P0 路由骨架",
     "body": "此页仍为 T02 占位页。"

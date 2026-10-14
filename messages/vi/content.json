@@ -14,6 +14,28 @@
     "title": "Chọn khu vực",
     "note": "T03 chuyển hướng tới /my."
   },
+  "promotion": {
+    "tab": {
+      "all": "Tất cả",
+      "deposit": "Nạp tiền",
+      "rebate": "Hoàn trả",
+      "casino": "Casino trực tuyến",
+      "sports": "Thể thao",
+      "slots": "Slots",
+      "referral": "Giới thiệu",
+      "vip": "VIP",
+      "events": "Sự kiện"
+    },
+    "count": "{count} ưu đãi",
+    "viewDetails": "Xem chi tiết",
+    "validFrom": "Từ {date}",
+    "validUntil": "Đến {date}",
+    "rollover": "Doanh số {value}x",
+    "noRollover": "Không yêu cầu doanh số",
+    "maxBonus": "Tối đa {amount}",
+    "empty": "Chưa có ưu đãi trong mục này",
+    "emptyHint": "Chọn mục khác — danh sách đầy đủ ở Tất cả."
+  },
   "placeholder": {
     "eyebrow": "Khung trang P0",
     "body": "Trang này vẫn là chỗ giữ chỗ T02."
