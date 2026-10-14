@@ -36,3 +36,39 @@ test.describe('desktop screenshots', () => {
     }
   });
 });
+
+/** T28: the content pages, desktop and mobile, for the final review. */
+test.describe('content screenshots (T28)', () => {
+  const SHOTS = 'C:/Users/senheng/Desktop/Claude Code/Clone web ECL/site/_scratch/shots';
+
+  const ROUTES = [
+    ['/my/promotion', 'promotion-list'],
+    ['/my/promotion/pr-welcome-188', 'promotion-detail'],
+    ['/my/update', 'update-list'],
+    ['/my/update/up-061', 'update-detail'],
+    ['/my/faq/finance', 'faq'],
+    ['/my/vip', 'vip'],
+    ['/my/sponsor', 'sponsor'],
+    ['/my/about', 'about'],
+    ['/my/contact', 'contact'],
+    ['/my/tnc', 'tnc'],
+    ['/my/betting-rules', 'betting-rules'],
+  ] as const;
+
+  test('desktop at 1440x900', async ({ page }) => {
+    for (const [route, name] of ROUTES) {
+      await page.goto(route);
+      await expect(page.locator('main')).toBeVisible();
+      await page.screenshot({ path: `${SHOTS}/t28-desktop-${name}.png`, fullPage: true });
+    }
+  });
+
+  test('mobile at 375x812', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    for (const [route, name] of ROUTES) {
+      await page.goto(route);
+      await expect(page.locator('main')).toBeVisible();
+      await page.screenshot({ path: `${SHOTS}/t28-mobile-${name}.png`, fullPage: true });
+    }
+  });
+});

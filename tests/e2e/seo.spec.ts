@@ -95,10 +95,13 @@ test.describe('sitemap, robots and structured data (T25)', () => {
 
     const locs = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
     expect(locs.length).toBeGreaterThan(60);
-    for (const loc of [locs[0], locs[Math.floor(locs.length / 2)], locs[locs.length - 1]]) {
+    // T28: every listed URL answers 200, not just a sample.
+    const failed: string[] = [];
+    for (const loc of locs) {
       const entry = await page.request.get(loc);
-      expect(entry.status(), `${loc} is not 200`).toBe(200);
+      if (entry.status() !== 200) failed.push(`${loc} -> ${entry.status()}`);
     }
+    expect(failed, 'sitemap entries that are not 200').toEqual([]);
   });
 
   test('robots.txt keeps the gated areas out and points at the sitemap', async ({ page }) => {
