@@ -125,6 +125,8 @@ export function MobileChrome({ region }: { region: string }) {
 
       <aside
         aria-label="Mobile navigation"
+        aria-hidden={!drawerOpen}
+        inert={!drawerOpen}
         className={`bg-panel fixed top-0 bottom-0 left-0 z-40 flex w-[85%] max-w-[330px] flex-col transition-transform duration-300 ease-out ${
           drawerOpen ? 'translate-x-0' : '-translate-x-full'
         }`}

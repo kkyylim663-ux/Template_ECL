@@ -1,0 +1,64 @@
+/** Every route the P0 build is expected to answer, grouped by kind. */
+export const REGIONS = ['my', 'sg'] as const;
+
+export const GAME_CATEGORIES = ['slots', 'livecasino', 'sports', 'esports', 'fast-game', '4d'] as const;
+
+export const PUBLIC_STATIC = [
+  'promotion',
+  'update',
+  'ranking-board',
+  'vip',
+  'numbergame',
+  'prediction',
+  'sponsor',
+  'about',
+  'contact',
+  'tnc',
+  'betting-rules',
+] as const;
+
+export const FAQ_TOPICS = [
+  'gettingstart',
+  'finance',
+  'statement',
+  'games',
+  'events',
+  'promotions',
+  'contactus',
+  'downloadapp',
+] as const;
+
+export const AUTH_PAGES = ['login', 'register', 'forgot-password'] as const;
+
+export const ACCOUNT_PAGES = [
+  'deposit',
+  'withdrawal',
+  'transfer',
+  'history',
+  'pending',
+  'inbox',
+  'rebates',
+  'achievement',
+  'tickets',
+  'profile',
+] as const;
+
+/** Routes that must answer 200 without a session. */
+export function publicRoutes(): string[] {
+  const routes: string[] = [];
+  for (const region of REGIONS) {
+    routes.push(`/${region}`);
+    for (const category of GAME_CATEGORIES) routes.push(`/${region}/${category}`);
+    for (const page of PUBLIC_STATIC) routes.push(`/${region}/${page}`);
+    routes.push(`/${region}/promotion/welcome-188`, `/${region}/update/1`);
+    for (const topic of FAQ_TOPICS) routes.push(`/${region}/faq/${topic}`);
+    for (const page of AUTH_PAGES) routes.push(`/${region}/${page}`);
+  }
+  return routes;
+}
+
+export function accountRoutes(): string[] {
+  return REGIONS.flatMap((region) => ACCOUNT_PAGES.map((page) => `/${region}/account/${page}`));
+}
+
+export const DEMO_COOKIE = { name: 'brand_session', value: 'demo' };
