@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Rubik } from 'next/font/google';
 import { brand } from '@/config/brand';
+import { Providers } from '@/components/ui/Providers';
 import './globals.css';
 
 /**
@@ -36,7 +37,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={rubik.variable}>
-      <body className="bg-surface text-ink font-sans antialiased">{children}</body>
+      <body className="bg-surface text-ink font-sans antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

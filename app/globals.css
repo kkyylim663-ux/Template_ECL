@@ -67,3 +67,58 @@ html {
 }
 
 /* TODO(T05): allow brand.ts to drive the accent at runtime once the shell lands. */
+
+/* ---------------------------------------------------------------- components */
+
+/* Marquee (components/ui/Marquee.tsx): the list is rendered twice, so shifting
+   the track by half its width loops seamlessly. Hover pauses it. */
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 30s) linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Skeleton pulse */
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.skeleton {
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+/* Placeholder artwork for LazyImage: hue comes from the game id, so a grid looks
+   varied but never changes between renders. */
+.game-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(
+    145deg,
+    hsl(var(--tone, 42) 38% 24%),
+    hsl(calc(var(--tone, 42) + 24) 32% 13%)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .skeleton,
+  .animate-spin {
+    animation: none;
+  }
+}
