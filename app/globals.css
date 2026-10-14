@@ -1,1 +1,19 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+/*
+ * Colour tokens. The values are the render source of truth for the UI and mirror
+ * `config/brand.ts` — re-brand in both places (T05 expands this token set).
+ */
+:root {
+  --color-surface: #0b1220;
+  --color-surface-raised: #131c2e;
+  --color-border: #26324a;
+  --color-text: #e8edf7;
+  --color-text-muted: #94a3b8;
+  --color-accent: #22c07a;
+  --color-accent-contrast: #04150d;
+}
+
+html {
+  color-scheme: dark;
+}

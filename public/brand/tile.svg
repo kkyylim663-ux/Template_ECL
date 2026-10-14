@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Placeholder artwork">
+  <title>Placeholder artwork</title>
+  <rect width="300" height="300" fill="#131c2e" />
+  <g stroke="#26324a" stroke-width="2">
+    <path d="M0 300 300 0" />
+    <path d="M-60 300 240 0" />
+    <path d="M60 300 360 0" />
+  </g>
+  <circle cx="150" cy="150" r="44" fill="none" stroke="#22c07a" stroke-width="3" stroke-opacity="0.7" />
+  <text x="150" y="224" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="18">
+    PLACEHOLDER
+  </text>
+</svg>
