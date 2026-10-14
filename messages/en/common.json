@@ -133,7 +133,10 @@
     "bankRequired": "Choose a bank account",
     "walletFrom": "Choose a source wallet",
     "walletTo": "Choose a destination wallet",
-    "walletSame": "Choose two different wallets"
+    "walletSame": "Choose two different wallets",
+    "nameRequired": "Enter your name",
+    "subjectRequired": "Enter a subject",
+    "messageShort": "Tell us a bit more (10+ characters)"
   },
   "balance": {
     "main": "Main wallet",

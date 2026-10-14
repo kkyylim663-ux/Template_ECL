@@ -62,6 +62,27 @@
     "benefitsTitle": "{tier} 權益",
     "rulesLabel": "等級如何達成"
   },
+  "longform": {
+    "toc": "目錄",
+    "backToTop": "回到頂部",
+    "updated": "更新於 {date}"
+  },
+  "contact": {
+    "cardsTitle": "24 小時客服",
+    "emailLabel": "電郵",
+    "phoneLabel": "電話",
+    "socialTitle": "社交媒體",
+    "formTitle": "給我們留言",
+    "form": {
+      "name": "姓名",
+      "email": "電郵",
+      "subject": "主題",
+      "message": "內容",
+      "submit": "發送",
+      "demoTitle": "示範表單",
+      "demoBody": "沒有發送任何內容:本項目暫無後端。正式版會把這封訊息送進客服收件箱。"
+    }
+  },
   "rules": {
     "show": "展開規則",
     "hide": "收起規則"

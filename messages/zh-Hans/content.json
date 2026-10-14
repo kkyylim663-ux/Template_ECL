@@ -62,6 +62,27 @@
     "benefitsTitle": "{tier} 权益",
     "rulesLabel": "等级如何达成"
   },
+  "longform": {
+    "toc": "目录",
+    "backToTop": "回到顶部",
+    "updated": "更新于 {date}"
+  },
+  "contact": {
+    "cardsTitle": "24 小时客服",
+    "emailLabel": "邮箱",
+    "phoneLabel": "电话",
+    "socialTitle": "社交媒体",
+    "formTitle": "给我们留言",
+    "form": {
+      "name": "姓名",
+      "email": "邮箱",
+      "subject": "主题",
+      "message": "内容",
+      "submit": "发送",
+      "demoTitle": "演示表单",
+      "demoBody": "没有发送任何内容:本项目暂无后端。正式版会把这封信息送进客服收件箱。"
+    }
+  },
   "rules": {
     "show": "展开规则",
     "hide": "收起规则"

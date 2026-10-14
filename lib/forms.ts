@@ -59,6 +59,14 @@ export const registerSchema = z
 
 export const forgotPasswordSchema = z.object({ email });
 
+/** Contact page demo form — validated locally, nothing is sent (T23). */
+export const contactSchema = z.object({
+  name: z.string().trim().min(2, 'validation.nameRequired'),
+  email,
+  subject: z.string().trim().min(1, 'validation.subjectRequired'),
+  message: z.string().trim().min(10, 'validation.messageShort'),
+});
+
 export const depositSchema = z.object({
   method: z.enum(['bank', 'gateway']),
   amount: z

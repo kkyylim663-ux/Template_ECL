@@ -133,7 +133,10 @@
     "bankRequired": "Chọn tài khoản ngân hàng",
     "walletFrom": "Chọn ví nguồn",
     "walletTo": "Chọn ví đích",
-    "walletSame": "Chọn hai ví khác nhau"
+    "walletSame": "Chọn hai ví khác nhau",
+    "nameRequired": "Nhập tên của bạn",
+    "subjectRequired": "Nhập tiêu đề",
+    "messageShort": "Vui lòng viết rõ hơn (10+ ký tự)"
   },
   "balance": {
     "main": "Ví chính",

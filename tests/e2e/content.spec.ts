@@ -372,3 +372,112 @@ test.describe('VIP and sponsor (T22)', () => {
     }
   });
 });
+
+test.describe('long-form pages (T23)', () => {
+  test('all four pages render their sections and the contents rail', async ({ page }) => {
+    const counts: Record<string, number> = { about: 4, tnc: 6, 'betting-rules': 5 };
+
+    for (const [slug, sections] of Object.entries(counts)) {
+      await page.goto(`/my/${slug}`);
+      await expect(page.locator('[data-page="longform"]')).toHaveCount(1);
+      await expect(page.locator('[data-page="longform"] section')).toHaveCount(sections);
+      await expect(page.locator('[data-toc="desktop"] [data-toc-link]')).toHaveCount(sections);
+    }
+
+    // Contact adds three blocks of its own: cards, social row and the form.
+    await page.goto('/my/contact');
+    await expect(page.locator('[data-toc="desktop"] [data-toc-link]')).toHaveCount(6);
+    await expect(page.locator('[data-contact-card]')).toHaveCount(5);
+    await expect(page.locator('[data-social]')).toHaveCount(5);
+    await expect(page.locator('[data-contact-form]')).toBeVisible();
+    await expect(page.locator('[data-contact-card="email"]')).toHaveAttribute(
+      'href',
+      'mailto:help@brand.example',
+    );
+  });
+
+  test('a contents link scrolls to its section, sets the hash and the highlight', async ({
+    page,
+  }) => {
+    await page.goto('/my/tnc');
+
+    await page.locator('[data-toc="desktop"] [data-toc-link="deposits-withdrawals"]').click();
+    await expect(page).toHaveURL(/#deposits-withdrawals$/);
+
+    // The smooth scroll settles with the section top under the header.
+    await expect
+      .poll(async () =>
+        page.locator('#deposits-withdrawals').evaluate((el) => el.getBoundingClientRect().top),
+      )
+      .toBeLessThan(300);
+    await expect(
+      page.locator('[data-toc="desktop"] [data-toc-link="deposits-withdrawals"]'),
+    ).toHaveAttribute('aria-current', 'true');
+    // The rail follows the reader: the first section is no longer current.
+    await expect(page.locator('[data-toc="desktop"] [data-toc-link="general"]')).not.toHaveAttribute(
+      'aria-current',
+      'true',
+    );
+  });
+
+  test('back to top appears after scrolling and returns to the top', async ({ page }) => {
+    await page.goto('/my/tnc');
+
+    await expect(page.locator('[data-back-to-top]')).toBeHidden();
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(600);
+    await expect(page.locator('[data-back-to-top]')).toBeVisible();
+
+    await page.locator('[data-back-to-top]').click();
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(5);
+    await expect(page.locator('[data-back-to-top]')).toBeHidden();
+  });
+
+  test('the contact form validates per field and sends nothing', async ({ page }) => {
+    await page.goto('/my/contact');
+
+    await page.locator('[data-contact-form] button[type="submit"]').click();
+    await expect(page.getByText('Enter your name')).toBeVisible();
+    await expect(page.getByText('Enter a subject')).toBeVisible();
+    await expect(page.getByText(/Tell us a bit more/)).toBeVisible();
+
+    await page.fill('#contact-name', 'Ada Tan');
+    await page.fill('#contact-email', 'not-an-email');
+    await page.fill('#contact-subject', 'Demo question');
+    await page.fill('#contact-message', 'This is a placeholder message for the demo build.');
+    await page.locator('[data-contact-form] button[type="submit"]').click();
+    await expect(page.getByText('Enter a valid email address')).toBeVisible();
+
+    await page.fill('#contact-email', 'ada@example.com');
+    await page.locator('[data-contact-form] button[type="submit"]').click();
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.getByText(/Nothing was sent/)).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
+
+  test('mobile folds the contents into a dropdown, and nothing overflows', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+
+    for (const slug of ['about', 'contact', 'tnc', 'betting-rules']) {
+      await page.goto(`/my/${slug}`);
+      await expect(page.locator('[data-toc="desktop"]')).toBeHidden();
+      const dropdown = page.locator('[data-toc="mobile"]');
+      await expect(dropdown).toBeVisible();
+
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `/${slug} overflows by ${overflow}px`).toBeLessThanOrEqual(1);
+    }
+
+    // The dropdown closes once a section is picked.
+    await page.goto('/my/tnc');
+    const dropdown = page.locator('[data-toc="mobile"]');
+    await dropdown.locator('summary').click();
+    await expect(dropdown).toHaveAttribute('open', '');
+    await dropdown.locator('[data-toc-link="deposits-withdrawals"]').click();
+    await expect(page).toHaveURL(/#deposits-withdrawals$/);
+    await expect(dropdown).not.toHaveAttribute('open', '');
+  });
+});

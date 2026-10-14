@@ -46,7 +46,7 @@ export default async function RootLayout({
   const { locale, messages } = await getShell();
 
   return (
-    <html lang={locale} className={rubik.variable}>
+    <html lang={locale} className={`${rubik.variable} motion-safe:scroll-smooth`}>
       <body className="bg-surface text-ink font-sans antialiased">
         <IconSprite />
         <NextIntlClientProvider locale={locale} messages={messages}>

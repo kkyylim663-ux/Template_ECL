@@ -62,6 +62,27 @@
     "benefitsTitle": "Quyền lợi hạng {tier}",
     "rulesLabel": "Cách đạt từng hạng"
   },
+  "longform": {
+    "toc": "Mục lục",
+    "backToTop": "Lên đầu trang",
+    "updated": "Cập nhật {date}"
+  },
+  "contact": {
+    "cardsTitle": "Hỗ trợ 24 giờ",
+    "emailLabel": "Email",
+    "phoneLabel": "Điện thoại",
+    "socialTitle": "Mạng xã hội",
+    "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "form": {
+      "name": "Họ tên",
+      "email": "Email",
+      "subject": "Tiêu đề",
+      "message": "Nội dung",
+      "submit": "Gửi",
+      "demoTitle": "Biểu mẫu minh hoạ",
+      "demoBody": "Chưa gửi gì cả: bản này chưa có backend. Bản thật sẽ chuyển tin đến hộp thư hỗ trợ."
+    }
+  },
   "rules": {
     "show": "Xem thể lệ",
     "hide": "Ẩn thể lệ"

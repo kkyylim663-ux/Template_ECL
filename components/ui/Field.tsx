@@ -87,6 +87,30 @@ export function SelectField({ id, label, error, hint, options, ...select }: Sele
   );
 }
 
+type TextAreaFieldProps = {
+  id: string;
+  label: string;
+  error?: string;
+  hint?: string;
+} & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export function TextAreaField({ id, label, error, hint, ...textarea }: TextAreaFieldProps) {
+  return (
+    <Field htmlFor={id} label={label} error={error} hint={hint}>
+      <textarea
+        id={id}
+        name={id}
+        rows={5}
+        aria-invalid={error ? 'true' : undefined}
+        className={`border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none ${
+          error ? 'border-[var(--color-danger)]' : ''
+        }`}
+        {...textarea}
+      />
+    </Field>
+  );
+}
+
 export function FormNotice({ children }: { children: ReactNode }) {
   return (
     <p className="border-line bg-panel-soft text-muted rounded-[var(--radius-tag)] border px-3 py-2 text-xs">

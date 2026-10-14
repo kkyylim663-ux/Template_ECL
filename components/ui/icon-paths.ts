@@ -44,6 +44,7 @@ export const ICON_PATHS = {
   search: [c(11, 11, 6), 'M15.5 15.5 21 21'],
   globe: [c(12, 12, 8), 'M4 12h16', 'M12 4a12 12 0 0 1 0 16', 'M12 4a12 12 0 0 0 0 16'],
   chevronDown: ['M6 9l6 6 6-6'],
+  chevronUp: ['M6 15l6-6 6 6'],
   chevronRight: ['M9 6l6 6-6 6'],
   chevronLeft: ['M15 6l-6 6 6 6'],
   play: ['M8 5l12 7-12 7z'],

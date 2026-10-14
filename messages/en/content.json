@@ -62,6 +62,27 @@
     "benefitsTitle": "{tier} benefits",
     "rulesLabel": "How tiers are reached"
   },
+  "longform": {
+    "toc": "Contents",
+    "backToTop": "Back to top",
+    "updated": "Updated {date}"
+  },
+  "contact": {
+    "cardsTitle": "24Hrs Customer Service",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "socialTitle": "Social Media",
+    "formTitle": "Send us a message",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "submit": "Send message",
+      "demoTitle": "Demo form",
+      "demoBody": "Nothing was sent: this build has no backend yet. The live build delivers this message to the support inbox."
+    }
+  },
   "rules": {
     "show": "Show rules",
     "hide": "Hide rules"

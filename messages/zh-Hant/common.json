@@ -133,7 +133,10 @@
     "bankRequired": "請選擇銀行帳戶",
     "walletFrom": "請選擇轉出錢包",
     "walletTo": "請選擇轉入錢包",
-    "walletSame": "請選擇兩個不同的錢包"
+    "walletSame": "請選擇兩個不同的錢包",
+    "nameRequired": "請輸入姓名",
+    "subjectRequired": "請輸入主題",
+    "messageShort": "請多寫一些(至少 10 個字元)"
   },
   "balance": {
     "main": "主錢包",
