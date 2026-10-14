@@ -50,7 +50,7 @@ export function publicRoutes(): string[] {
     routes.push(`/${region}`);
     for (const category of GAME_CATEGORIES) routes.push(`/${region}/${category}`);
     for (const page of PUBLIC_STATIC) routes.push(`/${region}/${page}`);
-    routes.push(`/${region}/promotion/welcome-188`, `/${region}/update/1`);
+    routes.push(`/${region}/promotion/pr-welcome-188`, `/${region}/update/up-061`);
     for (const topic of FAQ_TOPICS) routes.push(`/${region}/faq/${topic}`);
     for (const page of AUTH_PAGES) routes.push(`/${region}/${page}`);
   }

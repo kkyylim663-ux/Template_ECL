@@ -42,6 +42,15 @@
     "previous": "Ưu đãi trước",
     "next": "Ưu đãi sau"
   },
+  "update": {
+    "count": "{count} tin",
+    "published": "Đăng {date}",
+    "read": "Xem tin",
+    "back": "Về danh sách tin",
+    "previous": "Tin trước",
+    "next": "Tin sau",
+    "empty": "Chưa có tin"
+  },
   "placeholder": {
     "eyebrow": "Khung trang P0",
     "body": "Trang này vẫn là chỗ giữ chỗ T02."

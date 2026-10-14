@@ -42,6 +42,15 @@
     "previous": "Previous offer",
     "next": "Next offer"
   },
+  "update": {
+    "count": "{count, plural, one {# update} other {# updates}}",
+    "published": "Published {date}",
+    "read": "Read update",
+    "back": "Back to all updates",
+    "previous": "Previous update",
+    "next": "Next update",
+    "empty": "No updates yet"
+  },
   "placeholder": {
     "eyebrow": "P0 route skeleton",
     "body": "This page is still the T02 placeholder."

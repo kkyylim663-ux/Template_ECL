@@ -128,3 +128,49 @@ test.describe('promotion detail and the voucher dialog (T19)', () => {
     await expect(page.getByText('Sign in to redeem a voucher.')).toHaveCount(0);
   });
 });
+
+test.describe('update list and detail (T20)', () => {
+  test('lists the six updates newest first', async ({ page }) => {
+    await page.goto('/my/update');
+
+    await expect(page.locator('article[data-update]')).toHaveCount(6);
+    // The newest record leads, and the band carries the count.
+    await expect(page.locator('article[data-update]').first()).toHaveAttribute('data-update', 'up-061');
+    await expect(page.getByText('6 updates')).toBeVisible();
+  });
+
+  test('a card opens the detail page with the rendered body', async ({ page }) => {
+    await page.goto('/my/update');
+    await page.locator('article[data-update="up-059"] a').click();
+
+    await expect(page).toHaveURL(/\/my\/update\/up-059$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      'Withdrawal cut-off extended to 23:00',
+    );
+    await expect(page.getByRole('heading', { name: 'Later cut-off' })).toBeVisible();
+    await expect(page.getByText('Weekend requests are processed the next business day.')).toBeVisible();
+  });
+
+  test('paging walks the published order', async ({ page }) => {
+    await page.goto('/my/update/up-060');
+
+    // up-061 is newer, up-059 is older.
+    await expect(page.getByRole('link', { name: /Previous update/ })).toHaveAttribute(
+      'href',
+      '/my/update/up-061',
+    );
+    await expect(page.getByRole('link', { name: /Next update/ })).toHaveAttribute(
+      'href',
+      '/my/update/up-059',
+    );
+
+    // The newest item has nothing before it.
+    await page.goto('/my/update/up-061');
+    await expect(page.getByRole('link', { name: /Previous update/ })).toHaveCount(0);
+    await expect(page.getByRole('link', { name: /Next update/ })).toBeVisible();
+  });
+
+  test('an unknown id is a 404', async ({ request }) => {
+    expect((await request.get('/my/update/up-999')).status()).toBe(404);
+  });
+});
