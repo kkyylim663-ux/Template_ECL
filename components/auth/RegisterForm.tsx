@@ -85,7 +85,7 @@ export function RegisterForm() {
           autoComplete="username"
           value={values.username}
           error={errors.username ? tc(errors.username) : undefined}
-          hint={t('validation.usernameFormat', {})}
+          hint={tc('validation.usernameFormat')}
           onChange={(event) => update('username', event.target.value)}
         />
         <TextField
@@ -105,7 +105,7 @@ export function RegisterForm() {
           autoComplete="new-password"
           value={values.password}
           error={errors.password ? tc(errors.password) : undefined}
-          hint={t('validation.passwordShort', {})}
+          hint={tc('validation.passwordShort')}
           onChange={(event) => update('password', event.target.value)}
         />
         <TextField

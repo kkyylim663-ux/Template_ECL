@@ -51,6 +51,15 @@
     "next": "Tin sau",
     "empty": "Chưa có tin"
   },
+  "faq": {
+    "intro": "Giải đáp những câu hỏi thường gặp.",
+    "topics": "Chủ đề",
+    "searchPlaceholder": "Tìm trong chủ đề này",
+    "count": "{count} câu hỏi",
+    "matches": "{count} kết quả cho \"{query}\"",
+    "noMatch": "Không có kết quả cho \"{query}\"",
+    "clear": "Xóa tìm kiếm"
+  },
   "placeholder": {
     "eyebrow": "Khung trang P0",
     "body": "Trang này vẫn là chỗ giữ chỗ T02."

@@ -174,3 +174,83 @@ test.describe('update list and detail (T20)', () => {
     expect((await request.get('/my/update/up-999')).status()).toBe(404);
   });
 });
+
+test.describe('FAQ (T21)', () => {
+  test('shows the eight topics and opens the first one by default', async ({ page }) => {
+    await page.goto('/my/faq/gettingstart');
+
+    await expect(page.locator('[data-topic]')).toHaveCount(8);
+    await expect(page.locator('[data-topic="gettingstart"]')).toHaveAttribute('aria-current', 'true');
+    await expect(page.locator('[data-faq-topic="gettingstart"]')).toBeVisible();
+  });
+
+  test('switching topics swaps the questions', async ({ page }) => {
+    await page.goto('/my/faq/gettingstart');
+    await page.locator('[data-topic="finance"]').click();
+
+    await expect(page).toHaveURL(/\/my\/faq\/finance$/);
+    await expect(page.locator('[data-faq-topic="finance"]')).toBeVisible();
+    await expect(page.getByText('What are the withdrawal limits?')).toBeVisible();
+    await expect(page.getByText('Which username can I choose?')).toHaveCount(0);
+  });
+
+  test('the accordion opens the first answer and toggles on click', async ({ page }) => {
+    await page.goto('/my/faq/finance');
+
+    const first = page.locator('[data-faq-item]').first();
+    const button = first.getByRole('button');
+    await expect(button).toHaveAttribute('aria-expanded', 'true');
+    await expect(first.locator('[id$="-answer"]')).toBeVisible();
+
+    await button.click();
+    await expect(button).toHaveAttribute('aria-expanded', 'false');
+    await expect(first.locator('[id$="-answer"]')).toHaveCount(0);
+
+    await button.click();
+    await expect(first.locator('[id$="-answer"]')).toBeVisible();
+  });
+
+  test('search filters inside the topic and highlights the term', async ({ page }) => {
+    await page.goto('/my/faq/finance');
+
+    await page.fill('input[type="search"]', 'document check');
+    const items = page.locator('[data-faq-item]');
+    await expect(items).toHaveCount(1);
+    await expect(page.getByText(/1 match for/)).toBeVisible();
+    // The match is highlighted in the question, not only filtered.
+    await expect(page.locator('mark')).toHaveText(/document check/i);
+
+    await page.fill('input[type="search"]', 'zzzznothing');
+    await expect(items).toHaveCount(0);
+    await expect(page.getByText(/Nothing matches/)).toBeVisible();
+    await page.getByRole('button', { name: 'Clear search' }).click();
+    await expect(items).toHaveCount(7);
+  });
+
+  test('/faq forwards to the first topic', async ({ page }) => {
+    await page.goto('/my/faq');
+    await expect(page).toHaveURL(/\/my\/faq\/gettingstart$/);
+  });
+
+  test('the eight legacy paths answer 301', async ({ request }) => {
+    const topics = [
+      'gettingstart',
+      'finance',
+      'statement',
+      'games',
+      'events',
+      'promotions',
+      'contactus',
+      'downloadapp',
+    ];
+    for (const region of ['my', 'sg']) {
+      for (const topic of topics) {
+        const response = await request.get(`/${region}/${topic}`, { maxRedirects: 0 });
+        expect(response.status(), `/${region}/${topic}`).toBe(301);
+        expect(response.headers()['location'], `/${region}/${topic}`).toBe(
+          `/${region}/faq/${topic}`,
+        );
+      }
+    }
+  });
+});

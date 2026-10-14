@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { GameCard as GameCardData, GamePage } from '@/lib/api/slots';
 import { Icon } from '@/components/ui/Icon';
@@ -37,7 +37,6 @@ export function SlotBrowser({
 }) {
   const t = useTranslations('games');
   const tCommon = useTranslations('common');
-  const router = useRouter();
   const pathname = usePathname();
 
   const [tab, setTab] = useState(initialTab);
@@ -99,7 +98,12 @@ export function SlotBrowser({
   const loadRef = useRef(load);
   loadRef.current = load;
 
-  // Tab and search changes: debounce, reload page 1, keep the URL in step.
+  // Tab and search changes: debounce, reload page 1, keep the address bar in step.
+  //
+  // The URL is written with `history.replaceState`, not `router.replace`: the grid
+  // is fetched here anyway, and asking the router would re-render the whole tree
+  // from the server on every settled keystroke — a reply that could land while the
+  // reader is already typing the next word.
   useEffect(() => {
     if (firstRun.current) {
       firstRun.current = false;
@@ -110,18 +114,36 @@ export function SlotBrowser({
       void load(1, tab, query);
       const params = new URLSearchParams({ provider, tab });
       if (query) params.set('q', query);
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+      window.history.replaceState(null, '', `${pathname}?${params.toString()}`);
     }, 200);
 
     return () => window.clearTimeout(timer);
-  }, [tab, query, provider, pathname, router, load]);
+  }, [tab, query, provider, pathname, load]);
 
-  // Adopt server-rendered state when the URL changes underneath us (back button,
-  // a provider link). Local edits always match the props, so they skip this.
-  //
-  // A response that does not match the address bar is a *stale* one: it answers
-  // an earlier replace whose reply is still in flight. Adopting it would undo
-  // whatever the reader typed since, which is exactly what fast typing does.
+  // Back and forward: the address bar is the source of truth, so re-read it and
+  // load that view. No server round-trip is needed for a filter change.
+  useEffect(() => {
+    function onPopState() {
+      const params = new URLSearchParams(window.location.search);
+      const nextTab = params.get('tab') ?? local.current.tab;
+      const nextQuery = params.get('q') ?? '';
+      if (nextTab === local.current.tab && nextQuery === local.current.query) return;
+
+      setTab(nextTab);
+      setQuery(nextQuery);
+      // The URL asked for it: no need to write it back.
+      firstRun.current = true;
+      void loadRef.current(1, nextTab, nextQuery);
+    }
+
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  // Adopt server-rendered state when the props change underneath us (a provider
+  // link, the back button after a document navigation). Local edits match the
+  // props, so they skip this; a payload that does not match the address bar is a
+  // stale one and is ignored, which is what keeps fast typing from being undone.
   useEffect(() => {
     const current = new URLSearchParams(window.location.search);
     if (initialTab !== (current.get('tab') ?? '') || initialQuery !== (current.get('q') ?? '')) {

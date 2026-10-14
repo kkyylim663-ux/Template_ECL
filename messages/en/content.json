@@ -51,6 +51,15 @@
     "next": "Next update",
     "empty": "No updates yet"
   },
+  "faq": {
+    "intro": "Answers to the questions players ask most.",
+    "topics": "Topics",
+    "searchPlaceholder": "Search this topic",
+    "count": "{count, plural, one {# question} other {# questions}}",
+    "matches": "{count, plural, one {# match} other {# matches}} for “{query}”",
+    "noMatch": "Nothing matches “{query}”",
+    "clear": "Clear search"
+  },
   "placeholder": {
     "eyebrow": "P0 route skeleton",
     "body": "This page is still the T02 placeholder."

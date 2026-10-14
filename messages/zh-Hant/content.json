@@ -51,6 +51,15 @@
     "next": "下一條公告",
     "empty": "暫無公告"
   },
+  "faq": {
+    "intro": "球員最常問的問題在這裡。",
+    "topics": "主題",
+    "searchPlaceholder": "在本主題內搜尋",
+    "count": "{count} 個問題",
+    "matches": "「{query}」符合 {count} 條",
+    "noMatch": "沒有符合「{query}」的內容",
+    "clear": "清除搜尋"
+  },
   "placeholder": {
     "eyebrow": "P0 路由骨架",
     "body": "此頁仍為 T02 佔位頁。"
