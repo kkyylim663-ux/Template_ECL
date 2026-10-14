@@ -10,12 +10,16 @@ import { regionPath } from '@/config/nav';
 import Image from 'next/image';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: `${brand.name} — ${brand.tagline}`,
-  description:
-    'Browse slots, live casino, sports, esports, 4D and the number game. Demo build with placeholder brand and fake data.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('home', { region, path: '' });
+}
 
 /**
  * Home page. Server-rendered from the mock layer: carousel, quick-entry cards,

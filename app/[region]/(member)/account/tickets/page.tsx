@@ -3,7 +3,10 @@ import { getAccountPayload } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
 import { UseTicketButton } from '@/components/account/actions';
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT('nav');
+  return { title: t('items.tickets'), robots: { index: false, follow: false } };
+}
 
 export default async function TicketsPage() {
   const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);

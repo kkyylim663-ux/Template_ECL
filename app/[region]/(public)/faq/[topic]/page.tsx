@@ -6,11 +6,23 @@ import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 import { IntlScope } from '@/lib/i18n/scope';
 import { FaqPanel } from '@/components/content/FaqPanel';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'FAQ',
-  description: 'Answers to the questions players ask most.',
-};
+/** Each topic answers under its own title, e.g. "Finance · <brand>" (T24). */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string; topic: string }>;
+}): Promise<Metadata> {
+  const { region, topic } = await params;
+  const current = await getFaq(topic);
+
+  return pageMetadata('faq', {
+    region,
+    path: `/faq/${topic}`,
+    title: current?.title,
+  });
+}
 
 /**
  * Help centre: the eight topics on the left, the chosen topic's questions on the

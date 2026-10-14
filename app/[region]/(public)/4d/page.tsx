@@ -5,11 +5,16 @@ import { RulesButton } from '@/components/ui/RulesButton';
 import { InertLink } from '@/components/ui/InertLink';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: '4D',
-  description: 'Draw results and how the 4D game works.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('game4d', { region, path: '/4d' });
+}
 
 export default async function FourDPage() {
   const [{ t }, { fourD }] = await Promise.all([getT('games'), getDisplayPayload()]);

@@ -5,11 +5,16 @@ import { InertLink } from '@/components/ui/InertLink';
 import { RulesButton } from '@/components/ui/RulesButton';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Number game',
-  description: 'A draw every five minutes, with verifiable results.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('numberGame', { region, path: '/numbergame' });
+}
 
 export default async function NumberGamePage() {
   const [{ t }, { numberGame }] = await Promise.all([getT('games'), getDisplayPayload()]);

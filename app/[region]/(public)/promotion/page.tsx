@@ -6,11 +6,16 @@ import { formatDate, formatMinor } from '@/lib/format';
 import { regionPath } from '@/config/nav';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { getT, type ServerTranslate } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Promotion',
-  description: 'Current offers and their rules.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('promotion', { region, path: '/promotion' });
+}
 
 type Category = (typeof PROMOTION_CATEGORIES)[number] | 'all';
 

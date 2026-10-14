@@ -7,11 +7,25 @@ import { regionPath } from '@/config/nav';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
 import { Markdown } from '@/components/content/Markdown';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Promotion',
-  description: 'Offer rules and dates.',
-};
+/** Detail pages carry their own title and summary (T24). */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string; id: string }>;
+}): Promise<Metadata> {
+  const { region, id } = await params;
+  const promotion = await getPromotion(id);
+
+  return pageMetadata('promotion', {
+    region,
+    path: `/promotion/${id}`,
+    title: promotion?.title,
+    description: promotion?.summary,
+    type: 'article',
+  });
+}
 
 /**
  * Offer detail, laid out after `promotion-detail__banner` in

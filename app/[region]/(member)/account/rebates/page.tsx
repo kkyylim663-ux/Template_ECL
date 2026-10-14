@@ -4,7 +4,11 @@ import { getT } from '@/lib/i18n/server';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { ClaimButton } from '@/components/account/actions';
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT('nav');
+  return { title: t('items.rebates'), robots: { index: false, follow: false } };
+}
+
 const money = (amountMinor: number, currency: string) =>
   new Intl.NumberFormat('en-MY', { style: 'currency', currency, maximumFractionDigits: 2 }).format(
     amountMinor / 100,

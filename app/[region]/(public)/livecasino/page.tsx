@@ -3,11 +3,16 @@ import { getCategoryProviderCards } from '@/lib/api';
 import { ProviderCardGrid } from '@/components/game/ProviderCardGrid';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Live casino',
-  description: 'Live dealer studios, browsable only in this build.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('livecasino', { region, path: '/livecasino' });
+}
 
 export default async function LiveCasinoPage() {
   const [{ t }, providers] = await Promise.all([

@@ -7,11 +7,16 @@ import { RulesButton } from '@/components/ui/RulesButton';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { regionPath } from '@/config/nav';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Prediction',
-  description: 'Free-to-enter predictions across three leagues.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('prediction', { region, path: '/prediction' });
+}
 
 export default async function PredictionPage({
   params,

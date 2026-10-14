@@ -12,7 +12,17 @@ export const LANG_COOKIE = 'brand_lang';
 export const LANG_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
 
 /** One file per locale per namespace under `messages/`. */
-export const NAMESPACES = ['common', 'nav', 'games', 'home', 'auth', 'account', 'content'] as const;
+export const NAMESPACES = [
+  'common',
+  'nav',
+  'games',
+  'home',
+  'auth',
+  'account',
+  'content',
+  /** Page titles and descriptions. Server-only: never handed to the client. */
+  'meta',
+] as const;
 export type Namespace = (typeof NAMESPACES)[number];
 
 /** Namespaces the shell always needs (header, drawer, footer, switcher). */

@@ -1,0 +1,90 @@
+{
+  "home": {
+    "title": "在线赌场、电子游戏与体育",
+    "description": "演示版:电子游戏、真人赌场、体育、电竞、4D 与数字游戏,覆盖马来西亚与新加坡市场。"
+  },
+  "slots": {
+    "title": "电子游戏",
+    "description": "大厅内所有厂商的电子游戏,可按厂商与分类筛选。"
+  },
+  "fastGame": {
+    "title": "快速游戏",
+    "description": "几秒内开奖的快节奏游戏。"
+  },
+  "livecasino": {
+    "title": "真人赌场",
+    "description": "演播室实况真人荷官桌:百家乐、轮盘等。"
+  },
+  "sports": {
+    "title": "体育",
+    "description": "各大联赛与赛事的赛前与滚球盘口。"
+  },
+  "esports": {
+    "title": "电竞",
+    "description": "主流电竞项目与赛事的盘口。"
+  },
+  "game4d": {
+    "title": "4D",
+    "description": "4D 开奖结果与玩法说明。"
+  },
+  "numberGame": {
+    "title": "数字游戏",
+    "description": "最新一期开奖、往期结果与规则。"
+  },
+  "prediction": {
+    "title": "赛事预测",
+    "description": "免费预测,月度榜单一较高下。"
+  },
+  "rankingBoard": {
+    "title": "排行榜",
+    "description": "周榜、月榜与 VIP 榜单及当前排名。"
+  },
+  "promotion": {
+    "title": "优惠",
+    "description": "当前优惠及日期、流水要求与完整规则。"
+  },
+  "update": {
+    "title": "公告",
+    "description": "最新消息与公告,按时间倒序。"
+  },
+  "faq": {
+    "title": "常见问题",
+    "description": "玩家最常问的问题,按主题分组。"
+  },
+  "vip": {
+    "title": "VIP",
+    "description": "五个 VIP 等级:门槛、权益与晋级方式。"
+  },
+  "sponsor": {
+    "title": "赞助",
+    "description": "我们赞助的球队与赛事、品牌标识演变与合作伙伴。"
+  },
+  "about": {
+    "title": "关于我们",
+    "description": "公司简介、牌照、负责任博彩与招聘。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "在线客服、邮箱、电话与社交渠道,全年无休。"
+  },
+  "tnc": {
+    "title": "条款与条件",
+    "description": "适用于账户、存取款、红利与投诉的条款。"
+  },
+  "bettingRules": {
+    "title": "博彩规则",
+    "description": "体育、4D、数字游戏与真人赌场的派彩规则。"
+  },
+  "login": {
+    "title": "登录",
+    "description": "用用户名、邮箱或手机号加验证码登录。"
+  },
+  "register": {
+    "title": "注册",
+    "description": "用邮箱、手机号注册,有推荐码可一并填写。"
+  },
+  "forgotPassword": {
+    "title": "重置密码",
+    "description": "通过邮箱获取重置链接。"
+  }
+}

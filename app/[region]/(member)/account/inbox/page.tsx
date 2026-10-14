@@ -3,7 +3,10 @@ import { getAccountPayload } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
 import { InboxActionButton } from '@/components/account/actions';
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT('nav');
+  return { title: t('items.inbox'), robots: { index: false, follow: false } };
+}
 
 export default async function InboxPage() {
   const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);

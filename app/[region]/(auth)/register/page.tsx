@@ -3,12 +3,16 @@ import Link from 'next/link';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Create account',
-  description: 'Open a demo account: email, code, username, password and mobile number.',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('register', { region, path: '/register', index: false });
+}
 
 export default async function RegisterPage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;

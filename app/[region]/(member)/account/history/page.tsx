@@ -4,7 +4,10 @@ import { getT } from '@/lib/i18n/server';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { HistoryTable } from '@/components/account/actions';
 
-export const metadata: Metadata = { robots: { index: false, follow: false } };
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT('nav');
+  return { title: t('items.history'), robots: { index: false, follow: false } };
+}
 
 export default async function HistoryPage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;

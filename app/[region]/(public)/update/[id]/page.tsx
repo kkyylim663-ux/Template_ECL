@@ -6,11 +6,25 @@ import { formatDate } from '@/lib/format';
 import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 import { Markdown } from '@/components/content/Markdown';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Update',
-  description: 'Product news and service notices.',
-};
+/** Detail pages carry their own title and summary (T24). */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string; id: string }>;
+}): Promise<Metadata> {
+  const { region, id } = await params;
+  const update = await getUpdate(id);
+
+  return pageMetadata('update', {
+    region,
+    path: `/update/${id}`,
+    title: update?.title,
+    description: update?.summary,
+    type: 'article',
+  });
+}
 
 /**
  * Update detail: the same `banner-section` band as the list, the body through the

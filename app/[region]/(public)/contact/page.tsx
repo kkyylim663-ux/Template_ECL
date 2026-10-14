@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { brand } from '@/config/brand';
 import { getPageContent } from '@/lib/api';
@@ -6,6 +7,16 @@ import { getT } from '@/lib/i18n/server';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { LongFormPage } from '@/components/content/LongFormPage';
 import { ContactForm } from '@/components/content/ContactForm';
+import { pageMetadata } from '@/lib/seo';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('contact', { region, path: '/contact' });
+}
 
 /**
  * Contact Us — the shared long-form layout plus three page-only blocks: the

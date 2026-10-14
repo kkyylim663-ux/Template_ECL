@@ -1,0 +1,90 @@
+{
+  "home": {
+    "title": "Casino trực tuyến, slots và thể thao",
+    "description": "Bản demo: slots, casino trực tuyến, thể thao, esports, 4D và game số cho thị trường Malaysia và Singapore."
+  },
+  "slots": {
+    "title": "Slots",
+    "description": "Toàn bộ slots của mọi nhà phát hành, lọc theo nhà cung cấp và danh mục."
+  },
+  "fastGame": {
+    "title": "Game nhanh",
+    "description": "Các ván nhanh kết thúc trong vài giây."
+  },
+  "livecasino": {
+    "title": "Casino trực tuyến",
+    "description": "Bàn chia bài trực tiếp từ studio: baccarat, roulette và hơn thế."
+  },
+  "sports": {
+    "title": "Thể thao",
+    "description": "Kèo trước trận và trong trận ở các giải đấu lớn."
+  },
+  "esports": {
+    "title": "Esports",
+    "description": "Kèo cho các tựa game và giải esports hàng đầu."
+  },
+  "game4d": {
+    "title": "4D",
+    "description": "Kết quả xổ số 4D và cách chơi."
+  },
+  "numberGame": {
+    "title": "Game số",
+    "description": "Kỳ mới nhất, kết quả cũ và luật chơi."
+  },
+  "prediction": {
+    "title": "Dự đoán",
+    "description": "Dự đoán miễn phí, có bảng xếp hạng tháng."
+  },
+  "rankingBoard": {
+    "title": "Bảng xếp hạng",
+    "description": "Bảng tuần, tháng và VIP cùng thứ hạng hiện tại."
+  },
+  "promotion": {
+    "title": "Khuyến mãi",
+    "description": "Ưu đãi hiện có kèm thời gian, doanh số và thể lệ đầy đủ."
+  },
+  "update": {
+    "title": "Tin tức",
+    "description": "Tin tức và thông báo mới nhất."
+  },
+  "faq": {
+    "title": "Câu hỏi thường gặp",
+    "description": "Giải đáp các câu hỏi phổ biến, theo chủ đề."
+  },
+  "vip": {
+    "title": "VIP",
+    "description": "Năm hạng VIP: ngưỡng, quyền lợi và cách lên hạng."
+  },
+  "sponsor": {
+    "title": "Tài trợ",
+    "description": "Các đội và giải chúng tôi tài trợ, lịch sử logo và đối tác."
+  },
+  "about": {
+    "title": "Về chúng tôi",
+    "description": "Giới thiệu, giấy phép, chơi có trách nhiệm và tuyển dụng."
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "description": "Live chat, email, điện thoại và kênh mạng xã hội, 24 giờ."
+  },
+  "tnc": {
+    "title": "Điều khoản & Điều kiện",
+    "description": "Điều khoản áp dụng cho tài khoản, nạp rút, khuyến mãi và khiếu nại."
+  },
+  "bettingRules": {
+    "title": "Luật cá cược",
+    "description": "Cách tất toán ở thể thao, 4D, game số và casino trực tuyến."
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "description": "Đăng nhập bằng tên đăng nhập, email hoặc số điện thoại kèm OTP."
+  },
+  "register": {
+    "title": "Tạo tài khoản",
+    "description": "Đăng ký bằng email, số điện thoại và mã giới thiệu nếu có."
+  },
+  "forgotPassword": {
+    "title": "Đặt lại mật khẩu",
+    "description": "Nhận liên kết đặt lại qua email."
+  }
+}

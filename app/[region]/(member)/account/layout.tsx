@@ -7,8 +7,12 @@ import { BalanceBar } from '@/components/account/BalanceBar';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 
+/**
+ * The member area sits behind the sign-in guard and stays out of the index. No
+ * `title` here on purpose: a title on this segment would stop the root layout's
+ * `%s · BRAND` template from applying to the ten pages below it.
+ */
 export const metadata: Metadata = {
-  title: 'My account',
   robots: { index: false, follow: false },
 };
 

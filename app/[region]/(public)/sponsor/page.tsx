@@ -3,11 +3,16 @@ import { getSponsorBlocks } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
 import { IntlScope } from '@/lib/i18n/scope';
 import { SponsorGallery } from '@/components/content/SponsorGallery';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Sponsor',
-  description: 'Logo evolution, videos and the partners we back.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('sponsor', { region, path: '/sponsor' });
+}
 
 /**
  * Sponsor page, laid out after the reference blocks in

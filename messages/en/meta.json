@@ -1,0 +1,90 @@
+{
+  "home": {
+    "title": "Online casino, slots and sports",
+    "description": "Demo casino build: slots, live casino, sports, esports, 4D and the number game for the Malaysia and Singapore markets."
+  },
+  "slots": {
+    "title": "Slots",
+    "description": "Every slot from every studio in the lobby, filterable by provider and category."
+  },
+  "fastGame": {
+    "title": "Fast games",
+    "description": "Quick-fire rounds that settle in seconds, from the fast-game lobby."
+  },
+  "livecasino": {
+    "title": "Live casino",
+    "description": "Live dealer tables streamed from the studio: baccarat, roulette and more."
+  },
+  "sports": {
+    "title": "Sports",
+    "description": "Pre-match and in-play markets across the major leagues and competitions."
+  },
+  "esports": {
+    "title": "Esports",
+    "description": "Markets on the big esports titles and tournaments."
+  },
+  "game4d": {
+    "title": "4D",
+    "description": "4D draw results and how the game works."
+  },
+  "numberGame": {
+    "title": "Number game",
+    "description": "Latest draw, past results and the number-game rules."
+  },
+  "prediction": {
+    "title": "Prediction",
+    "description": "Free predictions with a monthly board for the sharpest pickers."
+  },
+  "rankingBoard": {
+    "title": "Ranking board",
+    "description": "Weekly, monthly and VIP leaderboards with their current standings."
+  },
+  "promotion": {
+    "title": "Promotion",
+    "description": "Current offers with their dates, turnover terms and full rules."
+  },
+  "update": {
+    "title": "Update",
+    "description": "News and announcements, newest first."
+  },
+  "faq": {
+    "title": "FAQ",
+    "description": "Answers to the questions players ask most, grouped by topic."
+  },
+  "vip": {
+    "title": "VIP",
+    "description": "Five VIP tiers: thresholds, privileges and how tiers are earned."
+  },
+  "sponsor": {
+    "title": "Sponsorship",
+    "description": "The teams and series we back, the mark over time, and our partners."
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Who we are, our licence, responsible play and careers."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Live chat, email, phone and the social channels, 24 hours a day."
+  },
+  "tnc": {
+    "title": "Terms & Conditions",
+    "description": "The terms that apply to accounts, deposits, bonuses and complaints."
+  },
+  "bettingRules": {
+    "title": "Betting Rules",
+    "description": "How bets are settled across sports, 4D, number game and live casino."
+  },
+  "login": {
+    "title": "Sign in",
+    "description": "Sign in with a username, an email address or a mobile number and OTP."
+  },
+  "register": {
+    "title": "Create account",
+    "description": "Register with an email, a mobile number and an upline code if you have one."
+  },
+  "forgotPassword": {
+    "title": "Reset password",
+    "description": "Ask for a reset link by email."
+  }
+}

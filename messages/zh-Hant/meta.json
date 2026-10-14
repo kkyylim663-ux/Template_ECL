@@ -1,0 +1,90 @@
+{
+  "home": {
+    "title": "線上賭場、電子遊戲與體育",
+    "description": "示範版:電子遊戲、真人賭場、體育、電競、4D 與數字遊戲,涵蓋馬來西亞與新加坡市場。"
+  },
+  "slots": {
+    "title": "電子遊戲",
+    "description": "大廳內所有廠商的電子遊戲,可按廠商與分類篩選。"
+  },
+  "fastGame": {
+    "title": "快速遊戲",
+    "description": "幾秒內開獎的快節奏遊戲。"
+  },
+  "livecasino": {
+    "title": "真人賭場",
+    "description": "攝影棚實況真人荷官桌:百家樂、輪盤等。"
+  },
+  "sports": {
+    "title": "體育",
+    "description": "各大聯賽與賽事的賽前與滾球盤口。"
+  },
+  "esports": {
+    "title": "電競",
+    "description": "主流電競項目與賽事的盤口。"
+  },
+  "game4d": {
+    "title": "4D",
+    "description": "4D 開獎結果與玩法說明。"
+  },
+  "numberGame": {
+    "title": "數字遊戲",
+    "description": "最新一期開獎、往期結果與規則。"
+  },
+  "prediction": {
+    "title": "賽事預測",
+    "description": "免費預測,月度榜單一較高下。"
+  },
+  "rankingBoard": {
+    "title": "排行榜",
+    "description": "週榜、月榜與 VIP 榜單及當前排名。"
+  },
+  "promotion": {
+    "title": "優惠",
+    "description": "當前優惠及日期、流水要求與完整規則。"
+  },
+  "update": {
+    "title": "公告",
+    "description": "最新消息與公告,按時間倒序。"
+  },
+  "faq": {
+    "title": "常見問題",
+    "description": "玩家最常問的問題,按主題分組。"
+  },
+  "vip": {
+    "title": "VIP",
+    "description": "五個 VIP 等級:門檻、權益與晉級方式。"
+  },
+  "sponsor": {
+    "title": "贊助",
+    "description": "我們贊助的球隊與賽事、品牌標誌演變與合作夥伴。"
+  },
+  "about": {
+    "title": "關於我們",
+    "description": "公司簡介、牌照、負責任博彩與招聘。"
+  },
+  "contact": {
+    "title": "聯絡我們",
+    "description": "線上客服、電郵、電話與社交渠道,全年無休。"
+  },
+  "tnc": {
+    "title": "條款與條件",
+    "description": "適用於帳戶、存取款、紅利與投訴的條款。"
+  },
+  "bettingRules": {
+    "title": "博彩規則",
+    "description": "體育、4D、數字遊戲與真人賭場的派彩規則。"
+  },
+  "login": {
+    "title": "登入",
+    "description": "用使用者名稱、電郵或手機號加驗證碼登入。"
+  },
+  "register": {
+    "title": "註冊",
+    "description": "用電郵、手機號註冊,有推薦碼可一併填寫。"
+  },
+  "forgotPassword": {
+    "title": "重設密碼",
+    "description": "透過電郵取得重設連結。"
+  }
+}

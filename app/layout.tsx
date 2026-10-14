@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Rubik } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
+import { siteUrl } from '@/lib/seo';
 import { getShell } from '@/lib/i18n/server';
 import { IconSprite } from '@/components/ui/IconSprite';
 import { Providers } from '@/components/ui/Providers';
@@ -20,6 +21,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl()),
   title: {
     default: `${brand.name} — ${brand.tagline}`,
     template: `%s · ${brand.name}`,

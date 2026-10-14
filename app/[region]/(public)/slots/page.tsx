@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 import { GameLobby } from '@/components/game/GameLobby';
 import { IntlScope } from '@/lib/i18n/scope';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Slots',
-  description: 'Browse every slot title by studio and category.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('slots', { region, path: '/slots' });
+}
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

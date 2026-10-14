@@ -3,11 +3,16 @@ import { getCategoryProviderCards } from '@/lib/api';
 import { ProviderCardGrid } from '@/components/game/ProviderCardGrid';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Sports',
-  description: 'Sportsbook providers — browsable only in this build.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('sports', { region, path: '/sports' });
+}
 
 export default async function SportsPage() {
   const [{ t }, providers] = await Promise.all([getT('games'), getCategoryProviderCards('sports')]);

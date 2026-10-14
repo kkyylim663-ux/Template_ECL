@@ -3,12 +3,16 @@ import Link from 'next/link';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Sign in',
-  description: 'Sign in with a username, an email address or a mobile number and OTP.',
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('login', { region, path: '/login', index: false });
+}
 
 export default async function LoginPage({
   params,

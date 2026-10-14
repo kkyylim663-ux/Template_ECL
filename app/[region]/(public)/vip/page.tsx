@@ -6,11 +6,16 @@ import { regionConfig, type RegionCode } from '@/config/brand';
 import { VipTierTrack } from '@/components/content/VipTierTrack';
 import { InfoRuleToggle } from '@/components/content/InfoRuleToggle';
 import { Markdown } from '@/components/content/Markdown';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'VIP',
-  description: 'Tiers, thresholds and benefits.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('vip', { region, path: '/vip' });
+}
 
 /**
  * VIP page, laid out after `vip-tier-track` in docs/CONTENT_REFERENCE.md: the

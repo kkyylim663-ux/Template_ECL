@@ -4,11 +4,16 @@ import { BOARD_KINDS, boardLabelKey, getLeaderboards, isBoardKind } from '@/lib/
 import { regionPath } from '@/config/nav';
 import { formatMinor, formatTimestamp } from '@/lib/format';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Ranking board',
-  description: 'Weekly and monthly turnover races, VIP boards and the live board.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('rankingBoard', { region, path: '/ranking-board' });
+}
 
 /**
  * Six boards behind a button row, exactly as in the reference build. Each button

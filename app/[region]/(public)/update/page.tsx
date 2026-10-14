@@ -4,11 +4,16 @@ import { getUpdates } from '@/lib/api';
 import { formatDate } from '@/lib/format';
 import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Update',
-  description: 'Product news and service notices.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}): Promise<Metadata> {
+  const { region } = await params;
+  return pageMetadata('update', { region, path: '/update' });
+}
 
 /**
  * Update list, laid out after `banner-section` in docs/CONTENT_REFERENCE.md: a
