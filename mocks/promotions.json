@@ -1,0 +1,50 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": [
+    {
+      "id": "pr-welcome-188",
+      "slug": "welcome-188",
+      "title": "Welcome bonus 188%",
+      "summary": "First deposit only, bonus capped by tier.",
+      "bonusPct": 188,
+      "maxBonusMinor": 18800,
+      "rolloverMultiplier": 8,
+      "validUntil": "2026-12-31T23:59:00+08:00",
+      "tone": 42
+    },
+    {
+      "id": "pr-daily-reload-18",
+      "slug": "daily-reload-18",
+      "title": "Daily reload 18%",
+      "summary": "One claim per day, minimum deposit RM 50.",
+      "bonusPct": 18,
+      "maxBonusMinor": 8800,
+      "rolloverMultiplier": 5,
+      "validUntil": "2026-11-30T23:59:00+08:00",
+      "tone": 165
+    },
+    {
+      "id": "pr-slot-rebate",
+      "slug": "slot-rebate-08",
+      "title": "Slots rebate 0.8%",
+      "summary": "Daily rebate on slots turnover, no cap, no turnover requirement.",
+      "bonusPct": 0.8,
+      "maxBonusMinor": 0,
+      "rolloverMultiplier": 0,
+      "validUntil": "2026-12-31T23:59:00+08:00",
+      "tone": 205
+    },
+    {
+      "id": "pr-live-weekend",
+      "slug": "livecasino-weekend",
+      "title": "Live casino weekend 28%",
+      "summary": "Friday to Sunday, live tables only.",
+      "bonusPct": 28,
+      "maxBonusMinor": 12800,
+      "rolloverMultiplier": 6,
+      "validUntil": "2026-11-02T23:59:00+08:00",
+      "tone": 12
+    }
+  ]
+}

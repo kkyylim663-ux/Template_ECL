@@ -1,0 +1,46 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": [
+    {
+      "id": "bn-welcome",
+      "title": "Welcome bonus up to 188%",
+      "subtitle": "First deposit, 8x turnover, claim within 24 hours",
+      "href": "/promotion/welcome-188",
+      "tone": 42,
+      "order": 1
+    },
+    {
+      "id": "bn-reload",
+      "title": "Daily reload 18%",
+      "subtitle": "Once a day, capped by your VIP tier",
+      "href": "/promotion/daily-reload-18",
+      "tone": 165,
+      "order": 2
+    },
+    {
+      "id": "bn-ranking",
+      "title": "Weekly turnover race",
+      "subtitle": "The top 100 share the prize pool",
+      "href": "/ranking-board",
+      "tone": 205,
+      "order": 3
+    },
+    {
+      "id": "bn-4d",
+      "title": "4D jackpot every draw",
+      "subtitle": "Four draws a week, results published live",
+      "href": "/4d",
+      "tone": 12,
+      "order": 4
+    },
+    {
+      "id": "bn-vip",
+      "title": "VIP lounge: a personal host",
+      "subtitle": "Faster withdrawals and higher limits",
+      "href": "/vip",
+      "tone": 280,
+      "order": 5
+    }
+  ]
+}
