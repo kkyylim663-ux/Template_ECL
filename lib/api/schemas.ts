@@ -93,3 +93,50 @@ export type Promotion = z.infer<typeof promotionSchema>;
 export const bannerListSchema = z.array(bannerSchema);
 export const announcementListSchema = z.array(announcementSchema);
 export const promotionListSchema = z.array(promotionSchema);
+
+/* ------------------------------------------------- -- display (non-slots) pages */
+
+/** Studio ids shown as cards on a game page, keyed by category slug. */
+export const categoryProviderMapSchema = z.record(z.string(), z.array(z.string()));
+export type CategoryProviderMap = z.infer<typeof categoryProviderMapSchema>;
+
+export const drawResultSchema = z.object({
+  draw: z.string(),
+  date: z.string(),
+  first: z.string(),
+  second: z.string(),
+  third: z.string(),
+  tone: z.number().int().min(0).max(359),
+});
+export type DrawResult = z.infer<typeof drawResultSchema>;
+
+export const drawnRoundSchema = z.object({
+  round: z.string(),
+  numbers: z.array(z.number().int()),
+  drawnAt: z.string(),
+});
+export type DrawnRound = z.infer<typeof drawnRoundSchema>;
+
+export const numberGameSchema = drawnRoundSchema.extend({
+  history: z.array(drawnRoundSchema),
+});
+export type NumberGame = z.infer<typeof numberGameSchema>;
+
+export const PREDICTION_LEAGUES = ['NBA', 'FIFA', 'UEFA'] as const;
+export const predictionFixtureSchema = z.object({
+  id: z.string(),
+  league: z.enum(PREDICTION_LEAGUES),
+  home: z.string(),
+  away: z.string(),
+  startsAt: z.string(),
+  options: z.array(z.object({ id: z.string(), label: z.string(), odds: z.number() })),
+});
+export type PredictionFixture = z.infer<typeof predictionFixtureSchema>;
+
+export const displayPayloadSchema = z.object({
+  providersByCategory: categoryProviderMapSchema,
+  fourD: z.array(drawResultSchema),
+  numberGame: numberGameSchema,
+  prediction: z.array(predictionFixtureSchema),
+});
+export type DisplayPayload = z.infer<typeof displayPayloadSchema>;

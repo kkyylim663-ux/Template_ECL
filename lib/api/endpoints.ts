@@ -10,6 +10,8 @@ export const ENDPOINTS = {
   announcement: 'getAnnouncement',
   displayPromo: 'getDisplayPromo',
   webEvent: 'getWebEvent',
+  /** Project-specific: one payload for the display-only pages (4D, number game, prediction). */
+  displayPage: 'getDisplayPage',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];
