@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { brand } from '@/config/brand';
 import { AccountSlot } from './AccountSlot';
 import { HeaderMenu } from './HeaderMenu';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 /** Desktop header: logo, primary menu cards, account area. Hidden below 769px. */
 export function Header({ region }: { region: string }) {
@@ -24,6 +25,7 @@ export function Header({ region }: { region: string }) {
         <HeaderMenu region={region} />
 
         <div className="ml-auto flex items-center gap-4">
+          <LanguageSwitcher />
           <AccountSlot region={region} />
         </div>
       </div>

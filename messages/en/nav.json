@@ -1,0 +1,72 @@
+{
+  "primary": {
+    "games": "Games",
+    "events": "Events",
+    "account": "Account"
+  },
+  "items": {
+    "slots": "Slots",
+    "livecasino": "Live casino",
+    "sports": "Sports",
+    "esports": "Esports",
+    "fastGame": "Fast games",
+    "game4d": "4D",
+    "numberGame": "Number game",
+    "prediction": "Prediction",
+    "promotions": "Promotions",
+    "update": "News",
+    "rankingBoard": "Ranking board",
+    "vip": "VIP",
+    "sponsor": "Sponsorship",
+    "deposit": "Deposit",
+    "withdrawal": "Withdrawal",
+    "transfer": "Transfer",
+    "history": "History",
+    "pending": "Pending",
+    "inbox": "Inbox",
+    "rebates": "Rebates",
+    "achievement": "Achievements",
+    "tickets": "Ticket center",
+    "profile": "Profile"
+  },
+  "desc": {
+    "slots": "6,000+ titles",
+    "livecasino": "Live dealers",
+    "sports": "Pre-match and live",
+    "esports": "Major tournaments",
+    "fastGame": "Rounds in seconds",
+    "game4d": "Four draws a week",
+    "numberGame": "Draw every 5 min",
+    "prediction": "Free entry",
+    "promotions": "Bonuses and rebates",
+    "update": "Product updates",
+    "rankingBoard": "Weekly race",
+    "vip": "Tiers and hosts",
+    "sponsor": "Teams we back"
+  },
+  "ui": {
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language",
+    "region": "Region",
+    "signIn": "Sign in",
+    "primaryNav": "Primary",
+    "mobileNav": "Mobile navigation",
+    "dismissBanner": "Dismiss app banner"
+  },
+  "banner": {
+    "install": "Install the {brand} app",
+    "tagline": "★★★★★ Faster lobby, draw alerts"
+  },
+  "lang": {
+    "en": "English",
+    "zhHans": "简体中文",
+    "zhHant": "繁體中文",
+    "vi": "Tiếng Việt"
+  },
+  "region": {
+    "my": "Malaysia (MYR)",
+    "sg": "Singapore (SGD)"
+  }
+}

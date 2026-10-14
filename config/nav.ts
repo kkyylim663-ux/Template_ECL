@@ -9,50 +9,62 @@ export type NavItem = {
   description?: string;
 };
 
+/** A menu entry whose copy lives in `messages/<locale>/nav.json`. */
+export type MenuLink = {
+  href: string;
+  /** Dotted key inside the `nav` namespace, e.g. `items.slots`. */
+  labelKey: string;
+  descKey?: string;
+  icon?: IconName;
+};
+
+export type MenuGroup = { id: string; labelKey: string; items: MenuLink[] };
+
 /**
  * Desktop primary menu: the three dropdown cards from UI_REFERENCE.md
- * (Games / Events / Function). Every href points at a real route from T02.
+ * (Games / Events / Account). Every href points at a real route from T02.
+ * Copy comes from the `nav` namespace so the menu follows the language cookie.
  */
-export const PRIMARY_MENU: { id: string; label: string; items: NavItem[] }[] = [
+export const PRIMARY_MENU: MenuGroup[] = [
   {
     id: 'games',
-    label: 'Games',
+    labelKey: 'primary.games',
     items: [
-      { href: '/slots', label: 'Slots', icon: 'slots', description: '6,000+ titles' },
-      { href: '/livecasino', label: 'Live casino', icon: 'livecasino', description: 'Live dealers' },
-      { href: '/sports', label: 'Sports', icon: 'sports', description: 'Pre-match and live' },
-      { href: '/esports', label: 'Esports', icon: 'esports', description: 'Major tournaments' },
-      { href: '/fast-game', label: 'Fast games', icon: 'fast', description: 'Rounds in seconds' },
-      { href: '/4d', label: '4D', icon: 'dice4d', description: 'Four draws a week' },
-      { href: '/numbergame', label: 'Number game', icon: 'numbers', description: 'Draw every 5 min' },
-      { href: '/prediction', label: 'Prediction', icon: 'prediction', description: 'Free entry' },
+      { href: '/slots', labelKey: 'items.slots', icon: 'slots', descKey: 'desc.slots' },
+      { href: '/livecasino', labelKey: 'items.livecasino', icon: 'livecasino', descKey: 'desc.livecasino' },
+      { href: '/sports', labelKey: 'items.sports', icon: 'sports', descKey: 'desc.sports' },
+      { href: '/esports', labelKey: 'items.esports', icon: 'esports', descKey: 'desc.esports' },
+      { href: '/fast-game', labelKey: 'items.fastGame', icon: 'fast', descKey: 'desc.fastGame' },
+      { href: '/4d', labelKey: 'items.game4d', icon: 'dice4d', descKey: 'desc.game4d' },
+      { href: '/numbergame', labelKey: 'items.numberGame', icon: 'numbers', descKey: 'desc.numberGame' },
+      { href: '/prediction', labelKey: 'items.prediction', icon: 'prediction', descKey: 'desc.prediction' },
     ],
   },
   {
     id: 'events',
-    label: 'Events',
+    labelKey: 'primary.events',
     items: [
-      { href: '/promotion', label: 'Promotions', icon: 'gift', description: 'Bonuses and rebates' },
-      { href: '/update', label: 'News', icon: 'news', description: 'Product updates' },
-      { href: '/ranking-board', label: 'Ranking board', icon: 'trophy', description: 'Weekly race' },
-      { href: '/vip', label: 'VIP', icon: 'crown', description: 'Tiers and hosts' },
-      { href: '/sponsor', label: 'Sponsorship', icon: 'sponsor', description: 'Teams we back' },
+      { href: '/promotion', labelKey: 'items.promotions', icon: 'gift', descKey: 'desc.promotions' },
+      { href: '/update', labelKey: 'items.update', icon: 'news', descKey: 'desc.update' },
+      { href: '/ranking-board', labelKey: 'items.rankingBoard', icon: 'trophy', descKey: 'desc.rankingBoard' },
+      { href: '/vip', labelKey: 'items.vip', icon: 'crown', descKey: 'desc.vip' },
+      { href: '/sponsor', labelKey: 'items.sponsor', icon: 'sponsor', descKey: 'desc.sponsor' },
     ],
   },
   {
     id: 'function',
-    label: 'Account',
+    labelKey: 'primary.account',
     items: [
-      { href: '/account/deposit', label: 'Deposit', icon: 'wallet' },
-      { href: '/account/withdrawal', label: 'Withdrawal', icon: 'withdraw' },
-      { href: '/account/transfer', label: 'Transfer', icon: 'transfer' },
-      { href: '/account/history', label: 'History', icon: 'history' },
-      { href: '/account/pending', label: 'Pending transactions', icon: 'pending' },
-      { href: '/account/inbox', label: 'Inbox', icon: 'mail' },
-      { href: '/account/rebates', label: 'Rebates', icon: 'rebate' },
-      { href: '/account/achievement', label: 'Achievements', icon: 'achievement' },
-      { href: '/account/tickets', label: 'Ticket center', icon: 'ticket' },
-      { href: '/account/profile', label: 'Profile', icon: 'user' },
+      { href: '/account/deposit', labelKey: 'items.deposit', icon: 'wallet' },
+      { href: '/account/withdrawal', labelKey: 'items.withdrawal', icon: 'withdraw' },
+      { href: '/account/transfer', labelKey: 'items.transfer', icon: 'transfer' },
+      { href: '/account/history', labelKey: 'items.history', icon: 'history' },
+      { href: '/account/pending', labelKey: 'items.pending', icon: 'pending' },
+      { href: '/account/inbox', labelKey: 'items.inbox', icon: 'mail' },
+      { href: '/account/rebates', labelKey: 'items.rebates', icon: 'rebate' },
+      { href: '/account/achievement', labelKey: 'items.achievement', icon: 'achievement' },
+      { href: '/account/tickets', labelKey: 'items.tickets', icon: 'ticket' },
+      { href: '/account/profile', labelKey: 'items.profile', icon: 'user' },
     ],
   },
 ];

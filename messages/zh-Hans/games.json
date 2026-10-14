@@ -1,0 +1,26 @@
+{
+  "card": {
+    "playNow": "立即游戏",
+    "demo": "试玩",
+    "new": "新",
+    "hot": "热门",
+    "rtp": "RTP {value}%",
+    "needLogin": "登录后即可进入游戏"
+  },
+  "category": {
+    "slots": "电子游戏",
+    "livecasino": "真人赌场",
+    "sports": "体育",
+    "esports": "电竞",
+    "fastGame": "快速游戏",
+    "game4d": "4D",
+    "numberGame": "数字游戏",
+    "prediction": "赛事预测"
+  },
+  "search": {
+    "placeholder": "搜索游戏或厂商",
+    "results": "{count} 款游戏",
+    "empty": "没有匹配“{query}”的游戏",
+    "loadMore": "显示更多"
+  }
+}

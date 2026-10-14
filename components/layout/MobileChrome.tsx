@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { brand, REGION_CODES, regionConfig } from '@/config/brand';
+import { brand, REGION_CODES } from '@/config/brand';
 import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { readDemoSessionFromDocument } from '@/lib/session';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
@@ -17,6 +19,7 @@ const BANNER_KEY = 'brand.appBannerDismissed';
  * second set of pages.
  */
 export function MobileChrome({ region }: { region: string }) {
+  const t = useTranslations('nav');
   const [drawerOpen, setDrawerOpen] = useState(false);
   // Visible in the server HTML (a first-time visitor sees it at once); only a
   // visitor who dismissed it hides it, right after hydration. Starting hidden
@@ -55,15 +58,15 @@ export function MobileChrome({ region }: { region: string }) {
             <Icon name="download" size={18} className="text-accent shrink-0" />
             <span className="min-w-0">
               <span className="text-ink block truncate text-xs font-medium">
-                Install the {brand.name} app
+                {t('banner.install', { brand: brand.name })}
               </span>
-              <span className="text-accent block text-[10px]">★★★★★ Faster lobby, draw alerts</span>
+              <span className="text-accent block text-[10px]">{t('banner.tagline')}</span>
             </span>
           </Link>
           <button
             type="button"
             onClick={dismissBanner}
-            aria-label="Dismiss app banner"
+            aria-label={t('ui.dismissBanner')}
             className="border-line text-muted grid h-14 w-[25px] shrink-0 place-items-center border-l"
           >
             <Icon name="close" size={16} />
@@ -76,7 +79,7 @@ export function MobileChrome({ region }: { region: string }) {
         <button
           type="button"
           onClick={() => setDrawerOpen(true)}
-          aria-label="Open menu"
+          aria-label={t('ui.openMenu')}
           aria-expanded={drawerOpen}
           className="text-ink grid size-9 place-items-center"
         >
@@ -98,7 +101,7 @@ export function MobileChrome({ region }: { region: string }) {
         {isMember ? (
           <Link
             href={regionPath(region, '/account/profile')}
-            aria-label="Account"
+            aria-label={t('primary.account')}
             className="border-line bg-panel-soft text-accent grid size-9 shrink-0 place-items-center rounded-full border text-[10px] font-semibold"
           >
             BR
@@ -106,7 +109,7 @@ export function MobileChrome({ region }: { region: string }) {
         ) : (
           <Link
             href={regionPath(region, '/login')}
-            aria-label="Sign in"
+            aria-label={t('ui.signIn')}
             className="text-ink grid size-9 shrink-0 place-items-center"
           >
             <Icon name="user" size={22} />
@@ -124,7 +127,7 @@ export function MobileChrome({ region }: { region: string }) {
       />
 
       <aside
-        aria-label="Mobile navigation"
+        aria-label={t('ui.mobileNav')}
         aria-hidden={!drawerOpen}
         inert={!drawerOpen}
         className={`bg-panel fixed top-0 bottom-0 left-0 z-40 flex w-[85%] max-w-[330px] flex-col transition-transform duration-300 ease-out ${
@@ -132,11 +135,13 @@ export function MobileChrome({ region }: { region: string }) {
         }`}
       >
         <div className="border-line flex h-14 items-center justify-between border-b px-[35px]">
-          <span className="text-ink text-xs font-semibold tracking-[0.2em] uppercase">Menu</span>
+          <span className="text-ink text-xs font-semibold tracking-[0.2em] uppercase">
+            {t('ui.menu')}
+          </span>
           <button
             type="button"
             onClick={() => setDrawerOpen(false)}
-            aria-label="Close menu"
+            aria-label={t('ui.closeMenu')}
             className="text-muted grid size-8 place-items-center"
           >
             <Icon name="close" size={20} />
@@ -155,7 +160,7 @@ export function MobileChrome({ region }: { region: string }) {
                   className="text-ink flex w-full items-center gap-4 py-[15px] text-xs font-semibold tracking-wide uppercase"
                   style={{ paddingLeft: 35, paddingRight: 35 }}
                 >
-                  <span>{section.label}</span>
+                  <span>{t(section.labelKey)}</span>
                   <Icon
                     name={open ? 'chevronDown' : 'chevronRight'}
                     size={16}
@@ -181,7 +186,7 @@ export function MobileChrome({ region }: { region: string }) {
                               style={{ marginRight: 30 }}
                             />
                           ) : null}
-                          {item.label}
+                          {t(item.labelKey)}
                         </Link>
                       </li>
                     ))}
@@ -193,27 +198,30 @@ export function MobileChrome({ region }: { region: string }) {
 
           {/* Region switch */}
           <div className="border-line border-b py-[15px]" style={{ paddingLeft: 35, paddingRight: 35 }}>
-            <p className="text-muted text-[11px] tracking-widest uppercase">Region</p>
-            <ul className="mt-2 flex gap-2">
+            <p className="text-muted text-[11px] tracking-widest uppercase">{t('ui.region')}</p>
+            <ul className="mt-2 flex flex-wrap gap-2">
               {REGION_CODES.map((code) => {
-                const config = regionConfig(code);
                 const active = code === region;
                 return (
                   <li key={code}>
                     <Link
                       href={`/${code}`}
                       className={`block rounded-[var(--radius-tag)] border px-3 py-1.5 text-xs ${
-                        active
-                          ? 'border-accent text-accent'
-                          : 'border-line text-muted'
+                        active ? 'border-accent text-accent' : 'border-line text-muted'
                       }`}
                     >
-                      {config.label} ({config.currency})
+                      {t(`region.${code}`)}
                     </Link>
                   </li>
                 );
               })}
             </ul>
+          </div>
+
+          {/* Language switch — writes the brand_lang cookie and refreshes. */}
+          <div className="border-line border-b py-[15px]" style={{ paddingLeft: 35, paddingRight: 35 }}>
+            <p className="text-muted text-[11px] tracking-widest uppercase">{t('ui.language')}</p>
+            <LanguageSwitcher variant="inline" />
           </div>
 
           {/* Support channels + social */}

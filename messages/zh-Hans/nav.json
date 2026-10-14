@@ -1,0 +1,72 @@
+{
+  "primary": {
+    "games": "游戏",
+    "events": "活动",
+    "account": "账户"
+  },
+  "items": {
+    "slots": "电子游戏",
+    "livecasino": "真人赌场",
+    "sports": "体育",
+    "esports": "电竞",
+    "fastGame": "快速游戏",
+    "game4d": "4D",
+    "numberGame": "数字游戏",
+    "prediction": "赛事预测",
+    "promotions": "优惠",
+    "update": "公告",
+    "rankingBoard": "排行榜",
+    "vip": "VIP",
+    "sponsor": "赞助",
+    "deposit": "充值",
+    "withdrawal": "提现",
+    "transfer": "转账",
+    "history": "记录",
+    "pending": "待处理",
+    "inbox": "收件箱",
+    "rebates": "返水",
+    "achievement": "成就",
+    "tickets": "票券中心",
+    "profile": "资料"
+  },
+  "desc": {
+    "slots": "6,000+ 款游戏",
+    "livecasino": "真人荷官",
+    "sports": "赛前与滚球",
+    "esports": "大型赛事",
+    "fastGame": "秒级一局",
+    "game4d": "每周四次开奖",
+    "numberGame": "每 5 分钟开奖",
+    "prediction": "免费参加",
+    "promotions": "奖金与返水",
+    "update": "产品动态",
+    "rankingBoard": "每周竞赛",
+    "vip": "等级与专属客服",
+    "sponsor": "我们赞助的队伍"
+  },
+  "ui": {
+    "menu": "菜单",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "language": "语言",
+    "region": "地区",
+    "signIn": "登录",
+    "primaryNav": "主导航",
+    "mobileNav": "手机导航",
+    "dismissBanner": "关闭 App 横幅"
+  },
+  "banner": {
+    "install": "安装 {brand} App",
+    "tagline": "★★★★★ 更快的大厅、开奖提醒"
+  },
+  "lang": {
+    "en": "English",
+    "zhHans": "简体中文",
+    "zhHant": "繁體中文",
+    "vi": "Tiếng Việt"
+  },
+  "region": {
+    "my": "马来西亚 (MYR)",
+    "sg": "新加坡 (SGD)"
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "subnav": {
+    "title": "My account",
+    "balanceLoading": "Loading balance…"
+  },
+  "deposit": {
+    "title": "Deposit",
+    "methodBank": "Bank transfer",
+    "methodGateway": "Payment gateway",
+    "methodBankHint": "Transfer to the account below, then upload the receipt.",
+    "methodGatewayHint": "Redirects to the channel page in a live build.",
+    "bankingDetails": "Banking details",
+    "depositDetails": "Your transfer",
+    "accountName": "Account holder",
+    "accountNumber": "Account number",
+    "bankSelector": "Receiving bank",
+    "amount": "Amount",
+    "senderName": "Your account name",
+    "senderAccount": "Your account number",
+    "bankReference": "Reference number",
+    "receipt": "Receipt image",
+    "receiptHint": "PNG or JPG, under 5 MB. Must show the reference number.",
+    "promo": "Apply a bonus",
+    "promoNone": "No bonus",
+    "submit": "Submit deposit request",
+    "pendingNotice": "Requests are reviewed by a human in the demo build too — nothing is credited.",
+    "firstTime": "First deposit?"
+  },
+  "withdrawal": {
+    "title": "Withdrawal",
+    "bankAccount": "Withdraw to",
+    "addBank": "Add a bank account",
+    "noBankAccount": "No verified bank account yet.",
+    "verified": "Verified",
+    "amount": "Amount",
+    "submit": "Request withdrawal",
+    "limits": "Minimum {min}, maximum {max}",
+    "feeNotice": "First withdrawal each month is free; later ones carry a small fee."
+  },
+  "transfer": {
+    "title": "Wallet transfer",
+    "from": "From",
+    "to": "To",
+    "amount": "Amount",
+    "all": "Transfer all",
+    "auto": "Auto-transfer to main wallet after each round",
+    "submit": "Transfer",
+    "sameWallet": "Choose two different wallets",
+    "amountInvalid": "Enter an amount greater than 0",
+    "insufficient": "Amount exceeds the available balance",
+    "unavailable": "This provider wallet is offline",
+    "lastMoved": "Last transfer: {when}"
+  },
+  "history": {
+    "title": "Transaction history",
+    "type": "Type",
+    "status": "Status",
+    "reference": "Reference",
+    "date": "Date",
+    "amount": "Amount",
+    "method": "Method",
+    "allTypes": "All types",
+    "allStatuses": "All statuses",
+    "total": "Total of listed rows",
+    "empty": "No transactions match this filter",
+    "rolloverTitle": "Promotion rollover status"
+  },
+  "pending": {
+    "title": "Pending transactions",
+    "cancel": "Cancel request",
+    "cancelled": "Request cancelled",
+    "cancelConfirm": "Cancel this request? This cannot be undone.",
+    "empty": "Nothing is waiting for review"
+  },
+  "inbox": {
+    "title": "Inbox",
+    "important": "Important",
+    "others": "Others",
+    "unread": "{count} unread",
+    "markRead": "Mark as read",
+    "markAllRead": "Mark all as read",
+    "delete": "Delete",
+    "deleteAll": "Delete all read",
+    "deleteConfirm": "Delete the selected messages?",
+    "empty": "No messages",
+    "redeem": "Redeem voucher",
+    "redeemTitle": "Redeem a voucher code",
+    "redeemPlaceholder": "Enter the code from your message",
+    "redeemSuccess": "Voucher redeemed"
+  },
+  "rebates": {
+    "title": "Rebates",
+    "period": "Period",
+    "product": "Product",
+    "turnover": "Turnover",
+    "rate": "Rate",
+    "claim": "Claim",
+    "claimed": "Claimed",
+    "claimable": "Claimable",
+    "pending": "Pending",
+    "noRequirement": "No turnover requirement on rebates"
+  },
+  "achievement": {
+    "title": "Achievements",
+    "livecasino": "Live casino",
+    "sports": "Sports",
+    "slots": "Slots",
+    "progress": "{progress} of {target}",
+    "claim": "Claim reward",
+    "locked": "Locked",
+    "claimed": "Claimed",
+    "currentStatus": "Current status"
+  },
+  "tickets": {
+    "title": "Ticket center",
+    "held": "Tickets held",
+    "required": "Required",
+    "use": "Use tickets now",
+    "status": {
+      "open": "Open",
+      "upcoming": "Upcoming",
+      "closed": "Closed"
+    },
+    "window": "{opens} – {closes}",
+    "notEnough": "Not enough tickets yet",
+    "empty": "No events are running"
+  },
+  "profile": {
+    "title": "Profile",
+    "username": "Username",
+    "nickname": "Nickname",
+    "fullName": "Full name",
+    "email": "Email",
+    "mobile": "Mobile",
+    "vipTier": "VIP tier",
+    "kycLabel": "Verification",
+    "kyc": {
+      "unverified": "Not verified",
+      "pending": "Under review",
+      "verified": "Verified"
+    },
+    "joined": "Member since",
+    "save": "Save changes",
+    "saved": "Profile updated",
+    "passwordTitle": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password"
+  },
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled"
+  },
+  "guard": {
+    "notice": "This area needs an account. Sign in to continue.",
+    "redirecting": "Taking you to the sign-in page…"
+  }
+}

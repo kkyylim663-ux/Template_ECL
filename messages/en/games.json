@@ -1,0 +1,26 @@
+{
+  "card": {
+    "playNow": "Play now",
+    "demo": "Demo",
+    "new": "New",
+    "hot": "Hot",
+    "rtp": "RTP {value}%",
+    "needLogin": "Sign in to launch this game"
+  },
+  "category": {
+    "slots": "Slots",
+    "livecasino": "Live casino",
+    "sports": "Sports",
+    "esports": "Esports",
+    "fastGame": "Fast games",
+    "game4d": "4D",
+    "numberGame": "Number game",
+    "prediction": "Prediction"
+  },
+  "search": {
+    "placeholder": "Search games or studios",
+    "results": "{count} titles",
+    "empty": "No title matches \"{query}\"",
+    "loadMore": "Show more"
+  }
+}

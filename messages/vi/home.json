@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "eyebrow": "Chào mừng",
+    "cta": "Nhận ngay"
+  },
+  "section": {
+    "providers": "Nhà phát hành",
+    "entryCards": "Truy cập nhanh",
+    "promotions": "Khuyến mãi nổi bật",
+    "events": "Tin mới nhất",
+    "announcements": "Thông báo dịch vụ",
+    "whyUs": "Vì sao chọn chúng tôi"
+  },
+  "entry": {
+    "numberGame": "Game số",
+    "numberGameHint": "Quay mỗi 5 phút",
+    "ranking": "Bảng xếp hạng",
+    "rankingHint": "Đua doanh số tuần",
+    "prediction": "Dự đoán",
+    "predictionHint": "Miễn phí, có thưởng thật",
+    "achievement": "Thành tích",
+    "achievementHint": "Xem tiến độ"
+  },
+  "why": {
+    "licence": "Nhà điều hành có giấy phép",
+    "licenceHint": "Nội dung giấy phép giả cho bản demo.",
+    "fastWithdrawal": "Rút tiền nhanh",
+    "fastWithdrawalHint": "Trung bình 5 phút dưới RM 1,000.",
+    "support": "Hỗ trợ 24/7",
+    "supportHint": "Chat trực tuyến, phản hồi dưới 2 phút."
+  },
+  "promotions": {
+    "validUntil": "Hiệu lực đến {date}",
+    "rollover": "Doanh số {value}x",
+    "maxBonus": "Tối đa {amount}",
+    "terms": "Điều khoản"
+  },
+  "ticker": {
+    "label": "Cập nhật trực tiếp"
+  },
+  "providers": {
+    "launch": "Vào sảnh",
+    "titles": "{count} trò chơi"
+  },
+  "faq": {
+    "title": "Trung tâm trợ giúp",
+    "topics": "Chủ đề"
+  }
+}

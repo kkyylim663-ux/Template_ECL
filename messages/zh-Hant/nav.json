@@ -1,0 +1,72 @@
+{
+  "primary": {
+    "games": "遊戲",
+    "events": "活動",
+    "account": "帳戶"
+  },
+  "items": {
+    "slots": "電子遊戲",
+    "livecasino": "真人賭場",
+    "sports": "體育",
+    "esports": "電競",
+    "fastGame": "快速遊戲",
+    "game4d": "4D",
+    "numberGame": "數字遊戲",
+    "prediction": "賽事預測",
+    "promotions": "優惠",
+    "update": "公告",
+    "rankingBoard": "排行榜",
+    "vip": "VIP",
+    "sponsor": "贊助",
+    "deposit": "充值",
+    "withdrawal": "提現",
+    "transfer": "轉帳",
+    "history": "紀錄",
+    "pending": "待處理",
+    "inbox": "收件箱",
+    "rebates": "返水",
+    "achievement": "成就",
+    "tickets": "票券中心",
+    "profile": "資料"
+  },
+  "desc": {
+    "slots": "6,000+ 款遊戲",
+    "livecasino": "真人荷官",
+    "sports": "賽前與滾球",
+    "esports": "大型賽事",
+    "fastGame": "秒級一局",
+    "game4d": "每週四次開獎",
+    "numberGame": "每 5 分鐘開獎",
+    "prediction": "免費參加",
+    "promotions": "獎金與返水",
+    "update": "產品動態",
+    "rankingBoard": "每週競賽",
+    "vip": "等級與專屬客服",
+    "sponsor": "我們贊助的隊伍"
+  },
+  "ui": {
+    "menu": "選單",
+    "openMenu": "開啟選單",
+    "closeMenu": "關閉選單",
+    "language": "語言",
+    "region": "地區",
+    "signIn": "登入",
+    "primaryNav": "主導覽",
+    "mobileNav": "手機導覽",
+    "dismissBanner": "關閉 App 橫幅"
+  },
+  "banner": {
+    "install": "安裝 {brand} App",
+    "tagline": "★★★★★ 更快的大廳、開獎提醒"
+  },
+  "lang": {
+    "en": "English",
+    "zhHans": "简体中文",
+    "zhHant": "繁體中文",
+    "vi": "Tiếng Việt"
+  },
+  "region": {
+    "my": "馬來西亞 (MYR)",
+    "sg": "新加坡 (SGD)"
+  }
+}

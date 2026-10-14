@@ -1,0 +1,72 @@
+{
+  "primary": {
+    "games": "Trò chơi",
+    "events": "Sự kiện",
+    "account": "Tài khoản"
+  },
+  "items": {
+    "slots": "Slots",
+    "livecasino": "Casino trực tuyến",
+    "sports": "Thể thao",
+    "esports": "Esports",
+    "fastGame": "Game nhanh",
+    "game4d": "4D",
+    "numberGame": "Game số",
+    "prediction": "Dự đoán",
+    "promotions": "Khuyến mãi",
+    "update": "Tin tức",
+    "rankingBoard": "Bảng xếp hạng",
+    "vip": "VIP",
+    "sponsor": "Tài trợ",
+    "deposit": "Nạp tiền",
+    "withdrawal": "Rút tiền",
+    "transfer": "Chuyển khoản",
+    "history": "Lịch sử",
+    "pending": "Đang chờ",
+    "inbox": "Hộp thư",
+    "rebates": "Hoàn trả",
+    "achievement": "Thành tích",
+    "tickets": "Trung tâm vé",
+    "profile": "Hồ sơ"
+  },
+  "desc": {
+    "slots": "Hơn 6,000 trò chơi",
+    "livecasino": "Dealer trực tiếp",
+    "sports": "Trước trận và trực tiếp",
+    "esports": "Giải đấu lớn",
+    "fastGame": "Mỗi ván vài giây",
+    "game4d": "Bốn kỳ mỗi tuần",
+    "numberGame": "Quay mỗi 5 phút",
+    "prediction": "Miễn phí tham gia",
+    "promotions": "Thưởng và hoàn trả",
+    "update": "Cập nhật sản phẩm",
+    "rankingBoard": "Cuộc đua tuần",
+    "vip": "Hạng và chủ quản",
+    "sponsor": "Đội chúng tôi tài trợ"
+  },
+  "ui": {
+    "menu": "Menu",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu",
+    "language": "Ngôn ngữ",
+    "region": "Khu vực",
+    "signIn": "Đăng nhập",
+    "primaryNav": "Điều hướng chính",
+    "mobileNav": "Điều hướng di động",
+    "dismissBanner": "Đóng banner ứng dụng"
+  },
+  "banner": {
+    "install": "Cài ứng dụng {brand}",
+    "tagline": "★★★★★ Sảnh nhanh hơn, báo kết quả"
+  },
+  "lang": {
+    "en": "English",
+    "zhHans": "简体中文",
+    "zhHant": "繁體中文",
+    "vi": "Tiếng Việt"
+  },
+  "region": {
+    "my": "Malaysia (MYR)",
+    "sg": "Singapore (SGD)"
+  }
+}

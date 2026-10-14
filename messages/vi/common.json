@@ -1,0 +1,47 @@
+{
+  "action": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "deposit": "Nạp ngay",
+    "playNow": "Chơi ngay",
+    "search": "Tìm kiếm",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "retry": "Thử lại",
+    "viewAll": "Xem tất cả",
+    "claim": "Nhận",
+    "redeem": "Đổi",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "filter": "Lọc",
+    "reset": "Đặt lại",
+    "close": "Đóng",
+    "copy": "Sao chép"
+  },
+  "state": {
+    "loading": "Đang tải…",
+    "empty": "Chưa có nội dung",
+    "emptyHint": "Vui lòng quay lại sau.",
+    "error": "Đã xảy ra lỗi",
+    "notFound": "Không tìm thấy trang",
+    "notFoundHint": "Liên kết có thể đã cũ hoặc sai.",
+    "backHome": "Về trang chủ",
+    "offline": "Có vẻ bạn đang ngoại tuyến"
+  },
+  "header": {
+    "summary": "Tóm tắt tài khoản",
+    "unread": "Chưa đọc",
+    "tierLabel": "VIP",
+    "balance": "Số dư: {amount}",
+    "demoNote": "Dữ liệu demo, chưa có backend."
+  },
+  "toast": {
+    "copied": "Đã sao chép"
+  },
+  "balance": {
+    "main": "Ví chính",
+    "total": "Tổng số dư"
+  }
+}

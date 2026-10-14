@@ -1,0 +1,161 @@
+{
+  "subnav": {
+    "title": "Tài khoản",
+    "balanceLoading": "Đang tải số dư"
+  },
+  "deposit": {
+    "title": "Nạp tiền",
+    "methodBank": "Chuyển khoản ngân hàng",
+    "methodGateway": "Cổng thanh toán",
+    "methodBankHint": "Chuyển khoản rồi tải biên lai.",
+    "methodGatewayHint": "Chuyển tới trang kênh trong bản thật.",
+    "bankingDetails": "Thông tin ngân hàng",
+    "depositDetails": "Thông tin của bạn",
+    "accountName": "Tên chủ tài khoản",
+    "accountNumber": "Số tài khoản",
+    "bankSelector": "Ngân hàng nhận",
+    "amount": "Số tiền",
+    "senderName": "Tên tài khoản của bạn",
+    "senderAccount": "Số tài khoản của bạn",
+    "bankReference": "Số tham chiếu",
+    "receipt": "Ảnh biên lai",
+    "receiptHint": "PNG/JPG, dưới 5 MB, có số tham chiếu.",
+    "promo": "Áp dụng khuyến mãi",
+    "promoNone": "Không dùng khuyến mãi",
+    "submit": "Gửi yêu cầu nạp",
+    "pendingNotice": "Bản demo được duyệt thủ công, không cộng tiền thật.",
+    "firstTime": "Nạp lần đầu?"
+  },
+  "withdrawal": {
+    "title": "Rút tiền",
+    "bankAccount": "Rút về",
+    "addBank": "Thêm tài khoản ngân hàng",
+    "noBankAccount": "Chưa có tài khoản đã xác minh.",
+    "verified": "Đã xác minh",
+    "amount": "Số tiền",
+    "submit": "Yêu cầu rút",
+    "limits": "Tối thiểu {min}, tối đa {max}",
+    "feeNotice": "Lần rút đầu mỗi tháng miễn phí."
+  },
+  "transfer": {
+    "title": "Chuyển ví",
+    "from": "Từ",
+    "to": "Đến",
+    "amount": "Số tiền",
+    "all": "Chuyển tất cả",
+    "auto": "Tự động chuyển về ví chính",
+    "submit": "Chuyển",
+    "sameWallet": "Chọn hai ví khác nhau",
+    "amountInvalid": "Nhập số tiền lớn hơn 0",
+    "insufficient": "Vượt quá số dư khả dụng",
+    "unavailable": "Ví nhà phát hành đang ngoại tuyến",
+    "lastMoved": "Lần chuyển trước: {when}"
+  },
+  "history": {
+    "title": "Lịch sử giao dịch",
+    "type": "Loại",
+    "status": "Trạng thái",
+    "reference": "Tham chiếu",
+    "date": "Ngày",
+    "amount": "Số tiền",
+    "method": "Phương thức",
+    "allTypes": "Tất cả loại",
+    "allStatuses": "Tất cả trạng thái",
+    "total": "Tổng các dòng",
+    "empty": "Không có giao dịch phù hợp",
+    "rolloverTitle": "Tiến độ doanh số"
+  },
+  "pending": {
+    "title": "Giao dịch đang chờ",
+    "cancel": "Hủy yêu cầu",
+    "cancelled": "Đã hủy yêu cầu",
+    "cancelConfirm": "Hủy yêu cầu này? Không thể hoàn tác.",
+    "empty": "Không có mục nào đang chờ"
+  },
+  "inbox": {
+    "title": "Hộp thư",
+    "important": "Quan trọng",
+    "others": "Khác",
+    "unread": "{count} chưa đọc",
+    "markRead": "Đánh dấu đã đọc",
+    "markAllRead": "Đánh dấu tất cả",
+    "delete": "Xóa",
+    "deleteAll": "Xóa đã đọc",
+    "deleteConfirm": "Xóa các tin đã chọn?",
+    "empty": "Không có tin nhắn",
+    "redeem": "Đổi voucher",
+    "redeemTitle": "Đổi mã voucher",
+    "redeemPlaceholder": "Nhập mã trong tin nhắn",
+    "redeemSuccess": "Đổi voucher thành công"
+  },
+  "rebates": {
+    "title": "Hoàn trả",
+    "period": "Kỳ",
+    "product": "Sản phẩm",
+    "turnover": "Doanh số",
+    "rate": "Tỷ lệ",
+    "claim": "Nhận",
+    "claimed": "Đã nhận",
+    "claimable": "Có thể nhận",
+    "pending": "Đang tính",
+    "noRequirement": "Hoàn trả không cần doanh số"
+  },
+  "achievement": {
+    "title": "Thành tích",
+    "livecasino": "Casino trực tuyến",
+    "sports": "Thể thao",
+    "slots": "Slots",
+    "progress": "{progress} / {target}",
+    "claim": "Nhận thưởng",
+    "locked": "Chưa mở",
+    "claimed": "Đã nhận",
+    "currentStatus": "Trạng thái hiện tại"
+  },
+  "tickets": {
+    "title": "Trung tâm vé",
+    "held": "Vé đang có",
+    "required": "Cần",
+    "use": "Dùng vé ngay",
+    "status": {
+      "open": "Đang mở",
+      "upcoming": "Sắp diễn ra",
+      "closed": "Đã đóng"
+    },
+    "window": "{opens} – {closes}",
+    "notEnough": "Chưa đủ vé",
+    "empty": "Không có sự kiện"
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "username": "Tên đăng nhập",
+    "nickname": "Biệt danh",
+    "fullName": "Họ tên",
+    "email": "Email",
+    "mobile": "Điện thoại",
+    "vipTier": "Hạng VIP",
+    "kycLabel": "Xác minh",
+    "kyc": {
+      "unverified": "Chưa xác minh",
+      "pending": "Đang xét duyệt",
+      "verified": "Đã xác minh"
+    },
+    "joined": "Thành viên từ",
+    "save": "Lưu thay đổi",
+    "saved": "Đã cập nhật hồ sơ",
+    "passwordTitle": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu"
+  },
+  "status": {
+    "pending": "Đang chờ",
+    "processing": "Đang xử lý",
+    "approved": "Đã duyệt",
+    "rejected": "Từ chối",
+    "cancelled": "Đã hủy"
+  },
+  "guard": {
+    "notice": "Khu vực này cần tài khoản.",
+    "redirecting": "Đang chuyển tới đăng nhập…"
+  }
+}

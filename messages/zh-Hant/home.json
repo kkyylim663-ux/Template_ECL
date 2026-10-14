@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "eyebrow": "歡迎",
+    "cta": "立即領取"
+  },
+  "section": {
+    "providers": "遊戲廠商",
+    "entryCards": "快捷入口",
+    "promotions": "精選優惠",
+    "events": "最新公告",
+    "announcements": "服務通知",
+    "whyUs": "為什麼選擇我們"
+  },
+  "entry": {
+    "numberGame": "數字遊戲",
+    "numberGameHint": "每 5 分鐘開獎",
+    "ranking": "排行榜",
+    "rankingHint": "每週流水賽",
+    "prediction": "賽事預測",
+    "predictionHint": "免費參加,真實獎品",
+    "achievement": "成就",
+    "achievementHint": "查看你的進度"
+  },
+  "why": {
+    "licence": "持牌營運",
+    "licenceHint": "示範版本的佔位牌照說明。",
+    "fastWithdrawal": "極速提現",
+    "fastWithdrawalHint": "RM 1,000 以下中位數 5 分鐘。",
+    "support": "全天客服",
+    "supportHint": "線上客服,中位回覆低於 2 分鐘。"
+  },
+  "promotions": {
+    "validUntil": "有效期至 {date}",
+    "rollover": "流水 {value} 倍",
+    "maxBonus": "最高 {amount}",
+    "terms": "條款與條件"
+  },
+  "ticker": {
+    "label": "即時動態"
+  },
+  "providers": {
+    "launch": "進入大廳",
+    "titles": "{count} 款遊戲"
+  },
+  "faq": {
+    "title": "幫助中心",
+    "topics": "主題"
+  }
+}

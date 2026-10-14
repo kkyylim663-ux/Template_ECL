@@ -1,0 +1,161 @@
+{
+  "subnav": {
+    "title": "我的帳戶",
+    "balanceLoading": "餘額載入中…"
+  },
+  "deposit": {
+    "title": "充值",
+    "methodBank": "銀行轉帳",
+    "methodGateway": "支付閘道",
+    "methodBankHint": "轉帳至下方帳戶後上傳憑證。",
+    "methodGatewayHint": "正式環境將跳轉至渠道頁面。",
+    "bankingDetails": "銀行資訊",
+    "depositDetails": "轉帳資訊",
+    "accountName": "帳戶姓名",
+    "accountNumber": "帳戶號碼",
+    "bankSelector": "收款銀行",
+    "amount": "金額",
+    "senderName": "你的帳戶姓名",
+    "senderAccount": "你的帳戶號碼",
+    "bankReference": "參考編號",
+    "receipt": "憑證圖片",
+    "receiptHint": "PNG 或 JPG,5 MB 以內,需顯示參考編號。",
+    "promo": "使用優惠",
+    "promoNone": "不使用優惠",
+    "submit": "提交充值申請",
+    "pendingNotice": "示範版本同樣由人工審核,但不會真正入帳。",
+    "firstTime": "首次充值?"
+  },
+  "withdrawal": {
+    "title": "提現",
+    "bankAccount": "提現至",
+    "addBank": "新增銀行帳戶",
+    "noBankAccount": "尚無已驗證的銀行帳戶。",
+    "verified": "已驗證",
+    "amount": "金額",
+    "submit": "提交提現",
+    "limits": "最低 {min},最高 {max}",
+    "feeNotice": "每月首次提現免手續費,之後收取少量費用。"
+  },
+  "transfer": {
+    "title": "錢包轉帳",
+    "from": "從",
+    "to": "至",
+    "amount": "金額",
+    "all": "全部轉出",
+    "auto": "每局結束後自動轉回主錢包",
+    "submit": "轉帳",
+    "sameWallet": "請選擇兩個不同的錢包",
+    "amountInvalid": "請輸入大於 0 的金額",
+    "insufficient": "金額超過可用餘額",
+    "unavailable": "該廠商錢包暫不可用",
+    "lastMoved": "上次轉帳:{when}"
+  },
+  "history": {
+    "title": "交易紀錄",
+    "type": "類型",
+    "status": "狀態",
+    "reference": "參考編號",
+    "date": "日期",
+    "amount": "金額",
+    "method": "方式",
+    "allTypes": "全部類型",
+    "allStatuses": "全部狀態",
+    "total": "列表合計",
+    "empty": "此篩選條件下沒有交易",
+    "rolloverTitle": "活動流水進度"
+  },
+  "pending": {
+    "title": "待處理交易",
+    "cancel": "取消申請",
+    "cancelled": "申請已取消",
+    "cancelConfirm": "確認取消此申請?此操作不可撤銷。",
+    "empty": "沒有待處理項目"
+  },
+  "inbox": {
+    "title": "收件箱",
+    "important": "重要",
+    "others": "其他",
+    "unread": "{count} 條未讀",
+    "markRead": "標記已讀",
+    "markAllRead": "全部標記已讀",
+    "delete": "刪除",
+    "deleteAll": "刪除已讀",
+    "deleteConfirm": "確認刪除所選訊息?",
+    "empty": "沒有訊息",
+    "redeem": "兌換禮券",
+    "redeemTitle": "兌換禮券碼",
+    "redeemPlaceholder": "輸入訊息中的兌換碼",
+    "redeemSuccess": "禮券兌換成功"
+  },
+  "rebates": {
+    "title": "返水",
+    "period": "週期",
+    "product": "產品",
+    "turnover": "流水",
+    "rate": "比例",
+    "claim": "領取",
+    "claimed": "已領取",
+    "claimable": "可領取",
+    "pending": "計算中",
+    "noRequirement": "返水無需流水"
+  },
+  "achievement": {
+    "title": "成就",
+    "livecasino": "真人賭場",
+    "sports": "體育",
+    "slots": "電子遊戲",
+    "progress": "{progress} / {target}",
+    "claim": "領取獎勵",
+    "locked": "未解鎖",
+    "claimed": "已領取",
+    "currentStatus": "當前狀態"
+  },
+  "tickets": {
+    "title": "票券中心",
+    "held": "持有票券",
+    "required": "所需票券",
+    "use": "立即使用票券",
+    "status": {
+      "open": "開放中",
+      "upcoming": "即將開始",
+      "closed": "已結束"
+    },
+    "window": "{opens} – {closes}",
+    "notEnough": "票券不足",
+    "empty": "當前沒有活動"
+  },
+  "profile": {
+    "title": "個人資料",
+    "username": "使用者名稱",
+    "nickname": "暱稱",
+    "fullName": "真實姓名",
+    "email": "電子郵件",
+    "mobile": "手機",
+    "vipTier": "VIP 等級",
+    "kycLabel": "身分驗證",
+    "kyc": {
+      "unverified": "未驗證",
+      "pending": "審核中",
+      "verified": "已驗證"
+    },
+    "joined": "註冊於",
+    "save": "儲存修改",
+    "saved": "資料已更新",
+    "passwordTitle": "修改密碼",
+    "currentPassword": "目前密碼",
+    "newPassword": "新密碼",
+    "confirmPassword": "確認新密碼"
+  },
+  "status": {
+    "pending": "待處理",
+    "processing": "處理中",
+    "approved": "已通過",
+    "rejected": "已拒絕",
+    "cancelled": "已取消"
+  },
+  "guard": {
+    "notice": "此區域需要帳號,請先登入。",
+    "redirecting": "正在前往登入頁…"
+  }
+}

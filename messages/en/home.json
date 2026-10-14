@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "eyebrow": "Welcome",
+    "cta": "Claim now"
+  },
+  "section": {
+    "providers": "Game studios",
+    "entryCards": "Quick entry",
+    "promotions": "Featured promotions",
+    "events": "Latest news",
+    "announcements": "Service notices",
+    "whyUs": "Why players stay"
+  },
+  "entry": {
+    "numberGame": "Number game",
+    "numberGameHint": "Draws every 5 minutes",
+    "ranking": "Ranking board",
+    "rankingHint": "Weekly turnover race",
+    "prediction": "Prediction",
+    "predictionHint": "Free entry, real prizes",
+    "achievement": "Achievements",
+    "achievementHint": "Track your progress"
+  },
+  "why": {
+    "licence": "Licensed operator",
+    "licenceHint": "Placeholder licence copy for the demo build.",
+    "fastWithdrawal": "Fast withdrawals",
+    "fastWithdrawalHint": "Median 5 minutes under RM 1,000.",
+    "support": "Support 24/7",
+    "supportHint": "Live chat, median reply under 2 minutes."
+  },
+  "promotions": {
+    "validUntil": "Valid until {date}",
+    "rollover": "{value}x turnover",
+    "maxBonus": "Up to {amount}",
+    "terms": "Terms & conditions"
+  },
+  "ticker": {
+    "label": "Live updates"
+  },
+  "providers": {
+    "launch": "Open lobby",
+    "titles": "{count} titles"
+  },
+  "faq": {
+    "title": "Help centre",
+    "topics": "Topics"
+  }
+}

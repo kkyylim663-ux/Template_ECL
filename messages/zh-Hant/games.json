@@ -1,0 +1,26 @@
+{
+  "card": {
+    "playNow": "立即遊戲",
+    "demo": "試玩",
+    "new": "新",
+    "hot": "熱門",
+    "rtp": "RTP {value}%",
+    "needLogin": "登入後即可進入遊戲"
+  },
+  "category": {
+    "slots": "電子遊戲",
+    "livecasino": "真人賭場",
+    "sports": "體育",
+    "esports": "電競",
+    "fastGame": "快速遊戲",
+    "game4d": "4D",
+    "numberGame": "數字遊戲",
+    "prediction": "賽事預測"
+  },
+  "search": {
+    "placeholder": "搜尋遊戲或廠商",
+    "results": "{count} 款遊戲",
+    "empty": "沒有符合「{query}」的遊戲",
+    "loadMore": "顯示更多"
+  }
+}

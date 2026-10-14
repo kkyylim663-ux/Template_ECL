@@ -1,0 +1,26 @@
+{
+  "card": {
+    "playNow": "Chơi ngay",
+    "demo": "Chơi thử",
+    "new": "Mới",
+    "hot": "Hot",
+    "rtp": "RTP {value}%",
+    "needLogin": "Đăng nhập để vào game"
+  },
+  "category": {
+    "slots": "Slots",
+    "livecasino": "Casino trực tuyến",
+    "sports": "Thể thao",
+    "esports": "Esports",
+    "fastGame": "Game nhanh",
+    "game4d": "4D",
+    "numberGame": "Game số",
+    "prediction": "Dự đoán"
+  },
+  "search": {
+    "placeholder": "Tìm game hoặc nhà phát hành",
+    "results": "{count} trò chơi",
+    "empty": "Không có kết quả cho \"{query}\"",
+    "loadMore": "Xem thêm"
+  }
+}

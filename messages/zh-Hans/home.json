@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "eyebrow": "欢迎",
+    "cta": "立即领取"
+  },
+  "section": {
+    "providers": "游戏厂商",
+    "entryCards": "快捷入口",
+    "promotions": "精选优惠",
+    "events": "最新公告",
+    "announcements": "服务通知",
+    "whyUs": "为什么选择我们"
+  },
+  "entry": {
+    "numberGame": "数字游戏",
+    "numberGameHint": "每 5 分钟开奖",
+    "ranking": "排行榜",
+    "rankingHint": "每周流水赛",
+    "prediction": "赛事预测",
+    "predictionHint": "免费参加,真实奖品",
+    "achievement": "成就",
+    "achievementHint": "查看你的进度"
+  },
+  "why": {
+    "licence": "持牌运营",
+    "licenceHint": "演示版本的占位牌照说明。",
+    "fastWithdrawal": "极速提现",
+    "fastWithdrawalHint": "RM 1,000 以下中位数 5 分钟。",
+    "support": "全天客服",
+    "supportHint": "在线客服,中位回复低于 2 分钟。"
+  },
+  "promotions": {
+    "validUntil": "有效期至 {date}",
+    "rollover": "流水 {value} 倍",
+    "maxBonus": "最高 {amount}",
+    "terms": "条款与条件"
+  },
+  "ticker": {
+    "label": "即时动态"
+  },
+  "providers": {
+    "launch": "进入大厅",
+    "titles": "{count} 款游戏"
+  },
+  "faq": {
+    "title": "帮助中心",
+    "topics": "主题"
+  }
+}

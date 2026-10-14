@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { PRIMARY_MENU, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
@@ -10,6 +11,7 @@ import { Icon } from '@/components/ui/Icon';
  * Opens on hover and on keyboard focus, closes on Escape or a click outside.
  */
 export function HeaderMenu({ region }: { region: string }) {
+  const t = useTranslations('nav');
   const [openId, setOpenId] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -29,7 +31,7 @@ export function HeaderMenu({ region }: { region: string }) {
   }, []);
 
   return (
-    <nav ref={navRef} className="flex items-stretch gap-[58px]" aria-label="Primary">
+    <nav ref={navRef} className="flex items-stretch gap-[58px]" aria-label={t('ui.primaryNav')}>
       {PRIMARY_MENU.map((group) => {
         const open = openId === group.id;
         return (
@@ -50,7 +52,7 @@ export function HeaderMenu({ region }: { region: string }) {
                   : 'text-ink/90 hover:border-accent hover:text-accent border-transparent'
               }`}
             >
-              {group.label}
+              {t(group.labelKey)}
             </button>
 
             {open ? (
@@ -71,11 +73,11 @@ export function HeaderMenu({ region }: { region: string }) {
                         ) : null}
                         <span className="min-w-0">
                           <span className="text-ink block truncate text-sm font-medium">
-                            {item.label}
+                            {t(item.labelKey)}
                           </span>
-                          {item.description ? (
+                          {item.descKey ? (
                             <span className="text-muted block truncate text-xs">
-                              {item.description}
+                              {t(item.descKey)}
                             </span>
                           ) : null}
                         </span>

@@ -1,0 +1,47 @@
+{
+  "action": {
+    "login": "登录",
+    "register": "注册",
+    "logout": "退出登录",
+    "deposit": "立即充值",
+    "playNow": "立即游戏",
+    "search": "搜索",
+    "submit": "提交",
+    "cancel": "取消",
+    "confirm": "确认",
+    "retry": "重试",
+    "viewAll": "查看全部",
+    "claim": "领取",
+    "redeem": "兑换",
+    "back": "返回",
+    "next": "下一步",
+    "filter": "筛选",
+    "reset": "重置",
+    "close": "关闭",
+    "copy": "复制"
+  },
+  "state": {
+    "loading": "加载中…",
+    "empty": "暂无内容",
+    "emptyHint": "请稍后再来查看。",
+    "error": "出错了",
+    "notFound": "页面不存在",
+    "notFoundHint": "链接可能已失效或输入有误。",
+    "backHome": "返回首页",
+    "offline": "网络似乎已断开"
+  },
+  "header": {
+    "summary": "账户摘要",
+    "unread": "未读",
+    "tierLabel": "VIP",
+    "balance": "余额:{amount}",
+    "demoNote": "演示数据,尚无后端。"
+  },
+  "toast": {
+    "copied": "已复制"
+  },
+  "balance": {
+    "main": "主钱包",
+    "total": "总余额"
+  }
+}

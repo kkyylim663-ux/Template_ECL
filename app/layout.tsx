@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Rubik } from 'next/font/google';
+import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
+import { getShell } from '@/lib/i18n/server';
 import { IconSprite } from '@/components/ui/IconSprite';
 import { Providers } from '@/components/ui/Providers';
 import './globals.css';
@@ -31,16 +33,25 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+/**
+ * The language lives in a cookie (see lib/i18n/config.ts), so the root layout
+ * reads it per request: `<html lang>` and the shell messages follow the visitor's
+ * choice. Pages add their own namespaces through `IntlScope`.
+ */
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { locale, messages } = await getShell();
+
   return (
-    <html lang="en" className={rubik.variable}>
+    <html lang={locale} className={rubik.variable}>
       <body className="bg-surface text-ink font-sans antialiased">
         <IconSprite />
-        <Providers>{children}</Providers>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
