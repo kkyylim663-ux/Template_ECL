@@ -79,6 +79,13 @@ function visible(html: string): string {
 const ZH = 'brand_lang=zh-Hans';
 const SESSION = 'brand_session=demo';
 
+/**
+ * A key no provider can resolve renders as its own name (e.g.
+ * `games.card.playNow`) — what a namespace missing from the page's scope looks
+ * like. Two dots keep this clear of anything the mock data would print.
+ */
+const RAW_KEY = /\b(common|nav|games|home|auth|account|content|meta)\.[a-z][\w]*\.[\w.]+/;
+
 for (const route of PUBLIC_ROUTES) {
   test(`${route} has no English UI copy in zh-Hans`, async ({ request }) => {
     const html = visible(await (await request.get(route, { headers: { cookie: ZH } })).text());
@@ -86,6 +93,7 @@ for (const route of PUBLIC_ROUTES) {
     for (const marker of ENGLISH_MARKERS) {
       expect(html, `${route} still shows "${marker}"`).not.toContain(marker);
     }
+    expect(html, `${route} shows an unresolved message key`).not.toMatch(RAW_KEY);
   });
 }
 

@@ -1,7 +1,9 @@
 {
   "hero": {
     "eyebrow": "歡迎",
-    "cta": "立即領取"
+    "cta": "立即領取",
+    "carouselLabel": "推薦",
+    "goToSlide": "顯示第 {index} 張"
   },
   "section": {
     "providers": "遊戲廠商",
@@ -12,6 +14,7 @@
     "whyUs": "為什麼選擇我們"
   },
   "entry": {
+    "playNow": "立即開玩",
     "numberGame": "數字遊戲",
     "numberGameHint": "每 5 分鐘開獎",
     "ranking": "排行榜",

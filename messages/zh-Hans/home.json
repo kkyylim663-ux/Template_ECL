@@ -1,7 +1,9 @@
 {
   "hero": {
     "eyebrow": "欢迎",
-    "cta": "立即领取"
+    "cta": "立即领取",
+    "carouselLabel": "推荐",
+    "goToSlide": "显示第 {index} 张"
   },
   "section": {
     "providers": "游戏厂商",
@@ -12,6 +14,7 @@
     "whyUs": "为什么选择我们"
   },
   "entry": {
+    "playNow": "立即开玩",
     "numberGame": "数字游戏",
     "numberGameHint": "每 5 分钟开奖",
     "ranking": "排行榜",

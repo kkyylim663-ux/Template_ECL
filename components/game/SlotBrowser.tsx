@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { GameCard as GameCardData, GamePage } from '@/lib/api/slots';
 import { Icon } from '@/components/ui/Icon';
+import { IconSprite } from '@/components/ui/IconSprite';
 import { GameCardSkeleton } from '@/components/ui/Skeleton';
 import { Tabs, type TabItem } from '@/components/ui/Tabs';
 import { GameCard } from './GameCard';
@@ -190,6 +191,7 @@ export function SlotBrowser({
   return (
     <section>
       <div className="mt-5 flex flex-col gap-3 desktop:flex-row desktop:items-center desktop:justify-between">
+        <IconSprite only={['search']} />
         <Tabs tabs={tabs} value={tab} onChange={setTab} label={t('browser.categories', { provider })} />
 
         <div className="relative desktop:w-72">

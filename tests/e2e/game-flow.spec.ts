@@ -94,7 +94,8 @@ test.describe('game browsing flow', () => {
     });
 
     await page.goto('/my');
-    await expect(page.locator('.swiper-slide')).toHaveCount(5);
+    // T26 replaced the Swiper carousel with the in-house track.
+    await expect(page.locator('[data-banner-slide]')).toHaveCount(5);
     await expect(page.locator('[data-entry]')).toHaveCount(4);
 
     const hrefs = new Set(

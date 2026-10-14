@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState, type ReactNode } from 'react';
 import { Icon } from '@/components/ui/Icon';
+import { IconSprite } from '@/components/ui/IconSprite';
 import type { FaqItem } from '@/lib/api';
 
 /**
@@ -39,6 +40,7 @@ export function FaqPanel({ topicId, items }: { topicId: string; items: FaqItem[]
 
   return (
     <div data-faq-topic={topicId}>
+      <IconSprite only={['search']} />
       <div className="relative">
         <span className="text-muted pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">
           <Icon name="search" size={16} />

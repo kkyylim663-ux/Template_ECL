@@ -5,6 +5,7 @@ import { brand } from '@/config/brand';
 import { siteUrl } from '@/lib/seo';
 import { getShell } from '@/lib/i18n/server';
 import { IconSprite } from '@/components/ui/IconSprite';
+import { SHELL_ICON_NAMES } from '@/components/ui/icon-paths';
 import { Providers } from '@/components/ui/Providers';
 import './globals.css';
 
@@ -50,7 +51,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${rubik.variable} motion-safe:scroll-smooth`}>
       <body className="bg-surface text-ink font-sans antialiased">
-        <IconSprite />
+        <IconSprite only={SHELL_ICON_NAMES} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>{children}</Providers>
         </NextIntlClientProvider>

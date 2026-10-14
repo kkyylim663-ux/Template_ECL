@@ -1,7 +1,9 @@
 {
   "hero": {
     "eyebrow": "Chào mừng",
-    "cta": "Nhận ngay"
+    "cta": "Nhận ngay",
+    "carouselLabel": "Nổi bật",
+    "goToSlide": "Xem slide {index}"
   },
   "section": {
     "providers": "Nhà phát hành",
@@ -12,6 +14,7 @@
     "whyUs": "Vì sao chọn chúng tôi"
   },
   "entry": {
+    "playNow": "Chơi ngay",
     "numberGame": "Game số",
     "numberGameHint": "Quay mỗi 5 phút",
     "ranking": "Bảng xếp hạng",

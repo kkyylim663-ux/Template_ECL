@@ -1,7 +1,9 @@
 {
   "hero": {
     "eyebrow": "Welcome",
-    "cta": "Claim now"
+    "cta": "Claim now",
+    "carouselLabel": "Featured",
+    "goToSlide": "Show slide {index}"
   },
   "section": {
     "providers": "Game studios",
@@ -12,6 +14,7 @@
     "whyUs": "Why players stay"
   },
   "entry": {
+    "playNow": "Play now",
     "numberGame": "Number game",
     "numberGameHint": "Draws every 5 minutes",
     "ranking": "Ranking board",

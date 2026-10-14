@@ -82,7 +82,7 @@ export async function EntryCards({ region }: { region: string }) {
             )}
 
             <div className="mt-3">
-              <LaunchButton provider={entry.id} className="w-full" />
+              <LaunchButton provider={entry.id} label={t('entry.playNow')} className="w-full" />
             </div>
           </li>
         );

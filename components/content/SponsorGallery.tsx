@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { useModal } from '@/components/ui/ModalProvider';
 import { Icon } from '@/components/ui/Icon';
+import { IconSprite } from '@/components/ui/IconSprite';
 import type { SponsorPayload } from '@/lib/api';
 
 /**
@@ -30,6 +31,7 @@ export function SponsorGallery({ sponsor }: { sponsor: SponsorPayload }) {
 
   return (
     <div className="min-w-0">
+      <IconSprite only={['play']} />
       <section>
         <h2 className="text-ink text-sm font-semibold">{t('sponsor.logoTitle')}</h2>
         {/* `overflow-hidden` keeps the Swiper from widening the page at 375px. */}

@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
+import { IconSprite } from '@/components/ui/IconSprite';
 
 /**
  * "Back to top" for the long-form pages. It stays out of the way until the
@@ -42,6 +43,7 @@ export function BackToTop() {
       }
       className="border-line bg-panel text-ink hover:border-accent fixed right-4 bottom-20 z-10 grid size-11 place-items-center rounded-full border shadow-lg desktop:right-8 desktop:bottom-8"
     >
+      <IconSprite only={['chevronUp']} />
       <Icon name="chevronUp" size={18} />
     </button>
   );

@@ -41,7 +41,7 @@ export default async function HomePage({ params }: { params: Promise<{ region: s
   const totalTitles = providers.reduce((sum, provider) => sum + provider.totalGames, 0);
 
   return (
-    <IntlScope namespaces={['home', 'games']}>
+    <IntlScope namespaces={['home']}>
       <JsonLd data={[organizationLd(), websiteLd(region)]} />
       <div className="space-y-8 desktop:space-y-10">
         <BannerCarousel banners={banners} region={region} />

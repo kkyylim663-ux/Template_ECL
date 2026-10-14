@@ -49,15 +49,65 @@ export const ICON_PATHS = {
   chevronLeft: ['M15 6l-6 6 6 6'],
   play: ['M8 5l12 7-12 7z'],
   download: ['M12 4v12', 'M7 12l5 5 5-5', 'M5 20h14'],
-  external: ['M14 4h6v6', 'M20 4 10 14', 'M18 14v6H4V6h6'],
-  shield: ['M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z'],
   check: ['M5 13l4 4L19 7'],
   alert: [c(12, 12, 8), 'M12 8v4', 'M12 16h.01'],
   info: [c(12, 12, 8), 'M12 11v5', 'M12 8h.01'],
   success: [c(12, 12, 8), 'M8.5 12.5l2.5 2.5 4.5-5'],
   spinner: [c(12, 12, 8), 'M12 4v5'],
-  lock: ['M6 11h12v9H6z', 'M9 11V8a3 3 0 0 1 6 0v3'],
-  eye: ['M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z', c(12, 12, 2.5)],
 } satisfies Record<string, string[]>;
 
 export type IconName = keyof typeof ICON_PATHS;
+
+/**
+ * The sprite every page ships in its root layout (T26): the icons the shell can
+ * render — menus, drawer, footer, modal and toast variants — plus the ones the
+ * home page uses. Page-owned icons (`search`, `chevronUp`, `play`) travel with
+ * the component that renders them instead, so a page without that component does
+ * not carry the path data.
+ */
+export const SHELL_ICON_NAMES = [
+  'home',
+  'slots',
+  'livecasino',
+  'sports',
+  'esports',
+  'fast',
+  'dice4d',
+  'numbers',
+  'prediction',
+  'gift',
+  'news',
+  'trophy',
+  'crown',
+  'sponsor',
+  'wallet',
+  'withdraw',
+  'transfer',
+  'history',
+  'pending',
+  'mail',
+  'rebate',
+  'achievement',
+  'ticket',
+  'user',
+  'chat',
+  'phone',
+  'whatsapp',
+  'telegram',
+  'facebook',
+  'instagram',
+  'x',
+  'youtube',
+  'menu',
+  'close',
+  'globe',
+  'chevronDown',
+  'chevronRight',
+  'chevronLeft',
+  'download',
+  'check',
+  'alert',
+  'info',
+  'success',
+  'spinner',
+] as const satisfies readonly IconName[];
