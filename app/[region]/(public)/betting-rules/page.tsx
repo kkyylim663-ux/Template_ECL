@@ -1,7 +1,9 @@
 import { RoutePlaceholder } from '@/components/RoutePlaceholder';
+import { getT } from '@/lib/i18n/server';
 
 export default async function Page({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;
+  const { t } = await getT('content');
 
-  return <RoutePlaceholder title={"Betting rules"} path={`/${region}/betting-rules`} />;
+  return <RoutePlaceholder title={t('pages.bettingRules')} path={`/${region}/betting-rules`} />;
 }

@@ -1,5 +1,7 @@
+/** Same data and components as /slots, by design (only the heading differs). */
 import type { Metadata } from 'next';
 import { GameLobby } from '@/components/game/GameLobby';
+import { IntlScope } from '@/lib/i18n/scope';
 
 export const metadata: Metadata = {
   title: 'Fast games',
@@ -8,7 +10,6 @@ export const metadata: Metadata = {
 
 type SearchParams = Record<string, string | string[] | undefined>;
 
-/** Same data and components as /slots, by design (only the heading differs). */
 export default async function FastGamePage({
   params,
   searchParams,
@@ -19,11 +20,13 @@ export default async function FastGamePage({
   const { region } = await params;
 
   return (
-    <GameLobby
-      region={region}
-      heading="Fast games"
-      intro="Browse only — launching a game is disabled in this build."
-      searchParams={await searchParams}
-    />
+    <IntlScope namespaces={['games']}>
+      <GameLobby
+        region={region}
+        headingKey="page.fastGame"
+        introKey="page.slotsIntro"
+        searchParams={await searchParams}
+      />
+    </IntlScope>
   );
 }

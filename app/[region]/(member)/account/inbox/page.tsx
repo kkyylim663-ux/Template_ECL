@@ -1,14 +1,23 @@
 import type { Metadata } from 'next';
 import { getAccountPayload } from '@/lib/api';
+import { getT } from '@/lib/i18n/server';
 import { InboxActionButton } from '@/components/account/actions';
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default async function InboxPage() {
-  const payload = await getAccountPayload();
+  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
   const groups = [
-    { id: 'important', label: 'Important', rows: payload.inbox.filter((m) => m.kind === 'important') },
-    { id: 'others', label: 'Others', rows: payload.inbox.filter((m) => m.kind !== 'important') },
+    {
+      id: 'important',
+      label: t('inbox.important'),
+      rows: payload.inbox.filter((m) => m.kind === 'important'),
+    },
+    {
+      id: 'others',
+      label: t('inbox.others'),
+      rows: payload.inbox.filter((m) => m.kind !== 'important'),
+    },
   ];
   const unread = payload.inbox.filter((message) => !message.read).length;
 
@@ -16,12 +25,12 @@ export default async function InboxPage() {
     <section className="border-line bg-panel rounded-[var(--radius-panel)] border p-5">
       <div className="flex flex-wrap items-end justify-between gap-2">
         <div>
-          <h2 className="text-ink text-sm font-semibold">Inbox</h2>
+          <h2 className="text-ink text-sm font-semibold">{t('inbox.title')}</h2>
           <p className="text-muted mt-1 text-xs">
-            {unread} unread of {payload.inbox.length}
+            {t('inbox.summary', { unread, total: payload.inbox.length })}
           </p>
         </div>
-        <InboxActionButton label="Mark all as read" messageId="all" />
+        <InboxActionButton label={t('inbox.markAllRead')} messageId="all" />
       </div>
 
       <div className="mt-5 space-y-6">
@@ -50,10 +59,10 @@ export default async function InboxPage() {
                   <p className="text-muted mt-1 text-xs">{message.body}</p>
                   <div className="mt-3 flex gap-2">
                     <InboxActionButton
-                      label={message.read ? 'Mark unread' : 'Mark as read'}
+                      label={message.read ? t('inbox.markUnread') : t('inbox.markRead')}
                       messageId={message.id}
                     />
-                    <InboxActionButton label="Delete" messageId={message.id} />
+                    <InboxActionButton label={t('inbox.delete')} messageId={message.id} />
                   </div>
                 </li>
               ))}

@@ -10,17 +10,9 @@ import {
 /** The six boards the ranking page switches between, in display order. */
 export const BOARD_KINDS = LEADERBOARD_KINDS;
 
-const LABELS: Record<LeaderboardKind, string> = {
-  weekly: 'Weekly',
-  monthly: 'Monthly',
-  supervip: 'Super VIP',
-  vip: 'VIP',
-  live: 'Current LIVE',
-  lastweek: 'Last week',
-};
-
-export function boardLabel(kind: LeaderboardKind): string {
-  return LABELS[kind];
+/** Display name lives in `games.ranking.board.<kind>`. */
+export function boardLabelKey(kind: LeaderboardKind): string {
+  return `ranking.board.${kind}`;
 }
 
 export function isBoardKind(value: string): value is LeaderboardKind {

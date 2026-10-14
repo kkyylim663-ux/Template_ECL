@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useModal } from '@/components/ui/ModalProvider';
 import type { AccountTransaction } from '@/lib/api/schemas';
@@ -23,14 +24,15 @@ export function ClaimButton({
   amount: string;
   what: string;
 }) {
+  const t = useTranslations('account');
   const explain = useExplain();
   return (
     <button
       type="button"
       onClick={() =>
         explain(
-          'Demo claim',
-          `${what} of ${amount} would be credited to the main wallet in the live build. Nothing is credited here.`,
+          t('actions.demoClaimTitle'),
+          t('actions.demoClaimBody', { what, amount }),
         )
       }
       className="border-accent text-accent hover:bg-panel-soft rounded-[8px] border px-3 py-1.5 text-xs font-semibold"
@@ -41,6 +43,7 @@ export function ClaimButton({
 }
 
 export function UseTicketButton({ ticketsHeld, needed }: { ticketsHeld: number; needed: number }) {
+  const t = useTranslations('account');
   const explain = useExplain();
   const enough = ticketsHeld >= needed;
 
@@ -49,10 +52,10 @@ export function UseTicketButton({ ticketsHeld, needed }: { ticketsHeld: number; 
       type="button"
       onClick={() =>
         explain(
-          'Demo entry',
+          t('actions.demoEntryTitle'),
           enough
-            ? `${needed} of your ${ticketsHeld} tickets would be spent to enter. No entry is recorded here.`
-            : `You hold ${ticketsHeld} tickets and ${needed} are needed. The live build would send you to deposit or earn more.`,
+            ? t('actions.demoEntryBody', { needed, held: ticketsHeld })
+            : t('actions.demoEntryShort', { needed, held: ticketsHeld }),
         )
       }
       className={`rounded-[8px] px-3 py-1.5 text-xs font-semibold ${
@@ -61,25 +64,26 @@ export function UseTicketButton({ ticketsHeld, needed }: { ticketsHeld: number; 
           : 'border-line text-muted border'
       }`}
     >
-      {enough ? 'Use tickets now' : 'Not enough tickets'}
+      {enough ? t('tickets.use') : t('tickets.notEnough')}
     </button>
   );
 }
 
 export function PendingCancelButton({ transaction }: { transaction: AccountTransaction }) {
+  const t = useTranslations('account');
   const explain = useExplain();
   return (
     <button
       type="button"
       onClick={() =>
         explain(
-          'Demo cancel',
-          `${transaction.reference} would be cancelled and any held amount released. Nothing changes here.`,
+          t('actions.demoCancelTitle'),
+          t('actions.demoCancelBody', { reference: transaction.reference }),
         )
       }
       className="border-line text-ink hover:border-accent rounded-[8px] border px-3 py-1.5 text-xs"
     >
-      Cancel request
+      {t('pending.cancel')}
     </button>
   );
 }
@@ -91,12 +95,13 @@ export function InboxActionButton({
   label: string;
   messageId: string;
 }) {
+  const t = useTranslations('account');
   const explain = useExplain();
   return (
     <button
       type="button"
       onClick={() =>
-        explain('Demo inbox', `“${label}” would be applied to message ${messageId}. Nothing is saved here.`)
+        explain(t('actions.demoInboxTitle'), t('actions.demoInboxBody', { label, message: messageId }))
       }
       className="border-line text-muted hover:text-ink hover:border-accent rounded-[8px] border px-2.5 py-1 text-[11px]"
     >
@@ -115,6 +120,7 @@ export function HistoryTable({
   rollover: { id: string; title: string; requirementMinor: number; progressMinor: number }[];
   currency: string;
 }) {
+  const t = useTranslations('account');
   const [kind, setKind] = useState('all');
   const [status, setStatus] = useState('all');
   const format = (amountMinor: number) =>
@@ -135,31 +141,35 @@ export function HistoryTable({
     <div className="space-y-5">
       <div className="flex flex-wrap gap-3">
         <select
-          aria-label="Filter by type"
+          aria-label={t('history.filterType')}
           value={kind}
           onChange={(event) => setKind(event.target.value)}
           className="border-line bg-panel text-ink rounded-[var(--radius-tag)] border px-3 py-2 text-xs"
         >
           {['all', 'deposit', 'withdrawal', 'transfer', 'rebate', 'bonus'].map((value) => (
             <option key={value} value={value}>
-              {value === 'all' ? 'All types' : value}
+              {value === 'all' ? t('history.allTypes') : t(`history.kind.${value}`)}
             </option>
           ))}
         </select>
         <select
-          aria-label="Filter by status"
+          aria-label={t('history.filterStatus')}
           value={status}
           onChange={(event) => setStatus(event.target.value)}
           className="border-line bg-panel text-ink rounded-[var(--radius-tag)] border px-3 py-2 text-xs"
         >
           {['all', 'pending', 'processing', 'approved', 'rejected', 'cancelled'].map((value) => (
             <option key={value} value={value}>
-              {value === 'all' ? 'All statuses' : value}
+              {value === 'all' ? t('history.allStatuses') : t(`status.${value}`)}
             </option>
           ))}
         </select>
         <p className="text-muted self-center text-xs">
-          {rows.length} of {transactions.length} rows · total {format(totalMinor)}
+          {t('history.rowsSummary', {
+            shown: rows.length,
+            total: transactions.length,
+            amount: format(totalMinor),
+          })}
         </p>
       </div>
 
@@ -167,26 +177,26 @@ export function HistoryTable({
         <table className="w-full text-left text-sm">
           <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
             <tr>
-              <th className="px-4 py-3">Reference</th>
-              <th className="px-4 py-3">Type</th>
-              <th className="px-4 py-3">Method</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3 text-right">Amount</th>
+              <th className="px-4 py-3">{t('history.reference')}</th>
+              <th className="px-4 py-3">{t('history.type')}</th>
+              <th className="px-4 py-3">{t('history.method')}</th>
+              <th className="px-4 py-3">{t('history.status')}</th>
+              <th className="px-4 py-3">{t('history.date')}</th>
+              <th className="px-4 py-3 text-right">{t('history.amount')}</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((transaction) => (
               <tr key={transaction.id} className="border-line border-t">
                 <td className="text-ink px-4 py-3 font-mono text-xs">{transaction.reference}</td>
-                <td className="text-muted px-4 py-3 text-xs capitalize">{transaction.kind}</td>
+                <td className="text-muted px-4 py-3 text-xs">{t(`history.kind.${transaction.kind}`)}</td>
                 <td className="text-muted px-4 py-3 text-xs">
                   {transaction.methodLabel}
                   {transaction.note ? (
                     <span className="text-danger block text-[10px]">{transaction.note}</span>
                   ) : null}
                 </td>
-                <td className="px-4 py-3 text-xs capitalize">{transaction.status}</td>
+                <td className="px-4 py-3 text-xs">{t(`status.${transaction.status}`)}</td>
                 <td className="text-muted px-4 py-3 text-xs">
                   {transaction.createdAt.slice(0, 16).replace('T', ' ')}
                 </td>
@@ -198,14 +208,12 @@ export function HistoryTable({
           </tbody>
         </table>
         {rows.length === 0 ? (
-          <p className="text-muted px-4 py-6 text-center text-xs">
-            No transactions match this filter.
-          </p>
+          <p className="text-muted px-4 py-6 text-center text-xs">{t('history.empty')}</p>
         ) : null}
       </div>
 
       <section>
-        <h2 className="text-ink text-sm font-semibold">Promotion rollover status</h2>
+        <h2 className="text-ink text-sm font-semibold">{t('history.rolloverTitle')}</h2>
         <ul className="mt-3 space-y-3">
           {rollover.map((entry) => {
             const progress = Math.min(100, Math.round((entry.progressMinor / entry.requirementMinor) * 100));

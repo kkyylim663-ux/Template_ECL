@@ -4,6 +4,8 @@ import { getAccountPayload } from '@/lib/api';
 import { isRegionCode } from '@/config/brand';
 import { AccountNav } from '@/components/account/AccountNav';
 import { BalanceBar } from '@/components/account/BalanceBar';
+import { IntlScope } from '@/lib/i18n/scope';
+import { getT } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'My account',
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 /**
  * Member shell: balance strip + sub-navigation above the ten pages. Middleware
  * already blocks unauthenticated hits; the demo session cookie is what lets a
- * reviewer in.
+ * reviewer in. The `account` namespace is provided once, here, for every page.
  */
 export default async function AccountLayout({
   children,
@@ -26,28 +28,31 @@ export default async function AccountLayout({
 
   if (!isRegionCode(region)) notFound();
 
-  const payload = await getAccountPayload();
+  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
 
   return (
-    <div className="space-y-5">
-      <header className="flex flex-wrap items-end justify-between gap-2">
-        <div>
-          <h1 className="text-ink text-xl font-semibold">My account</h1>
-          <p className="text-muted mt-1 text-xs">
-            {payload.profile.nickname} · VIP {payload.profile.vipTier} ·{' '}
-            {payload.profile.kycStatus === 'verified' ? 'verified' : 'verification pending'}
-          </p>
-        </div>
-        <p className="text-muted text-xs">
-          Placeholder pages: forms validate locally and submit nothing.
-        </p>
-      </header>
+    <IntlScope namespaces={['account']}>
+      <div className="space-y-5">
+        <header className="flex flex-wrap items-end justify-between gap-2">
+          <div>
+            <h1 className="text-ink text-xl font-semibold">{t('subnav.title')}</h1>
+            <p className="text-muted mt-1 text-xs">
+              {t('headerSummary', {
+                nickname: payload.profile.nickname,
+                tier: payload.profile.vipTier,
+                kyc: t(`profile.kyc.${payload.profile.kycStatus}`),
+              })}
+            </p>
+          </div>
+          <p className="text-muted text-xs">{t('layoutNote')}</p>
+        </header>
 
-      <BalanceBar payload={payload} />
+        <BalanceBar payload={payload} region={region} />
 
-      <AccountNav region={region} />
+        <AccountNav region={region} />
 
-      {children}
-    </div>
+        {children}
+      </div>
+    </IntlScope>
   );
 }

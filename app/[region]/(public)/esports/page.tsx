@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { getCategoryProviderCards } from '@/lib/api';
 import { ProviderCardGrid } from '@/components/game/ProviderCardGrid';
+import { IntlScope } from '@/lib/i18n/scope';
+import { getT } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Esports',
@@ -8,23 +10,25 @@ export const metadata: Metadata = {
 };
 
 export default async function EsportsPage() {
-  const providers = await getCategoryProviderCards('esports');
+  const [{ t }, providers] = await Promise.all([getT('games'), getCategoryProviderCards('esports')]);
 
   return (
-    <div>
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-ink text-xl font-semibold">Esports</h1>
-          <p className="text-muted mt-1 text-xs">{providers.length} esports providers</p>
-        </div>
-        <p className="text-muted text-xs">
-          Launching shows a VPN notice — no tournament page is entered in this build.
-        </p>
-      </header>
+    <IntlScope namespaces={['games']}>
+      <div>
+        <header className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="text-ink text-xl font-semibold">{t('category.esports')}</h1>
+            <p className="text-muted mt-1 text-xs">
+              {t('page.esportsSubtitle', { count: providers.length })}
+            </p>
+          </div>
+          <p className="text-muted text-xs">{t('page.esportsIntro')}</p>
+        </header>
 
-      <div className="mt-5">
-        <ProviderCardGrid providers={providers} category="esports" vpnNotice />
+        <div className="mt-5">
+          <ProviderCardGrid providers={providers} category="esports" vpnNotice />
+        </div>
       </div>
-    </div>
+    </IntlScope>
   );
 }

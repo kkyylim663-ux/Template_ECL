@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import { brand } from '@/config/brand';
+import { getT } from '@/lib/i18n/server';
 import { CONTACT_CHANNELS, FOOTER_GROUPS, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
 
-export function Footer({ region }: { region: string }) {
+export async function Footer({ region }: { region: string }) {
+  const { t } = await getT('nav');
+
   return (
     <footer className="border-line bg-panel mt-10 border-t">
       <div className="grid gap-8 px-[var(--pad-page-x)] py-10 desktop:grid-cols-[1.2fr_repeat(3,1fr)]">
@@ -21,8 +24,8 @@ export function Footer({ region }: { region: string }) {
                   className="text-muted hover:text-accent flex items-center gap-2 text-xs"
                 >
                   <Icon name={channel.icon} size={16} />
-                  <span className="text-ink/80">{channel.label}:</span>
-                  <span>{channel.value}</span>
+                  <span className="text-ink/80">{t(channel.labelKey)}:</span>
+                  <span>{channel.valueKey ? t(channel.valueKey) : channel.value}</span>
                 </a>
               </li>
             ))}
@@ -44,13 +47,13 @@ export function Footer({ region }: { region: string }) {
         </div>
 
         {FOOTER_GROUPS.map((group) => (
-          <nav key={group.id} aria-label={group.title}>
-            <h2 className="text-ink text-sm font-semibold">{group.title}</h2>
+          <nav key={group.id} aria-label={t(group.titleKey)}>
+            <h2 className="text-ink text-sm font-semibold">{t(group.titleKey)}</h2>
             <ul className="mt-3 space-y-2">
               {group.items.map((item) => (
                 <li key={item.href}>
                   <Link href={regionPath(region, item.href)} className="text-muted hover:text-accent text-xs">
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 </li>
               ))}

@@ -19,7 +19,9 @@
     "prediction": "赛事预测",
     "predictionHint": "免费参加,真实奖品",
     "achievement": "成就",
-    "achievementHint": "查看你的进度"
+    "achievementHint": "查看你的进度",
+    "personal": "个人中心",
+    "personalHint": "你的进度与奖励"
   },
   "why": {
     "licence": "持牌运营",
@@ -33,7 +35,8 @@
     "validUntil": "有效期至 {date}",
     "rollover": "流水 {value} 倍",
     "maxBonus": "最高 {amount}",
-    "terms": "条款与条件"
+    "terms": "条款与条件",
+    "noRollover": "无流水要求"
   },
   "ticker": {
     "label": "即时动态"
@@ -45,5 +48,14 @@
   "faq": {
     "title": "帮助中心",
     "topics": "主题"
+  },
+  "studios": {
+    "summary": "{studios} 家厂商 · {titles} 款游戏 · 仅供浏览",
+    "allBefore": "全部 {count} 家厂商都在",
+    "allLink": "电子游戏大厅",
+    "allAfter": "."
+  },
+  "app": {
+    "get": "获取 App"
   }
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { brand } from '@/config/brand';
 import { toneFromString } from '@/lib/game/tone';
 import { LazyImage } from '@/components/ui/LazyImage';
@@ -28,6 +29,7 @@ export function ProviderCardGrid({
   vpnNotice?: boolean;
 }) {
   const modal = useModal();
+  const t = useTranslations('games');
 
   return (
     <div className="grid grid-cols-2 gap-3 desktop:grid-cols-4 desktop:gap-5">
@@ -38,13 +40,13 @@ export function ProviderCardGrid({
           data-category={category}
           className="group border-line bg-panel hover:border-accent rounded-[var(--radius-panel)] border p-3 transition-transform duration-200 hover:-translate-y-0.5"
         >
-          <LazyImage alt={`${provider.id} studio`} tone={toneFromString(provider.id)} ratio="16 / 9" className="rounded-[10px]" />
+          <LazyImage alt={t('provider.alt', { provider: provider.id })} tone={toneFromString(provider.id)} ratio="16 / 9" className="rounded-[10px]" />
 
           <h3 className="text-ink mt-3 text-center text-[15px] leading-tight font-semibold">
             {provider.id}
           </h3>
           <p className="text-muted mt-0.5 text-center text-[11px]">
-            {provider.totalGames.toLocaleString('en-MY')} titles
+            {t('provider.titles', { count: provider.totalGames })}
           </p>
 
           <div className="mt-3 flex gap-2">
@@ -56,8 +58,8 @@ export function ProviderCardGrid({
               onActivate={() => {
                 if (vpnNotice) {
                   modal.alert(
-                    'VPN detected',
-                    `Turn off your VPN before opening a ${category} table. The ${brand.name} build never launches a game — this notice is the end of the flow.`,
+                    t('provider.vpnTitle'),
+                    t('provider.vpnBody', { category, brand: brand.name }),
                   );
                 }
               }}
@@ -66,7 +68,7 @@ export function ProviderCardGrid({
               provider={provider.id}
               gameId={category}
               mode="demo"
-              label="Demo"
+              label={t('card.demo')}
               variant="secondary"
               className="flex-1"
             />

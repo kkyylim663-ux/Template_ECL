@@ -3,7 +3,11 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { brand } from '@/config/brand';
 import { readDemoSessionFromDocument } from '@/lib/session';
+
+/** First two letters of the brand name — the avatar placeholder. */
+const brandInitials = brand.name.slice(0, 2).toUpperCase();
 
 /**
  * Header account area. Renders the guest state on the server so public pages stay
@@ -38,7 +42,7 @@ export function AccountSlot({ region }: { region: string }) {
     <div className="group relative">
       <button type="button" className="flex items-center gap-2.5" aria-label={t('header.summary')}>
         <span className="bg-panel-soft text-accent border-line grid size-9 place-items-center rounded-full border text-xs font-semibold">
-          BR
+          {brandInitials}
         </span>
         <span className="text-left">
           <span className="text-ink block text-xs leading-tight font-medium">demo_player</span>

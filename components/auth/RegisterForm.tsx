@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { FormNotice, PrimaryButton, TextField } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
@@ -20,6 +21,8 @@ const EMPTY = {
 
 /** Registration form: full field set, zod validation, no request of any kind. */
 export function RegisterForm() {
+  const t = useTranslations('auth');
+  const tc = useTranslations('common');
   const modal = useModal();
   const [values, setValues] = useState({ ...EMPTY });
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -39,10 +42,7 @@ export function RegisterForm() {
     }
 
     setErrors({});
-    modal.success(
-      'Demo registration',
-      'The form validated, but no account was created and no request was sent — this build has no auth service. In the live build this step calls register, then multiLogin.',
-    );
+    modal.success(t('register.demoTitle'), t('register.demoBody'));
     setValues({ ...EMPTY });
     setCodeSent(false);
   }
@@ -52,22 +52,22 @@ export function RegisterForm() {
       <div className="grid gap-4 desktop:grid-cols-2">
         <TextField
           id="email"
-          label="Email address"
+          label={t('register.email')}
           type="email"
           autoComplete="email"
           value={values.email}
-          error={errors.email}
+          error={errors.email ? tc(errors.email) : undefined}
           onChange={(event) => update('email', event.target.value)}
         />
         <div>
           <TextField
             id="emailOtp"
-            label="Email code"
+            label={t('register.emailOtp')}
             inputMode="numeric"
             maxLength={6}
             value={values.emailOtp}
-            error={errors.emailOtp}
-            hint={codeSent ? 'Demo: any 6 digits are accepted' : undefined}
+            error={errors.emailOtp ? tc(errors.emailOtp) : undefined}
+            hint={codeSent ? t('register.demoCode') : undefined}
             onChange={(event) => update('emailOtp', event.target.value)}
           />
           <button
@@ -75,69 +75,69 @@ export function RegisterForm() {
             onClick={() => setCodeSent(true)}
             className="border-line text-ink hover:border-accent mt-2 rounded-[8px] border px-3 py-1.5 text-xs"
           >
-            Send code
+            {t('register.sendCode')}
           </button>
         </div>
 
         <TextField
           id="username"
-          label="Username"
+          label={t('register.username')}
           autoComplete="username"
           value={values.username}
-          error={errors.username}
-          hint="4-20 letters or digits"
+          error={errors.username ? tc(errors.username) : undefined}
+          hint={t('validation.usernameFormat', {})}
           onChange={(event) => update('username', event.target.value)}
         />
         <TextField
           id="mobile"
-          label="Mobile number"
+          label={t('register.mobile')}
           type="tel"
           inputMode="tel"
           value={values.mobile}
-          error={errors.mobile}
+          error={errors.mobile ? tc(errors.mobile) : undefined}
           onChange={(event) => update('mobile', event.target.value)}
         />
 
         <TextField
           id="password"
-          label="Password"
+          label={t('register.password')}
           type="password"
           autoComplete="new-password"
           value={values.password}
-          error={errors.password}
-          hint="At least 8 characters"
+          error={errors.password ? tc(errors.password) : undefined}
+          hint={t('validation.passwordShort', {})}
           onChange={(event) => update('password', event.target.value)}
         />
         <TextField
           id="password2"
-          label="Confirm password"
+          label={t('register.password2')}
           type="password"
           autoComplete="new-password"
           value={values.password2}
-          error={errors.password2}
+          error={errors.password2 ? tc(errors.password2) : undefined}
           onChange={(event) => update('password2', event.target.value)}
         />
 
         <TextField
           id="fullName"
-          label="Full name (as per ID)"
+          label={t('register.fullName')}
           value={values.fullName}
-          error={errors.fullName}
+          error={errors.fullName ? tc(errors.fullName) : undefined}
           onChange={(event) => update('fullName', event.target.value)}
         />
         <TextField
           id="nickname"
-          label="Nickname"
+          label={t('register.nickname')}
           value={values.nickname}
-          error={errors.nickname}
+          error={errors.nickname ? tc(errors.nickname) : undefined}
           onChange={(event) => update('nickname', event.target.value)}
         />
 
         <TextField
           id="upline"
-          label="Referral code (optional)"
+          label={t('register.upline')}
           value={values.upline}
-          error={errors.upline}
+          error={errors.upline ? tc(errors.upline) : undefined}
           onChange={(event) => update('upline', event.target.value)}
         />
       </div>
@@ -150,22 +150,20 @@ export function RegisterForm() {
           className="accent-accent mt-0.5"
         />
         <span>
-          I am 18 or over and accept the terms &amp; conditions.
+          {t('register.acceptTerms')}
           {errors.acceptedTerms ? (
             <span role="alert" className="mt-1 block text-[11px] text-[var(--color-danger)]">
-              {errors.acceptedTerms}
+              {tc(errors.acceptedTerms)}
             </span>
           ) : null}
         </span>
       </label>
 
       <PrimaryButton type="submit" className="w-full">
-        Create account
+        {t('register.submit')}
       </PrimaryButton>
 
-      <FormNotice>
-        Demo build: the form validates locally and stops there. No account is created.
-      </FormNotice>
+      <FormNotice>{t('register.formNotice')}</FormNotice>
     </form>
   );
 }

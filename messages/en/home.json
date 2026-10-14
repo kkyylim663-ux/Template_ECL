@@ -19,7 +19,9 @@
     "prediction": "Prediction",
     "predictionHint": "Free entry, real prizes",
     "achievement": "Achievements",
-    "achievementHint": "Track your progress"
+    "achievementHint": "Track your progress",
+    "personal": "Personal",
+    "personalHint": "Your progress and rewards"
   },
   "why": {
     "licence": "Licensed operator",
@@ -33,7 +35,8 @@
     "validUntil": "Valid until {date}",
     "rollover": "{value}x turnover",
     "maxBonus": "Up to {amount}",
-    "terms": "Terms & conditions"
+    "terms": "Terms & conditions",
+    "noRollover": "No turnover requirement"
   },
   "ticker": {
     "label": "Live updates"
@@ -45,5 +48,14 @@
   "faq": {
     "title": "Help centre",
     "topics": "Topics"
+  },
+  "studios": {
+    "summary": "{studios} studios · {titles} titles · browse only",
+    "allBefore": "All {count} studios are on the",
+    "allLink": "slots lobby",
+    "allAfter": "."
+  },
+  "app": {
+    "get": "Get the app"
   }
 }

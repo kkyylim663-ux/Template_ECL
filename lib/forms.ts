@@ -2,32 +2,36 @@ import { z } from 'zod';
 
 /**
  * Form schemas. Kept free of any server import so the same rules run in the
- * browser (and, later, against the real API). Messages are the ones a player
- * reads, so they say what to do, not which rule failed.
+ * browser (and, later, against the real API).
+ *
+ * Messages are KEYS under `common.validation.*`, not sentences: zod runs outside
+ * React, so the component that renders the error is the one that translates it
+ * (`t(errors.field)` — see the auth and account forms). That keeps the wording in
+ * the message files, where the four languages stay in step.
  */
 
 const email = z
   .string()
   .trim()
-  .min(1, 'Enter your email address')
-  .regex(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, 'Enter a valid email address');
+  .min(1, 'validation.emailRequired')
+  .regex(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, 'validation.emailInvalid');
 
 const mobile = z
   .string()
   .trim()
-  .min(6, 'Enter a valid mobile number')
-  .regex(/^[0-9+\s-]{6,20}$/, 'Enter a valid mobile number');
+  .min(6, 'validation.mobileInvalid')
+  .regex(/^[0-9+\s-]{6,20}$/, 'validation.mobileInvalid');
 
-const otpCode = z.string().trim().regex(/^\d{6}$/, 'Enter the 6-digit code');
+const otpCode = z.string().trim().regex(/^\d{6}$/, 'validation.otpInvalid');
 
 export const loginUsernameSchema = z.object({
-  identifier: z.string().trim().min(1, 'Enter your username'),
-  password: z.string().min(1, 'Enter your password'),
+  identifier: z.string().trim().min(1, 'validation.usernameRequired'),
+  password: z.string().min(1, 'validation.passwordRequired'),
 });
 
 export const loginEmailSchema = z.object({
   identifier: email,
-  password: z.string().min(1, 'Enter your password'),
+  password: z.string().min(1, 'validation.passwordRequired'),
 });
 
 export const loginOtpSchema = z.object({
@@ -39,20 +43,17 @@ export const registerSchema = z
   .object({
     email,
     emailOtp: otpCode,
-    username: z
-      .string()
-      .trim()
-      .regex(/^[A-Za-z0-9]{4,20}$/, '4-20 letters or digits, no spaces'),
-    password: z.string().min(8, 'Password must be at least 8 characters'),
-    password2: z.string().min(1, 'Repeat your password'),
-    fullName: z.string().trim().min(2, 'Enter your full name as printed on your ID'),
-    nickname: z.string().trim().min(2, 'Enter a nickname'),
+    username: z.string().trim().regex(/^[A-Za-z0-9]{4,20}$/, 'validation.usernameFormat'),
+    password: z.string().min(8, 'validation.passwordShort'),
+    password2: z.string().min(1, 'validation.passwordRepeat'),
+    fullName: z.string().trim().min(2, 'validation.fullNameRequired'),
+    nickname: z.string().trim().min(2, 'validation.nicknameRequired'),
     mobile,
     upline: z.string().trim().optional(),
-    acceptedTerms: z.literal(true, { message: 'You must accept the terms to continue' }),
+    acceptedTerms: z.literal(true, { message: 'validation.terms' }),
   })
   .refine((values) => values.password === values.password2, {
-    message: 'Passwords do not match',
+    message: 'validation.passwordMismatch',
     path: ['password2'],
   });
 
@@ -61,8 +62,8 @@ export const forgotPasswordSchema = z.object({ email });
 export const depositSchema = z.object({
   method: z.enum(['bank', 'gateway']),
   amount: z
-    .number({ message: 'Enter the amount you transferred' })
-    .positive('Enter an amount greater than 0'),
+    .number({ message: 'validation.amountTransferred' })
+    .positive('validation.amountPositive'),
   bankId: z.string().optional(),
   senderName: z.string().trim().optional(),
   senderAccount: z.string().trim().optional(),
@@ -71,18 +72,22 @@ export const depositSchema = z.object({
 });
 
 export const withdrawalSchema = z.object({
-  bankAccountId: z.string().min(1, 'Choose a bank account'),
-  amount: z.number({ message: 'Enter the amount to withdraw' }).positive('Enter an amount greater than 0'),
+  bankAccountId: z.string().min(1, 'validation.bankRequired'),
+  amount: z
+    .number({ message: 'validation.amountWithdraw' })
+    .positive('validation.amountPositive'),
 });
 
 export const transferSchema = z
   .object({
-    fromCode: z.string().min(1, 'Choose a source wallet'),
-    toCode: z.string().min(1, 'Choose a destination wallet'),
-    amount: z.number({ message: 'Enter the amount to transfer' }).positive('Enter an amount greater than 0'),
+    fromCode: z.string().min(1, 'validation.walletFrom'),
+    toCode: z.string().min(1, 'validation.walletTo'),
+    amount: z
+      .number({ message: 'validation.amountTransfer' })
+      .positive('validation.amountPositive'),
   })
   .refine((values) => values.fromCode !== values.toCode, {
-    message: 'Choose two different wallets',
+    message: 'validation.walletSame',
     path: ['toCode'],
   });
 
@@ -92,8 +97,12 @@ export const transferSchema = z
  */
 export const profileSchema = z
   .object({
-    nickname: z.string().trim().min(2, 'Enter a nickname').max(24, 'Nickname is too long'),
-    fullName: z.string().trim().min(2, 'Enter your full name'),
+    nickname: z
+      .string()
+      .trim()
+      .min(2, 'validation.nicknameRequired')
+      .max(24, 'validation.nicknameLong'),
+    fullName: z.string().trim().min(2, 'validation.fullNamePlain'),
     mobile: mobile.optional(),
     currentPassword: z.string().optional(),
     newPassword: z.string().optional(),
@@ -112,14 +121,15 @@ export const profileSchema = z
       );
     },
     {
-      message: 'Fill all three password fields; the new one needs 8+ characters and must match',
+      message: 'validation.passwordAllThree',
       path: ['newPassword'],
     },
   );
 
+/** Field name → message key (e.g. `validation.emailInvalid`), not a sentence. */
 export type FieldErrors = Record<string, string>;
 
-/** First message per field, ready to render next to its input. */
+/** First message per field, ready for the component to translate. */
 export function collectErrors(error: z.ZodError): FieldErrors {
   const errors: FieldErrors = {};
   for (const issue of error.issues) {
@@ -129,7 +139,7 @@ export function collectErrors(error: z.ZodError): FieldErrors {
   return errors;
 }
 
-/** Validates and returns either the values or the per-field messages. */
+/** Validates and returns either the values or the per-field message keys. */
 export function validate<T extends z.ZodTypeAny>(
   schema: T,
   values: unknown,

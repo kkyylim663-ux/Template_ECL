@@ -3,11 +3,13 @@ import type { IconName } from '@/components/ui/Icon';
 import { Icon } from '@/components/ui/Icon';
 import { LaunchButton } from '@/components/game/LaunchButton';
 import { regionPath } from '@/config/nav';
+import { getT } from '@/lib/i18n/server';
 
 type Entry = {
   id: string;
-  title: string;
-  hint: string;
+  /** Keys inside the `home` namespace. */
+  titleKey: string;
+  hintKey: string;
   href: string;
   icon: IconName;
   /** True when there is no real destination yet: the card link is inert too. */
@@ -17,29 +19,29 @@ type Entry = {
 const ENTRIES: Entry[] = [
   {
     id: 'numbergame',
-    title: 'Number game',
-    hint: 'A draw every five minutes',
+    titleKey: 'entry.numberGame',
+    hintKey: 'entry.numberGameHint',
     href: '/numbergame',
     icon: 'numbers',
   },
   {
     id: 'ranking',
-    title: 'Ranking board',
-    hint: 'Weekly turnover race',
+    titleKey: 'entry.ranking',
+    hintKey: 'entry.rankingHint',
     href: '/ranking-board',
     icon: 'trophy',
   },
   {
     id: 'prediction',
-    title: 'Prediction',
-    hint: 'Free entry, real prizes',
+    titleKey: 'entry.prediction',
+    hintKey: 'entry.predictionHint',
     href: '/prediction',
     icon: 'prediction',
   },
   {
     id: 'personal',
-    title: 'Personal',
-    hint: 'Your progress and rewards',
+    titleKey: 'entry.personal',
+    hintKey: 'entry.personalHint',
     href: '#',
     icon: 'achievement',
     inert: true,
@@ -47,15 +49,17 @@ const ENTRIES: Entry[] = [
 ];
 
 /** The four quick-entry cards on the home page. Play Now is inert by design. */
-export function EntryCards({ region }: { region: string }) {
+export async function EntryCards({ region }: { region: string }) {
+  const { t } = await getT('home');
+
   return (
     <ul className="grid grid-cols-2 gap-3 desktop:grid-cols-4 desktop:gap-5">
       {ENTRIES.map((entry) => {
         const body = (
           <>
             <Icon name={entry.icon} size={26} className="text-accent" />
-            <span className="text-ink mt-3 block text-sm font-semibold">{entry.title}</span>
-            <span className="text-muted mt-0.5 block text-xs">{entry.hint}</span>
+            <span className="text-ink mt-3 block text-sm font-semibold">{t(entry.titleKey)}</span>
+            <span className="text-muted mt-0.5 block text-xs">{t(entry.hintKey)}</span>
           </>
         );
 
@@ -78,7 +82,7 @@ export function EntryCards({ region }: { region: string }) {
             )}
 
             <div className="mt-3">
-              <LaunchButton provider={entry.id} label="Play Now" className="w-full" />
+              <LaunchButton provider={entry.id} className="w-full" />
             </div>
           </li>
         );

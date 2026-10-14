@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { GameCard as GameCardData, GamePage } from '@/lib/api/slots';
@@ -34,6 +35,8 @@ export function SlotBrowser({
   initialPage: PagePayload;
   providerTabTotal: number;
 }) {
+  const t = useTranslations('games');
+  const tCommon = useTranslations('common');
   const router = useRouter();
   const pathname = usePathname();
 
@@ -83,12 +86,12 @@ export function SlotBrowser({
         setPage(data.page);
         setHasMore(data.hasMore);
       } catch (error) {
-        setFailed(error instanceof Error ? error.message : 'Request failed');
+        setFailed(error instanceof Error ? error.message : t('browser.requestFailed'));
       } finally {
         setBusy(false);
       }
     },
-    [provider],
+    [provider, t],
   );
 
   // The observer callback must always call the current `load`, without being a
@@ -115,7 +118,15 @@ export function SlotBrowser({
 
   // Adopt server-rendered state when the URL changes underneath us (back button,
   // a provider link). Local edits always match the props, so they skip this.
+  //
+  // A response that does not match the address bar is a *stale* one: it answers
+  // an earlier replace whose reply is still in flight. Adopting it would undo
+  // whatever the reader typed since, which is exactly what fast typing does.
   useEffect(() => {
+    const current = new URLSearchParams(window.location.search);
+    if (initialTab !== (current.get('tab') ?? '') || initialQuery !== (current.get('q') ?? '')) {
+      return;
+    }
     if (initialTab === local.current.tab && initialQuery === local.current.query) return;
 
     setTab(initialTab);
@@ -157,7 +168,7 @@ export function SlotBrowser({
   return (
     <section>
       <div className="mt-5 flex flex-col gap-3 desktop:flex-row desktop:items-center desktop:justify-between">
-        <Tabs tabs={tabs} value={tab} onChange={setTab} label={`${provider} categories`} />
+        <Tabs tabs={tabs} value={tab} onChange={setTab} label={t('browser.categories', { provider })} />
 
         <div className="relative desktop:w-72">
           <span className="text-muted pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">
@@ -167,8 +178,8 @@ export function SlotBrowser({
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search games"
-            aria-label="Search games"
+            placeholder={t('browser.searchPlaceholder')}
+            aria-label={t('browser.searchLabel')}
             className="border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border py-2 pr-3 pl-9 text-sm outline-none"
           />
         </div>
@@ -176,43 +187,41 @@ export function SlotBrowser({
 
       <p className="text-muted mt-3 text-xs" aria-live="polite">
         {query ? (
-          <>
-            {total.toLocaleString('en-MY')} result{total === 1 ? '' : 's'} for &ldquo;{query}&rdquo;
-          </>
+          <>{t('browser.resultsFor', { count: total, query })}</>
         ) : (
           <>
-            {total.toLocaleString('en-MY')} titles in {provider} / {tab}
+            {t('browser.titlesIn', { count: total, provider, tab })}
             {providerTabTotal !== total ? (
-              <> · {providerTabTotal.toLocaleString('en-MY')} before filtering</>
+              <> · {t('browser.beforeFiltering', { count: providerTabTotal })}</>
             ) : null}
           </>
         )}
-        {busy ? ' · updating…' : null}
+        {busy ? ` · ${t('browser.updating')}` : null}
       </p>
 
       {failed ? (
         <div className="border-line bg-panel mt-4 rounded-[var(--radius-panel)] border p-6 text-center">
-          <p className="text-muted text-sm">Could not load these titles: {failed}</p>
+          <p className="text-muted text-sm">{t('browser.loadFailed', { message: failed })}</p>
           <button
             type="button"
             onClick={() => void load(page, tab, query)}
             className="border-line text-ink hover:border-accent mt-3 rounded-[8px] border px-4 py-2 text-xs"
           >
-            Retry
+            {tCommon('action.retry')}
           </button>
         </div>
       ) : null}
 
       {items.length === 0 && !busy ? (
         <div className="border-line bg-panel mt-4 rounded-[var(--radius-panel)] border p-8 text-center">
-          <p className="text-ink text-sm font-medium">No title matches &ldquo;{query}&rdquo;</p>
-          <p className="text-muted mt-1 text-xs">Try a shorter word, or another category tab.</p>
+          <p className="text-ink text-sm font-medium">{t('browser.empty', { query })}</p>
+          <p className="text-muted mt-1 text-xs">{t('browser.emptyHint')}</p>
           <button
             type="button"
             onClick={() => setQuery('')}
             className="border-line text-ink hover:border-accent mt-4 rounded-[8px] border px-4 py-2 text-xs"
           >
-            Clear search
+            {t('browser.clearSearch')}
           </button>
         </div>
       ) : null}
@@ -230,8 +239,8 @@ export function SlotBrowser({
 
       <p className="text-muted text-center text-xs">
         {hasMore
-          ? `Showing ${items.length.toLocaleString('en-MY')} of ${total.toLocaleString('en-MY')} — scroll for more`
-          : `${total.toLocaleString('en-MY')} title${total === 1 ? '' : 's'} shown`}
+          ? t('browser.showing', { shown: items.length, total })
+          : t('browser.shown', { count: total })}
       </p>
     </section>
   );

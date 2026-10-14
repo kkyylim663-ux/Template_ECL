@@ -12,6 +12,9 @@ import { readDemoSessionFromDocument } from '@/lib/session';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
 
+/** First two letters of the brand name — the avatar placeholder. */
+const brandInitials = brand.name.slice(0, 2).toUpperCase();
+
 /**
  * The mobile shell (<=768px), per docs/UI_REFERENCE.md: download banner, header
  * with hamburger, sliding drawer with collapsible sections, and the overlay that
@@ -104,7 +107,7 @@ export function MobileChrome({ region }: { region: string }) {
             aria-label={t('primary.account')}
             className="border-line bg-panel-soft text-accent grid size-9 shrink-0 place-items-center rounded-full border text-[10px] font-semibold"
           >
-            BR
+            {brandInitials}
           </Link>
         ) : (
           <Link
@@ -235,8 +238,10 @@ export function MobileChrome({ region }: { region: string }) {
                   >
                     <Icon name={channel.icon} size={20} className="text-accent" style={{ marginRight: 30 }} />
                     <span className="min-w-0">
-                      <span className="block">{channel.label}</span>
-                      <span className="text-muted block truncate text-[10px]">{channel.value}</span>
+                      <span className="block">{t(channel.labelKey)}</span>
+                      <span className="text-muted block truncate text-[10px]">
+                        {channel.valueKey ? t(channel.valueKey) : channel.value}
+                      </span>
                     </span>
                   </a>
                 </li>

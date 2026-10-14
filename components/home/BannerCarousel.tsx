@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,6 +20,7 @@ function hrefFor(region: string, href: string): string {
  * destination, so nothing lands on a dead page.
  */
 export function BannerCarousel({ banners, region }: { banners: Banner[]; region: string }) {
+  const t = useTranslations('home');
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -61,7 +63,7 @@ export function BannerCarousel({ banners, region }: { banners: Banner[]; region:
                   {banner.subtitle}
                 </span>
                 <span className="bg-accent mt-4 inline-block rounded-[8px] px-4 py-2 text-xs font-semibold text-[#1b1b1b] desktop:mt-6 desktop:text-sm">
-                  Claim now
+                  {t('hero.cta')}
                 </span>
               </span>
             </Link>

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { getCategoryProviderCards } from '@/lib/api';
 import { ProviderCardGrid } from '@/components/game/ProviderCardGrid';
+import { IntlScope } from '@/lib/i18n/scope';
+import { getT } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Live casino',
@@ -8,23 +10,28 @@ export const metadata: Metadata = {
 };
 
 export default async function LiveCasinoPage() {
-  const providers = await getCategoryProviderCards('livecasino');
+  const [{ t }, providers] = await Promise.all([
+    getT('games'),
+    getCategoryProviderCards('livecasino'),
+  ]);
 
   return (
-    <div>
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-ink text-xl font-semibold">Live casino</h1>
-          <p className="text-muted mt-1 text-xs">{providers.length} live studios</p>
-        </div>
-        <p className="text-muted text-xs">
-          Launching shows a VPN notice — no table is entered in this build.
-        </p>
-      </header>
+    <IntlScope namespaces={['games']}>
+      <div>
+        <header className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h1 className="text-ink text-xl font-semibold">{t('category.livecasino')}</h1>
+            <p className="text-muted mt-1 text-xs">
+              {t('page.livecasinoSubtitle', { count: providers.length })}
+            </p>
+          </div>
+          <p className="text-muted text-xs">{t('page.livecasinoIntro')}</p>
+        </header>
 
-      <div className="mt-5">
-        <ProviderCardGrid providers={providers} category="livecasino" vpnNotice />
+        <div className="mt-5">
+          <ProviderCardGrid providers={providers} category="livecasino" vpnNotice />
+        </div>
       </div>
-    </div>
+    </IntlScope>
   );
 }

@@ -27,7 +27,8 @@
     "rebates": "Rebates",
     "achievement": "Achievements",
     "tickets": "Ticket center",
-    "profile": "Profile"
+    "profile": "Profile",
+    "lobby": "Lobby"
   },
   "desc": {
     "slots": "6,000+ titles",
@@ -44,6 +45,13 @@
     "vip": "Tiers and hosts",
     "sponsor": "Teams we back"
   },
+  "bottom": {
+    "home": "Home",
+    "games": "Games",
+    "promo": "Promo",
+    "ranking": "Ranking",
+    "me": "Me"
+  },
   "ui": {
     "menu": "Menu",
     "openMenu": "Open menu",
@@ -53,7 +61,44 @@
     "signIn": "Sign in",
     "primaryNav": "Primary",
     "mobileNav": "Mobile navigation",
-    "dismissBanner": "Dismiss app banner"
+    "dismissBanner": "Dismiss app banner",
+    "iconRail": "Icon rail",
+    "sideNav": "Side navigation",
+    "expandNav": "Expand navigation",
+    "collapseNav": "Collapse navigation",
+    "quickNav": "Quick navigation",
+    "announcements": "Announcements",
+    "demoNote": "Demo build — placeholder brand."
+  },
+  "footer": {
+    "title": {
+      "help": "Help",
+      "company": "Company",
+      "legal": "Legal"
+    },
+    "links": {
+      "gettingStarted": "Getting started",
+      "depositsWithdrawals": "Deposits and withdrawals",
+      "gamesProviders": "Games and providers",
+      "vouchersRewards": "Vouchers and rewards",
+      "contactSupport": "Contacting support",
+      "about": "About us",
+      "contact": "Contact us",
+      "sponsorship": "Sponsorship",
+      "news": "News",
+      "tnc": "Terms & conditions",
+      "bettingRules": "Betting rules",
+      "mobileApp": "Mobile app"
+    }
+  },
+  "support": {
+    "liveChat": "Live chat",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "chatWithUs": "Chat with us",
+    "announcements": "Announcements"
   },
   "banner": {
     "install": "Install the {brand} app",
@@ -64,6 +109,10 @@
     "zhHans": "简体中文",
     "zhHant": "繁體中文",
     "vi": "Tiếng Việt"
+  },
+  "regionSite": {
+    "my": "Malaysia site",
+    "sg": "Singapore site"
   },
   "region": {
     "my": "Malaysia (MYR)",

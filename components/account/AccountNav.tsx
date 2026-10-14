@@ -1,21 +1,23 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { regionPath } from '@/config/nav';
 import { Icon, type IconName } from '@/components/ui/Icon';
 
-const ITEMS: { href: string; label: string; icon: IconName }[] = [
-  { href: '/account/deposit', label: 'Deposit', icon: 'wallet' },
-  { href: '/account/withdrawal', label: 'Withdrawal', icon: 'withdraw' },
-  { href: '/account/transfer', label: 'Transfer', icon: 'transfer' },
-  { href: '/account/history', label: 'History', icon: 'history' },
-  { href: '/account/pending', label: 'Pending', icon: 'pending' },
-  { href: '/account/inbox', label: 'Inbox', icon: 'mail' },
-  { href: '/account/rebates', label: 'Rebates', icon: 'rebate' },
-  { href: '/account/achievement', label: 'Achievements', icon: 'achievement' },
-  { href: '/account/tickets', label: 'Tickets', icon: 'ticket' },
-  { href: '/account/profile', label: 'Profile', icon: 'user' },
+/** Labels are `account.*` keys; the sub-nav follows the language cookie. */
+const ITEMS: { href: string; labelKey: string; icon: IconName }[] = [
+  { href: '/account/deposit', labelKey: 'deposit.title', icon: 'wallet' },
+  { href: '/account/withdrawal', labelKey: 'withdrawal.title', icon: 'withdraw' },
+  { href: '/account/transfer', labelKey: 'transfer.title', icon: 'transfer' },
+  { href: '/account/history', labelKey: 'history.title', icon: 'history' },
+  { href: '/account/pending', labelKey: 'pending.title', icon: 'pending' },
+  { href: '/account/inbox', labelKey: 'inbox.title', icon: 'mail' },
+  { href: '/account/rebates', labelKey: 'rebates.title', icon: 'rebate' },
+  { href: '/account/achievement', labelKey: 'achievement.title', icon: 'achievement' },
+  { href: '/account/tickets', labelKey: 'tickets.title', icon: 'ticket' },
+  { href: '/account/profile', labelKey: 'profile.title', icon: 'user' },
 ];
 
 /**
@@ -23,11 +25,12 @@ const ITEMS: { href: string; label: string; icon: IconName }[] = [
  * item is current — the links themselves are ordinary anchors.
  */
 export function AccountNav({ region }: { region: string }) {
+  const t = useTranslations('account');
   const pathname = usePathname();
 
   return (
     <nav
-      aria-label="Account sections"
+      aria-label={t('sections')}
       className="border-line -mx-4 overflow-x-auto border-b desktop:mx-0"
     >
       <ul className="flex w-max gap-1 px-4 pb-px desktop:px-0">
@@ -43,7 +46,7 @@ export function AccountNav({ region }: { region: string }) {
                 }`}
               >
                 <Icon name={item.icon} size={16} />
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             </li>
           );

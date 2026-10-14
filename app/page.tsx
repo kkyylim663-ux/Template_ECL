@@ -1,5 +1,8 @@
 import { RoutePlaceholder } from '@/components/RoutePlaceholder';
+import { getT } from '@/lib/i18n/server';
 
-export default function RootPage() {
-  return <RoutePlaceholder title="Region selector" path="/" note="T03 redirects this to /my." />;
+export default async function RootPage() {
+  const { t } = await getT('content');
+
+  return <RoutePlaceholder title={t('root.title')} path="/" note={t('root.note')} />;
 }

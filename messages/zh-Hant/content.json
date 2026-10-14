@@ -9,5 +9,13 @@
     "contact": "聯絡我們",
     "tnc": "條款與條件",
     "bettingRules": "投注規則"
+  },
+  "root": {
+    "title": "地區選擇",
+    "note": "T03 會把此位址重導向到 /my。"
+  },
+  "placeholder": {
+    "eyebrow": "P0 路由骨架",
+    "body": "此頁仍為 T02 佔位頁。"
   }
 }

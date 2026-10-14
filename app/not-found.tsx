@@ -1,26 +1,33 @@
 import Link from 'next/link';
+import { getT } from '@/lib/i18n/server';
 
-export default function NotFound() {
+/**
+ * Global 404. No region is known here (it may not even be a region path), so the
+ * two market links stand in for navigation and the copy is translated like every
+ * other page.
+ */
+export default async function NotFound() {
+  const [{ t }, { t: tn }] = await Promise.all([getT('common'), getT('nav')]);
+
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col justify-center px-4 py-16">
-      <p className="text-xs font-medium tracking-[0.2em] text-zinc-400 uppercase">Error 404</p>
-      <h1 className="mt-3 text-3xl font-semibold text-zinc-100">Page not found</h1>
-      <p className="mt-3 text-sm text-zinc-400">
-        The link may be old, or the address may be mistyped. Demo build: placeholder brand, fake
-        data.
+      <p className="text-muted text-xs font-medium tracking-[0.2em] uppercase">
+        {t('state.errorCode')}
       </p>
+      <h1 className="text-ink mt-3 text-3xl font-semibold">{t('state.notFound')}</h1>
+      <p className="text-muted mt-3 text-sm">{t('state.notFoundHint')}</p>
       <div className="mt-6 flex flex-wrap gap-3">
         <Link
           href="/my"
-          className="rounded-md bg-emerald-500 px-4 py-2 text-sm font-medium text-emerald-950 hover:bg-emerald-400"
+          className="bg-accent hover:bg-accent-bright rounded-[8px] px-4 py-2 text-sm font-semibold text-[#1b1b1b]"
         >
-          Malaysia site
+          {tn('regionSite.my')}
         </Link>
         <Link
           href="/sg"
-          className="rounded-md border border-zinc-700 px-4 py-2 text-sm font-medium text-zinc-200 hover:border-zinc-500"
+          className="border-line text-ink hover:border-accent rounded-[8px] border px-4 py-2 text-sm font-medium"
         >
-          Singapore site
+          {tn('regionSite.sg')}
         </Link>
       </div>
     </main>

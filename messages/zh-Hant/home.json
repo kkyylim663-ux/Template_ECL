@@ -19,7 +19,9 @@
     "prediction": "賽事預測",
     "predictionHint": "免費參加,真實獎品",
     "achievement": "成就",
-    "achievementHint": "查看你的進度"
+    "achievementHint": "查看你的進度",
+    "personal": "個人中心",
+    "personalHint": "你的進度與獎勵"
   },
   "why": {
     "licence": "持牌營運",
@@ -33,7 +35,8 @@
     "validUntil": "有效期至 {date}",
     "rollover": "流水 {value} 倍",
     "maxBonus": "最高 {amount}",
-    "terms": "條款與條件"
+    "terms": "條款與條件",
+    "noRollover": "無流水要求"
   },
   "ticker": {
     "label": "即時動態"
@@ -45,5 +48,14 @@
   "faq": {
     "title": "幫助中心",
     "topics": "主題"
+  },
+  "studios": {
+    "summary": "{studios} 家廠商 · {titles} 款遊戲 · 僅供瀏覽",
+    "allBefore": "全部 {count} 家廠商都在",
+    "allLink": "電子遊戲大廳",
+    "allAfter": "."
+  },
+  "app": {
+    "get": "取得 App"
   }
 }

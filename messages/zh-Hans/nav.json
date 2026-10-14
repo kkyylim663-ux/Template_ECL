@@ -27,7 +27,8 @@
     "rebates": "返水",
     "achievement": "成就",
     "tickets": "票券中心",
-    "profile": "资料"
+    "profile": "资料",
+    "lobby": "大厅"
   },
   "desc": {
     "slots": "6,000+ 款游戏",
@@ -44,6 +45,13 @@
     "vip": "等级与专属客服",
     "sponsor": "我们赞助的队伍"
   },
+  "bottom": {
+    "home": "首页",
+    "games": "游戏",
+    "promo": "优惠",
+    "ranking": "排行",
+    "me": "我的"
+  },
   "ui": {
     "menu": "菜单",
     "openMenu": "打开菜单",
@@ -53,7 +61,44 @@
     "signIn": "登录",
     "primaryNav": "主导航",
     "mobileNav": "手机导航",
-    "dismissBanner": "关闭 App 横幅"
+    "dismissBanner": "关闭 App 横幅",
+    "iconRail": "图标栏",
+    "sideNav": "侧边导航",
+    "expandNav": "展开导航",
+    "collapseNav": "收起导航",
+    "quickNav": "快捷导航",
+    "announcements": "公告",
+    "demoNote": "演示版本 — 占位品牌。"
+  },
+  "footer": {
+    "title": {
+      "help": "帮助",
+      "company": "公司",
+      "legal": "法律"
+    },
+    "links": {
+      "gettingStarted": "新手上路",
+      "depositsWithdrawals": "充值与提现",
+      "gamesProviders": "游戏与厂商",
+      "vouchersRewards": "礼券与奖励",
+      "contactSupport": "联系客服",
+      "about": "关于我们",
+      "contact": "联系我们",
+      "sponsorship": "赞助",
+      "news": "公告",
+      "tnc": "条款与条件",
+      "bettingRules": "投注规则",
+      "mobileApp": "手机 App"
+    }
+  },
+  "support": {
+    "liveChat": "在线客服",
+    "email": "邮箱",
+    "phone": "电话",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "chatWithUs": "在线咨询",
+    "announcements": "公告"
   },
   "banner": {
     "install": "安装 {brand} App",
@@ -64,6 +109,10 @@
     "zhHans": "简体中文",
     "zhHant": "繁體中文",
     "vi": "Tiếng Việt"
+  },
+  "regionSite": {
+    "my": "马来西亚站",
+    "sg": "新加坡站"
   },
   "region": {
     "my": "马来西亚 (MYR)",

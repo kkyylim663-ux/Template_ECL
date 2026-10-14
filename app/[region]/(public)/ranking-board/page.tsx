@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { BOARD_KINDS, boardLabel, getLeaderboards, isBoardKind } from '@/lib/api';
+import { BOARD_KINDS, boardLabelKey, getLeaderboards, isBoardKind } from '@/lib/api';
 import { regionPath } from '@/config/nav';
 import { formatMinor, formatTimestamp } from '@/lib/format';
+import { getT } from '@/lib/i18n/server';
 
 export const metadata: Metadata = {
   title: 'Ranking board',
@@ -23,31 +24,32 @@ export default async function RankingBoardPage({
 }) {
   const { region } = await params;
   const query = await searchParams;
-  const boards = await getLeaderboards();
+  const [{ t }, boards] = await Promise.all([getT('games'), getLeaderboards()]);
 
   const requested = typeof query.board === 'string' ? query.board : '';
   const kind = isBoardKind(requested) ? requested : BOARD_KINDS[0];
   const board = boards[kind];
 
   if (!board) {
-    return <p className="text-muted text-sm">This board is not available in the demo data.</p>;
+    return <p className="text-muted text-sm">{t('ranking.unavailable')}</p>;
   }
 
   return (
     <div>
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-ink text-xl font-semibold">Ranking board</h1>
+          <h1 className="text-ink text-xl font-semibold">{t('ranking.title')}</h1>
           <p className="text-muted mt-1 text-xs">
-            {board.title} · turnover race · updated {formatTimestamp(board.refreshedAt)} (+08:00)
+            {t('ranking.summary', {
+              board: t(boardLabelKey(kind)),
+              time: formatTimestamp(board.refreshedAt),
+            })}
           </p>
         </div>
-        <p className="text-muted text-xs">
-          Snapshot data — the reference build streams this board live.
-        </p>
+        <p className="text-muted text-xs">{t('ranking.note')}</p>
       </header>
 
-      <nav aria-label="Boards" className="mt-5 flex flex-wrap gap-2">
+      <nav aria-label={t('ranking.boards')} className="mt-5 flex flex-wrap gap-2">
         {BOARD_KINDS.map((option) => {
           const active = option === kind;
           return (
@@ -61,7 +63,7 @@ export default async function RankingBoardPage({
                   : 'border-line text-muted hover:border-accent hover:text-ink'
               }`}
             >
-              {boardLabel(option)}
+              {t(boardLabelKey(option))}
               {option === 'live' ? (
                 <span className="bg-danger ml-2 inline-block size-1.5 animate-pulse rounded-full align-middle" />
               ) : null}
@@ -74,10 +76,10 @@ export default async function RankingBoardPage({
         <table className="w-full text-left text-sm">
           <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
             <tr>
-              <th className="w-16 px-4 py-3">Rank</th>
-              <th className="px-4 py-3">Player</th>
-              <th className="px-4 py-3 text-right">Turnover</th>
-              <th className="px-4 py-3 text-right">Prize</th>
+              <th className="w-16 px-4 py-3">{t('ranking.col.rank')}</th>
+              <th className="px-4 py-3">{t('ranking.col.player')}</th>
+              <th className="px-4 py-3 text-right">{t('ranking.col.turnover')}</th>
+              <th className="px-4 py-3 text-right">{t('ranking.col.prize')}</th>
             </tr>
           </thead>
           <tbody>
@@ -105,9 +107,7 @@ export default async function RankingBoardPage({
         </table>
       </div>
 
-      <p className="text-muted mt-4 text-xs">
-        Names are masked on purpose. Prizes are credited within 48 hours of a board closing.
-      </p>
+      <p className="text-muted mt-4 text-xs">{t('ranking.footnote')}</p>
     </div>
   );
 }

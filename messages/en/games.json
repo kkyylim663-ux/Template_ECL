@@ -5,7 +5,8 @@
     "new": "New",
     "hot": "Hot",
     "rtp": "RTP {value}%",
-    "needLogin": "Sign in to launch this game"
+    "needLogin": "Sign in to launch this game",
+    "showActions": "Show actions for {name}"
   },
   "category": {
     "slots": "Slots",
@@ -22,5 +23,116 @@
     "results": "{count} titles",
     "empty": "No title matches \"{query}\"",
     "loadMore": "Show more"
+  },
+  "lobby": {
+    "summary": "{count} studios · {category} · {provider}"
+  },
+  "browser": {
+    "categories": "{provider} categories",
+    "searchPlaceholder": "Search games",
+    "searchLabel": "Search games",
+    "resultsFor": "{count, plural, one {# result} other {# results}} for “{query}”",
+    "titlesIn": "{count} titles in {provider} / {tab}",
+    "beforeFiltering": "{count} before filtering",
+    "updating": "updating…",
+    "loadFailed": "Could not load these titles: {message}",
+    "requestFailed": "Request failed",
+    "empty": "No title matches “{query}”",
+    "emptyHint": "Try a shorter word, or another category tab.",
+    "clearSearch": "Clear search",
+    "showing": "Showing {shown} of {total} — scroll for more",
+    "shown": "{count, plural, one {# title} other {# titles}} shown"
+  },
+  "provider": {
+    "titles": "{count} titles",
+    "alt": "{provider} studio",
+    "vpnTitle": "VPN detected",
+    "vpnBody": "Turn off your VPN before opening a {category} table. The {brand} build never launches a game — this notice is the end of the flow."
+  },
+  "page": {
+    "slots": "Slots",
+    "slotsIntro": "Browse only — launching a game is disabled in this build.",
+    "fastGame": "Fast games",
+    "livecasinoSubtitle": "{count} live studios",
+    "livecasinoIntro": "Launching shows a VPN notice — no table is entered in this build.",
+    "sportsSubtitle": "{count} sportsbook providers",
+    "sportsIntro": "Browse only — no bet slip is opened here.",
+    "esportsSubtitle": "{count} esports providers",
+    "esportsIntro": "Launching shows a VPN notice — no tournament page is entered in this build."
+  },
+  "fourD": {
+    "latest": "Latest {count} draws",
+    "rulesTitle": "4D rules",
+    "rules": "Placeholder rules: four draws a week, pick a 4-digit number and a bet type, prize tiers First, Second and Third.",
+    "col": {
+      "draw": "Draw",
+      "date": "Date",
+      "first": "First",
+      "second": "Second",
+      "third": "Third"
+    },
+    "playDraw": "Play this draw",
+    "archiveBefore": "Historical results go back further than shown here.",
+    "archiveLink": "See the full archive",
+    "archiveAfter": "· entries are disabled in this build."
+  },
+  "numberGame": {
+    "round": "Round {round} · drawn {time} (+08:00)",
+    "rulesTitle": "Number game rules",
+    "rules": "Placeholder rules: six numbers are drawn from 1 to 49 every five minutes; match three or more to win a tier.",
+    "latest": "Latest draw",
+    "playNext": "Play next round",
+    "verify": "Verify this round on the explorer",
+    "recent": "Recent rounds",
+    "col": {
+      "round": "Round",
+      "numbers": "Numbers",
+      "drawnAt": "Drawn at"
+    }
+  },
+  "prediction": {
+    "summary": "Free entry · {count} fixtures this week",
+    "rulesTitle": "Prediction rules",
+    "rules": "Placeholder rules: predictions are free; each correct pick earns points that place you on the monthly board.",
+    "leagues": "Leagues",
+    "vs": "vs",
+    "optionAria": "{home} vs {away}: {option}",
+    "enter": "Enter this week's free prediction"
+  },
+  "ranking": {
+    "title": "Ranking board",
+    "unavailable": "This board is not available in the demo data.",
+    "summary": "{board} · turnover race · updated {time} (+08:00)",
+    "note": "Snapshot data — the reference build streams this board live.",
+    "boards": "Boards",
+    "col": {
+      "rank": "Rank",
+      "player": "Player",
+      "turnover": "Turnover",
+      "prize": "Prize"
+    },
+    "footnote": "Names are masked on purpose. Prizes are credited within 48 hours of a board closing.",
+    "board": {
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "supervip": "Super VIP",
+      "vip": "VIP",
+      "live": "Current LIVE",
+      "lastweek": "Last week"
+    }
+  },
+  "tabs": {
+    "top": "Top",
+    "all": "All",
+    "new": "New",
+    "slot": "Slots",
+    "slots": "Slots",
+    "video": "Video slots",
+    "bbonus": "Buy bonus",
+    "progressive": "Progressive",
+    "table": "Table",
+    "classic": "Classic",
+    "scratchcards": "Scratchcards",
+    "other": "Other"
   }
 }

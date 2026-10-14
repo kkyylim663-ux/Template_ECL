@@ -27,7 +27,8 @@
     "rebates": "Hoàn trả",
     "achievement": "Thành tích",
     "tickets": "Trung tâm vé",
-    "profile": "Hồ sơ"
+    "profile": "Hồ sơ",
+    "lobby": "Sảnh"
   },
   "desc": {
     "slots": "Hơn 6,000 trò chơi",
@@ -44,6 +45,13 @@
     "vip": "Hạng và chủ quản",
     "sponsor": "Đội chúng tôi tài trợ"
   },
+  "bottom": {
+    "home": "Trang chủ",
+    "games": "Trò chơi",
+    "promo": "Khuyến mãi",
+    "ranking": "Xếp hạng",
+    "me": "Tôi"
+  },
   "ui": {
     "menu": "Menu",
     "openMenu": "Mở menu",
@@ -53,7 +61,44 @@
     "signIn": "Đăng nhập",
     "primaryNav": "Điều hướng chính",
     "mobileNav": "Điều hướng di động",
-    "dismissBanner": "Đóng banner ứng dụng"
+    "dismissBanner": "Đóng banner ứng dụng",
+    "iconRail": "Thanh biểu tượng",
+    "sideNav": "Điều hướng bên",
+    "expandNav": "Mở điều hướng",
+    "collapseNav": "Thu gọn điều hướng",
+    "quickNav": "Điều hướng nhanh",
+    "announcements": "Thông báo",
+    "demoNote": "Bản demo — thương hiệu giả."
+  },
+  "footer": {
+    "title": {
+      "help": "Trợ giúp",
+      "company": "Công ty",
+      "legal": "Pháp lý"
+    },
+    "links": {
+      "gettingStarted": "Bắt đầu",
+      "depositsWithdrawals": "Nạp và rút tiền",
+      "gamesProviders": "Game và nhà phát hành",
+      "vouchersRewards": "Voucher và phần thưởng",
+      "contactSupport": "Liên hệ hỗ trợ",
+      "about": "Về chúng tôi",
+      "contact": "Liên hệ",
+      "sponsorship": "Tài trợ",
+      "news": "Tin tức",
+      "tnc": "Điều khoản",
+      "bettingRules": "Luật cược",
+      "mobileApp": "Ứng dụng di động"
+    }
+  },
+  "support": {
+    "liveChat": "Chat trực tuyến",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "chatWithUs": "Chat với chúng tôi",
+    "announcements": "Thông báo"
   },
   "banner": {
     "install": "Cài ứng dụng {brand}",
@@ -64,6 +109,10 @@
     "zhHans": "简体中文",
     "zhHant": "繁體中文",
     "vi": "Tiếng Việt"
+  },
+  "regionSite": {
+    "my": "Trang Malaysia",
+    "sg": "Trang Singapore"
   },
   "region": {
     "my": "Malaysia (MYR)",

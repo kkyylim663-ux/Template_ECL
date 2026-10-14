@@ -1,18 +1,23 @@
 import { formatMinor } from '@/lib/format';
 import type { AccountPayload } from '@/lib/api/schemas';
+import { getT } from '@/lib/i18n/server';
+import type { RegionCode } from '@/config/brand';
+import { regionConfig } from '@/config/brand';
 
 /**
  * Balance strip above every member page: main wallet plus each provider wallet.
  * Renders from the account payload; nothing here posts anything.
  */
-export function BalanceBar({ payload }: { payload: AccountPayload }) {
+export async function BalanceBar({ payload, region }: { payload: AccountPayload; region: RegionCode }) {
+  const { t } = await getT('account');
   const total = payload.wallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
-  const currency = 'MYR';
+  // Currency follows the market, not the language. */
+  const currency = regionConfig(region).currency;
 
   return (
     <section className="border-line bg-panel rounded-[var(--radius-panel)] border p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-muted text-[11px] tracking-widest uppercase">Total balance</p>
+        <p className="text-muted text-[11px] tracking-widest uppercase">{t('totalBalance')}</p>
         <p className="text-accent font-mono text-lg font-semibold">
           {formatMinor(total, currency)}
         </p>
@@ -31,14 +36,14 @@ export function BalanceBar({ payload }: { payload: AccountPayload }) {
             <span className="text-ink font-mono">
               {formatMinor(wallet.amountMinor, currency)}
             </span>
-            {wallet.available ? null : <span className="text-danger text-[10px]">offline</span>}
+            {wallet.available ? null : (
+              <span className="text-danger text-[10px]">{t('walletOffline')}</span>
+            )}
           </li>
         ))}
       </ul>
 
-      <p className="text-muted mt-3 text-[11px]">
-        Demo balances — the account pages below are placeholders and move no money.
-      </p>
+      <p className="text-muted mt-3 text-[11px]">{t('demoBalances')}</p>
     </section>
   );
 }

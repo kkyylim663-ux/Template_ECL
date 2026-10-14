@@ -5,7 +5,8 @@
     "new": "新",
     "hot": "热门",
     "rtp": "RTP {value}%",
-    "needLogin": "登录后即可进入游戏"
+    "needLogin": "登录后即可进入游戏",
+    "showActions": "显示 {name} 的操作"
   },
   "category": {
     "slots": "电子游戏",
@@ -22,5 +23,116 @@
     "results": "{count} 款游戏",
     "empty": "没有匹配“{query}”的游戏",
     "loadMore": "显示更多"
+  },
+  "lobby": {
+    "summary": "{count} 家厂商 · {category} · {provider}"
+  },
+  "browser": {
+    "categories": "{provider} 分类",
+    "searchPlaceholder": "搜索游戏",
+    "searchLabel": "搜索游戏",
+    "resultsFor": "{count} 个结果:“{query}”",
+    "titlesIn": "{provider} / {tab} 共 {count} 款",
+    "beforeFiltering": "筛选前 {count} 款",
+    "updating": "更新中…",
+    "loadFailed": "无法加载游戏:{message}",
+    "requestFailed": "请求失败",
+    "empty": "没有匹配“{query}”的游戏",
+    "emptyHint": "试试更短的词,或换个分类标签。",
+    "clearSearch": "清除搜索",
+    "showing": "已显示 {shown} / {total} — 继续滚动加载",
+    "shown": "共显示 {count} 款游戏"
+  },
+  "provider": {
+    "titles": "{count} 款游戏",
+    "alt": "{provider} 厂商",
+    "vpnTitle": "检测到 VPN",
+    "vpnBody": "进入 {category} 桌台前请关闭 VPN。{brand} 演示版不会真正启动游戏 — 到这条提示为止。"
+  },
+  "page": {
+    "slots": "电子游戏",
+    "slotsIntro": "仅供浏览 — 此版本不启动游戏。",
+    "fastGame": "快速游戏",
+    "livecasinoSubtitle": "{count} 家真人厂商",
+    "livecasinoIntro": "点击进入会弹出 VPN 提示 — 此版本不进入桌台。",
+    "sportsSubtitle": "{count} 家体育厂商",
+    "sportsIntro": "仅供浏览 — 此处不打开投注单。",
+    "esportsSubtitle": "{count} 家电竞厂商",
+    "esportsIntro": "点击进入会弹出 VPN 提示 — 此版本不进入赛事页。"
+  },
+  "fourD": {
+    "latest": "最近 {count} 期开奖",
+    "rulesTitle": "4D 规则",
+    "rules": "占位规则:每周四次开奖,选择 4 位数号码与投注类型,奖项分为第一、第二、第三奖。",
+    "col": {
+      "draw": "期号",
+      "date": "日期",
+      "first": "第一奖",
+      "second": "第二奖",
+      "third": "第三奖"
+    },
+    "playDraw": "投注此期",
+    "archiveBefore": "历史开奖比此处显示的更早。",
+    "archiveLink": "查看完整归档",
+    "archiveAfter": "· 此版本不支持投注。"
+  },
+  "numberGame": {
+    "round": "第 {round} 期 · 开奖 {time} (+08:00)",
+    "rulesTitle": "数字游戏规则",
+    "rules": "占位规则:每 5 分钟从 1 到 49 开出六个号码,命中三个及以上可获奖。",
+    "latest": "最新一期",
+    "playNext": "投注下一期",
+    "verify": "在链上查验本期结果",
+    "recent": "往期开奖",
+    "col": {
+      "round": "期号",
+      "numbers": "号码",
+      "drawnAt": "开奖时间"
+    }
+  },
+  "prediction": {
+    "summary": "免费参与 · 本周 {count} 场",
+    "rulesTitle": "预测规则",
+    "rules": "占位规则:预测免费,每猜中一场获得积分,计入月度排行榜。",
+    "leagues": "联赛",
+    "vs": "对阵",
+    "optionAria": "{home} 对 {away}:{option}",
+    "enter": "参加本周免费预测"
+  },
+  "ranking": {
+    "title": "排行榜",
+    "unavailable": "演示数据中没有此榜单。",
+    "summary": "{board} · 流水竞赛 · 更新于 {time} (+08:00)",
+    "note": "快照数据 — 参考站为实时推送。",
+    "boards": "榜单",
+    "col": {
+      "rank": "排名",
+      "player": "玩家",
+      "turnover": "流水",
+      "prize": "奖金"
+    },
+    "footnote": "昵称已做遮蔽处理。奖金在榜单结束后 48 小时内发放。",
+    "board": {
+      "weekly": "每周榜",
+      "monthly": "每月榜",
+      "supervip": "超级 VIP",
+      "vip": "VIP",
+      "live": "即时榜",
+      "lastweek": "上周榜"
+    }
+  },
+  "tabs": {
+    "top": "热门",
+    "all": "全部",
+    "new": "最新",
+    "slot": "电子游戏",
+    "slots": "电子游戏",
+    "video": "视频老虎机",
+    "bbonus": "购买奖励",
+    "progressive": "累积奖池",
+    "table": "桌游",
+    "classic": "经典",
+    "scratchcards": "刮刮卡",
+    "other": "其他"
   }
 }

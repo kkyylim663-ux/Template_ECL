@@ -25,8 +25,12 @@ function flatten(value: Record<string, unknown>, prefix = ''): Map<string, strin
   return out;
 }
 
+/**
+ * Placeholder names, plain `{name}` and ICU `{name, plural, …}` alike. Languages
+ * differ in whether they need plurals, so only the names are compared.
+ */
 function placeholders(text: string): string[] {
-  return [...text.matchAll(/\{(\w+)\}/g)].map((match) => match[1]).sort();
+  return [...text.matchAll(/\{(\w+)\s*[,}]/g)].map((match) => match[1]).sort();
 }
 
 describe('messages/', () => {

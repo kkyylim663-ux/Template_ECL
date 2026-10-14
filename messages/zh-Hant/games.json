@@ -5,7 +5,8 @@
     "new": "新",
     "hot": "熱門",
     "rtp": "RTP {value}%",
-    "needLogin": "登入後即可進入遊戲"
+    "needLogin": "登入後即可進入遊戲",
+    "showActions": "顯示 {name} 的操作"
   },
   "category": {
     "slots": "電子遊戲",
@@ -22,5 +23,116 @@
     "results": "{count} 款遊戲",
     "empty": "沒有符合「{query}」的遊戲",
     "loadMore": "顯示更多"
+  },
+  "lobby": {
+    "summary": "{count} 家廠商 · {category} · {provider}"
+  },
+  "browser": {
+    "categories": "{provider} 分類",
+    "searchPlaceholder": "搜尋遊戲",
+    "searchLabel": "搜尋遊戲",
+    "resultsFor": "{count} 個結果:「{query}」",
+    "titlesIn": "{provider} / {tab} 共 {count} 款",
+    "beforeFiltering": "篩選前 {count} 款",
+    "updating": "更新中…",
+    "loadFailed": "無法載入遊戲:{message}",
+    "requestFailed": "請求失敗",
+    "empty": "沒有符合「{query}」的遊戲",
+    "emptyHint": "試試更短的詞,或換個分類標籤。",
+    "clearSearch": "清除搜尋",
+    "showing": "已顯示 {shown} / {total} — 繼續捲動載入",
+    "shown": "共顯示 {count} 款遊戲"
+  },
+  "provider": {
+    "titles": "{count} 款遊戲",
+    "alt": "{provider} 廠商",
+    "vpnTitle": "偵測到 VPN",
+    "vpnBody": "進入 {category} 桌台前請關閉 VPN。{brand} 示範版不會真正啟動遊戲 — 到這則提示為止。"
+  },
+  "page": {
+    "slots": "電子遊戲",
+    "slotsIntro": "僅供瀏覽 — 此版本不啟動遊戲。",
+    "fastGame": "快速遊戲",
+    "livecasinoSubtitle": "{count} 家真人廠商",
+    "livecasinoIntro": "點擊進入會彈出 VPN 提示 — 此版本不進入桌台。",
+    "sportsSubtitle": "{count} 家體育廠商",
+    "sportsIntro": "僅供瀏覽 — 此處不開啟投注單。",
+    "esportsSubtitle": "{count} 家電競廠商",
+    "esportsIntro": "點擊進入會彈出 VPN 提示 — 此版本不進入賽事頁。"
+  },
+  "fourD": {
+    "latest": "最近 {count} 期開獎",
+    "rulesTitle": "4D 規則",
+    "rules": "佔位規則:每週四次開獎,選擇 4 位數號碼與投注類型,獎項分為第一、第二、第三獎。",
+    "col": {
+      "draw": "期號",
+      "date": "日期",
+      "first": "第一獎",
+      "second": "第二獎",
+      "third": "第三獎"
+    },
+    "playDraw": "投注此期",
+    "archiveBefore": "歷史開獎比此處顯示的更早。",
+    "archiveLink": "查看完整歸檔",
+    "archiveAfter": "· 此版本不支援投注。"
+  },
+  "numberGame": {
+    "round": "第 {round} 期 · 開獎 {time} (+08:00)",
+    "rulesTitle": "數字遊戲規則",
+    "rules": "佔位規則:每 5 分鐘從 1 到 49 開出六個號碼,命中三個及以上可獲獎。",
+    "latest": "最新一期",
+    "playNext": "投注下一期",
+    "verify": "在鏈上查驗本期結果",
+    "recent": "往期開獎",
+    "col": {
+      "round": "期號",
+      "numbers": "號碼",
+      "drawnAt": "開獎時間"
+    }
+  },
+  "prediction": {
+    "summary": "免費參與 · 本週 {count} 場",
+    "rulesTitle": "預測規則",
+    "rules": "佔位規則:預測免費,每猜中一場獲得積分,計入月度排行榜。",
+    "leagues": "聯賽",
+    "vs": "對陣",
+    "optionAria": "{home} 對 {away}:{option}",
+    "enter": "參加本週免費預測"
+  },
+  "ranking": {
+    "title": "排行榜",
+    "unavailable": "示範資料中沒有此榜單。",
+    "summary": "{board} · 流水競賽 · 更新於 {time} (+08:00)",
+    "note": "快照資料 — 參考站為即時推送。",
+    "boards": "榜單",
+    "col": {
+      "rank": "排名",
+      "player": "玩家",
+      "turnover": "流水",
+      "prize": "獎金"
+    },
+    "footnote": "暱稱已做遮蔽處理。獎金在榜單結束後 48 小時內發放。",
+    "board": {
+      "weekly": "每週榜",
+      "monthly": "每月榜",
+      "supervip": "超級 VIP",
+      "vip": "VIP",
+      "live": "即時榜",
+      "lastweek": "上週榜"
+    }
+  },
+  "tabs": {
+    "top": "熱門",
+    "all": "全部",
+    "new": "最新",
+    "slot": "電子遊戲",
+    "slots": "電子遊戲",
+    "video": "視頻老虎機",
+    "bbonus": "購買獎勵",
+    "progressive": "累積獎池",
+    "table": "桌遊",
+    "classic": "經典",
+    "scratchcards": "刮刮卡",
+    "other": "其他"
   }
 }

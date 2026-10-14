@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { Modal, type ModalVariant } from './Modal';
 
@@ -30,6 +31,7 @@ type ModalApi = {
 const ModalContext = createContext<ModalApi | null>(null);
 
 export function ModalProvider({ children }: { children: ReactNode }) {
+  const t = useTranslations('common');
   const [request, setRequest] = useState<ModalRequest | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -48,11 +50,11 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       status: (title, body) => show({ variant: 'status', title, body }),
       message: (title, body) => show({ variant: 'message', title, body }),
       rules: (title, body) => show({ variant: 'rules', title, body }),
-      loading: (title = 'Working…') => show({ variant: 'loading', title }),
-      confirm: (title, body, onConfirm, confirmLabel = 'Confirm') =>
+      loading: (title = t('modal.working')) => show({ variant: 'loading', title }),
+      confirm: (title, body, onConfirm, confirmLabel = t('action.confirm')) =>
         show({ variant: 'alert', title, body, onConfirm, confirmLabel }),
     }),
-    [show],
+    [show, t],
   );
 
   return (
@@ -74,7 +76,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                   }}
                   className="border-line text-ink hover:border-accent rounded-[8px] border px-4 py-2 text-sm"
                 >
-                  Cancel
+                  {t('action.cancel')}
                 </button>
               ) : null}
               <button
@@ -86,7 +88,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                 }}
                 className="bg-accent rounded-[8px] px-4 py-2 text-sm font-semibold text-[#1b1b1b]"
               >
-                {request.confirmLabel ?? 'OK'}
+                {request.confirmLabel ?? t('modal.ok')}
               </button>
             </>
           ) : null

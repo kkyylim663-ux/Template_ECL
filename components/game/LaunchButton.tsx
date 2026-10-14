@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import { getLaunchHref, type LaunchMode } from '@/lib/game/launch';
 
@@ -18,7 +19,7 @@ export function LaunchButton({
   provider,
   gameId,
   mode = 'real',
-  label = 'Play Now',
+  label,
   variant = 'primary',
   ariaLabel,
   onActivate,
@@ -34,6 +35,7 @@ export function LaunchButton({
   onActivate?: () => void;
   className?: string;
 }) {
+  const t = useTranslations('games');
   const href = getLaunchHref({ provider, gameId, mode });
 
   return (
@@ -49,7 +51,7 @@ export function LaunchButton({
       }}
       className={`inline-flex items-center justify-center rounded-[8px] px-3 py-1.5 text-xs ${VARIANTS[variant]} ${className ?? ''}`}
     >
-      {label}
+      {label ?? t('card.playNow')}
     </a>
   );
 }

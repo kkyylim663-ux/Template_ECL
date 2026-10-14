@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { GameCard as GameCardData } from '@/lib/api/slots';
 import { artUrl } from '@/lib/game/art';
@@ -13,6 +14,7 @@ import { LazyImage } from '@/components/ui/LazyImage';
  * where there is no hover. Both actions are `#` in P0 and never navigate.
  */
 export function GameCard({ game }: { game: GameCardData }) {
+  const t = useTranslations('games');
   const [revealed, setRevealed] = useState(false);
   const href = getLaunchHref({ provider: game.provider, gameId: game.id, mode: 'real' });
   const art = artUrl(game.provider, game.img);
@@ -44,7 +46,7 @@ export function GameCard({ game }: { game: GameCardData }) {
             }}
             className="bg-accent w-4/5 rounded-[8px] px-3 py-1.5 text-center text-xs font-semibold text-[#1b1b1b]"
           >
-            Play Now
+            {t('card.playNow')}
           </a>
           <a
             href={href}
@@ -56,7 +58,7 @@ export function GameCard({ game }: { game: GameCardData }) {
             }}
             className="border-accent text-accent w-4/5 rounded-[8px] border px-3 py-1.5 text-center text-xs font-semibold"
           >
-            Demo
+            {t('card.demo')}
           </a>
         </div>
       </LazyImage>
@@ -66,7 +68,7 @@ export function GameCard({ game }: { game: GameCardData }) {
         <button
           type="button"
           onClick={() => setRevealed(true)}
-          aria-label={`Show actions for ${game.name}`}
+          aria-label={t('card.showActions', { name: game.name })}
           className="absolute inset-x-2 top-2 bottom-8 z-10 rounded-[10px] desktop:hidden"
         />
       )}

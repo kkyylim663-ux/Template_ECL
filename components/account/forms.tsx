@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { FormNotice, PrimaryButton, SelectField, TextField } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
@@ -22,6 +23,8 @@ function useDemoSubmit() {
 }
 
 export function DepositForm({ payload }: { payload: AccountPayload }) {
+  const t = useTranslations('account');
+  const tc = useTranslations('common');
   const notify = useDemoSubmit();
   const [method, setMethod] = useState<'bank' | 'gateway'>('bank');
   const [values, setValues] = useState({
@@ -55,31 +58,28 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(
-      'Demo deposit',
-      'The form validated, but no request was sent and no balance moved. The live build posts makeBDepositV3 (bank) or makePDeposit (gateway) and waits for a reviewer.',
-    );
+    notify(t('deposit.demoTitle'), t('deposit.demoBody'));
   }
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       <Tabs
         tabs={[
-          { id: 'bank', label: 'Bank transfer' },
-          { id: 'gateway', label: 'Payment gateway' },
+          { id: 'bank', label: t('deposit.methodBank') },
+          { id: 'gateway', label: t('deposit.methodGateway') },
         ]}
         value={method}
         onChange={(id) => setMethod(id as 'bank' | 'gateway')}
-        label="Deposit method"
+        label={t('deposit.methodLabel')}
       />
 
       {method === 'bank' ? (
         <>
           <div className="border-line bg-panel-soft rounded-[var(--radius-panel)] border p-4">
-            <p className="text-muted text-[11px] tracking-widest uppercase">Banking details</p>
+            <p className="text-muted text-[11px] tracking-widest uppercase">{t('deposit.bankingDetails')}</p>
             <SelectField
               id="bankId"
-              label="Receiving bank"
+              label={t('deposit.bankSelector')}
               value={values.bankId}
               onChange={(event) => setValues((c) => ({ ...c, bankId: event.target.value }))}
               options={payload.banks.map((entry) => ({ value: entry.id, label: entry.name }))}
@@ -87,11 +87,11 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
             {bank ? (
               <dl className="mt-3 space-y-1 text-xs">
                 <div className="flex justify-between gap-4">
-                  <dt className="text-muted">Account holder</dt>
+                  <dt className="text-muted">{t('deposit.accountName')}</dt>
                   <dd className="text-ink">{bank.accountName}</dd>
                 </div>
                 <div className="flex justify-between gap-4">
-                  <dt className="text-muted">Account number</dt>
+                  <dt className="text-muted">{t('deposit.accountNumber')}</dt>
                   <dd className="text-ink font-mono">{bank.accountNumber}</dd>
                 </div>
               </dl>
@@ -101,25 +101,25 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
           <div className="grid gap-4 desktop:grid-cols-2">
             <TextField
               id="senderName"
-              label="Your account name"
+              label={t('deposit.senderName')}
               value={values.senderName}
               onChange={(event) => setValues((c) => ({ ...c, senderName: event.target.value }))}
             />
             <TextField
               id="senderAccount"
-              label="Your account number"
+              label={t('deposit.senderAccount')}
               value={values.senderAccount}
               onChange={(event) => setValues((c) => ({ ...c, senderAccount: event.target.value }))}
             />
             <TextField
               id="bankReference"
-              label="Reference number"
+              label={t('deposit.bankReference')}
               value={values.bankReference}
               onChange={(event) => setValues((c) => ({ ...c, bankReference: event.target.value }))}
             />
             <div>
               <label htmlFor="receipt" className="text-muted block text-xs font-medium">
-                Receipt image
+                {t('deposit.receipt')}
               </label>
               <input
                 id="receipt"
@@ -129,7 +129,7 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
                 className="border-line bg-panel text-muted mt-1.5 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-xs"
               />
               <p className="text-muted mt-1 text-[11px]">
-                {receipt ? `Selected: ${receipt} (not uploaded)` : 'PNG or JPG. Must show the reference number.'}
+                {receipt ? t('deposit.receiptSelected', { name: receipt }) : t('deposit.receiptHint')}
               </p>
             </div>
           </div>
@@ -137,37 +137,36 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
       ) : (
         <SelectField
           id="channelId"
-          label="Payment channel"
+          label={t('deposit.channel')}
           value={values.channelId}
           onChange={(event) => setValues((c) => ({ ...c, channelId: event.target.value }))}
           options={payload.channels.map((channel) => ({
             value: channel.id,
-            label: `${channel.name} · fee ${channel.feePct}%`,
+            label: t('deposit.channelOption', { name: channel.name, fee: channel.feePct }),
           }))}
         />
       )}
 
       <TextField
         id="amount"
-        label="Amount"
+        label={t('deposit.amount')}
         inputMode="decimal"
         placeholder="100.00"
         value={values.amount}
-        error={errors.amount}
+        error={errors.amount ? tc(errors.amount) : undefined}
         onChange={(event) => setValues((c) => ({ ...c, amount: event.target.value }))}
       />
 
-      <PrimaryButton type="submit">Submit deposit request</PrimaryButton>
+      <PrimaryButton type="submit">{t('deposit.submit')}</PrimaryButton>
 
-      <FormNotice>
-        Placeholder only: requests are reviewed by a human in the live build, and nothing is credited
-        here.
-      </FormNotice>
+      <FormNotice>{t('deposit.pendingNotice')}</FormNotice>
     </form>
   );
 }
 
 export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
+  const t = useTranslations('account');
+  const tc = useTranslations('common');
   const notify = useDemoSubmit();
   const verified = payload.bankAccounts.filter((account) => account.verified);
   const [values, setValues] = useState({
@@ -189,57 +188,59 @@ export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(
-      'Demo withdrawal',
-      'Validated and stopped. The live build posts makeWithdrawalV2 and the request appears under Pending transactions.',
-    );
+    notify(t('withdrawal.demoTitle'), t('withdrawal.demoBody'));
   }
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-4">
       {verified.length === 0 ? (
-        <FormNotice>
-          No verified bank account yet — an account must pass a document check before it can receive
-          a payout.
-        </FormNotice>
+        <FormNotice>{t('withdrawal.noBankAccount')}</FormNotice>
       ) : null}
 
       <SelectField
         id="bankAccountId"
-        label="Withdraw to"
+        label={t('withdrawal.bankAccount')}
         value={values.bankAccountId}
-        error={errors.bankAccountId}
+        error={errors.bankAccountId ? tc(errors.bankAccountId) : undefined}
         onChange={(event) => setValues((c) => ({ ...c, bankAccountId: event.target.value }))}
         options={payload.bankAccounts.map((account) => ({
           value: account.id,
-          label: `${account.bankId.toUpperCase()} ${account.accountNumberMasked}${account.verified ? ' · verified' : ' · not verified'}`,
+          label: t('withdrawal.optionLabel', {
+            bank: account.bankId.toUpperCase(),
+            number: account.accountNumberMasked,
+            state: account.verified
+              ? t('withdrawal.optionVerified')
+              : t('withdrawal.optionUnverified'),
+          }),
           disabled: !account.verified,
         }))}
       />
 
       <TextField
         id="amount"
-        label="Amount"
+        label={t('withdrawal.amount')}
         inputMode="decimal"
         placeholder="100.00"
         value={values.amount}
         error={errors.amount}
-        hint="Minimum RM 50, maximum RM 5,000 per request"
+        hint={t('withdrawal.limits', { min: 'RM 50', max: 'RM 5,000' })}
         onChange={(event) => setValues((c) => ({ ...c, amount: event.target.value }))}
       />
 
-      <PrimaryButton type="submit">Request withdrawal</PrimaryButton>
+      <PrimaryButton type="submit">{t('withdrawal.submit')}</PrimaryButton>
 
-      <FormNotice>Placeholder only: no request is created and no balance moves.</FormNotice>
+      <FormNotice>{t('withdrawal.placeholderNotice')}</FormNotice>
     </form>
   );
 }
 
 export function TransferForm({ payload }: { payload: AccountPayload }) {
+  const t = useTranslations('account');
+  const tc = useTranslations('common');
   const notify = useDemoSubmit();
   const options = payload.wallets.map((wallet) => ({
     value: wallet.code,
-    label: `${wallet.name}${wallet.available ? '' : ' · offline'}`,
+    label: wallet.available ? wallet.name : `${wallet.name} · ${t('walletOffline')}`,
     disabled: !wallet.available,
   }));
   const [values, setValues] = useState({
@@ -263,10 +264,7 @@ export function TransferForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(
-      'Demo transfer',
-      'Validated and stopped. The live build posts walletTransfer with an idempotency key, so a retry can never move money twice.',
-    );
+    notify(t('transfer.demoTitle'), t('transfer.demoBody'));
   }
 
   return (
@@ -274,17 +272,17 @@ export function TransferForm({ payload }: { payload: AccountPayload }) {
       <div className="grid gap-4 desktop:grid-cols-2">
         <SelectField
           id="fromCode"
-          label="From"
+          label={t('transfer.from')}
           value={values.fromCode}
-          error={errors.fromCode}
+          error={errors.fromCode ? tc(errors.fromCode) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, fromCode: event.target.value }))}
           options={options}
         />
         <SelectField
           id="toCode"
-          label="To"
+          label={t('transfer.to')}
           value={values.toCode}
-          error={errors.toCode}
+          error={errors.toCode ? tc(errors.toCode) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, toCode: event.target.value }))}
           options={options}
         />
@@ -292,7 +290,7 @@ export function TransferForm({ payload }: { payload: AccountPayload }) {
 
       <TextField
         id="amount"
-        label="Amount"
+        label={t('transfer.amount')}
         inputMode="decimal"
         placeholder="50.00"
         value={values.amount}
@@ -302,17 +300,19 @@ export function TransferForm({ payload }: { payload: AccountPayload }) {
 
       <label className="text-muted flex items-center gap-2 text-xs">
         <input type="checkbox" defaultChecked={payload.autoTransfer} className="accent-accent" />
-        Auto-transfer back to the main wallet after each round
+        {t('transfer.auto')}
       </label>
 
-      <PrimaryButton type="submit">Transfer</PrimaryButton>
+      <PrimaryButton type="submit">{t('transfer.submit')}</PrimaryButton>
 
-      <FormNotice>Placeholder only: balances shown above do not change.</FormNotice>
+      <FormNotice>{t('transfer.placeholderNotice')}</FormNotice>
     </form>
   );
 }
 
 export function ProfileForm({ payload }: { payload: AccountPayload }) {
+  const t = useTranslations('account');
+  const tc = useTranslations('common');
   const notify = useDemoSubmit();
   const [values, setValues] = useState({
     nickname: payload.profile.nickname,
@@ -342,10 +342,7 @@ export function ProfileForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(
-      'Demo profile update',
-      'Validated and stopped. The live build posts setProfile, and setPassword separately when a new password is supplied.',
-    );
+    notify(t('profile.demoTitle'), t('profile.demoBody'));
   }
 
   return (
@@ -353,77 +350,77 @@ export function ProfileForm({ payload }: { payload: AccountPayload }) {
       <div className="grid gap-4 desktop:grid-cols-2">
         <TextField
           id="username"
-          label="Username"
+          label={t('profile.username')}
           value={payload.profile.username}
           readOnly
           disabled
-          hint="Usernames cannot be changed"
+          hint={t('profile.usernameHint')}
         />
         <TextField
           id="nickname"
-          label="Nickname"
+          label={t('profile.nickname')}
           value={values.nickname}
-          error={errors.nickname}
+          error={errors.nickname ? tc(errors.nickname) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, nickname: event.target.value }))}
         />
         <TextField
           id="fullName"
-          label="Full name"
+          label={t('profile.fullName')}
           value={values.fullName}
-          error={errors.fullName}
+          error={errors.fullName ? tc(errors.fullName) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, fullName: event.target.value }))}
         />
         <TextField
           id="email"
-          label="Email"
+          label={t('profile.email')}
           value={payload.profile.email}
           readOnly
           disabled
-          hint="Contact support to change the registered email"
+          hint={t('profile.emailHint')}
         />
         <TextField
           id="mobile"
-          label="Mobile"
+          label={t('profile.mobile')}
           value={values.mobile}
-          error={errors.mobile}
+          error={errors.mobile ? tc(errors.mobile) : undefined}
           placeholder={payload.profile.mobileMasked}
           onChange={(event) => setValues((c) => ({ ...c, mobile: event.target.value }))}
         />
       </div>
 
-      <h3 className="text-ink pt-2 text-sm font-semibold">Change password</h3>
+      <h3 className="text-ink pt-2 text-sm font-semibold">{t('profile.passwordTitle')}</h3>
       <div className="grid gap-4 desktop:grid-cols-3">
         <TextField
           id="currentPassword"
-          label="Current password"
+          label={t('profile.currentPassword')}
           type="password"
           autoComplete="current-password"
           value={values.currentPassword}
-          error={errors.currentPassword}
+          error={errors.currentPassword ? tc(errors.currentPassword) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, currentPassword: event.target.value }))}
         />
         <TextField
           id="newPassword"
-          label="New password"
+          label={t('profile.newPassword')}
           type="password"
           autoComplete="new-password"
           value={values.newPassword}
-          error={errors.newPassword}
+          error={errors.newPassword ? tc(errors.newPassword) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, newPassword: event.target.value }))}
         />
         <TextField
           id="confirmPassword"
-          label="Confirm new password"
+          label={t('profile.confirmPassword')}
           type="password"
           autoComplete="new-password"
           value={values.confirmPassword}
-          error={errors.confirmPassword}
+          error={errors.confirmPassword ? tc(errors.confirmPassword) : undefined}
           onChange={(event) => setValues((c) => ({ ...c, confirmPassword: event.target.value }))}
         />
       </div>
 
-      <PrimaryButton type="submit">Save changes</PrimaryButton>
-      <FormNotice>Placeholder only: nothing is saved.</FormNotice>
+      <PrimaryButton type="submit">{t('profile.save')}</PrimaryButton>
+      <FormNotice>{t('profile.placeholderNotice')}</FormNotice>
     </form>
   );
 }

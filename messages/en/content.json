@@ -9,5 +9,13 @@
     "contact": "Contact Us",
     "tnc": "Terms & Conditions",
     "bettingRules": "Betting Rules"
+  },
+  "root": {
+    "title": "Region selector",
+    "note": "T03 redirects this to /my."
+  },
+  "placeholder": {
+    "eyebrow": "P0 route skeleton",
+    "body": "This page is still the T02 placeholder."
   }
 }

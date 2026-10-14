@@ -19,7 +19,9 @@
     "prediction": "Dự đoán",
     "predictionHint": "Miễn phí, có thưởng thật",
     "achievement": "Thành tích",
-    "achievementHint": "Xem tiến độ"
+    "achievementHint": "Xem tiến độ",
+    "personal": "Cá nhân",
+    "personalHint": "Tiến độ và phần thưởng"
   },
   "why": {
     "licence": "Nhà điều hành có giấy phép",
@@ -33,7 +35,8 @@
     "validUntil": "Hiệu lực đến {date}",
     "rollover": "Doanh số {value}x",
     "maxBonus": "Tối đa {amount}",
-    "terms": "Điều khoản"
+    "terms": "Điều khoản",
+    "noRollover": "Không yêu cầu doanh số"
   },
   "ticker": {
     "label": "Cập nhật trực tiếp"
@@ -45,5 +48,14 @@
   "faq": {
     "title": "Trung tâm trợ giúp",
     "topics": "Chủ đề"
+  },
+  "studios": {
+    "summary": "{studios} nhà phát hành · {titles} trò chơi · chỉ xem",
+    "allBefore": "Cả {count} nhà phát hành đều ở",
+    "allLink": "sảnh slots",
+    "allAfter": "."
+  },
+  "app": {
+    "get": "Tải ứng dụng"
   }
 }

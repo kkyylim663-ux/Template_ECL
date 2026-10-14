@@ -9,5 +9,13 @@
     "contact": "Liên hệ",
     "tnc": "Điều khoản & Điều kiện",
     "bettingRules": "Luật cược"
+  },
+  "root": {
+    "title": "Chọn khu vực",
+    "note": "T03 chuyển hướng tới /my."
+  },
+  "placeholder": {
+    "eyebrow": "Khung trang P0",
+    "body": "Trang này vẫn là chỗ giữ chỗ T02."
   }
 }

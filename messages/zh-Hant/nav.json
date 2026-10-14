@@ -27,7 +27,8 @@
     "rebates": "返水",
     "achievement": "成就",
     "tickets": "票券中心",
-    "profile": "資料"
+    "profile": "資料",
+    "lobby": "大廳"
   },
   "desc": {
     "slots": "6,000+ 款遊戲",
@@ -44,6 +45,13 @@
     "vip": "等級與專屬客服",
     "sponsor": "我們贊助的隊伍"
   },
+  "bottom": {
+    "home": "首頁",
+    "games": "遊戲",
+    "promo": "優惠",
+    "ranking": "排行",
+    "me": "我的"
+  },
   "ui": {
     "menu": "選單",
     "openMenu": "開啟選單",
@@ -53,7 +61,44 @@
     "signIn": "登入",
     "primaryNav": "主導覽",
     "mobileNav": "手機導覽",
-    "dismissBanner": "關閉 App 橫幅"
+    "dismissBanner": "關閉 App 橫幅",
+    "iconRail": "圖示列",
+    "sideNav": "側邊導覽",
+    "expandNav": "展開導覽",
+    "collapseNav": "收起導覽",
+    "quickNav": "快捷導覽",
+    "announcements": "公告",
+    "demoNote": "示範版本 — 佔位品牌。"
+  },
+  "footer": {
+    "title": {
+      "help": "幫助",
+      "company": "公司",
+      "legal": "法律"
+    },
+    "links": {
+      "gettingStarted": "新手上路",
+      "depositsWithdrawals": "充值與提現",
+      "gamesProviders": "遊戲與廠商",
+      "vouchersRewards": "禮券與獎勵",
+      "contactSupport": "聯絡客服",
+      "about": "關於我們",
+      "contact": "聯絡我們",
+      "sponsorship": "贊助",
+      "news": "公告",
+      "tnc": "條款與條件",
+      "bettingRules": "投注規則",
+      "mobileApp": "手機 App"
+    }
+  },
+  "support": {
+    "liveChat": "線上客服",
+    "email": "電子郵件",
+    "phone": "電話",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "chatWithUs": "線上諮詢",
+    "announcements": "公告"
   },
   "banner": {
     "install": "安裝 {brand} App",
@@ -64,6 +109,10 @@
     "zhHans": "简体中文",
     "zhHant": "繁體中文",
     "vi": "Tiếng Việt"
+  },
+  "regionSite": {
+    "my": "馬來西亞站",
+    "sg": "新加坡站"
   },
   "region": {
     "my": "馬來西亞 (MYR)",

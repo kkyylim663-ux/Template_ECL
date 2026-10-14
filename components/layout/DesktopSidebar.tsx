@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { SIDEBAR_ITEMS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
@@ -11,6 +12,7 @@ import { Icon } from '@/components/ui/Icon';
  * - a 16rem panel (`sidebar2`) that slides in over it with translateX, 0.3s.
  */
 export function DesktopSidebar({ region }: { region: string }) {
+  const t = useTranslations('nav');
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,12 +20,12 @@ export function DesktopSidebar({ region }: { region: string }) {
       {/* Icon rail */}
       <div
         className="border-line bg-panel fixed top-0 bottom-0 left-0 z-[13] hidden w-[var(--sidebar-mini-width)] flex-col items-center gap-1 border-r py-3 desktop:flex"
-        aria-label="Icon rail"
+        aria-label={t('ui.iconRail')}
       >
         <button
           type="button"
           onClick={() => setOpen(true)}
-          aria-label="Expand navigation"
+          aria-label={t('ui.expandNav')}
           aria-expanded={open}
           className="text-muted hover:text-accent grid size-10 place-items-center rounded-[10px]"
         >
@@ -35,11 +37,11 @@ export function DesktopSidebar({ region }: { region: string }) {
             <li key={item.href || 'lobby'}>
               <Link
                 href={regionPath(region, item.href)}
-                title={item.label}
+                title={t(item.labelKey)}
                 className="text-muted hover:bg-panel-soft hover:text-accent grid size-10 place-items-center rounded-[10px]"
               >
                 <Icon name={item.icon ?? 'home'} size={22} />
-                <span className="sr-only">{item.label}</span>
+                <span className="sr-only">{t(item.labelKey)}</span>
               </Link>
             </li>
           ))}
@@ -48,18 +50,18 @@ export function DesktopSidebar({ region }: { region: string }) {
 
       {/* Sliding panel */}
       <aside
-        aria-label="Side navigation"
+        aria-label={t('ui.sideNav')}
         aria-hidden={!open}
         className={`border-line bg-panel fixed top-0 bottom-0 left-0 z-[14] hidden w-[var(--sidebar-width)] flex-col border-r transition-transform duration-300 ease-out desktop:flex ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="border-line flex h-[68px] items-center justify-between border-b px-5">
-          <span className="text-ink text-sm font-semibold tracking-[0.2em] uppercase">Menu</span>
+          <span className="text-ink text-sm font-semibold tracking-[0.2em] uppercase">{t('ui.menu')}</span>
           <button
             type="button"
             onClick={() => setOpen(false)}
-            aria-label="Collapse navigation"
+            aria-label={t('ui.collapseNav')}
             className="text-muted hover:text-accent grid size-9 place-items-center rounded-[10px]"
           >
             <Icon name="close" size={20} />
@@ -76,7 +78,7 @@ export function DesktopSidebar({ region }: { region: string }) {
                   className="text-ink/90 hover:bg-panel-soft hover:text-accent flex items-center gap-3 rounded-[10px] px-3 py-2.5 text-sm font-medium"
                 >
                   <Icon name={item.icon ?? 'home'} size={20} className="text-accent shrink-0" />
-                  {item.label}
+                  {t(item.labelKey)}
                 </Link>
               </li>
             ))}
@@ -84,7 +86,7 @@ export function DesktopSidebar({ region }: { region: string }) {
         </nav>
 
         <p className="border-line text-muted border-t px-5 py-3 text-[11px]">
-          Demo build — placeholder brand.
+          {t('ui.demoNote')}
         </p>
       </aside>
     </>

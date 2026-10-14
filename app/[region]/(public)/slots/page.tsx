@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { GameLobby } from '@/components/game/GameLobby';
+import { IntlScope } from '@/lib/i18n/scope';
 
 export const metadata: Metadata = {
   title: 'Slots',
@@ -18,11 +19,13 @@ export default async function SlotsPage({
   const { region } = await params;
 
   return (
-    <GameLobby
-      region={region}
-      heading="Slots"
-      intro="Browse only — launching a game is disabled in this build."
-      searchParams={await searchParams}
-    />
+    <IntlScope namespaces={['games']}>
+      <GameLobby
+        region={region}
+        headingKey="page.slots"
+        introKey="page.slotsIntro"
+        searchParams={await searchParams}
+      />
+    </IntlScope>
   );
 }

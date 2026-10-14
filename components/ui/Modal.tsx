@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Icon, type IconName } from './Icon';
 
@@ -20,14 +21,15 @@ export const MODAL_VARIANTS = [
 
 export type ModalVariant = (typeof MODAL_VARIANTS)[number];
 
-const VARIANT_STYLE: Record<ModalVariant, { icon: IconName; tint: string; label: string }> = {
-  success: { icon: 'success', tint: 'text-[var(--color-success)]', label: 'Success' },
-  error: { icon: 'alert', tint: 'text-[var(--color-danger)]', label: 'Error' },
-  alert: { icon: 'alert', tint: 'text-accent', label: 'Alert' },
-  status: { icon: 'info', tint: 'text-accent', label: 'Status' },
-  message: { icon: 'chat', tint: 'text-muted', label: 'Message' },
-  loading: { icon: 'spinner', tint: 'text-accent', label: 'Loading' },
-  rules: { icon: 'news', tint: 'text-muted', label: 'Rules' },
+/** Icon and tint per variant; the eyebrow label is `common.modal.<variant>`. */
+const VARIANT_STYLE: Record<ModalVariant, { icon: IconName; tint: string }> = {
+  success: { icon: 'success', tint: 'text-[var(--color-success)]' },
+  error: { icon: 'alert', tint: 'text-[var(--color-danger)]' },
+  alert: { icon: 'alert', tint: 'text-accent' },
+  status: { icon: 'info', tint: 'text-accent' },
+  message: { icon: 'chat', tint: 'text-muted' },
+  loading: { icon: 'spinner', tint: 'text-accent' },
+  rules: { icon: 'news', tint: 'text-muted' },
 };
 
 export type ModalProps = {
@@ -51,6 +53,7 @@ export function Modal({
   actions,
   dismissible,
 }: ModalProps) {
+  const t = useTranslations('common');
   const panelRef = useRef<HTMLDivElement>(null);
   const style = VARIANT_STYLE[variant];
   const canDismiss = dismissible ?? variant !== 'loading';
@@ -102,7 +105,7 @@ export function Modal({
           </span>
 
           <div className="min-w-0 flex-1">
-            <p className="text-muted text-[11px] tracking-widest uppercase">{style.label}</p>
+            <p className="text-muted text-[11px] tracking-widest uppercase">{t(`modal.${variant}`)}</p>
             <h2 className="text-ink mt-1 text-base font-semibold">{title}</h2>
             {children ? (
               <div className="text-muted mt-2 max-h-[45vh] overflow-y-auto text-sm leading-relaxed">
@@ -115,7 +118,7 @@ export function Modal({
             <button
               type="button"
               onClick={onClose}
-              aria-label="Close dialog"
+              aria-label={t('modal.closeDialog')}
               className="text-muted hover:text-ink -mt-1 -mr-1 grid size-8 shrink-0 place-items-center"
             >
               <Icon name="close" size={18} />

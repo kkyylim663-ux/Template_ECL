@@ -1,4 +1,5 @@
 import { getAnnouncements } from '@/lib/api';
+import { getT } from '@/lib/i18n/server';
 import { Marquee } from '@/components/ui/Marquee';
 
 const KIND_MARK: Record<string, string> = {
@@ -13,7 +14,7 @@ const KIND_MARK: Record<string, string> = {
  * stops it (CSS in app/globals.css).
  */
 export async function AnnouncementMarquee() {
-  const announcements = await getAnnouncements();
+  const [{ t }, announcements] = await Promise.all([getT('nav'), getAnnouncements()]);
 
   if (announcements.length === 0) return null;
 
@@ -23,7 +24,7 @@ export async function AnnouncementMarquee() {
 
   return (
     <Marquee
-      label="Announcements"
+      label={t('ui.announcements')}
       items={items}
       durationSeconds={Math.max(24, items.length * 8)}
     />

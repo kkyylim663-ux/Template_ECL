@@ -5,7 +5,8 @@
     "new": "Mới",
     "hot": "Hot",
     "rtp": "RTP {value}%",
-    "needLogin": "Đăng nhập để vào game"
+    "needLogin": "Đăng nhập để vào game",
+    "showActions": "Hiện thao tác cho {name}"
   },
   "category": {
     "slots": "Slots",
@@ -22,5 +23,116 @@
     "results": "{count} trò chơi",
     "empty": "Không có kết quả cho \"{query}\"",
     "loadMore": "Xem thêm"
+  },
+  "lobby": {
+    "summary": "{count} nhà phát hành · {category} · {provider}"
+  },
+  "browser": {
+    "categories": "Danh mục {provider}",
+    "searchPlaceholder": "Tìm trò chơi",
+    "searchLabel": "Tìm trò chơi",
+    "resultsFor": "{count} kết quả cho \"{query}\"",
+    "titlesIn": "{provider} / {tab}: {count} trò chơi",
+    "beforeFiltering": "{count} trước khi lọc",
+    "updating": "đang cập nhật…",
+    "loadFailed": "Không tải được trò chơi: {message}",
+    "requestFailed": "Yêu cầu thất bại",
+    "empty": "Không có kết quả cho \"{query}\"",
+    "emptyHint": "Thử từ ngắn hơn, hoặc danh mục khác.",
+    "clearSearch": "Xóa tìm kiếm",
+    "showing": "Đang xem {shown} / {total} — cuộn để tải thêm",
+    "shown": "Đã hiển thị {count} trò chơi"
+  },
+  "provider": {
+    "titles": "{count} trò chơi",
+    "alt": "Nhà phát hành {provider}",
+    "vpnTitle": "Phát hiện VPN",
+    "vpnBody": "Hãy tắt VPN trước khi vào bàn {category}. Bản {brand} không mở game — thông báo này là điểm dừng."
+  },
+  "page": {
+    "slots": "Slots",
+    "slotsIntro": "Chỉ xem — bản này không mở game.",
+    "fastGame": "Game nhanh",
+    "livecasinoSubtitle": "{count} studio trực tiếp",
+    "livecasinoIntro": "Nhấn vào sẽ hiện thông báo VPN — bản này không vào bàn.",
+    "sportsSubtitle": "{count} nhà cung cấp thể thao",
+    "sportsIntro": "Chỉ xem — không mở phiếu cược.",
+    "esportsSubtitle": "{count} nhà cung cấp esports",
+    "esportsIntro": "Nhấn vào sẽ hiện thông báo VPN — bản này không vào giải đấu."
+  },
+  "fourD": {
+    "latest": "{count} kỳ gần nhất",
+    "rulesTitle": "Luật 4D",
+    "rules": "Luật minh hoạ: bốn kỳ mỗi tuần, chọn số 4 chữ số và loại cược, giải Nhất, Nhì, Ba.",
+    "col": {
+      "draw": "Kỳ",
+      "date": "Ngày",
+      "first": "Giải nhất",
+      "second": "Giải nhì",
+      "third": "Giải ba"
+    },
+    "playDraw": "Cược kỳ này",
+    "archiveBefore": "Kết quả cũ còn xa hơn mức hiển thị.",
+    "archiveLink": "Xem toàn bộ lưu trữ",
+    "archiveAfter": "· bản này không nhận dự đoán."
+  },
+  "numberGame": {
+    "round": "Kỳ {round} · quay {time} (+08:00)",
+    "rulesTitle": "Luật game số",
+    "rules": "Luật minh hoạ: sáu số từ 1–49 mỗi 5 phút; trúng từ ba số trở lên có thưởng.",
+    "latest": "Kỳ mới nhất",
+    "playNext": "Cược kỳ tới",
+    "verify": "Kiểm tra kỳ này trên explorer",
+    "recent": "Các kỳ gần đây",
+    "col": {
+      "round": "Kỳ",
+      "numbers": "Số",
+      "drawnAt": "Thời gian quay"
+    }
+  },
+  "prediction": {
+    "summary": "Miễn phí · {count} trận tuần này",
+    "rulesTitle": "Luật dự đoán",
+    "rules": "Luật minh hoạ: dự đoán miễn phí; mỗi lựa chọn đúng được điểm xếp hạng tháng.",
+    "leagues": "Giải đấu",
+    "vs": "vs",
+    "optionAria": "{home} vs {away}: {option}",
+    "enter": "Tham gia dự đoán miễn phí tuần này"
+  },
+  "ranking": {
+    "title": "Bảng xếp hạng",
+    "unavailable": "Bảng này không có trong dữ liệu demo.",
+    "summary": "{board} · đua doanh số · cập nhật {time} (+08:00)",
+    "note": "Dữ liệu chụp nhanh — bản tham chiếu phát trực tiếp.",
+    "boards": "Bảng",
+    "col": {
+      "rank": "Hạng",
+      "player": "Người chơi",
+      "turnover": "Doanh số",
+      "prize": "Thưởng"
+    },
+    "footnote": "Tên được ẩn có chủ đích. Thưởng được cộng trong 48 giờ sau khi bảng kết thúc.",
+    "board": {
+      "weekly": "Tuần",
+      "monthly": "Tháng",
+      "supervip": "Super VIP",
+      "vip": "VIP",
+      "live": "Đang live",
+      "lastweek": "Tuần trước"
+    }
+  },
+  "tabs": {
+    "top": "Hàng đầu",
+    "all": "Tất cả",
+    "new": "Mới",
+    "slot": "Slots",
+    "slots": "Slots",
+    "video": "Slot video",
+    "bbonus": "Mua bonus",
+    "progressive": "Jackpot",
+    "table": "Bàn",
+    "classic": "Cổ điển",
+    "scratchcards": "Cào",
+    "other": "Khác"
   }
 }
