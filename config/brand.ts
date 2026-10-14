@@ -26,21 +26,32 @@ export const brand = {
   },
 
   /** Browser UI colour (address bar on mobile). */
-  themeColor: '#0b1220',
+  themeColor: '#18191a',
 
   /**
-   * Colour tokens. `app/globals.css` declares the same values as CSS variables,
-   * which is what components actually consume; keep the two in sync when
-   * re-branding. Values here are for metadata and JS-side art (gradients).
+   * Colour tokens, mirroring docs/UI_REFERENCE.md. `app/globals.css` declares the
+   * same values as CSS variables, which is what components actually consume;
+   * keep the two in sync when re-branding. Values here are for metadata and
+   * JS-side art (gradients).
    */
   colors: {
-    accent: '#22c07a',
-    accentContrast: '#04150d',
-    surface: '#0b1220',
-    surfaceRaised: '#131c2e',
-    border: '#26324a',
-    text: '#e8edf7',
-    textMuted: '#94a3b8',
+    /** Page background. */
+    surface: '#18191a',
+    /** Panels: mobile header/footer, cards. */
+    panel: '#242526',
+    panelAlt: '#272727',
+    panelSoft: '#2d2e30',
+    /** Separators. */
+    line: '#333435',
+    /** Primary accent (mustard) — buttons, hover underline, tags. */
+    accent: '#fabb2e',
+    accentBright: '#ffbf29',
+    /** Secondary accent (green) — tags, success. */
+    success: '#289d82',
+    /** New tag, errors. */
+    danger: '#cc3633',
+    text: '#ffffff',
+    textMuted: '#b2b2b2',
   },
 
   contact: {

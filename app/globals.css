@@ -1,19 +1,62 @@
 @import 'tailwindcss';
 
 /*
- * Colour tokens. The values are the render source of truth for the UI and mirror
- * `config/brand.ts` — re-brand in both places (T05 expands this token set).
+ * Design tokens, transcribed from docs/UI_REFERENCE.md. Tailwind v4 turns the
+ * @theme entries into utilities (bg-panel, text-muted, rounded-panel, …), so
+ * re-branding means editing the values below and the mirror in config/brand.ts.
  */
+@theme {
+  /* Backgrounds */
+  --color-surface: #18191a; /* page background */
+  --color-panel: #242526; /* mobile header/footer, cards */
+  --color-panel-alt: #272727;
+  --color-panel-soft: #2d2e30;
+
+  /* Separators and the collapsed rail */
+  --color-line: #333435;
+  --color-line-soft: #353537;
+  --color-line-strong: #363537;
+
+  /* Accents */
+  --color-accent: #fabb2e; /* primary (mustard) — buttons, hover underline, tags */
+  --color-accent-bright: #ffbf29;
+  --color-success: #289d82; /* secondary (green) — tags, success states */
+  --color-danger: #cc3633; /* new tag, errors */
+
+  /* Text */
+  --color-ink: #ffffff;
+  --color-muted: #b2b2b2;
+
+  /* Shape */
+  --radius-panel: 15px;
+  --radius-tag: 0.5rem;
+
+  /* Type: Rubik 400/500 with the documented fallbacks */
+  --font-sans:
+    Rubik, Roboto, 'Noto Sans', 'Noto Sans Thai', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* Layout measurements that are not Tailwind utility namespaces. */
 :root {
-  --color-surface: #0b1220;
-  --color-surface-raised: #131c2e;
-  --color-border: #26324a;
-  --color-text: #e8edf7;
-  --color-text-muted: #94a3b8;
-  --color-accent: #22c07a;
-  --color-accent-contrast: #04150d;
+  --pad-page-x: 50px; /* desktop body padding, left/right */
+  --sidebar-width: 16rem;
+  --sidebar-mini-width: 62px;
+  --breakpoint-mobile: 768px;
+  --z-sidebar: 13;
+  --z-mobile-footer: 12;
 }
 
 html {
   color-scheme: dark;
 }
+
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+  }
+}
+
+/* TODO(T05): allow brand.ts to drive the accent at runtime once the shell lands. */
