@@ -24,7 +24,8 @@ export async function generateMetadata({
  * file), the social row, and a demo form that validates locally and says it
  * sent nothing.
  */
-export default async function ContactPage() {
+export default async function ContactPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
   const [{ t }, page] = await Promise.all([getT('content'), getPageContent('contact')]);
   if (!page) notFound();
 
@@ -69,6 +70,7 @@ export default async function ContactPage() {
   return (
     <IntlScope namespaces={['content']}>
       <LongFormPage
+        region={region}
         title={t('pages.contact')}
         page={page}
         blocks={[

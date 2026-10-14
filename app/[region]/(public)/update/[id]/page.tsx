@@ -7,6 +7,9 @@ import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 import { Markdown } from '@/components/content/Markdown';
 import { pageMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 
 /** Detail pages carry their own title and summary (T24). */
 export async function generateMetadata({
@@ -49,6 +52,16 @@ export default async function UpdateDetailPage({
 
   return (
     <div className="mx-auto w-full max-w-3xl" data-page="update-detail">
+      <JsonLd
+        data={breadcrumbLd(
+          [
+            { name: brand.name, path: '' },
+            { name: t('pages.update'), path: '/update' },
+            { name: update.title, path: `/update/${update.id}` },
+          ],
+          region,
+        )}
+      />
       <section
         data-part="banner-section"
         className="game-placeholder flex h-32 items-end rounded-[var(--radius-panel)] p-5 desktop:h-40 desktop:p-8"

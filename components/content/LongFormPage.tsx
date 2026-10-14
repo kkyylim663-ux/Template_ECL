@@ -1,9 +1,12 @@
 import type { ReactNode } from 'react';
+import { brand } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
+import { breadcrumbLd } from '@/lib/seo';
 import type { PageContent } from '@/lib/api';
 import { Markdown } from '@/components/content/Markdown';
 import { PageToc, type TocItem } from '@/components/content/PageToc';
 import { BackToTop } from '@/components/content/BackToTop';
+import { JsonLd } from '@/components/content/JsonLd';
 
 /**
  * The shared long-form layout for about / contact / tnc / betting-rules: a table
@@ -12,15 +15,18 @@ import { BackToTop } from '@/components/content/BackToTop';
  * to one page only (the contact cards, the demo form) and join the contents.
  */
 export async function LongFormPage({
+  region,
   title,
   page,
   blocks = [],
 }: {
+  region: string;
   title: string;
   page: PageContent;
   blocks?: { id: string; title: string; node: ReactNode }[];
 }) {
   const { t } = await getT('content');
+  const path = `/${page.slug}`;
   const items: TocItem[] = [
     ...page.sections.map((section) => ({ id: section.id, title: section.title })),
     ...blocks.map((block) => ({ id: block.id, title: block.title })),
@@ -28,6 +34,15 @@ export async function LongFormPage({
 
   return (
     <article data-page="longform" data-slug={page.slug}>
+      <JsonLd
+        data={breadcrumbLd(
+          [
+            { name: brand.name, path: '' },
+            { name: title, path },
+          ],
+          region,
+        )}
+      />
       <header>
         <h1 className="text-ink text-xl font-semibold desktop:text-2xl">{title}</h1>
         <p className="text-muted mt-1 text-xs">

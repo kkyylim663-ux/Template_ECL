@@ -71,3 +71,85 @@ test.describe('page metadata (T24)', () => {
     await expect(page).toHaveTitle(/Deposit · BRAND/);
   });
 });
+
+test.describe('sitemap, robots and structured data (T25)', () => {
+  test('the sitemap lists both markets and every listed URL answers 200', async ({ page }) => {
+    const response = await page.request.get('/sitemap.xml');
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+
+    for (const path of [
+      '/my/vip',
+      '/sg/vip',
+      '/my/promotion/pr-welcome-188',
+      '/sg/update/up-061',
+      '/my/faq/finance',
+      '/sg/betting-rules',
+    ]) {
+      expect(body, `${path} missing from the sitemap`).toMatch(
+        new RegExp(`<loc>https?://[^<]*/${path.replace(/^\//, '')}</loc>`),
+      );
+    }
+    // Gated areas stay out.
+    expect(body).not.toMatch(/<loc>[^<]*\/(account|login|register|dev)(\/|<\/loc>)/);
+
+    const locs = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+    expect(locs.length).toBeGreaterThan(60);
+    for (const loc of [locs[0], locs[Math.floor(locs.length / 2)], locs[locs.length - 1]]) {
+      const entry = await page.request.get(loc);
+      expect(entry.status(), `${loc} is not 200`).toBe(200);
+    }
+  });
+
+  test('robots.txt keeps the gated areas out and points at the sitemap', async ({ page }) => {
+    const body = await (await page.request.get('/robots.txt')).text();
+
+    expect(body).toContain('Allow: /');
+    for (const rule of ['/account', '/login', '/register', '/dev']) {
+      expect(body).toContain(`Disallow: ${rule}`);
+    }
+    expect(body).toMatch(/Sitemap: https?:\/\/[^\s]+\/sitemap\.xml/);
+  });
+
+  test('the home page carries Organization and WebSite', async ({ page }) => {
+    await page.goto('/my');
+    const types = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('script[type="application/ld+json"]')).flatMap((script) => {
+        const value = JSON.parse(script.textContent ?? 'null');
+        return (Array.isArray(value) ? value : [value]).map((entry) => entry['@type']);
+      }),
+    );
+    expect(types).toContain('Organization');
+    expect(types).toContain('WebSite');
+  });
+
+  test('an FAQ topic ships its questions as FAQPage', async ({ page }) => {
+    await page.goto('/my/faq/finance');
+
+    const blocks = await page.evaluate(() =>
+      Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map((script) =>
+        JSON.parse(script.textContent ?? 'null'),
+      ),
+    );
+    const faqPage = blocks.find((block) => block['@type'] === 'FAQPage');
+    const rendered = await page.locator('[data-faq-item]').count();
+
+    expect(faqPage.mainEntity.length).toBe(rendered);
+    expect(faqPage.mainEntity[0]['@type']).toBe('Question');
+    expect(faqPage.mainEntity[0].acceptedAnswer.text.length).toBeGreaterThan(10);
+  });
+
+  test('content pages ship a breadcrumb with ordered positions', async ({ page }) => {
+    await page.goto('/my/tnc');
+
+    const crumbs = await page.evaluate(() => {
+      const script = document.querySelector('script[type="application/ld+json"]');
+      return JSON.parse(script?.textContent ?? 'null');
+    });
+
+    expect(crumbs['@type']).toBe('BreadcrumbList');
+    expect(crumbs.itemListElement.map((item: { position: number }) => item.position)).toEqual([1, 2]);
+    expect(crumbs.itemListElement[1].name).toBe('Terms & Conditions');
+    expect(crumbs.itemListElement[1].item).toMatch(/\/my\/tnc$/);
+  });
+});

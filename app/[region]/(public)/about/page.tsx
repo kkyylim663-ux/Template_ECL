@@ -19,13 +19,14 @@ export async function generateMetadata({
  * About Us — a long-form page in the shared T23 layout (contents rail + body).
  * The copy itself is placeholder content from `mocks/pages.json`.
  */
-export default async function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
   const [{ t }, page] = await Promise.all([getT('content'), getPageContent('about')]);
   if (!page) notFound();
 
   return (
     <IntlScope namespaces={['content']}>
-      <LongFormPage title={t('pages.about')} page={page} />
+      <LongFormPage region={region} title={t('pages.about')} page={page} />
     </IntlScope>
   );
 }

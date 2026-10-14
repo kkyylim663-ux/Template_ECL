@@ -3,6 +3,9 @@ import Link from 'next/link';
 import { getUpdates } from '@/lib/api';
 import { formatDate } from '@/lib/format';
 import { regionPath } from '@/config/nav';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
 import { pageMetadata } from '@/lib/seo';
 
@@ -30,6 +33,7 @@ export default async function UpdateListPage({
 
   return (
     <div data-page="update-list">
+      <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.update'), path: '/update' }], region)} />
       {/* Banner band: the reference build opens this page with one. */}
       <section
         data-part="banner-section"

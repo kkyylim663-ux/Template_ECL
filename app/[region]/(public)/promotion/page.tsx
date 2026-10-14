@@ -6,6 +6,9 @@ import { formatDate, formatMinor } from '@/lib/format';
 import { regionPath } from '@/config/nav';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { getT, type ServerTranslate } from '@/lib/i18n/server';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({
@@ -53,6 +56,7 @@ export default async function PromotionPage({
 
   return (
     <div data-page="promotion-list">
+      <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.promotion'), path: '/promotion' }], region)} />
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-ink text-xl font-semibold">{t('pages.promotion')}</h1>

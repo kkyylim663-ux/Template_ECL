@@ -111,3 +111,58 @@ export async function pageMetadata(
     index,
   });
 }
+
+/* ------------------------------------------------------------- structured data */
+
+/** A `@type`-tagged object, ready to be serialized into a ld+json script. */
+export type JsonLdData = Record<string, unknown> & { '@type': string };
+
+/** Home: who runs the site. */
+export function organizationLd(): JsonLdData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: brand.name,
+    legalName: brand.legalName,
+    url: siteUrl(),
+    logo: `${siteUrl()}${brand.logo.src}`,
+  };
+}
+
+/** Home: the site itself, tied to the market it was rendered for. */
+export function websiteLd(region: string): JsonLdData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: brand.name,
+    url: publicUrl(region, ''),
+    inLanguage: ['en', 'zh-Hans', 'zh-Hant', 'vi'],
+  };
+}
+
+/** Every content page: where it sits in the tree. */
+export function breadcrumbLd(items: { name: string; path: string }[], region: string): JsonLdData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: publicUrl(region, item.path),
+    })),
+  };
+}
+
+/** FAQ topics: the questions and answers actually rendered on the page. */
+export function faqPageLd(items: { q: string; a: string }[]): JsonLdData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  };
+}

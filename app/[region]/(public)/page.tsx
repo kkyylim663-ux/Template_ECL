@@ -11,6 +11,8 @@ import Image from 'next/image';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { pageMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/content/JsonLd';
+import { organizationLd, websiteLd } from '@/lib/seo';
 
 export async function generateMetadata({
   params,
@@ -40,6 +42,7 @@ export default async function HomePage({ params }: { params: Promise<{ region: s
 
   return (
     <IntlScope namespaces={['home', 'games']}>
+      <JsonLd data={[organizationLd(), websiteLd(region)]} />
       <div className="space-y-8 desktop:space-y-10">
         <BannerCarousel banners={banners} region={region} />
 

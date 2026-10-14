@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { getVipLevels, getVipPrivileges, getVipRules } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
 import { IntlScope } from '@/lib/i18n/scope';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { VipTierTrack } from '@/components/content/VipTierTrack';
 import { InfoRuleToggle } from '@/components/content/InfoRuleToggle';
@@ -54,6 +57,7 @@ export default async function VipPage({ params }: { params: Promise<{ region: st
   return (
     <IntlScope namespaces={['content']}>
       <div data-page="vip">
+        <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.vip'), path: '/vip' }], region)} />
         <header>
           <h1 className="text-ink text-xl font-semibold desktop:text-2xl">{t('pages.vip')}</h1>
           <p className="text-muted mt-1 text-xs">{t('vip.intro')}</p>

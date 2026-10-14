@@ -8,6 +8,9 @@ import { regionConfig, type RegionCode } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
 import { Markdown } from '@/components/content/Markdown';
 import { pageMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 
 /** Detail pages carry their own title and summary (T24). */
 export async function generateMetadata({
@@ -47,6 +50,16 @@ export default async function PromotionDetailPage({
 
   return (
     <div className="mx-auto w-full max-w-3xl">
+      <JsonLd
+        data={breadcrumbLd(
+          [
+            { name: brand.name, path: '' },
+            { name: t('pages.promotion'), path: '/promotion' },
+            { name: promotion.title, path: `/promotion/${promotion.id}` },
+          ],
+          region,
+        )}
+      />
       {/* Banner placeholder: hue from the record until real artwork lands. */}
       <div
         data-part="promotion-detail__banner"

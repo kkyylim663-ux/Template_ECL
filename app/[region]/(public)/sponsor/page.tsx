@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { getSponsorBlocks } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
 import { IntlScope } from '@/lib/i18n/scope';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
 import { SponsorGallery } from '@/components/content/SponsorGallery';
 import { pageMetadata } from '@/lib/seo';
 
@@ -21,12 +24,14 @@ export async function generateMetadata({
  * embedded and no upstream asset is loaded — the covers are placeholders and the
  * play buttons only say so.
  */
-export default async function SponsorPage() {
+export default async function SponsorPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
   const [{ t }, sponsor] = await Promise.all([getT('content'), getSponsorBlocks()]);
 
   return (
     <IntlScope namespaces={['content']}>
       <div data-page="sponsor" className="min-w-0">
+        <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.sponsor'), path: '/sponsor' }], region)} />
         <header>
           <h1 className="text-ink text-xl font-semibold desktop:text-2xl">{t('pages.sponsor')}</h1>
           <p className="text-muted mt-1 text-xs">{t('sponsor.intro')}</p>

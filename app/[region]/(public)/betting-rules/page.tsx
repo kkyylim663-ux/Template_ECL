@@ -16,13 +16,18 @@ export async function generateMetadata({
 }
 
 /** Betting Rules and Regulations — same long-form layout, placeholder rules. */
-export default async function BettingRulesPage() {
+export default async function BettingRulesPage({
+  params,
+}: {
+  params: Promise<{ region: string }>;
+}) {
+  const { region } = await params;
   const [{ t }, page] = await Promise.all([getT('content'), getPageContent('betting-rules')]);
   if (!page) notFound();
 
   return (
     <IntlScope namespaces={['content']}>
-      <LongFormPage title={t('pages.bettingRules')} page={page} />
+      <LongFormPage region={region} title={t('pages.bettingRules')} page={page} />
     </IntlScope>
   );
 }

@@ -7,6 +7,10 @@ import { getT } from '@/lib/i18n/server';
 import { IntlScope } from '@/lib/i18n/scope';
 import { FaqPanel } from '@/components/content/FaqPanel';
 import { pageMetadata } from '@/lib/seo';
+import { breadcrumbLd } from '@/lib/seo';
+import { brand } from '@/config/brand';
+import { JsonLd } from '@/components/content/JsonLd';
+import { faqPageLd } from '@/lib/seo';
 
 /** Each topic answers under its own title, e.g. "Finance · <brand>" (T24). */
 export async function generateMetadata({
@@ -46,6 +50,8 @@ export default async function FaqTopicPage({
   return (
     <IntlScope namespaces={['content']}>
       <div data-page="faq">
+        <JsonLd data={faqPageLd(current.items)} />
+        <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.faq'), path: '/faq' }], region)} />
         <header>
           <h1 className="text-ink text-xl font-semibold">{t('pages.faq')}</h1>
           <p className="text-muted mt-1 text-xs">{t('faq.intro')}</p>

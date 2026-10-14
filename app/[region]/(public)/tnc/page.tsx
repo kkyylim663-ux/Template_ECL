@@ -20,13 +20,14 @@ export async function generateMetadata({
  * keeps the shared long-form layout (contents rail + anchored sections) so all
  * four text pages read the same way. Placeholder clauses from `mocks/pages.json`.
  */
-export default async function TncPage() {
+export default async function TncPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
   const [{ t }, page] = await Promise.all([getT('content'), getPageContent('tnc')]);
   if (!page) notFound();
 
   return (
     <IntlScope namespaces={['content']}>
-      <LongFormPage title={t('pages.tnc')} page={page} />
+      <LongFormPage region={region} title={t('pages.tnc')} page={page} />
     </IntlScope>
   );
 }
