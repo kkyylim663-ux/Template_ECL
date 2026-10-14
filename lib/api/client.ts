@@ -31,7 +31,7 @@ export class ApiError extends Error {
 }
 
 export async function callApi<T = unknown>(name: string, body?: unknown): Promise<ApiEnvelope<T>> {
-  const envelope = MOCK_MODE ? await mockCall<T>(name) : await liveCall<T>(name, body);
+  const envelope = MOCK_MODE ? await mockCall<T>(name, body) : await liveCall<T>(name, body);
 
   if (envelope.status !== '0') {
     throw new ApiError(envelope.msg || 'Request failed', envelope.status, name);
@@ -39,14 +39,16 @@ export async function callApi<T = unknown>(name: string, body?: unknown): Promis
   return envelope;
 }
 
-async function mockCall<T>(name: string): Promise<ApiEnvelope<T>> {
+async function mockCall<T>(name: string, body?: unknown): Promise<ApiEnvelope<T>> {
   // Imported on demand so the fixture JSON is only pulled in when mock mode runs.
   const { MOCK_ENDPOINTS } = await import('@/mocks');
   const handler = MOCK_ENDPOINTS[name];
   if (!handler) {
     throw new ApiError(`No mock registered for "${name}"`, 'mock_missing', name);
   }
-  return { status: '0', msg: 'Done', d: (await handler()) as T };
+  // The body reaches the mock the same way it reaches the live endpoint, so a
+  // parameterised lookup (promotion id, faq topic) behaves identically.
+  return { status: '0', msg: 'Done', d: (await handler(body)) as T };
 }
 
 async function liveCall<T>(name: string, body?: unknown): Promise<ApiEnvelope<T>> {

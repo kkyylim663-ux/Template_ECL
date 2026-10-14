@@ -1,0 +1,73 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "levels": [
+      {
+        "id": "vip-1",
+        "level": 1,
+        "name": "Bronze",
+        "thresholdMinor": 0,
+        "short": "Entry tier",
+        "benefits": [
+          "Standard deposit and withdrawal limits",
+          "Daily rebate on slots turnover",
+          "Support through live chat"
+        ]
+      },
+      {
+        "id": "vip-2",
+        "level": 2,
+        "name": "Silver",
+        "thresholdMinor": 800000,
+        "short": "Unlocks the weekly gift",
+        "benefits": [
+          "Weekly VIP gift",
+          "Higher withdrawal limit per request",
+          "Priority queue in live chat",
+          "Birthday credit"
+        ]
+      },
+      {
+        "id": "vip-3",
+        "level": 3,
+        "name": "Gold",
+        "thresholdMinor": 3000000,
+        "short": "Adds hosted tables",
+        "benefits": [
+          "Everything in Silver",
+          "A dedicated host on live chat",
+          "Invitations to hosted tables",
+          "Monthly cashback uplift to 8%"
+        ]
+      },
+      {
+        "id": "vip-4",
+        "level": 4,
+        "name": "Platinum",
+        "thresholdMinor": 9000000,
+        "short": "Event invitations",
+        "benefits": [
+          "Everything in Gold",
+          "Invitations to offline events",
+          "Custom deposit ceiling",
+          "Free withdrawal every day"
+        ]
+      },
+      {
+        "id": "vip-5",
+        "level": 5,
+        "name": "Diamond",
+        "thresholdMinor": 25000000,
+        "short": "By invitation",
+        "benefits": [
+          "Everything in Platinum",
+          "A named account manager",
+          "Negotiated rebate rates",
+          "Travel and hospitality programme"
+        ]
+      }
+    ],
+    "rules": "## How tiers are reached\n\nPlaceholder rules. A tier is earned on rolling 30-day turnover and reviewed weekly.\n\n### Counting\n\n- Slots count at 100% of turnover\n- Live casino counts at 20%\n- Sports counts at 15%\n- 4D does not count\n\n### Keeping a tier\n\nTurnover is reviewed every week. A tier is kept while the rolling 30-day figure stays above its threshold.\n\n### Benefits\n\nBenefits are applied automatically. Physical invitations are sent by the host team through the inbox."
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": [
+    {
+      "slug": "about",
+      "title": "About Us",
+      "updatedAt": "2026-10-01",
+      "sections": [
+        {
+          "id": "who-we-are",
+          "title": "Who we are",
+          "body": "Placeholder introduction. This paragraph stands in for the operator's company description and should be replaced with the real one.\n\nA second placeholder paragraph: what the brand does, which markets it serves and who runs it."
+        },
+        {
+          "id": "licence",
+          "title": "Licence and regulation",
+          "body": "Placeholder text about the licence. The demo build carries a placeholder licence number; the live build names the regulator and the licence class.\n\n- Regulator: placeholder\n- Licence number: 0000-DEMO\n- Jurisdictions served: Malaysia and Singapore"
+        },
+        {
+          "id": "responsibility",
+          "title": "Responsible play",
+          "body": "Placeholder text about responsible play. The live build lists the tools the operator offers: deposit limits, session reminders, cooling-off periods and self-exclusion.\n\nPlay is for adults only. 18+."
+        },
+        {
+          "id": "careers",
+          "title": "Careers",
+          "body": "Placeholder text. Open roles, where the teams sit and how hiring works — replace with the real copy."
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "title": "Contact Us",
+      "updatedAt": "2026-10-01",
+      "sections": [
+        {
+          "id": "channels",
+          "title": "Contact channels",
+          "body": "Placeholder text. The cards on this page list every channel with its expected response time: live chat first, then WhatsApp and Telegram, email for anything that needs attachments."
+        },
+        {
+          "id": "hours",
+          "title": "24-hour support",
+          "body": "Placeholder text. Support runs around the clock every day of the year, including public holidays.\n\n- Live chat: median reply under 2 minutes\n- Email: within 4 hours\n- Anything about money: include the reference number"
+        },
+        {
+          "id": "media",
+          "title": "Media and partnerships",
+          "body": "Placeholder text. For press, sponsorship and partnership requests, use the form on this page and pick the right topic."
+        }
+      ]
+    },
+    {
+      "slug": "tnc",
+      "title": "Terms & Conditions",
+      "updatedAt": "2026-10-01",
+      "sections": [
+        {
+          "id": "general",
+          "title": "1. General",
+          "body": "Placeholder clause 1.1. These terms are a stand-in for the operator's real terms and conditions.\n\nPlaceholder clause 1.2. By opening an account a player accepts these terms, the betting rules and the privacy notice.\n\nPlaceholder clause 1.3. The operator may amend these terms; material changes are announced in the update section."
+        },
+        {
+          "id": "accounts",
+          "title": "2. Accounts",
+          "body": "Placeholder clause 2.1. One account per person, per household and per payment method.\n\nPlaceholder clause 2.2. Players must be at least 18 years old and able to prove identity and address when asked.\n\nPlaceholder clause 2.3. Accounts may be suspended while a document check is open."
+        },
+        {
+          "id": "deposits-withdrawals",
+          "title": "3. Deposits and withdrawals",
+          "body": "Placeholder clause 3.1. Money must come from and return to accounts held in the player's own name.\n\nPlaceholder clause 3.2. Withdrawals pass a review; the first withdrawal each month carries no fee.\n\n| Method | Minimum | Timeline |\n| --- | --- | --- |\n| Bank transfer | RM 50 | Same day |\n| Payment gateway | RM 50 | Within 1 hour |\n| QR | RM 30 | Same day |"
+        },
+        {
+          "id": "bonuses",
+          "title": "4. Bonuses and vouchers",
+          "body": "Placeholder clause 4.1. Bonuses carry turnover requirements and expiry dates, shown with each offer.\n\nPlaceholder clause 4.2. One bonus may be active at a time. Abuse of bonus terms may void bonus money and winnings from it."
+        },
+        {
+          "id": "liability",
+          "title": "5. Liability",
+          "body": "Placeholder clause 5.1. The operator is not liable for service interruptions outside its control.\n\nPlaceholder clause 5.2. Where a result is published in error, the corrected result stands."
+        },
+        {
+          "id": "complaints",
+          "title": "6. Complaints",
+          "body": "Placeholder clause 6.1. Complaints go to support first; unresolved complaints escalate to the named dispute body of the licence."
+        }
+      ]
+    },
+    {
+      "slug": "betting-rules",
+      "title": "Betting Rules",
+      "updatedAt": "2026-10-01",
+      "sections": [
+        {
+          "id": "general-rules",
+          "title": "1. General rules",
+          "body": "Placeholder rule 1.1. These rules are a stand-in for the operator's real betting rules.\n\nPlaceholder rule 1.2. Bets are accepted at the odds shown at the moment of placement. Odds change; a bet stands at the price it was taken."
+        },
+        {
+          "id": "settlement",
+          "title": "2. Settlement",
+          "body": "Placeholder rule 2.1. Results are settled on the official result published by the governing body. Corrections follow that publication.\n\nPlaceholder rule 2.2. A round abandoned and not replayed within 48 hours is void; stakes are returned."
+        },
+        {
+          "id": "sports",
+          "title": "3. Sports",
+          "body": "Placeholder rule 3.1. Pre-match bets stand once placed. Live bets stand until the market is suspended.\n\n- Both-sides bets on one market do not count towards turnover\n- Cashed-out bets are settled at the cash-out value\n- Voided markets return the stake to the wallet"
+        },
+        {
+          "id": "4d-numbergame",
+          "title": "4. 4D and number game",
+          "body": "Placeholder rule 4.1. 4D draws four times a week; prize tiers are First, Second and Third with consolation prizes.\n\nPlaceholder rule 4.2. The number game draws six numbers from 1 to 49 every five minutes and is committed before each draw."
+        },
+        {
+          "id": "livecasino",
+          "title": "5. Live casino",
+          "body": "Placeholder rule 5.1. A hand voided by the studio is replayed or refunded.\n\nPlaceholder rule 5.2. Bets below or above the table limits are not accepted."
+        }
+      ]
+    }
+  ]
+}

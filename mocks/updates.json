@@ -1,0 +1,54 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": [
+    {
+      "id": "up-061",
+      "title": "Maintenance window moved to 22:30",
+      "summary": "The Tuesday maintenance slot moves 90 minutes later from this week.",
+      "publishedAt": "2026-10-13T09:30:00+08:00",
+      "tone": 28,
+      "body": "## What changes\n\nPlaceholder notice. The weekly maintenance window moves from 21:00 to 22:30 (+08:00) so it no longer overlaps the evening football schedule.\n\n### During maintenance\n\n- Deposits and withdrawals are queued, not lost\n- Game sessions are suspended at the end of the current round\n- The member area stays readable\n\n### After maintenance\n\nQueued requests are processed in the order they arrived."
+    },
+    {
+      "id": "up-060",
+      "title": "New live casino studios added",
+      "summary": "Two more studio lobbies are now listed in the live casino page.",
+      "publishedAt": "2026-10-08T14:05:00+08:00",
+      "tone": 186,
+      "body": "## Two more studios\n\nPlaceholder notice. The live casino page now lists two additional studios.\n\n- Their tables appear in the studio rail\n- Launching still shows the VPN notice in this build\n\n### Coming next\n\nA filter for table limits arrives with the next update."
+    },
+    {
+      "id": "up-059",
+      "title": "Withdrawal cut-off extended to 23:00",
+      "summary": "Same-day payouts now accept requests until 23:00 on business days.",
+      "publishedAt": "2026-09-29T11:40:00+08:00",
+      "tone": 142,
+      "body": "## Later cut-off\n\nPlaceholder notice. Same-day payout requests are accepted until 23:00 (+08:00) on business days, two hours later than before.\n\n### What stays the same\n\n- First withdrawal each month is free\n- Requests still pass a document check the first time\n\n### Weekend requests\n\nWeekend requests are processed the next business day."
+    },
+    {
+      "id": "up-058",
+      "title": "Number game draws every five minutes",
+      "summary": "The draw interval shortens from ten minutes to five.",
+      "publishedAt": "2026-09-21T16:20:00+08:00",
+      "tone": 58,
+      "body": "## Faster draws\n\nPlaceholder notice. The number game now draws every five minutes instead of ten.\n\n### What this means for tickets\n\n- A round that closes early is settled at the next draw\n- Past results stay in the archive unchanged\n\n### Verification\n\nThe public chain commit for each round is published with the result."
+    },
+    {
+      "id": "up-057",
+      "title": "Ranking board adds a weekly race",
+      "summary": "A weekly turnover race joins the five boards already published.",
+      "publishedAt": "2026-09-12T10:15:00+08:00",
+      "tone": 300,
+      "body": "## Sixth board\n\nPlaceholder notice. The ranking board gains a weekly race board alongside the monthly, VIP and live boards.\n\n- Boards refresh every 15 minutes\n- Names stay masked on purpose\n- Prizes are credited within 48 hours of a board closing"
+    },
+    {
+      "id": "up-056",
+      "title": "Faster deposits with QR channels",
+      "summary": "Two QR channels are added to the deposit page.",
+      "publishedAt": "2026-09-02T08:45:00+08:00",
+      "tone": 100,
+      "body": "## QR deposits\n\nPlaceholder notice. Two QR channels join the deposit options.\n\n### How it works\n\n1. Open Deposit and pick a QR channel\n2. Scan the code in your banking app\n3. Keep the reference number for the form\n\n### Limits\n\nMinimum RM 30, maximum RM 3,000 per request."
+    }
+  ]
+}

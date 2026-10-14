@@ -1,0 +1,31 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "logoEvolution": [
+      { "id": "logo-2019", "era": "2019", "label": "First mark", "tone": 20 },
+      { "id": "logo-2021", "era": "2021", "label": "Wordmark added", "tone": 60 },
+      { "id": "logo-2023", "era": "2023", "label": "Current outline", "tone": 150 },
+      { "id": "logo-2025", "era": "2025", "label": "Regional variants", "tone": 210 },
+      { "id": "logo-2026", "era": "2026", "label": "App icon", "tone": 300 }
+    ],
+    "videos": [
+      { "id": "vid-1", "title": "Behind the logo", "duration": "2:14", "tone": 35 },
+      { "id": "vid-2", "title": "A day at the studio", "duration": "4:02", "tone": 120 },
+      { "id": "vid-3", "title": "Matchday with the team", "duration": "6:38", "tone": 195 },
+      { "id": "vid-4", "title": "Fan meet-up highlights", "duration": "3:21", "tone": 265 },
+      { "id": "vid-5", "title": "Training camp diary", "duration": "5:47", "tone": 330 },
+      { "id": "vid-6", "title": "Season wrap-up", "duration": "7:05", "tone": 85 }
+    ],
+    "partners": [
+      { "id": "pt-1", "name": "Northern Tigers FC", "kind": "Football club", "tone": 40 },
+      { "id": "pt-2", "name": "Straits Racing", "kind": "Motorsport team", "tone": 160 },
+      { "id": "pt-3", "name": "Harbour Sharks", "kind": "Basketball team", "tone": 200 },
+      { "id": "pt-4", "name": "Peninsula Open", "kind": "Golf tournament", "tone": 95 },
+      { "id": "pt-5", "name": "City Runners", "kind": "Marathon series", "tone": 285 },
+      { "id": "pt-6", "name": "Island Sail GP", "kind": "Sailing series", "tone": 15 },
+      { "id": "pt-7", "name": "Highland Cycling", "kind": "Cycling tour", "tone": 130 },
+      { "id": "pt-8", "name": "Academy Cup", "kind": "Youth football", "tone": 250 }
+    ]
+  }
+}

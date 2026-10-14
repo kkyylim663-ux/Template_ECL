@@ -12,6 +12,15 @@ export const ENDPOINTS = {
   webEvent: 'getWebEvent',
   /** Project-specific: one payload for the display-only pages (4D, number game, prediction). */
   displayPage: 'getDisplayPage',
+  /** Content pages. Project-specific names; P2 maps them onto the live service. */
+  promotionDetail: 'getPromotionDetail',
+  updateList: 'getUpdateList',
+  updateDetail: 'getUpdateDetail',
+  faqTopics: 'getFaqTopics',
+  faqTopic: 'getFaqTopic',
+  vipLevels: 'getVipLevels',
+  sponsorBlocks: 'getSponsorBlocks',
+  contentPage: 'getContentPage',
   /** Ranking boards. The reference build streams this (`ssoTournament`); P0 snapshots it. */
   leaderboard: 'getLeaderboard',
   /** Member area payload (profile, wallets, transactions, inbox, rebates, tickets). */

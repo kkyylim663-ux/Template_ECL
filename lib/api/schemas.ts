@@ -76,23 +76,144 @@ export const announcementSchema = z.object({
 });
 export type Announcement = z.infer<typeof announcementSchema>;
 
+/** Tabs on the promotion list page, minus the "all" tab the UI adds. */
+export const PROMOTION_CATEGORIES = ['deposit', 'rebate', 'casino', 'sports', 'slots', 'referral', 'vip'] as const;
+
 export const promotionSchema = z.object({
   id: z.string(),
   slug: z.string(),
   title: z.string(),
   summary: z.string(),
+  /** Which tab the offer sits under on the promotion list page. */
+  category: z.enum(PROMOTION_CATEGORIES),
   /** Bonus percentage, 0 for a non-percentage offer (e.g. a rebate). */
   bonusPct: z.number().min(0),
   maxBonusMinor: z.number().int().min(0),
   rolloverMultiplier: z.number().min(0),
-  validUntil: z.string(),
+  startsAt: z.string(),
+  endsAt: z.string(),
+  /** Hue for the placeholder banner until a real image is dropped in. */
   tone: z.number().int().min(0).max(359),
+  /** Rules body. Markdown subset: headings, lists, tables, bold links. */
+  rules: z.string(),
 });
 export type Promotion = z.infer<typeof promotionSchema>;
 
 export const bannerListSchema = z.array(bannerSchema);
 export const announcementListSchema = z.array(announcementSchema);
 export const promotionListSchema = z.array(promotionSchema);
+
+/* ------------------------------------------------------------------ updates */
+
+export const updateSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  summary: z.string(),
+  publishedAt: z.string(),
+  tone: z.number().int().min(0).max(359),
+  /** Body, same markdown subset as a promotion's `rules`. */
+  body: z.string(),
+});
+export type Update = z.infer<typeof updateSchema>;
+
+export const updateListSchema = z.array(updateSchema);
+
+/* ---------------------------------------------------------------------- faq */
+
+export const faqItemSchema = z.object({ id: z.string(), q: z.string(), a: z.string() });
+export type FaqItem = z.infer<typeof faqItemSchema>;
+
+export const faqTopicSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  items: z.array(faqItemSchema),
+});
+export type FaqTopic = z.infer<typeof faqTopicSchema>;
+
+/** Sidebar shape: the topic without its questions, plus the count. */
+export const faqTopicSummarySchema = faqTopicSchema.omit({ items: true }).extend({
+  count: z.number().int().min(0),
+});
+export type FaqTopicSummary = z.infer<typeof faqTopicSummarySchema>;
+
+export const faqTopicListSchema = z.array(faqTopicSummarySchema);
+
+/* ---------------------------------------------------------------------- vip */
+
+export const vipLevelSchema = z.object({
+  id: z.string(),
+  level: z.number().int().min(1),
+  name: z.string(),
+  /** Rolling turnover needed to reach the tier. */
+  thresholdMinor: z.number().int().min(0),
+  short: z.string(),
+  benefits: z.array(z.string()),
+});
+export type VipLevel = z.infer<typeof vipLevelSchema>;
+
+export const vipLevelListSchema = z.array(vipLevelSchema);
+
+export const vipPayloadSchema = z.object({
+  levels: vipLevelListSchema,
+  /** Rules block under the tier track (markdown subset). */
+  rules: z.string(),
+});
+export type VipPayload = z.infer<typeof vipPayloadSchema>;
+
+/* ------------------------------------------------------------------ sponsor */
+
+export const sponsorPayloadSchema = z.object({
+  logoEvolution: z.array(
+    z.object({
+      id: z.string(),
+      era: z.string(),
+      label: z.string(),
+      tone: z.number().int().min(0).max(359),
+    }),
+  ),
+  videos: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      duration: z.string(),
+      tone: z.number().int().min(0).max(359),
+    }),
+  ),
+  partners: z.array(
+    z.object({
+      id: z.string(),
+      name: z.string(),
+      kind: z.string(),
+      tone: z.number().int().min(0).max(359),
+    }),
+  ),
+});
+export type SponsorPayload = z.infer<typeof sponsorPayloadSchema>;
+
+/* ------------------------------------------------------------- long-form pages */
+
+export const PAGE_SLUGS = ['about', 'contact', 'tnc', 'betting-rules'] as const;
+export type PageSlug = (typeof PAGE_SLUGS)[number];
+
+export function isPageSlug(value: string): value is PageSlug {
+  return (PAGE_SLUGS as readonly string[]).includes(value);
+}
+
+export const pageSectionSchema = z.object({
+  /** Anchor id used by the table of contents. */
+  id: z.string(),
+  title: z.string(),
+  body: z.string(),
+});
+export type PageSection = z.infer<typeof pageSectionSchema>;
+
+export const pageContentSchema = z.object({
+  slug: z.string(),
+  title: z.string(),
+  updatedAt: z.string(),
+  sections: z.array(pageSectionSchema),
+});
+export type PageContent = z.infer<typeof pageContentSchema>;
 
 /* ------------------------------------------------- -- display (non-slots) pages */
 
