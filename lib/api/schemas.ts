@@ -163,8 +163,26 @@ export type VipLevel = z.infer<typeof vipLevelSchema>;
 
 export const vipLevelListSchema = z.array(vipLevelSchema);
 
+/** One privilege line of the `vip-table__wrapper` matrix: values keyed by tier id. */
+export const vipPrivilegeRowSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  /** The values are minor units and are formatted with the region currency. */
+  money: z.boolean().optional(),
+  values: z.record(z.string(), z.string()),
+});
+export type VipPrivilegeRow = z.infer<typeof vipPrivilegeRowSchema>;
+
+export const vipPrivilegeGroupSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  rows: z.array(vipPrivilegeRowSchema),
+});
+export type VipPrivilegeGroup = z.infer<typeof vipPrivilegeGroupSchema>;
+
 export const vipPayloadSchema = z.object({
   levels: vipLevelListSchema,
+  privileges: z.array(vipPrivilegeGroupSchema),
   /** Rules block under the tier track (markdown subset). */
   rules: z.string(),
 });

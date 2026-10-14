@@ -254,3 +254,121 @@ test.describe('FAQ (T21)', () => {
     }
   });
 });
+
+test.describe('VIP and sponsor (T22)', () => {
+  test('the tier track switches the benefits panel', async ({ page }) => {
+    await page.goto('/my/vip');
+
+    await expect(page.locator('[data-vip-tier]')).toHaveCount(5);
+    // Bronze leads: entry tier, no threshold.
+    await expect(page.locator('[data-vip-active="vip-1"]')).toBeVisible();
+    await expect(page.getByText('Bronze benefits')).toBeVisible();
+
+    await page.locator('[data-vip-tier="vip-4"]').click();
+    await expect(page.locator('[data-vip-active="vip-4"]')).toBeVisible();
+    await expect(page.getByText('Platinum benefits')).toBeVisible();
+    await expect(page.getByText('A named account manager')).toHaveCount(0);
+
+    await page.locator('[data-vip-tier="vip-5"]').click();
+    await expect(page.getByText('A named account manager')).toBeVisible();
+  });
+
+  test('the privilege matrix has one column per tier and follows the selection', async ({
+    page,
+  }) => {
+    await page.goto('/my/vip');
+
+    // Header row plus one cell per matrix row, five tier columns throughout.
+    // Ten rows: the derived upgrade row, then nine from the mock.
+    const table = page.locator('[data-vip-table] table');
+    await expect(table).toBeVisible();
+    await expect(page.locator('[data-vip-table] thead th[data-vip-col]')).toHaveCount(5);
+    await expect(page.locator('[data-vip-table] tbody tr')).toHaveCount(10);
+    const columns = await table.evaluate((element) =>
+      Array.from(
+        new Set(
+          Array.from(element.querySelectorAll('tbody td[data-vip-col]')).map((cell) =>
+            cell.getAttribute('data-vip-col'),
+          ),
+        ),
+      ),
+    );
+    expect([...columns].sort()).toEqual(['vip-1', 'vip-2', 'vip-3', 'vip-4', 'vip-5']);
+
+    // Derived from the thresholds, so it reads back the entry-tier wording.
+    const turnoverRow = page.getByRole('rowheader', { name: 'Rolling 30-day turnover' });
+    await expect(turnoverRow).toBeVisible();
+    await expect(
+      page.locator('[data-vip-table] tbody').getByText('No turnover needed'),
+    ).toBeVisible();
+
+    // Bronze column highlighted in all ten rows; switching moves it.
+    await page.locator('[data-vip-tier="vip-4"]').click();
+    await expect(
+      page.locator('[data-vip-table] td[data-vip-col="vip-4"][data-active="true"]'),
+    ).toHaveCount(10);
+    await expect(
+      page.locator('[data-vip-table] td[data-vip-col="vip-1"][data-active="true"]'),
+    ).toHaveCount(0);
+  });
+
+  test('the rules block expands and collapses', async ({ page }) => {
+    await page.goto('/my/vip');
+
+    const toggle = page.locator('[data-rule-toggle]');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(page.locator('#info-rule-body')).toHaveCount(0);
+
+    await toggle.click();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.getByRole('heading', { name: 'How tiers are reached' })).toBeVisible();
+
+    await toggle.click();
+    await expect(page.locator('#info-rule-body')).toHaveCount(0);
+  });
+
+  test('sponsor shows the carousel, the videos and the partners', async ({ page }) => {
+    await page.goto('/my/sponsor');
+
+    await expect(page.locator('[data-logo-era]')).toHaveCount(5);
+    await expect(page.locator('[data-video]')).toHaveCount(6);
+    await expect(page.locator('[data-partner]')).toHaveCount(8);
+  });
+
+  test('a play button only says that nothing is embedded', async ({ page }) => {
+    await page.goto('/my/sponsor');
+    await page.locator('[data-video="vid-1"]').click();
+
+    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.getByText(/embeds no video/)).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+  });
+
+  test('nothing is embedded and no external asset is requested', async ({ page }) => {
+    const requests: string[] = [];
+    page.on('request', (request) => requests.push(request.url()));
+
+    await page.goto('/my/sponsor');
+    await page.waitForLoadState('networkidle');
+
+    await expect(page.locator('iframe, video, embed, object')).toHaveCount(0);
+    // Only same-origin requests: covers the covers, the carousel and the fonts.
+    const external = requests.filter(
+      (url) => !/^https?:\/\/(127\.0\.0\.1|localhost)[:/]/.test(url),
+    );
+    expect(external).toEqual([]);
+  });
+
+  test('neither page scrolls sideways at 375px', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+
+    for (const path of ['/my/sponsor', '/my/vip']) {
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `${path} overflows by ${overflow}px`).toBeLessThanOrEqual(1);
+    }
+  });
+});

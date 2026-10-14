@@ -68,6 +68,138 @@
         ]
       }
     ],
+    "privileges": [
+      {
+        "id": "membership",
+        "label": "Membership",
+        "rows": [
+          {
+            "id": "renewable",
+            "label": "Renewable",
+            "values": {
+              "vip-1": "Renewable",
+              "vip-2": "Lifetime",
+              "vip-3": "Lifetime",
+              "vip-4": "Lifetime",
+              "vip-5": "Lifetime"
+            }
+          }
+        ]
+      },
+      {
+        "id": "rebate",
+        "label": "Rebate",
+        "rows": [
+          {
+            "id": "live-casino",
+            "label": "Live Casino",
+            "values": {
+              "vip-1": "0.35%",
+              "vip-2": "0.45%",
+              "vip-3": "0.55%",
+              "vip-4": "0.65%",
+              "vip-5": "0.75%"
+            }
+          },
+          {
+            "id": "sportsbook",
+            "label": "Sportsbook",
+            "values": {
+              "vip-1": "0.30%",
+              "vip-2": "0.40%",
+              "vip-3": "0.50%",
+              "vip-4": "0.60%",
+              "vip-5": "0.70%"
+            }
+          },
+          {
+            "id": "slots",
+            "label": "Slots",
+            "values": {
+              "vip-1": "0.50%",
+              "vip-2": "0.60%",
+              "vip-3": "0.70%",
+              "vip-4": "0.80%",
+              "vip-5": "0.90%"
+            }
+          }
+        ]
+      },
+      {
+        "id": "limits",
+        "label": "Limits",
+        "rows": [
+          {
+            "id": "withdrawal-per-request",
+            "label": "Withdrawal per request",
+            "money": true,
+            "values": {
+              "vip-1": "2000000",
+              "vip-2": "4000000",
+              "vip-3": "8000000",
+              "vip-4": "15000000",
+              "vip-5": "40000000"
+            }
+          }
+        ]
+      },
+      {
+        "id": "support",
+        "label": "Support",
+        "rows": [
+          {
+            "id": "live-chat",
+            "label": "Live chat",
+            "values": {
+              "vip-1": "Standard",
+              "vip-2": "Priority queue",
+              "vip-3": "Dedicated host",
+              "vip-4": "Dedicated host",
+              "vip-5": "Account manager"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gifts",
+        "label": "Gifts",
+        "rows": [
+          {
+            "id": "weekly-gift",
+            "label": "Weekly gift",
+            "values": {
+              "vip-1": "—",
+              "vip-2": "✓",
+              "vip-3": "✓",
+              "vip-4": "✓",
+              "vip-5": "✓"
+            }
+          },
+          {
+            "id": "birthday-credit",
+            "label": "Birthday credit",
+            "values": {
+              "vip-1": "—",
+              "vip-2": "✓",
+              "vip-3": "✓",
+              "vip-4": "✓",
+              "vip-5": "✓"
+            }
+          },
+          {
+            "id": "event-invitations",
+            "label": "Event invitations",
+            "values": {
+              "vip-1": "—",
+              "vip-2": "—",
+              "vip-3": "Hosted tables",
+              "vip-4": "Offline events",
+              "vip-5": "Travel programme"
+            }
+          }
+        ]
+      }
+    ],
     "rules": "## How tiers are reached\n\nPlaceholder rules. A tier is earned on rolling 30-day turnover and reviewed weekly.\n\n### Counting\n\n- Slots count at 100% of turnover\n- Live casino counts at 20%\n- Sports counts at 15%\n- 4D does not count\n\n### Keeping a tier\n\nTurnover is reviewed every week. A tier is kept while the rolling 30-day figure stays above its threshold.\n\n### Benefits\n\nBenefits are applied automatically. Physical invitations are sent by the host team through the inbox."
   }
 }

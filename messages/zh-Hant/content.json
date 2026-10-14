@@ -51,6 +51,29 @@
     "next": "下一條公告",
     "empty": "暫無公告"
   },
+  "vip": {
+    "intro": "五個等級,按滾動 30 天流水計算。",
+    "privilegesTitle": "VIP 權益",
+    "tableCaption": "按等級對比權益",
+    "groupUpgrade": "升級門檻",
+    "rowTurnover": "滾動 30 天流水",
+    "threshold": "流水 {amount}+",
+    "thresholdEntry": "無需流水",
+    "benefitsTitle": "{tier} 權益",
+    "rulesLabel": "等級如何達成"
+  },
+  "rules": {
+    "show": "展開規則",
+    "hide": "收起規則"
+  },
+  "sponsor": {
+    "intro": "我們贊助的球隊與賽事,以及品牌標誌的演變。",
+    "logoTitle": "標誌演變",
+    "videosTitle": "影片",
+    "partnersTitle": "合作夥伴",
+    "videoTitle": "影片播放",
+    "videoBody": "此版本不嵌入影片,也不載入任何外部片段。正式版會在此播放。"
+  },
   "faq": {
     "intro": "球員最常問的問題在這裡。",
     "topics": "主題",

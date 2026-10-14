@@ -22,6 +22,7 @@ import {
   type SponsorPayload,
   type Update,
   type VipLevel,
+  type VipPrivilegeGroup,
 } from './schemas';
 
 /** Home carousel slides. */
@@ -110,6 +111,12 @@ export async function getVipLevels(): Promise<VipLevel[]> {
 export async function getVipRules(): Promise<string> {
   const { d } = await callApi(ENDPOINTS.vipLevels);
   return vipPayloadSchema.parse(d).rules;
+}
+
+/** The `vip-table__wrapper` matrix: privilege rows across the five tiers. */
+export async function getVipPrivileges(): Promise<VipPrivilegeGroup[]> {
+  const { d } = await callApi(ENDPOINTS.vipLevels);
+  return vipPayloadSchema.parse(d).privileges;
 }
 
 /* ---------------------------------------------------------------- sponsor */

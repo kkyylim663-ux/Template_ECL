@@ -10,6 +10,7 @@ import {
   getUpdate,
   getUpdates,
   getVipLevels,
+  getVipPrivileges,
   getVipRules,
 } from '@/lib/api';
 import type { PageSlug } from '@/lib/api';
@@ -109,6 +110,23 @@ describe('content getters (mocks/promotions.json, updates, faq, vip, sponsor, pa
     expect([...thresholds].sort((a, b) => a - b)).toEqual(thresholds);
     expect(levels.every((level) => level.benefits.length >= 3)).toBe(true);
     expect((await getVipRules()).length).toBeGreaterThan(50);
+  });
+
+  it('getVipPrivileges covers every tier in every row', async () => {
+    const groups = await getVipPrivileges();
+    const levels = await getVipLevels();
+    const levelIds = levels.map((level) => level.id);
+
+    expect(groups.length).toBeGreaterThanOrEqual(4);
+    const rows = groups.flatMap((group) => group.rows);
+    expect(rows.length).toBeGreaterThanOrEqual(6);
+    for (const row of rows) {
+      expect(Object.keys(row.values).sort()).toEqual([...levelIds].sort());
+    }
+    // The withdrawal row carries minor units for the region formatter.
+    const moneyRow = rows.find((row) => row.money);
+    expect(moneyRow).toBeDefined();
+    expect(Number(moneyRow?.values['vip-1'])).toBeGreaterThan(0);
   });
 
   it('getSponsorBlocks carries the carousel, the video grid and the partners', async () => {

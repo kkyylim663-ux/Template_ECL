@@ -51,6 +51,29 @@
     "next": "Next update",
     "empty": "No updates yet"
   },
+  "vip": {
+    "intro": "Five tiers, earned on rolling 30-day turnover.",
+    "privilegesTitle": "VIP Privileges",
+    "tableCaption": "Privileges by tier",
+    "groupUpgrade": "Tier Upgrade Requirement",
+    "rowTurnover": "Rolling 30-day turnover",
+    "threshold": "{amount}+ turnover",
+    "thresholdEntry": "No turnover needed",
+    "benefitsTitle": "{tier} benefits",
+    "rulesLabel": "How tiers are reached"
+  },
+  "rules": {
+    "show": "Show rules",
+    "hide": "Hide rules"
+  },
+  "sponsor": {
+    "intro": "The teams and series we back, and how the mark changed.",
+    "logoTitle": "Logo Evolution",
+    "videosTitle": "Videos",
+    "partnersTitle": "Partners",
+    "videoTitle": "Video player",
+    "videoBody": "This build embeds no video and loads no clip from anywhere. The live site plays it here."
+  },
   "faq": {
     "intro": "Answers to the questions players ask most.",
     "topics": "Topics",

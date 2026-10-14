@@ -51,6 +51,29 @@
     "next": "Tin sau",
     "empty": "Chưa có tin"
   },
+  "vip": {
+    "intro": "Năm hạng, tính theo doanh số 30 ngày.",
+    "privilegesTitle": "Quyền lợi VIP",
+    "tableCaption": "Quyền lợi theo hạng",
+    "groupUpgrade": "Yêu cầu nâng hạng",
+    "rowTurnover": "Doanh số 30 ngày",
+    "threshold": "Doanh số {amount}+",
+    "thresholdEntry": "Không cần doanh số",
+    "benefitsTitle": "Quyền lợi hạng {tier}",
+    "rulesLabel": "Cách đạt từng hạng"
+  },
+  "rules": {
+    "show": "Xem thể lệ",
+    "hide": "Ẩn thể lệ"
+  },
+  "sponsor": {
+    "intro": "Các đội và giải chúng tôi tài trợ, cùng lịch sử logo.",
+    "logoTitle": "Lịch sử logo",
+    "videosTitle": "Video",
+    "partnersTitle": "Đối tác",
+    "videoTitle": "Trình phát video",
+    "videoBody": "Bản này không nhúng video. Bản thật sẽ phát tại đây."
+  },
   "faq": {
     "intro": "Giải đáp những câu hỏi thường gặp.",
     "topics": "Chủ đề",
