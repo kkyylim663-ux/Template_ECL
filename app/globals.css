@@ -115,6 +115,18 @@ html {
   );
 }
 
+/* Icon presentation, in one place: the markup then carries only viewBox, size and
+   class (see components/ui/Icon.tsx). */
+.icon {
+  display: inline-block;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track,
   .skeleton,
