@@ -41,6 +41,8 @@ export function FaqPanel({ topicId, items }: { topicId: string; items: FaqItem[]
   return (
     <div data-faq-topic={topicId}>
       <IconSprite only={['search']} />
+      {/* The reference has no search box on this template; it is a P1 addition, so
+          it keeps its own compact skin rather than a `.generalPage` one. */}
       <div className="relative">
         <span className="text-muted pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">
           <Icon name="search" size={16} />
@@ -73,43 +75,37 @@ export function FaqPanel({ topicId, items }: { topicId: string; items: FaqItem[]
           </button>
         </div>
       ) : (
-        <ul className="mt-3 space-y-2">
+        /*
+          The reference's question list: `.accordionContent > .accordionItem`, each
+          one a `.accordionItemHeading` with a 24px-margin marker that rotates
+          180deg while open, over a `.accordionItemContent` indented 32px. The
+          heading stays a real button with `aria-expanded` (P1's contract, and what
+          the reference's JS toggle does via `.selected`).
+        */
+        <div className="accordionContent mt-3">
           {shown.map((item) => {
             const open = openId === item.id;
             return (
-              <li
-                key={item.id}
-                data-faq-item={item.id}
-                className="border-line bg-panel overflow-hidden rounded-[var(--radius-panel)] border"
-              >
-                <h3>
-                  <button
-                    type="button"
-                    onClick={() => setOpenId(open ? null : item.id)}
-                    aria-expanded={open}
-                    aria-controls={`${item.id}-answer`}
-                    className="text-ink flex w-full items-center gap-3 px-4 py-3 text-left text-sm font-medium"
-                  >
-                    <span className="min-w-0 flex-1">{highlight(item.q)}</span>
-                    <Icon
-                      name={open ? 'chevronDown' : 'chevronRight'}
-                      size={16}
-                      className="text-muted shrink-0"
-                    />
-                  </button>
-                </h3>
+              <div key={item.id} data-faq-item={item.id} className="accordionItem">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(open ? null : item.id)}
+                  aria-expanded={open}
+                  aria-controls={`${item.id}-answer`}
+                  className="accordionItemHeading"
+                >
+                  <span className="accordion-icon" aria-hidden="true" />
+                  <span className="min-w-0 flex-1">{highlight(item.q)}</span>
+                </button>
                 {open ? (
-                  <div
-                    id={`${item.id}-answer`}
-                    className="border-line text-muted border-t px-4 py-3 text-xs leading-relaxed"
-                  >
-                    {highlight(item.a)}
+                  <div id={`${item.id}-answer`} className="accordionItemContent">
+                    <p>{highlight(item.a)}</p>
                   </div>
                 ) : null}
-              </li>
+              </div>
             );
           })}
-        </ul>
+        </div>
       )}
     </div>
   );

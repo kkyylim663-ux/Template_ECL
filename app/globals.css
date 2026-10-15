@@ -72,6 +72,7 @@
   --color-panel-rb-to: #191b1b; /* .rb-panel gradient end */
   --color-line-table: #303232; /* .rb-table-scroll / .rb-prize-table frame */
   --color-bar-line: rgb(255 255 255 / 20%); /* .mobile-bar 1px 高光边 */
+  --color-rule: #333333; /* .accordionItem / .sidebarItem hairline */
   --color-arrow: #3a3c3c; /* .rb-rule-arrow */
   --color-live-red: #f03b35; /* .rb-update */
   --color-line-input: #a5a5a5; /* .rb-filter border */
@@ -3456,4 +3457,313 @@ html {
   gap: 1rem;
   padding: 1.5rem 0;
   color: var(--color-ink);
+}
+
+/* -------------------------------------------- content pages (T37a) */
+
+/*
+ * The reference's text-page family. `crawl/pages/my_*` shows two shapes sharing
+ * one type scale: the eight topic pages put a `.sidebar` of topic links beside
+ * `.contentWrapper`, and Terms & Conditions / Betting Rules use `.generalPage`
+ * alone. Every value below is measured from `crawl/css` (which carries no mobile
+ * overrides for this family — the reference serves a different phone template —
+ * so the <=768 block at the end is this build's own, written on the 375 base).
+ */
+.generalPage {
+  padding-top: 64px;
+  padding-bottom: 120px;
+}
+
+.generalPage h3 {
+  padding-bottom: 24px;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.generalPage .desc {
+  padding-bottom: 52px;
+}
+
+.generalPage .desc p {
+  padding-bottom: 21px;
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.generalPage .desc p:last-child {
+  padding-bottom: 0;
+}
+
+.generalPage ul {
+  margin: 0;
+  padding-left: 24px;
+  list-style-type: none;
+}
+
+.generalPage ul li {
+  padding-bottom: 19px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 19px;
+  list-style-type: none;
+}
+
+.generalPage ul li:last-child {
+  padding-bottom: 0;
+}
+
+.generalPage .accordionContent {
+  padding-left: 0;
+}
+
+/* Answer copy: 14px/19px with 19px between paragraphs, as in the reference. */
+.generalPage .accordionContent .accordionItemContent p,
+.generalPage .accordionContent .accordionItemContent span {
+  padding-bottom: 19px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 19px;
+}
+
+.generalPage .accordionContent .accordionItemContent p:last-child,
+.generalPage .accordionContent .accordionItemContent span:last-child {
+  padding-bottom: 0;
+}
+
+.generalPage .accordionContent .accordionItemContent ul {
+  margin: 0;
+  padding-left: 24px;
+  list-style-type: none;
+}
+
+.generalPage .accordionContent .accordionItemContent ul.trmslong {
+  padding-top: 24px;
+}
+
+.generalPage .accordionContent .accordionItemContent li {
+  padding-bottom: 19px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 19px;
+  list-style-type: none;
+}
+
+.generalPage .accordionContent .accordionItemContent li:last-child {
+  padding-bottom: 0;
+}
+
+/*
+ * Betting Rules numbers its clauses with a CSS counter (`counters(item, ".")`),
+ * so the visible "1.2.3" comes from the nesting, not from the markup.
+ */
+.generalPage ul.trmslong {
+  counter-reset: item;
+}
+
+.generalPage ul.trmslong .accordionItemHeading {
+  counter-increment: item;
+}
+
+.generalPage ul.trmslong li::before {
+  content: counters(item, '. ') '. ';
+  counter-increment: item;
+}
+
+/* Bulleted / numbered lists inside topic answers (`about-ul-*`). */
+.accordionItemContent ul.about-ul-decimal {
+  padding-bottom: 19px;
+  list-style-type: decimal;
+}
+
+.accordionItemContent ul.about-ul-disc {
+  padding-bottom: 19px;
+  list-style: disc;
+}
+
+ul.about-ul-decimal:last-child,
+ul.about-ul-disc:last-child {
+  padding-bottom: 0;
+}
+
+.generalPage .accordionContent .accordionItemContent ul.about-ul-decimal > li {
+  list-style-type: decimal;
+}
+
+.generalPage .accordionContent .accordionItemContent ul.about-ul-disc > li {
+  list-style: disc;
+}
+
+/* One question: a heading that toggles the answer below it. */
+.accordionItem {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.accordionItem:last-child {
+  border-bottom: none;
+}
+
+.accordionItemHeading {
+  display: flex;
+  width: 100%;
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 19px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+/* The reference loads icon_triangle_solid_white.svg — 11px, like its
+   account-promotion twin — but the asset was never crawled and the live site
+   404s it, so the marker is drawn as a solid down triangle (the heading's
+   rotate() flips it while open). */
+.accordion-icon {
+  flex-shrink: 0;
+  width: 11px;
+  height: 11px;
+  margin-right: 24px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transition: all 0.3s;
+}
+
+.accordionItemContent {
+  padding: 24px 0 0 32px;
+}
+
+/* The reference marks open items `.selected`; this build drives it with state. */
+.accordionItemHeading[aria-expanded='true'] .accordion-icon {
+  transform: rotate(180deg);
+}
+
+/* Topic rail beside the answer column. */
+.sidebarPage {
+  font-size: 0;
+}
+
+.sidebarPage > * {
+  vertical-align: top;
+}
+
+.sidebarPage .sidebar {
+  display: inline-block;
+  width: 280px;
+  padding-right: 100px;
+}
+
+.sidebarPage .sidebar .sidebarItem {
+  display: block;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--color-rule);
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 19px;
+  cursor: pointer;
+}
+
+.sidebarPage .sidebar .sidebarItem:first-child {
+  padding-top: 0;
+}
+
+.sidebarPage .sidebar .sidebarItem.active {
+  color: var(--color-accent);
+}
+
+.sidebarPage .contentWrapper {
+  display: none;
+  width: calc(100% - 280px);
+}
+
+.sidebarPage .contentWrapper.active {
+  display: inline-block;
+}
+
+.sidebarPage .vertical-gap {
+  display: grid;
+  gap: 50px;
+}
+
+/*
+ * The reference stops at 768px with a fixed 280px rail, which cannot fit a phone
+ * (the crawl's phone snapshot is the home page, so its topic-page template is not
+ * available to copy). Below 769px the rail therefore becomes a scrollable strip
+ * of topic chips above the answer column, and the two stack.
+ */
+@media (max-width: 768px) {
+  .generalPage {
+    padding-top: 32px;
+    padding-bottom: 60px;
+  }
+
+  .generalPage h3 {
+    font-size: var(--text-lg);
+    padding-bottom: 16px;
+  }
+
+  .generalPage .desc {
+    padding-bottom: 28px;
+  }
+
+  .sidebarPage .sidebar {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding-right: 0;
+    padding-bottom: 16px;
+    overflow-x: auto;
+  }
+
+  .sidebarPage .sidebar .sidebarItem {
+    flex: 0 0 auto;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: var(--radius-panel);
+    background: var(--color-line-deepest);
+    color: var(--color-ink);
+    min-height: 44px;
+  }
+
+  .sidebarPage .sidebar .sidebarItem:first-child {
+    padding-top: 12px;
+  }
+
+  .sidebarPage .sidebar .sidebarItem.active {
+    background: var(--color-accent);
+    color: #000;
+  }
+
+  .sidebarPage .contentWrapper,
+  .sidebarPage .contentWrapper.active {
+    display: block;
+    width: 100%;
+  }
+
+  .sidebarPage .vertical-gap {
+    gap: 28px;
+  }
+
+  /* The heading is the tap target the T27 gate measures: hold it at 44px and
+     trim the item's own padding so one- and two-line questions stand equal. */
+  .accordionItem {
+    padding: 8px 0;
+  }
+
+  .accordionItemHeading {
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .accordionItemContent {
+    padding-left: 0;
+  }
 }

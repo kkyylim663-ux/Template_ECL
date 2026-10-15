@@ -12,7 +12,14 @@ import { brand } from '@/config/brand';
 import { JsonLd } from '@/components/content/JsonLd';
 import { faqPageLd } from '@/lib/seo';
 
-/** Each topic answers under its own title, e.g. "Finance · <brand>" (T24). */
+/**
+ * Each topic answers under its own title, e.g. "Finance · <brand>" (T24).
+ *
+ * Layout is the reference's topic page: `.generalPage.sidebarPage.container` with
+ * the 280px `.sidebar` of topic links beside the `.contentWrapper.active` answer
+ * column (see `crawl/pages/my_gettingstart.html`). Below 769px the two stack — the
+ * crawl has no phone snapshot of this template, so that block is this build's own.
+ */
 export async function generateMetadata({
   params,
 }: {
@@ -49,45 +56,41 @@ export default async function FaqTopicPage({
 
   return (
     <IntlScope namespaces={['content']}>
-      <div data-page="faq">
+      <section data-page="faq" className="generalPage sidebarPage container-page">
         <JsonLd data={faqPageLd(current.items)} />
-        <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.faq'), path: '/faq' }], region)} />
-        <header>
-          <h1 className="text-ink text-xl font-semibold">{t('pages.faq')}</h1>
-          <p className="text-muted mt-1 text-xs">{t('faq.intro')}</p>
-        </header>
+        <JsonLd
+          data={breadcrumbLd(
+            [{ name: brand.name, path: '' }, { name: t('pages.faq'), path: '/faq' }],
+            region,
+          )}
+        />
 
-        <div className="mt-5 grid gap-5 desktop:grid-cols-[16rem_1fr]">
-          {/* Topic sidebar: a horizontal scroller on phones, a column on desktop. */}
-          <nav aria-label={t('faq.topics')} className="-mx-4 overflow-x-auto px-4 desktop:mx-0 desktop:px-0">
-            <p className="text-muted text-11 tracking-widest uppercase">{t('faq.topics')}</p>
-            <ul className="mt-2 flex w-max gap-2 desktop:w-auto desktop:flex-col desktop:gap-1">
-              {topics.map((entry) => {
-                const active = entry.id === topic;
-                return (
-                  <li key={entry.id}>
-                    <Link
-                      href={regionPath(region, `/faq/${entry.id}`)}
-                      data-topic={entry.id}
-                      aria-current={active ? 'true' : undefined}
-                      className={`flex min-h-11 items-center justify-between gap-2 rounded-[var(--radius-tag)] border px-3 py-2 text-xs whitespace-nowrap desktop:w-full desktop:whitespace-normal ${
-                        active
-                          ? 'border-accent text-accent bg-panel-soft'
-                          : 'border-line text-muted hover:border-accent hover:text-ink'
-                      }`}
-                    >
-                      <span>{entry.title}</span>
-                      <span className="text-muted text-10">{entry.count}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+        <nav aria-label={t('faq.topics')} className="sidebar">
+          {topics.map((entry) => {
+            const active = entry.id === topic;
+            return (
+              <Link
+                key={entry.id}
+                href={regionPath(region, `/faq/${entry.id}`)}
+                data-topic={entry.id}
+                aria-current={active ? 'true' : undefined}
+                className={`sidebarItem${active ? ' active' : ''}`}
+              >
+                {entry.title}
+              </Link>
+            );
+          })}
+        </nav>
 
-          <FaqPanel key={current.id} topicId={current.id} items={current.items} />
+        <div className="contentWrapper active">
+          <div className="vertical-gap">
+            <div>
+              <h3>{current.title}</h3>
+              <FaqPanel key={current.id} topicId={current.id} items={current.items} />
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
     </IntlScope>
   );
 }

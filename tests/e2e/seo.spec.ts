@@ -44,7 +44,7 @@ test.describe('page metadata (T24)', () => {
 
   test('an FAQ topic answers under its own title', async ({ page }) => {
     await page.goto('/my/faq/finance');
-    await expect(page).toHaveTitle(/Deposits and withdrawals · BRAND/);
+    await expect(page).toHaveTitle(/Finance · BRAND/);
   });
 
   test('titles follow the language cookie', async ({ page, context }) => {

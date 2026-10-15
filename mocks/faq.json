@@ -4,95 +4,275 @@
   "d": [
     {
       "id": "gettingstart",
-      "title": "Getting started",
+      "title": "Getting Start",
       "items": [
-        { "id": "gs-1", "q": "How do I create an account?", "a": "Placeholder answer. Open Register, fill in the email, code, username, password and mobile number, then accept the terms. This demo build validates the form locally and creates nothing." },
-        { "id": "gs-2", "q": "Which username can I choose?", "a": "Placeholder answer. Four to twenty characters, letters and digits only, no spaces. The username cannot be changed later." },
-        { "id": "gs-3", "q": "How do I make my first deposit?", "a": "Placeholder answer. Open Deposit, choose bank transfer or a payment gateway, then enter the amount and reference number. A reviewer approves the first request." },
-        { "id": "gs-4", "q": "What is the minimum deposit?", "a": "Placeholder answer. RM 30 for QR channels, RM 50 for bank transfer and payment gateways." },
-        { "id": "gs-5", "q": "How long does a deposit take to appear?", "a": "Placeholder answer. Under five minutes once the request is approved. Bank transfers sent after banking hours are credited the next business day." },
-        { "id": "gs-6", "q": "Where do I find my referral code?", "a": "Placeholder answer. Profile shows the code. Both sides receive a credit after the friend's first qualifying deposit." }
+        {
+          "id": "gs-1",
+          "q": "How do I create an account?",
+          "a": "Placeholder answer. Open Register, fill in the email, code, username, password and mobile number, then accept the terms. This demo build validates the form locally and creates nothing."
+        },
+        {
+          "id": "gs-2",
+          "q": "Which username can I choose?",
+          "a": "Placeholder answer. Four to twenty characters, letters and digits only, no spaces. The username cannot be changed later."
+        },
+        {
+          "id": "gs-3",
+          "q": "How do I make my first deposit?",
+          "a": "Placeholder answer. Open Deposit, choose bank transfer or a payment gateway, then enter the amount and reference number. A reviewer approves the first request."
+        },
+        {
+          "id": "gs-4",
+          "q": "What is the minimum deposit?",
+          "a": "Placeholder answer. RM 30 for QR channels, RM 50 for bank transfer and payment gateways."
+        },
+        {
+          "id": "gs-5",
+          "q": "How long does a deposit take to appear?",
+          "a": "Placeholder answer. Under five minutes once the request is approved. Bank transfers sent after banking hours are credited the next business day."
+        },
+        {
+          "id": "gs-6",
+          "q": "Where do I find my referral code?",
+          "a": "Placeholder answer. Profile shows the code. Both sides receive a credit after the friend's first qualifying deposit."
+        }
       ]
     },
     {
       "id": "finance",
-      "title": "Deposits and withdrawals",
+      "title": "Finance",
       "items": [
-        { "id": "fi-1", "q": "Why was my deposit request held for review?", "a": "Placeholder answer. First deposits and any request without a matching reference number go to a human reviewer. Nothing is lost while it waits." },
-        { "id": "fi-2", "q": "How do I withdraw?", "a": "Placeholder answer. Open Withdrawal, pick a verified bank account, enter the amount and submit. The request appears under Pending transactions." },
-        { "id": "fi-3", "q": "What are the withdrawal limits?", "a": "Placeholder answer. Minimum RM 50 and maximum RM 5,000 per request in this demo data." },
-        { "id": "fi-4", "q": "Is there a withdrawal fee?", "a": "Placeholder answer. The first withdrawal each month carries no fee; later ones carry a small fee that the request form shows before submission." },
-        { "id": "fi-5", "q": "Why do I need a document check?", "a": "Placeholder answer. A bank account must pass one document check before it can receive a payout. This is done once per bank account." },
-        { "id": "fi-6", "q": "How do I move money between wallets?", "a": "Placeholder answer. Open Transfer, pick the source and destination wallets and the amount. Auto-transfer returns winnings to the main wallet after each round." },
-        { "id": "fi-7", "q": "Can I cancel a pending request?", "a": "Placeholder answer. Yes, from Pending transactions while the reviewer has not picked it up. Cancelling releases any held amount." }
+        {
+          "id": "fi-1",
+          "q": "Why was my deposit request held for review?",
+          "a": "Placeholder answer. First deposits and any request without a matching reference number go to a human reviewer. Nothing is lost while it waits."
+        },
+        {
+          "id": "fi-2",
+          "q": "How do I withdraw?",
+          "a": "Placeholder answer. Open Withdrawal, pick a verified bank account, enter the amount and submit. The request appears under Pending transactions."
+        },
+        {
+          "id": "fi-3",
+          "q": "What are the withdrawal limits?",
+          "a": "Placeholder answer. Minimum RM 50 and maximum RM 5,000 per request in this demo data."
+        },
+        {
+          "id": "fi-4",
+          "q": "Is there a withdrawal fee?",
+          "a": "Placeholder answer. The first withdrawal each month carries no fee; later ones carry a small fee that the request form shows before submission."
+        },
+        {
+          "id": "fi-5",
+          "q": "Why do I need a document check?",
+          "a": "Placeholder answer. A bank account must pass one document check before it can receive a payout. This is done once per bank account."
+        },
+        {
+          "id": "fi-6",
+          "q": "How do I move money between wallets?",
+          "a": "Placeholder answer. Open Transfer, pick the source and destination wallets and the amount. Auto-transfer returns winnings to the main wallet after each round."
+        },
+        {
+          "id": "fi-7",
+          "q": "Can I cancel a pending request?",
+          "a": "Placeholder answer. Yes, from Pending transactions while the reviewer has not picked it up. Cancelling releases any held amount."
+        }
       ]
     },
     {
       "id": "statement",
-      "title": "Statements and records",
+      "title": "Statement",
       "items": [
-        { "id": "st-1", "q": "Where can I see my transactions?", "a": "Placeholder answer. Transaction history lists deposits, withdrawals, transfers, rebates and bonuses. Filter by type and status." },
-        { "id": "st-2", "q": "What does the rollover block show?", "a": "Placeholder answer. It tracks the turnover still required on active promotions, with the requirement and the progress made so far." },
-        { "id": "st-3", "q": "How far back do records go?", "a": "Placeholder answer. The demo data holds 12 months. The live build keeps records for as long as the licence requires." },
-        { "id": "st-4", "q": "Can I download a statement?", "a": "Placeholder answer. Not in this build. Export arrives with the member area update." },
-        { "id": "st-5", "q": "Why does a row show a different amount?", "a": "Placeholder answer. Bonus rows show the bonus amount, not the deposit it came from. The reference number ties the two together." }
+        {
+          "id": "st-1",
+          "q": "Where can I see my transactions?",
+          "a": "Placeholder answer. Transaction history lists deposits, withdrawals, transfers, rebates and bonuses. Filter by type and status."
+        },
+        {
+          "id": "st-2",
+          "q": "What does the rollover block show?",
+          "a": "Placeholder answer. It tracks the turnover still required on active promotions, with the requirement and the progress made so far."
+        },
+        {
+          "id": "st-3",
+          "q": "How far back do records go?",
+          "a": "Placeholder answer. The demo data holds 12 months. The live build keeps records for as long as the licence requires."
+        },
+        {
+          "id": "st-4",
+          "q": "Can I download a statement?",
+          "a": "Placeholder answer. Not in this build. Export arrives with the member area update."
+        },
+        {
+          "id": "st-5",
+          "q": "Why does a row show a different amount?",
+          "a": "Placeholder answer. Bonus rows show the bonus amount, not the deposit it came from. The reference number ties the two together."
+        }
       ]
     },
     {
       "id": "games",
-      "title": "Games and studios",
+      "title": "Games",
       "items": [
-        { "id": "ga-1", "q": "How do I find a specific game?", "a": "Placeholder answer. Use the search box on the slots page. Results update as you type and the address bar keeps the query." },
-        { "id": "ga-2", "q": "Why are category tabs different per studio?", "a": "Placeholder answer. Each studio publishes its own categories, so the tab row follows the studio rather than the site." },
-        { "id": "ga-3", "q": "Why does Play Now do nothing?", "a": "Placeholder answer. This demo build never launches a game. Both Play Now and Demo are inert so the browsing flow can be reviewed safely." },
-        { "id": "ga-4", "q": "What is the VPN notice about?", "a": "Placeholder answer. Some live tables and esports lobbies ask you to turn off a VPN before opening. The notice is the end of the flow here." },
-        { "id": "ga-5", "q": "How often does the number game draw?", "a": "Placeholder answer. Every five minutes, six numbers from 1 to 49. Each round is committed before the draw." },
-        { "id": "ga-6", "q": "How does 4D work?", "a": "Placeholder answer. Four draws a week. Pick a 4-digit number and a bet type; prize tiers are First, Second and Third with consolation prizes." }
+        {
+          "id": "ga-1",
+          "q": "How do I find a specific game?",
+          "a": "Placeholder answer. Use the search box on the slots page. Results update as you type and the address bar keeps the query."
+        },
+        {
+          "id": "ga-2",
+          "q": "Why are category tabs different per studio?",
+          "a": "Placeholder answer. Each studio publishes its own categories, so the tab row follows the studio rather than the site."
+        },
+        {
+          "id": "ga-3",
+          "q": "Why does Play Now do nothing?",
+          "a": "Placeholder answer. This demo build never launches a game. Both Play Now and Demo are inert so the browsing flow can be reviewed safely."
+        },
+        {
+          "id": "ga-4",
+          "q": "What is the VPN notice about?",
+          "a": "Placeholder answer. Some live tables and esports lobbies ask you to turn off a VPN before opening. The notice is the end of the flow here."
+        },
+        {
+          "id": "ga-5",
+          "q": "How often does the number game draw?",
+          "a": "Placeholder answer. Every five minutes, six numbers from 1 to 49. Each round is committed before the draw."
+        },
+        {
+          "id": "ga-6",
+          "q": "How does 4D work?",
+          "a": "Placeholder answer. Four draws a week. Pick a 4-digit number and a bet type; prize tiers are First, Second and Third with consolation prizes."
+        }
       ]
     },
     {
       "id": "events",
-      "title": "Events and rankings",
+      "title": "Events",
       "items": [
-        { "id": "ev-1", "q": "How does the ranking board work?", "a": "Placeholder answer. Each board ranks turnover for its period. Names are masked on purpose and prizes are credited within 48 hours of a board closing." },
-        { "id": "ev-2", "q": "What is the difference between the boards?", "a": "Placeholder answer. Weekly and monthly races cover all products; the VIP boards only count invited accounts; the live board updates continuously." },
-        { "id": "ev-3", "q": "How do prediction entries work?", "a": "Placeholder answer. Pick an outcome before kick-off. Correct picks earn points for the monthly board. Entries are free and closed in this build." },
-        { "id": "ev-4", "q": "How are tickets earned?", "a": "Placeholder answer. Tickets accumulate from play. Each event spends a fixed number of tickets when you enter." },
-        { "id": "ev-5", "q": "When is the board data refreshed?", "a": "Placeholder answer. The public boards refresh every 15 minutes; the live board streams continuously in the live build." }
+        {
+          "id": "ev-1",
+          "q": "How does the ranking board work?",
+          "a": "Placeholder answer. Each board ranks turnover for its period. Names are masked on purpose and prizes are credited within 48 hours of a board closing."
+        },
+        {
+          "id": "ev-2",
+          "q": "What is the difference between the boards?",
+          "a": "Placeholder answer. Weekly and monthly races cover all products; the VIP boards only count invited accounts; the live board updates continuously."
+        },
+        {
+          "id": "ev-3",
+          "q": "How do prediction entries work?",
+          "a": "Placeholder answer. Pick an outcome before kick-off. Correct picks earn points for the monthly board. Entries are free and closed in this build."
+        },
+        {
+          "id": "ev-4",
+          "q": "How are tickets earned?",
+          "a": "Placeholder answer. Tickets accumulate from play. Each event spends a fixed number of tickets when you enter."
+        },
+        {
+          "id": "ev-5",
+          "q": "When is the board data refreshed?",
+          "a": "Placeholder answer. The public boards refresh every 15 minutes; the live board streams continuously in the live build."
+        }
       ]
     },
     {
       "id": "promotions",
-      "title": "Vouchers and promotions",
+      "title": "Promotions",
       "items": [
-        { "id": "pr-1", "q": "How do I use a voucher code?", "a": "Placeholder answer. Open Voucher (Promo Code) from the header, paste the code and submit. Guest visitors are asked to sign in first." },
-        { "id": "pr-2", "q": "What is turnover?", "a": "Placeholder answer. The total amount that must be wagered before bonus money can be withdrawn. Each product contributes at a different rate." },
-        { "id": "pr-3", "q": "Why did my bonus expire?", "a": "Placeholder answer. Bonuses carry an expiry date and unused bonus balance is removed when it passes." },
-        { "id": "pr-4", "q": "Can I hold two bonuses at once?", "a": "Placeholder answer. No. An active bonus must be finished or cancelled before another can be claimed." },
-        { "id": "pr-5", "q": "How is rebate different from a bonus?", "a": "Placeholder answer. Rebate is cash with no turnover requirement; a bonus carries turnover and an expiry date." },
-        { "id": "pr-6", "q": "Where do I see my rollover progress?", "a": "Placeholder answer. Transaction history shows the rollover block for each active promotion." }
+        {
+          "id": "pr-1",
+          "q": "How do I use a voucher code?",
+          "a": "Placeholder answer. Open Voucher (Promo Code) from the header, paste the code and submit. Guest visitors are asked to sign in first."
+        },
+        {
+          "id": "pr-2",
+          "q": "What is turnover?",
+          "a": "Placeholder answer. The total amount that must be wagered before bonus money can be withdrawn. Each product contributes at a different rate."
+        },
+        {
+          "id": "pr-3",
+          "q": "Why did my bonus expire?",
+          "a": "Placeholder answer. Bonuses carry an expiry date and unused bonus balance is removed when it passes."
+        },
+        {
+          "id": "pr-4",
+          "q": "Can I hold two bonuses at once?",
+          "a": "Placeholder answer. No. An active bonus must be finished or cancelled before another can be claimed."
+        },
+        {
+          "id": "pr-5",
+          "q": "How is rebate different from a bonus?",
+          "a": "Placeholder answer. Rebate is cash with no turnover requirement; a bonus carries turnover and an expiry date."
+        },
+        {
+          "id": "pr-6",
+          "q": "Where do I see my rollover progress?",
+          "a": "Placeholder answer. Transaction history shows the rollover block for each active promotion."
+        }
       ]
     },
     {
       "id": "contactus",
-      "title": "Contacting support",
+      "title": "Contact Us",
       "items": [
-        { "id": "co-1", "q": "What is the fastest way to reach support?", "a": "Placeholder answer. Live chat, open around the clock. The contact page lists every channel with its expected response time." },
-        { "id": "co-2", "q": "What should I have ready?", "a": "Placeholder answer. Your username and, for anything about money, the reference number from the transaction row." },
-        { "id": "co-3", "q": "How long does a reply take?", "a": "Placeholder answer. Live chat answers in under two minutes on median. Email is answered within four hours." },
-        { "id": "co-4", "q": "How do I report a game that froze?", "a": "Placeholder answer. Note the round ID shown by the game and send it to support. The round is settled automatically either way." },
-        { "id": "co-5", "q": "Where do I send feedback?", "a": "Placeholder answer. The contact form on this site reaches the product team; it is a demo form in this build." }
+        {
+          "id": "co-1",
+          "q": "What is the fastest way to reach support?",
+          "a": "Placeholder answer. Live chat, open around the clock. The contact page lists every channel with its expected response time."
+        },
+        {
+          "id": "co-2",
+          "q": "What should I have ready?",
+          "a": "Placeholder answer. Your username and, for anything about money, the reference number from the transaction row."
+        },
+        {
+          "id": "co-3",
+          "q": "How long does a reply take?",
+          "a": "Placeholder answer. Live chat answers in under two minutes on median. Email is answered within four hours."
+        },
+        {
+          "id": "co-4",
+          "q": "How do I report a game that froze?",
+          "a": "Placeholder answer. Note the round ID shown by the game and send it to support. The round is settled automatically either way."
+        },
+        {
+          "id": "co-5",
+          "q": "Where do I send feedback?",
+          "a": "Placeholder answer. The contact form on this site reaches the product team; it is a demo form in this build."
+        }
       ]
     },
     {
       "id": "downloadapp",
-      "title": "Mobile app",
+      "title": "Download App",
       "items": [
-        { "id": "da-1", "q": "Is there a mobile app?", "a": "Placeholder answer. The site runs in the browser on phones and installs as a shortcut. A packaged app is planned." },
-        { "id": "da-2", "q": "Why does the app banner appear?", "a": "Placeholder answer. It points at this topic. It can be dismissed and stays dismissed on that device." },
-        { "id": "da-3", "q": "Does the mobile site have every feature?", "a": "Placeholder answer. Yes: browsing, deposits, withdrawals, promotions and the member area are all available at 375px." },
-        { "id": "da-4", "q": "How do I add the site to my home screen?", "a": "Placeholder answer. Open the browser menu and choose Add to Home Screen. It then opens without browser chrome." },
-        { "id": "da-5", "q": "Will I get draw alerts?", "a": "Placeholder answer. Not in this build. Notifications arrive with the app release." }
+        {
+          "id": "da-1",
+          "q": "Is there a mobile app?",
+          "a": "Placeholder answer. The site runs in the browser on phones and installs as a shortcut. A packaged app is planned."
+        },
+        {
+          "id": "da-2",
+          "q": "Why does the app banner appear?",
+          "a": "Placeholder answer. It points at this topic. It can be dismissed and stays dismissed on that device."
+        },
+        {
+          "id": "da-3",
+          "q": "Does the mobile site have every feature?",
+          "a": "Placeholder answer. Yes: browsing, deposits, withdrawals, promotions and the member area are all available at 375px."
+        },
+        {
+          "id": "da-4",
+          "q": "How do I add the site to my home screen?",
+          "a": "Placeholder answer. Open the browser menu and choose Add to Home Screen. It then opens without browser chrome."
+        },
+        {
+          "id": "da-5",
+          "q": "Will I get draw alerts?",
+          "a": "Placeholder answer. Not in this build. Notifications arrive with the app release."
+        }
       ]
     }
   ]
