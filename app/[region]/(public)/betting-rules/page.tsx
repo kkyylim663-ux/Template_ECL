@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPageContent } from '@/lib/api';
 import { IntlScope } from '@/lib/i18n/scope';
-import { getT } from '@/lib/i18n/server';
-import { LongFormPage } from '@/components/content/LongFormPage';
-import { pageMetadata } from '@/lib/seo';
+import { ClauseAccordion } from '@/components/content/ClauseAccordion';
+import { JsonLd } from '@/components/content/JsonLd';
+import { breadcrumbLd, pageMetadata } from '@/lib/seo';
+import { brand } from '@/config/brand';
 
 export async function generateMetadata({
   params,
@@ -15,19 +16,32 @@ export async function generateMetadata({
   return pageMetadata('bettingRules', { region, path: '/betting-rules' });
 }
 
-/** Betting Rules and Regulations — same long-form layout, placeholder rules. */
+/**
+ * Betting Rules and Regulations — same reference shape as tnc: a `.generalPage`
+ * heading over a closed-by-default accordion. Placeholder rules from
+ * `mocks/pages.json`.
+ */
 export default async function BettingRulesPage({
   params,
 }: {
   params: Promise<{ region: string }>;
 }) {
   const { region } = await params;
-  const [{ t }, page] = await Promise.all([getT('content'), getPageContent('betting-rules')]);
+  const page = await getPageContent('betting-rules');
   if (!page) notFound();
 
   return (
     <IntlScope namespaces={['content']}>
-      <LongFormPage region={region} title={t('pages.bettingRules')} page={page} />
+      <JsonLd
+        data={breadcrumbLd(
+          [
+            { name: brand.name, path: '' },
+            { name: page.title, path: '/betting-rules' },
+          ],
+          region,
+        )}
+      />
+      <ClauseAccordion page={page} pageKey="betting-rules" />
     </IntlScope>
   );
 }

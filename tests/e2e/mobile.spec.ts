@@ -173,7 +173,7 @@ test.describe('content pages, mobile and keyboard (T27)', () => {
     const selectors = [
       ['/my/promotion', '[data-cat]'],
       ['/my/promotion', 'a[href*="/promotion/"]'],
-      ['/my/tnc', '[data-toc="mobile"] [data-toc-link]'],
+      ['/my/tnc', '.accordionItemHeading'],
       ['/my/faq/finance', '[data-topic]'],
       ['/my/faq/finance', '[data-faq-item] button'],
       ['/my/contact', '[data-social]'],

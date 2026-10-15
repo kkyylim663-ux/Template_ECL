@@ -355,14 +355,20 @@ test.describe('VIP and sponsor (T22)', () => {
 });
 
 test.describe('long-form pages (T23)', () => {
-  test('the long-form pair renders its sections and the contents rail', async ({ page }) => {
-    const counts: Record<string, number> = { tnc: 6, 'betting-rules': 5 };
-
-    for (const [slug, sections] of Object.entries(counts)) {
+  test('tnc and betting-rules fold their clauses into accordions', async ({ page }) => {
+    for (const [slug, count] of [
+      ['tnc', 6],
+      ['betting-rules', 5],
+    ] as const) {
       await page.goto(`/my/${slug}`);
-      await expect(page.locator('[data-page="longform"]')).toHaveCount(1);
-      await expect(page.locator('[data-page="longform"] section')).toHaveCount(sections);
-      await expect(page.locator('[data-toc="desktop"] [data-toc-link]')).toHaveCount(sections);
+      const items = page.locator(`[data-page="${slug}"] details.accordionItem`);
+      await expect(items).toHaveCount(count);
+
+      // All clauses start closed; the first one opens by click, natively.
+      const first = items.first();
+      expect(await first.evaluate((el) => (el as HTMLDetailsElement).open)).toBe(false);
+      await first.locator('summary').click();
+      expect(await first.evaluate((el) => (el as HTMLDetailsElement).open)).toBe(true);
     }
   });
 
@@ -394,29 +400,27 @@ test.describe('long-form pages (T23)', () => {
   test('a contents link scrolls to its section, sets the hash and the highlight', async ({
     page,
   }) => {
-    await page.goto('/my/tnc');
+    await page.goto('/my/contact');
 
-    await page.locator('[data-toc="desktop"] [data-toc-link="deposits-withdrawals"]').click();
-    await expect(page).toHaveURL(/#deposits-withdrawals$/);
+    await page.locator('[data-toc="desktop"] [data-toc-link="hours"]').click();
+    await expect(page).toHaveURL(/#hours$/);
 
     // The smooth scroll settles with the section top under the header.
     await expect
-      .poll(async () =>
-        page.locator('#deposits-withdrawals').evaluate((el) => el.getBoundingClientRect().top),
-      )
+      .poll(async () => page.locator('#hours').evaluate((el) => el.getBoundingClientRect().top))
       .toBeLessThan(300);
-    await expect(
-      page.locator('[data-toc="desktop"] [data-toc-link="deposits-withdrawals"]'),
-    ).toHaveAttribute('aria-current', 'true');
-    // The rail follows the reader: the first section is no longer current.
-    await expect(page.locator('[data-toc="desktop"] [data-toc-link="general"]')).not.toHaveAttribute(
+    await expect(page.locator('[data-toc="desktop"] [data-toc-link="hours"]')).toHaveAttribute(
       'aria-current',
       'true',
     );
+    // The rail follows the reader: the first section is no longer current.
+    await expect(
+      page.locator('[data-toc="desktop"] [data-toc-link="channels"]'),
+    ).not.toHaveAttribute('aria-current', 'true');
   });
 
   test('back to top appears after scrolling and returns to the top', async ({ page }) => {
-    await page.goto('/my/tnc');
+    await page.goto('/my/contact');
 
     await expect(page.locator('[data-back-to-top]')).toBeHidden();
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
@@ -454,7 +458,7 @@ test.describe('long-form pages (T23)', () => {
   test('mobile folds the contents into a dropdown, and nothing overflows', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
 
-    for (const slug of ['contact', 'tnc', 'betting-rules']) {
+    for (const slug of ['contact']) {
       await page.goto(`/my/${slug}`);
       await expect(page.locator('[data-toc="desktop"]')).toBeHidden();
       const dropdown = page.locator('[data-toc="mobile"]');
@@ -467,12 +471,12 @@ test.describe('long-form pages (T23)', () => {
     }
 
     // The dropdown closes once a section is picked.
-    await page.goto('/my/tnc');
+    await page.goto('/my/contact');
     const dropdown = page.locator('[data-toc="mobile"]');
     await dropdown.locator('summary').click();
     await expect(dropdown).toHaveAttribute('open', '');
-    await dropdown.locator('[data-toc-link="deposits-withdrawals"]').click();
-    await expect(page).toHaveURL(/#deposits-withdrawals$/);
+    await dropdown.locator('[data-toc-link="hours"]').click();
+    await expect(page).toHaveURL(/#hours$/);
     await expect(dropdown).not.toHaveAttribute('open', '');
   });
 });

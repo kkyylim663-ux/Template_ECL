@@ -3650,6 +3650,19 @@ ul.about-ul-disc:last-child {
   transform: rotate(180deg);
 }
 
+/* The <details> variant (tnc / betting-rules) keeps the same item classes. */
+.accordionItemHeading {
+  list-style: none;
+}
+
+.accordionItemHeading::-webkit-details-marker {
+  display: none;
+}
+
+details.accordionItem[open] .accordion-icon {
+  transform: rotate(180deg);
+}
+
 /* Topic rail beside the answer column. */
 .sidebarPage {
   font-size: 0;
