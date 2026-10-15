@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
-import { DEMO_COOKIE, accountRoutes, publicRoutes } from './routes';
+import { accountRoutes, publicRoutes } from './routes';
+import { signIn } from './session';
 
 /**
  * Route sweep: every public route answers 200 with no console error, the guarded
@@ -61,7 +62,7 @@ test.describe('member area', () => {
   });
 
   test('renders all ten pages with a session', async ({ page, context }) => {
-    await context.addCookies([{ ...DEMO_COOKIE, url: 'http://127.0.0.1:3000' }]);
+    await signIn(context);
 
     for (const route of accountRoutes()) {
       const errors = collectErrors(page);

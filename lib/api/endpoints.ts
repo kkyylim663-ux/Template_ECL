@@ -31,6 +31,8 @@ export const ENDPOINTS = {
   homeBetting: 'getHomeBetting',
   /** Member area payload (profile, wallets, transactions, inbox, rebates, tickets). */
   account: 'getAccount',
+  /** Member sign-in. Returns `{ sub, username }` for a match, `null` otherwise. */
+  login: 'postLogin',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

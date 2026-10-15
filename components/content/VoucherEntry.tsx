@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { PrimaryButton } from '@/components/ui/Field';
-import { readDemoSessionFromDocument } from '@/lib/session';
+import { useSession } from '@/lib/session/useSession';
 
 /**
  * The site-wide Voucher (Promo Code) dialog, as on the reference build: an entry
@@ -24,6 +24,7 @@ export function VoucherEntry({
   // Shell furniture: the dialog lives in the header and the drawer, so its
   // copy rides with `common` — the one namespace every page already has.
   const t = useTranslations('common');
+  const { member } = useSession();
   const [open, setOpen] = useState(false);
   const [code, setCode] = useState('');
   const [result, setResult] = useState<'guest' | 'demo' | 'empty' | null>(null);
@@ -39,7 +40,7 @@ export function VoucherEntry({
       setResult('empty');
       return;
     }
-    setResult(readDemoSessionFromDocument() ? 'demo' : 'guest');
+    setResult(member ? 'demo' : 'guest');
   }
 
   const trigger =

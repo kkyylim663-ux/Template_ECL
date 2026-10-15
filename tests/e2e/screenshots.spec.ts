@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { signIn } from './session';
 
 /** Desktop screenshots for review, plus the two numbers T14 has to record. */
 test.describe('desktop screenshots', () => {
@@ -23,7 +24,7 @@ test.describe('desktop screenshots', () => {
 
   test('account pages render with a session', async ({ page, context }) => {
     const shots = 'C:/Users/senheng/Desktop/Claude Code/Clone web ECL/site/_scratch/shots';
-    await context.addCookies([{ name: 'brand_session', value: 'demo', url: 'http://127.0.0.1:3000' }]);
+    await signIn(context);
 
     for (const [route, name] of [
       ['/my/account/deposit', 't14-desktop-account-deposit'],

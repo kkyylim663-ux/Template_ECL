@@ -60,5 +60,3 @@ export function publicRoutes(): string[] {
 export function accountRoutes(): string[] {
   return REGIONS.flatMap((region) => ACCOUNT_PAGES.map((page) => `/${region}/account/${page}`));
 }
-
-export const DEMO_COOKIE = { name: 'brand_session', value: 'demo' };

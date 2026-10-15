@@ -8,7 +8,7 @@ import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/conf
 import { Icon } from '@/components/ui/Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
-import { readDemoSessionFromDocument } from '@/lib/session';
+import { useSession } from '@/lib/session/useSession';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
 
@@ -36,12 +36,11 @@ export function MobileChrome({ region }: { region: string }) {
   const [bannerDismissed, setBannerDismissed] = useState(false);
   // All sections start collapsed, as on the original (`.sidemenu-child{display:none}`).
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const [isMember, setIsMember] = useState(false);
+  const { member: isMember } = useSession();
 
   // Nothing else is read during render, so the server and the first client pass agree.
   useEffect(() => {
     if (window.localStorage.getItem(BANNER_KEY) === '1') setBannerDismissed(true);
-    setIsMember(readDemoSessionFromDocument());
   }, []);
 
   useEffect(() => {

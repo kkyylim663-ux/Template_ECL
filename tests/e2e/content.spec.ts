@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { signIn } from './session';
 
 /**
  * Content pages (T18 onwards). Each block grows with the task that ships the
@@ -117,9 +118,7 @@ test.describe('promotion detail and the voucher dialog (T19)', () => {
   });
 
   test('a signed-in visitor gets the demo result instead', async ({ page, context }) => {
-    await context.addCookies([
-      { name: 'brand_session', value: 'demo', url: 'http://127.0.0.1:3000' },
-    ]);
+    await signIn(context);
     await page.goto('/my/promotion');
 
     await page.locator('[data-voucher="header"]').click();

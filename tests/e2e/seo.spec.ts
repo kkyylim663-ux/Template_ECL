@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { signIn } from './session';
 
 /**
  * SEO surface (T24 onwards): the head every page ships, the gated pages that stay
@@ -64,7 +65,7 @@ test.describe('page metadata (T24)', () => {
     await page.goto('/dev/components');
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
 
-    await context.addCookies([{ name: 'brand_session', value: 'demo', url: 'http://127.0.0.1:3000' }]);
+    await signIn(context);
     await page.goto('/my/account/deposit');
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
     // Each member page carries its own title; the layout one is the fallback.

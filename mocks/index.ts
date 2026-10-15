@@ -25,6 +25,7 @@ import promotions from './promotions.json';
 import rankingBoard from './ranking-board.json';
 import sponsor from './sponsor.json';
 import updates from './updates.json';
+import users from './users.json';
 import vip from './vip.json';
 import gameList from './slots.gamelist.json';
 
@@ -37,6 +38,14 @@ const promotionsData = promotions.d as { id: string; slug: string }[] & unknown[
 const updatesData = updates.d as { id: string }[];
 const faqData = faq.d as { id: string; title: string; items: unknown[] }[];
 const pagesData = pages.d as { slug: string }[];
+const usersData = users as {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  password: string;
+  otp: string;
+}[];
 
 export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.gameList]: () => gameList.d,
@@ -49,6 +58,22 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.leaderboard]: () => leaderboards.d,
   [ENDPOINTS.homeBetting]: () => homeBetting.d,
   [ENDPOINTS.account]: () => account.d,
+
+  /** Matches the identifier against username, email or phone, then the password or OTP. */
+  [ENDPOINTS.login]: (raw) => {
+    const { identifier, password, otp } = (raw ?? {}) as {
+      identifier?: string;
+      password?: string;
+      otp?: string;
+    };
+    const needle = identifier?.trim().toLowerCase();
+    const user = usersData.find(
+      (entry) =>
+        [entry.username, entry.email, entry.phone].some((value) => value.toLowerCase() === needle) &&
+        (password ? entry.password === password : entry.otp === otp),
+    );
+    return user ? { sub: user.id, username: user.username } : null;
+  },
 
   /** Detail endpoints answer with the record, or `null` when the id is unknown. */
   [ENDPOINTS.promotionDetail]: (raw) => {

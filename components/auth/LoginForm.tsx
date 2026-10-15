@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Icon, type IconName } from '@/components/ui/Icon';
-import { useModal } from '@/components/ui/ModalProvider';
 import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
 import { REGION_CODES, type RegionCode } from '@/config/brand';
 import {
@@ -15,7 +14,8 @@ import {
   validate,
   type FieldErrors,
 } from '@/lib/forms';
-import { DEMO_SESSION_COOKIE, DEMO_SESSION_VALUE } from '@/lib/session';
+import { safeNext } from '@/lib/session/redirect';
+import { SESSION_EVENT } from '@/lib/session/useSession';
 
 type Method = 'username' | 'email' | 'sms' | 'whatsapp';
 
@@ -49,8 +49,9 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
   const router = useRouter();
-  const modal = useModal();
   const [method, setMethod] = useState<Method>('username');
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   const [callingCode, setCallingCode] = useState<RegionCode>(REGION_CODES[0]);
   const [pickerOpen, setPickerOpen] = useState(false);
   const [values, setValues] = useState({ identifier: '', password: '', otp: '' });
@@ -74,8 +75,9 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
     setOtpSent(false);
   }
 
-  function onSubmit(event: React.FormEvent) {
+  async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
+    if (submitting) return;
     const result = validate(SCHEMAS[method], values);
 
     if (!result.ok) {
@@ -84,11 +86,28 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
     }
 
     setErrors({});
-    // Demo session only: the real build receives an httpOnly cookie from the API.
-    document.cookie = `${DEMO_SESSION_COOKIE}=${DEMO_SESSION_VALUE}; path=/; max-age=86400; samesite=lax`;
-    modal.success(t('login.demoTitle'), t('login.demoBody'));
+    setFormError(null);
+    setSubmitting(true);
+    const phoneMethod = method === 'sms' || method === 'whatsapp';
+    const response = await fetch('/api/mock-auth/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        identifier: values.identifier.trim(),
+        ...(phoneMethod ? { otp: values.otp.trim() } : { password: values.password }),
+      }),
+    });
+    setSubmitting(false);
+
+    if (!response.ok) {
+      // One message for every failure, so the form never says which half was wrong.
+      setFormError(t('login.failed'));
+      return;
+    }
+
+    window.dispatchEvent(new Event(SESSION_EVENT));
     router.refresh();
-    if (next) router.push(next);
+    router.push(safeNext(next, `/${region}`));
   }
 
   return (
@@ -241,8 +260,18 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
         {t('login.forgot')}
       </Link>
 
+      {formError ? (
+        <div role="alert" className="form-error">
+          {formError}
+        </div>
+      ) : null}
+
       <div className="login-btn__wrapper">
-        <button type="submit" className={`btn btn-primary login-btn${ready ? '' : ' disable'}`}>
+        <button
+          type="submit"
+          disabled={submitting}
+          className={`btn btn-primary login-btn${ready && !submitting ? '' : ' disable'}`}
+        >
           {t('login.submit')}
         </button>
       </div>

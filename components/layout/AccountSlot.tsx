@@ -2,25 +2,20 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 import { brand } from '@/config/brand';
-import { readDemoSessionFromDocument } from '@/lib/session';
+import { useSession } from '@/lib/session/useSession';
 
 /** First two letters of the brand name — the avatar placeholder. */
 const brandInitials = brand.name.slice(0, 2).toUpperCase();
 
 /**
  * Header account area. Renders the guest state on the server so public pages stay
- * static; once mounted it swaps to the member state if the demo session cookie is
- * present. Amounts are demo data, not copy, so they stay literals.
+ * static; once mounted it swaps to the member state once the session check answers.
+ * Amounts are demo data, not copy, so they stay literals.
  */
 export function AccountSlot({ region }: { region: string }) {
   const t = useTranslations('common');
-  const [isMember, setIsMember] = useState(false);
-
-  useEffect(() => {
-    setIsMember(readDemoSessionFromDocument());
-  }, []);
+  const { member: isMember, username } = useSession();
 
   if (!isMember) {
     return (
@@ -48,7 +43,7 @@ export function AccountSlot({ region }: { region: string }) {
           {brandInitials}
         </span>
         <span className="text-left">
-          <span className="text-ink block text-xs leading-tight font-medium">demo_player</span>
+          <span className="text-ink block text-xs leading-tight font-medium">{username}</span>
           <span className="text-muted block text-11 leading-tight">
             {t('header.balance', { amount: 'RM 1,234.50' })}
           </span>

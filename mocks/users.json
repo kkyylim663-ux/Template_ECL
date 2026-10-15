@@ -1,0 +1,10 @@
+[
+  {
+    "id": "u_1001",
+    "username": "demo_player",
+    "email": "demo@example.test",
+    "phone": "+60123456789",
+    "password": "Test1234!",
+    "otp": "123456"
+  }
+]

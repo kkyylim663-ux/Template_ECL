@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { sessionCookieHeader } from './session';
 
 /**
  * T16 acceptance: with the language on `zh-Hans`, the pages that existed before
@@ -80,7 +81,6 @@ function visible(html: string): string {
 }
 
 const ZH = 'brand_lang=zh-Hans';
-const SESSION = 'brand_session=demo';
 
 /**
  * A key no provider can resolve renders as its own name (e.g.
@@ -140,8 +140,9 @@ const MEMBER_PROBES: Record<string, string> = {
 
 for (const route of MEMBER_ROUTES) {
   test(`${route} has no English UI copy in zh-Hans`, async ({ request }) => {
+    const session = await sessionCookieHeader(request);
     const html = visible(
-      await (await request.get(route, { headers: { cookie: `${ZH}; ${SESSION}` } })).text(),
+      await (await request.get(route, { headers: { cookie: `${ZH}; ${session}` } })).text(),
     );
     expect(html).toContain(MEMBER_PROBES[route] ?? '账户');
     for (const marker of ENGLISH_MARKERS) {
