@@ -37,6 +37,7 @@
     "emptyHint": "换个分类看看 — 「全部」里有所有优惠。"
   },
   "promotionDetail": {
+    "all": "全部优惠",
     "back": "返回全部促销",
     "rulesTitle": "活动规则",
     "previous": "上一个优惠",
@@ -44,6 +45,7 @@
   },
   "update": {
     "count": "{count} 条公告",
+    "status": "已发布",
     "published": "发布于 {date}",
     "read": "查看详情",
     "back": "返回全部公告",

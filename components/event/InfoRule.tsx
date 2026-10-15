@@ -4,11 +4,20 @@ import type { ReactNode } from 'react';
  * The reference's `.info-rule__*` rule panel: a #252727 capsule with a 41px
  * circular toggle that rotates 180deg while open, and the answer in a #1e2020
  * panel below. The reference drives it with JS; `<details>` gives the same
- * behaviour and keeps the page server-rendered.
+ * behaviour and keeps the page server-rendered. `defaultOpen` is for callers
+ * whose rules read as page copy rather than as an aside.
  */
-export function InfoRule({ title, children }: { title: string; children: ReactNode }) {
+export function InfoRule({
+  title,
+  defaultOpen = false,
+  children,
+}: {
+  title: string;
+  defaultOpen?: boolean;
+  children: ReactNode;
+}) {
   return (
-    <details className="info-rule__container">
+    <details className="info-rule__container" open={defaultOpen}>
       <summary className="info-rule__header">
         <span>{title}</span>
         <span className="info-rule__btn-toggle" aria-hidden>

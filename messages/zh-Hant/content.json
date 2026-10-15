@@ -37,6 +37,7 @@
     "emptyHint": "換個分類看看 — 「全部」裡有所有優惠。"
   },
   "promotionDetail": {
+    "all": "全部優惠",
     "back": "返回全部促銷",
     "rulesTitle": "活動規則",
     "previous": "上一個優惠",
@@ -44,6 +45,7 @@
   },
   "update": {
     "count": "{count} 條公告",
+    "status": "已發布",
     "published": "發佈於 {date}",
     "read": "查看詳情",
     "back": "返回全部公告",

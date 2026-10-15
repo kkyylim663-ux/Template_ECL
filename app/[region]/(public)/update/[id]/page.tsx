@@ -3,15 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getUpdate, getUpdates } from '@/lib/api';
 import { formatDate } from '@/lib/format';
+import { Icon } from '@/components/ui/Icon';
+import { Markdown } from '@/components/content/Markdown';
 import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
-import { Markdown } from '@/components/content/Markdown';
-import { pageMetadata } from '@/lib/seo';
 import { JsonLd } from '@/components/content/JsonLd';
 import { breadcrumbLd } from '@/lib/seo';
 import { brand } from '@/config/brand';
+import { pageMetadata } from '@/lib/seo';
 
-/** Detail pages carry their own title and summary (T24). */
 export async function generateMetadata({
   params,
 }: {
@@ -30,9 +30,10 @@ export async function generateMetadata({
 }
 
 /**
- * Update detail: the same `banner-section` band as the list, the body through the
- * shared markdown renderer, and paging along the newest-first order. An id that is
- * not in the data is a 404.
+ * Update detail, in the reference build's order (`crawl/pages/my_update_52.html`):
+ * an "Update" back header, the date, the 20px title and the body copy. Paging
+ * walks the newest-first order — the arrows in the back header are prev/next.
+ * An id that is not in the data is a 404.
  */
 export default async function UpdateDetailPage({
   params,
@@ -51,7 +52,7 @@ export default async function UpdateDetailPage({
   const older = index >= 0 && index < updates.length - 1 ? updates[index + 1] : null;
 
   return (
-    <div className="mx-auto w-full max-w-3xl" data-page="update-detail">
+    <div data-page="update-detail">
       <JsonLd
         data={breadcrumbLd(
           [
@@ -62,56 +63,49 @@ export default async function UpdateDetailPage({
           region,
         )}
       />
-      <section
-        data-part="banner-section"
-        className="game-placeholder flex h-32 items-end rounded-[var(--radius-panel)] p-5 desktop:h-40 desktop:p-8"
-        style={{ '--tone': String(update.tone) } as React.CSSProperties}
-      >
-        <p className="text-ink/85 text-xs">
-          {t('update.published', { date: formatDate(update.publishedAt) })}
-        </p>
-      </section>
 
-      <h1 className="text-ink mt-5 text-xl font-semibold desktop:text-2xl">{update.title}</h1>
-      <p className="text-muted mt-1.5 text-sm">{update.summary}</p>
+      <div className="update-detail__back">
+        {newer ? (
+          <Link
+            href={regionPath(region, `/update/${newer.id}`)}
+            rel="prev"
+            aria-label={t('update.previous')}
+            className="text-ink flex items-center"
+          >
+            <Icon name="chevronLeft" size={20} className="mr-[7px]" />
+          </Link>
+        ) : null}
 
-      <section
-        data-part="update-detail__body"
-        className="border-line bg-panel mt-5 rounded-[var(--radius-panel)] border p-5"
-      >
-        <Markdown source={update.body} />
-      </section>
-
-      <nav className="mt-6 flex flex-wrap items-center justify-between gap-3 text-xs">
         <Link
           href={regionPath(region, '/update')}
-          className="text-accent hover:underline inline-flex min-h-11 items-center"
           data-part="update-detail__back"
+          className="page-title"
         >
-          ← {t('update.back')}
+          <span aria-hidden className="page-title__icon game-placeholder" />
+          {t('pages.update')}
         </Link>
+      </div>
 
-        <span className="flex flex-wrap items-center gap-3">
-          {newer ? (
-            <Link
-              href={regionPath(region, `/update/${newer.id}`)}
-              rel="prev"
-              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
-            >
-              {t('update.previous')}: {newer.title}
-            </Link>
-          ) : null}
-          {older ? (
-            <Link
-              href={regionPath(region, `/update/${older.id}`)}
-              rel="next"
-              className="border-line text-muted hover:border-accent hover:text-ink inline-flex min-h-11 items-center rounded-[8px] border px-3 py-2.5"
-            >
-              {t('update.next')}: {older.title}
-            </Link>
-          ) : null}
-        </span>
-      </nav>
+      <div className="update-detail__date">{formatDate(update.publishedAt)}</div>
+      <h1 className="update-detail__title">{update.title}</h1>
+
+      <div data-part="update-detail__body" className="update-detail__desc">
+        <Markdown source={update.body} />
+      </div>
+
+      {older ? (
+        <p className="mt-6">
+          <Link
+            href={regionPath(region, `/update/${older.id}`)}
+            rel="next"
+            aria-label={t('update.next')}
+            className="update-detail__back page-title"
+          >
+            {older.title}
+            <Icon name="chevronRight" size={20} className="ml-[7px]" />
+          </Link>
+        </p>
+      ) : null}
     </div>
   );
 }

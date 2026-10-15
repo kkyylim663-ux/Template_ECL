@@ -79,6 +79,12 @@
   --color-ng-from: #0038ff; /* .ng-contest__card animated gradient start */
   --color-ember: #ffc640; /* .rb-ember */
   --color-ember-glow: #ffb800; /* .rb-ember box-shadow */
+
+  /* Content pages (T36). */
+  --color-card-foot: #474747; /* .promotion-card__footer */
+  --color-promo-banner: #cc7a33; /* .promotion-detail__banner */
+  --color-divider: #808080; /* .update-card border-bottom (CSS `grey`) */
+  --color-ink-soft: #fafafa; /* .update-detail__desc b */
   --gradient-panel-rb: linear-gradient(145deg, #232323, #191b1b 80%);
   --gradient-lottery-head: linear-gradient(91.86deg, #ffa469 14.04%, #f8d82e 106.97%);
 
@@ -3176,4 +3182,278 @@ html {
     content: '';
     pointer-events: none;
   }
+}
+/* ---------------------------------------------- content pages (T36) */
+
+/*
+ * Promotions. `.promotion-list__wrapper` is a three-column card grid 30px apart
+ * starting 30px below the category row (one column and a 15px offset at
+ * <=768px). A card is artwork on top and a two-line clamped title in a #474747
+ * strip below — the artwork itself is not shipped, so the 385px header stays a
+ * placeholder band. Measured on `crawl/pages/my_promotion.html`.
+ */
+.promotion-list__wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.promotion-card {
+  display: block;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.promotion-card__header {
+  height: 385px;
+  overflow: hidden;
+}
+
+.promotion-card__header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.promotion-card__footer {
+  display: -webkit-box;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: var(--color-card-foot);
+  color: var(--color-ink);
+  font-size: var(--text-15);
+  font-weight: 500;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+@media (max-width: 768px) {
+  .promotion-list__wrapper {
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: 15px;
+    row-gap: 10px;
+  }
+
+  /*
+   * The reference builds this category row in JS, so its own pill geometry is not
+   * in the snapshot to copy. The T27 gate (every content-page control clears
+   * 44px) therefore decides the phone height; the 40px `.nav-pill` stays as is on
+   * desktop, where the mouse does not need it.
+   */
+  .promotion-cats .nav-pill {
+    min-height: 44px;
+  }
+}
+
+/* Offer detail: an 860px column, the #cc7a33 banner with its two paging arrows,
+   then the 20px/500 title and the body copy. */
+.promotion-detail__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.promotion-detail__banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  width: 860px;
+  margin: 19px 0 41px;
+  border-radius: var(--radius-16);
+  background: var(--color-promo-banner);
+}
+
+.promotion-detail__banner-img {
+  width: 410px;
+  height: 385px;
+  border-radius: var(--radius-16);
+  object-fit: cover;
+}
+
+.promotion-detail__title {
+  width: 860px;
+  margin-bottom: 30px;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.promotion-detail__body {
+  width: 860px;
+  color: var(--color-muted);
+}
+
+/* The reference pins body spans at 15px — the markdown renderer emits them. */
+.promotion-detail__body span {
+  font-size: var(--text-15) !important;
+}
+
+/* The reference paints no background on the arrows — the icon sits on the
+   banner itself. The 44px box is the tap target T27 requires. */
+.promotion-detail__arrow {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--color-ink);
+}
+
+@media (max-width: 768px) {
+  .promotion-detail__banner,
+  .promotion-detail__body {
+    width: 92%;
+  }
+
+  .promotion-detail__title {
+    width: 92%;
+    margin-bottom: 18px;
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+
+  .promotion-detail__banner {
+    left: 0;
+  }
+
+  .promotion-detail__banner-img {
+    width: 100%;
+  }
+
+  .promotion-detail__back {
+    margin-bottom: 13px;
+    padding-top: 13px;
+  }
+
+  .promotion-detail__arrow {
+    display: none;
+  }
+
+  .promotion-detail__body table {
+    max-width: 100% !important;
+  }
+
+  .promotion-detail__body span {
+    font-size: medium !important;
+  }
+}
+
+/*
+ * Updates. A card is a 300x150 cover beside a text column: the date / divider /
+ * status strip, then the accent title and a three-line clamped summary. The
+ * cover is dropped at <=768px. Measured on `crawl/pages/my_update.html`.
+ */
+.update-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  padding: 0 2rem 1rem 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.update-card:last-of-type {
+  border-bottom: none;
+}
+
+.update-cover__img {
+  width: 300px;
+  height: 150px;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.update-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.update-divider {
+  width: 2px;
+  height: 30px;
+  background-color: var(--color-ink);
+}
+
+.update-status {
+  color: var(--color-success);
+}
+
+.update-title {
+  color: var(--color-accent);
+}
+
+.update-date {
+  margin-bottom: 1rem;
+  color: var(--color-ink);
+}
+
+.update-desc {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--color-muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.update-right {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .update-cover__img {
+    display: none;
+  }
+}
+
+/* Update detail: date, 20px title, body copy — and a back header above it all. */
+.update-detail__date {
+  margin-bottom: 1rem;
+  color: var(--color-ink);
+  font-size: var(--text-base);
+}
+
+.update-detail__title {
+  margin-bottom: 1.3rem;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+}
+
+.update-detail__desc {
+  color: var(--color-muted);
+}
+
+.update-detail__desc b {
+  color: var(--color-ink-soft);
+  font-weight: 700;
+}
+
+.update-detail__desc ol {
+  padding-left: 2rem;
+  list-style: decimal;
+}
+
+.update-detail__desc ul {
+  padding-left: 2rem;
+  list-style: disc;
+}
+
+.update-detail__desc table thead tr th,
+.update-detail__desc table tbody td {
+  padding: 12px 16px !important;
+}
+
+.update-detail__back {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  color: var(--color-ink);
 }

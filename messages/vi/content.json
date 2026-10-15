@@ -37,6 +37,7 @@
     "emptyHint": "Chọn mục khác — danh sách đầy đủ ở Tất cả."
   },
   "promotionDetail": {
+    "all": "Tất cả ưu đãi",
     "back": "Về danh sách ưu đãi",
     "rulesTitle": "Thể lệ",
     "previous": "Ưu đãi trước",
@@ -44,6 +45,7 @@
   },
   "update": {
     "count": "{count} tin",
+    "status": "Đã đăng",
     "published": "Đăng {date}",
     "read": "Xem tin",
     "back": "Về danh sách tin",

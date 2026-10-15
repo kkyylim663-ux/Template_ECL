@@ -38,9 +38,11 @@ test.describe('promotion list (T18)', () => {
 
   test('cards link to their detail page', async ({ page }) => {
     await page.goto('/my/promotion');
-    await expect(
-      page.locator('article[data-promotion="pr-welcome-188"] a', { hasText: 'View details' }),
-    ).toHaveAttribute('href', '/my/promotion/pr-welcome-188');
+    // The card itself is the link (`.promotion-card`), as in the reference.
+    await expect(page.locator('article[data-promotion="pr-welcome-188"] a.promotion-card')).toHaveAttribute(
+      'href',
+      '/my/promotion/pr-welcome-188',
+    );
   });
 
   test('375px lays the grid out in one column', async ({ page }) => {

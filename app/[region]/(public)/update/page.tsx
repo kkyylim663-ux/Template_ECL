@@ -19,9 +19,11 @@ export async function generateMetadata({
 }
 
 /**
- * Update list, laid out after `banner-section` in docs/CONTENT_REFERENCE.md: a
- * banner band, then the cards. The list is newest-first — `getUpdates()` sorts,
- * so the order holds however the data arrives.
+ * Update list, in the reference build's order (`crawl/pages/my_update.html`):
+ * the `form-title` with its page icon, then one `.update-card` per notice — cover
+ * on the left, the date / status strip and the clamped summary on the right. The
+ * list is newest-first: `getUpdates()` sorts, so the order holds however the data
+ * arrives. The reference's own list is empty and shows `.no-info-box`.
  */
 export default async function UpdateListPage({
   params,
@@ -33,54 +35,49 @@ export default async function UpdateListPage({
 
   return (
     <div data-page="update-list">
-      <JsonLd data={breadcrumbLd([{ name: brand.name, path: '' }, { name: t('pages.update'), path: '/update' }], region)} />
-      {/* Banner band: the reference build opens this page with one. */}
-      <section
-        data-part="banner-section"
-        className="game-placeholder flex h-32 items-center rounded-[var(--radius-panel)] px-5 desktop:h-40 desktop:px-8"
-        style={{ '--tone': '42' } as React.CSSProperties}
-      >
-        <div>
-          <h1 className="text-ink text-xl font-semibold desktop:text-2xl">{t('pages.update')}</h1>
-          <p className="text-ink/85 mt-1 text-xs" aria-live="polite">
-            {t('update.count', { count: updates.length })}
-          </p>
-        </div>
-      </section>
+      <JsonLd
+        data={breadcrumbLd(
+          [{ name: brand.name, path: '' }, { name: t('pages.update'), path: '/update' }],
+          region,
+        )}
+      />
+
+      <h1 className="page-title has-space">
+        <span aria-hidden className="page-title__icon game-placeholder" />
+        {t('pages.update')}
+      </h1>
+
+      <p className="text-muted mt-4 text-xs" aria-live="polite">
+        {t('update.count', { count: updates.length })}
+      </p>
 
       {updates.length === 0 ? (
-        <p className="text-muted mt-5 text-sm">{t('update.empty')}</p>
+        <div className="no-info-box">{t('update.empty')}</div>
       ) : (
-        <ul className="mt-5 grid gap-4 desktop:grid-cols-3 desktop:gap-5">
+        <div className="mt-2">
           {updates.map((update) => (
-            <li key={update.id}>
-              <article
-                data-update={update.id}
-                className="border-line bg-panel hover:border-accent flex h-full flex-col rounded-[var(--radius-panel)] border transition-colors"
-              >
-                {/* Cover placeholder until real artwork lands. */}
-                <span
-                  aria-hidden
-                  className="game-placeholder h-24 rounded-t-[var(--radius-panel)]"
-                  style={{ '--tone': String(update.tone) } as React.CSSProperties}
-                />
-                <div className="flex flex-1 flex-col p-4">
-                  <p className="text-muted text-11">
-                    {t('update.published', { date: formatDate(update.publishedAt) })}
-                  </p>
-                  <h2 className="text-ink mt-1 text-sm font-semibold">{update.title}</h2>
-                  <p className="text-muted mt-1 text-xs">{update.summary}</p>
-                  <Link
-                    href={regionPath(region, `/update/${update.id}`)}
-                    className="border-accent text-accent hover:bg-panel-soft mt-4 inline-flex min-h-11 items-center justify-center rounded-[8px] border px-4 py-2.5 text-center text-xs font-semibold"
-                  >
-                    {t('update.read')}
-                  </Link>
+            <article key={update.id} data-update={update.id} className="update-card">
+              {/* Cover placeholder until real artwork lands. */}
+              <span
+                aria-hidden
+                className="update-cover__img game-placeholder block"
+                style={{ '--tone': String(update.tone) } as React.CSSProperties}
+              />
+
+              <div className="update-right">
+                <div className="update-header">
+                  <span className="update-date">{formatDate(update.publishedAt)}</span>
+                  <span aria-hidden className="update-divider" />
+                  <span className="update-status">{t('update.status')}</span>
                 </div>
-              </article>
-            </li>
+                <h2 className="update-title">
+                  <Link href={regionPath(region, `/update/${update.id}`)}>{update.title}</Link>
+                </h2>
+                <p className="update-desc">{update.summary}</p>
+              </div>
+            </article>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

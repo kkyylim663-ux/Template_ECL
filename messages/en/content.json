@@ -37,6 +37,7 @@
     "emptyHint": "Pick another category — the full list is under All."
   },
   "promotionDetail": {
+    "all": "All Promotions",
     "back": "Back to all promotions",
     "rulesTitle": "Rules",
     "previous": "Previous offer",
@@ -44,6 +45,7 @@
   },
   "update": {
     "count": "{count, plural, one {# update} other {# updates}}",
+    "status": "Published",
     "published": "Published {date}",
     "read": "Read update",
     "back": "Back to all updates",
