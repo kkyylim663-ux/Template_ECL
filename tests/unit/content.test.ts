@@ -125,12 +125,12 @@ describe('content getters (mocks/promotions.json, updates, faq, vip, sponsor, pa
     }
   });
 
-  it('getSponsorBlocks carries the carousel, the video grid and the partners', async () => {
+  it('getSponsorBlocks carries the logo card and the nine year sections', async () => {
     const sponsor = await getSponsorBlocks();
 
-    expect(sponsor.logoEvolution).toHaveLength(5);
-    expect(sponsor.videos.length).toBeGreaterThanOrEqual(6);
-    expect(sponsor.partners.length).toBeGreaterThanOrEqual(6);
+    expect(sponsor.years).toHaveLength(9);
+    expect(sponsor.years.every((year) => year.shorts.length >= 2)).toBe(true);
+    expect(sponsor.logo.periodDesktop.length).toBeGreaterThan(0);
   });
 
   it('getPageContent serves the four long-form pages and nothing else', async () => {

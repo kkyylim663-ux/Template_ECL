@@ -303,17 +303,22 @@ test.describe('VIP and sponsor (T22)', () => {
     await expect(page.locator('#info-rule-body')).toHaveCount(0);
   });
 
-  test('sponsor shows the carousel, the videos and the partners', async ({ page }) => {
+  test('sponsor follows the reference shell: banner, logo card, years and clips', async ({
+    page,
+  }) => {
     await page.goto('/my/sponsor');
 
-    await expect(page.locator('[data-logo-era]')).toHaveCount(5);
-    await expect(page.locator('[data-video]')).toHaveCount(6);
-    await expect(page.locator('[data-partner]')).toHaveCount(8);
+    await expect(page.locator('#sponsorHeader .game-placeholder')).toHaveCount(1);
+    await expect(page.locator('.logo-evolution-card')).toBeVisible();
+    await expect(page.locator('.years .year')).toHaveCount(9);
+    await expect(page.locator('.yearContainer')).toHaveCount(9);
+    await expect(page.locator('[data-video]')).toHaveCount(9);
+    await expect(page.locator('[data-short]')).toHaveCount(18);
   });
 
   test('a play button only says that nothing is embedded', async ({ page }) => {
     await page.goto('/my/sponsor');
-    await page.locator('[data-video="vid-1"]').click();
+    await page.locator('[data-video="vid-2026"]').click();
 
     await expect(page.getByRole('dialog')).toBeVisible();
     await expect(page.getByText(/embeds no video/)).toBeVisible();

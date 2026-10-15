@@ -4071,3 +4071,203 @@ ul.about-ul-disc:last-child {
     padding-bottom: 24px;
   }
 }
+
+/* -------------------------------------------- sponsor page (T37c) */
+
+/*
+ * The reference's sponsor styling lives in its own `/static/sponsor/*.css`, which
+ * was never crawled and 404s live, so these values are this build's own. The DOM
+ * keeps the reference's class names so real values can drop in when they surface.
+ */
+.sponsor-warapper {
+  padding-top: 20px;
+}
+
+.sponsorHeader__img {
+  display: block;
+  aspect-ratio: 2600 / 640;
+  border-radius: var(--radius-panel);
+}
+
+.logo-evolution-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 0 44px;
+}
+
+.logo-evolution-brands {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.logo-evolution-original,
+.logo-evolution-current {
+  width: 150px;
+  height: 60px;
+  border-radius: 12px;
+}
+
+.logo-evolution-divider {
+  width: 1px;
+  height: 44px;
+  background: var(--color-line);
+}
+
+.logo-evolution-period {
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 19px;
+}
+
+.horizontalYearContainer {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.years {
+  display: flex;
+  gap: 6px;
+  margin-inline: -8px;
+  padding: 10px 8px;
+  overflow-x: auto;
+}
+
+.years .year {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: var(--radius-tag);
+  color: var(--color-muted);
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* The rail opens on the newest year, like the reference's slick slider. */
+.years .year:first-child {
+  color: var(--color-accent);
+}
+
+.years .year:hover {
+  color: var(--color-ink);
+}
+
+.yearContainer {
+  padding-top: 36px;
+}
+
+.yearDivider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.yearDivider p {
+  color: var(--color-ink);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.yearDivider__line {
+  flex: 1;
+  height: 1px;
+  background: var(--color-rule);
+}
+
+.videoContainer {
+  margin-top: 28px;
+}
+
+.videoContainer > .title,
+.shortVideoContainer > .title {
+  margin-bottom: 16px;
+  color: var(--color-ink);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.video {
+  max-width: 860px;
+}
+
+.youtube-preview {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}
+
+.youtube-preview__cover {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.youtube-play-icon {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin: auto;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #1b1b1b;
+  transition: transform 0.2s;
+}
+
+.youtube-preview:hover .youtube-play-icon {
+  transform: scale(1.06);
+}
+
+.shortVideoContainer {
+  margin-top: 36px;
+}
+
+.shortVideoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  max-width: 860px;
+}
+
+.shortVideoItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.shortVideoItem__img {
+  display: block;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+}
+
+.shortVideoItem__title {
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-size: 13px;
+  line-height: 17px;
+}
+
+@media (max-width: 768px) {
+  .sponsorHeader__img {
+    aspect-ratio: 750 / 500;
+  }
+
+  .video {
+    max-width: none;
+  }
+
+  .shortVideoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+}

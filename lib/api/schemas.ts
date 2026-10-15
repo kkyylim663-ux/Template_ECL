@@ -193,28 +193,28 @@ export type VipPayload = z.infer<typeof vipPayloadSchema>;
 /* ------------------------------------------------------------------ sponsor */
 
 export const sponsorPayloadSchema = z.object({
-  logoEvolution: z.array(
+  logo: z.object({
+    periodDesktop: z.string(),
+    periodMobile: z.string(),
+    toneOriginal: z.number().int().min(0).max(359),
+    toneCurrent: z.number().int().min(0).max(359),
+  }),
+  /** One entry per `yearContainer` on the reference page. */
+  years: z.array(
     z.object({
       id: z.string(),
-      era: z.string(),
       label: z.string(),
-      tone: z.number().int().min(0).max(359),
-    }),
-  ),
-  videos: z.array(
-    z.object({
-      id: z.string(),
-      title: z.string(),
-      duration: z.string(),
-      tone: z.number().int().min(0).max(359),
-    }),
-  ),
-  partners: z.array(
-    z.object({
-      id: z.string(),
-      name: z.string(),
-      kind: z.string(),
-      tone: z.number().int().min(0).max(359),
+      videoId: z.string(),
+      videoTitle: z.string(),
+      videoTone: z.number().int().min(0).max(359),
+      shortsTitle: z.string(),
+      shorts: z.array(
+        z.object({
+          id: z.string(),
+          title: z.string(),
+          tone: z.number().int().min(0).max(359),
+        }),
+      ),
     }),
   ),
 });

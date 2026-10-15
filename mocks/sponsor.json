@@ -2,30 +2,121 @@
   "status": "0",
   "msg": "Done",
   "d": {
-    "logoEvolution": [
-      { "id": "logo-2019", "era": "2019", "label": "First mark", "tone": 20 },
-      { "id": "logo-2021", "era": "2021", "label": "Wordmark added", "tone": 60 },
-      { "id": "logo-2023", "era": "2023", "label": "Current outline", "tone": 150 },
-      { "id": "logo-2025", "era": "2025", "label": "Regional variants", "tone": 210 },
-      { "id": "logo-2026", "era": "2026", "label": "App icon", "tone": 300 }
-    ],
-    "videos": [
-      { "id": "vid-1", "title": "Behind the logo", "duration": "2:14", "tone": 35 },
-      { "id": "vid-2", "title": "A day at the studio", "duration": "4:02", "tone": 120 },
-      { "id": "vid-3", "title": "Matchday with the team", "duration": "6:38", "tone": 195 },
-      { "id": "vid-4", "title": "Fan meet-up highlights", "duration": "3:21", "tone": 265 },
-      { "id": "vid-5", "title": "Training camp diary", "duration": "5:47", "tone": 330 },
-      { "id": "vid-6", "title": "Season wrap-up", "duration": "7:05", "tone": 85 }
-    ],
-    "partners": [
-      { "id": "pt-1", "name": "Northern Tigers FC", "kind": "Football club", "tone": 40 },
-      { "id": "pt-2", "name": "Straits Racing", "kind": "Motorsport team", "tone": 160 },
-      { "id": "pt-3", "name": "Harbour Sharks", "kind": "Basketball team", "tone": 200 },
-      { "id": "pt-4", "name": "Peninsula Open", "kind": "Golf tournament", "tone": 95 },
-      { "id": "pt-5", "name": "City Runners", "kind": "Marathon series", "tone": 285 },
-      { "id": "pt-6", "name": "Island Sail GP", "kind": "Sailing series", "tone": 15 },
-      { "id": "pt-7", "name": "Highland Cycling", "kind": "Cycling tour", "tone": 130 },
-      { "id": "pt-8", "name": "Academy Cup", "kind": "Youth football", "tone": 250 }
+    "logo": {
+      "periodDesktop": "2016 - Present",
+      "periodMobile": "2026 - Present",
+      "toneOriginal": 20,
+      "toneCurrent": 300
+    },
+    "years": [
+      {
+        "id": "year2026",
+        "label": "2026",
+        "videoId": "vid-2026",
+        "videoTitle": "MV",
+        "videoTone": 35,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2026-1", "title": "Season launch", "tone": 40 },
+          { "id": "sc-2026-2", "title": "Fan day", "tone": 120 }
+        ]
+      },
+      {
+        "id": "year2025",
+        "label": "2025",
+        "videoId": "vid-2025",
+        "videoTitle": "MV",
+        "videoTone": 120,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2025-1", "title": "Team announcement", "tone": 195 },
+          { "id": "sc-2025-2", "title": "Matchday diary", "tone": 265 }
+        ]
+      },
+      {
+        "id": "year2024",
+        "label": "2024",
+        "videoId": "vid-2024",
+        "videoTitle": "MV",
+        "videoTone": 205,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2024-1", "title": "Tournament recap", "tone": 330 },
+          { "id": "sc-2024-2", "title": "Behind the scenes", "tone": 85 }
+        ]
+      },
+      {
+        "id": "year2023",
+        "label": "2023",
+        "videoId": "vid-2023",
+        "videoTitle": "MV",
+        "videoTone": 285,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2023-1", "title": "Opening night", "tone": 15 },
+          { "id": "sc-2023-2", "title": "Community day", "tone": 130 }
+        ]
+      },
+      {
+        "id": "year2022",
+        "label": "2022",
+        "videoId": "vid-2022",
+        "videoTitle": "MV",
+        "videoTone": 165,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2022-1", "title": "Season wrap-up", "tone": 250 },
+          { "id": "sc-2022-2", "title": "Training camp", "tone": 60 }
+        ]
+      },
+      {
+        "id": "year2020",
+        "label": "2020",
+        "videoId": "vid-2020",
+        "videoTitle": "MV",
+        "videoTone": 95,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2020-1", "title": "Studio tour", "tone": 175 },
+          { "id": "sc-2020-2", "title": "Remote launch", "tone": 305 }
+        ]
+      },
+      {
+        "id": "year2019",
+        "label": "2019",
+        "videoId": "vid-2019",
+        "videoTitle": "MV",
+        "videoTone": 45,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2019-1", "title": "First title sponsor", "tone": 110 },
+          { "id": "sc-2019-2", "title": "Away day", "tone": 235 }
+        ]
+      },
+      {
+        "id": "year2018",
+        "label": "2018 & 2017",
+        "videoId": "vid-2018",
+        "videoTitle": "MV",
+        "videoTone": 320,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2018-1", "title": "Early years", "tone": 25 },
+          { "id": "sc-2018-2", "title": "Local league", "tone": 145 }
+        ]
+      },
+      {
+        "id": "year2016",
+        "label": "2016",
+        "videoId": "vid-2016",
+        "videoTitle": "MV",
+        "videoTone": 275,
+        "shortsTitle": "Short clips",
+        "shorts": [
+          { "id": "sc-2016-1", "title": "Where it started", "tone": 200 },
+          { "id": "sc-2016-2", "title": "Launch week", "tone": 70 }
+        ]
+      }
     ]
   }
 }
