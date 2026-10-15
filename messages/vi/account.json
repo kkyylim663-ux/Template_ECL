@@ -75,7 +75,12 @@
     "amountInvalid": "Nhập số tiền lớn hơn 0",
     "insufficient": "Vượt quá số dư khả dụng",
     "unavailable": "Ví nhà phát hành đang ngoại tuyến",
-    "lastMoved": "Lần chuyển trước: {when}"
+    "lastMoved": "Lần chuyển trước: {when}",
+    "max": "Tối đa",
+    "available": "Khả dụng",
+    "autoCredit": "Tự động nạp vào game:",
+    "amountWithCurrency": "Số tiền*({currency})",
+    "submitLabel": "Gửi"
   },
   "profile": {
     "demoTitle": "Cập nhật hồ sơ demo",
@@ -127,7 +132,35 @@
     "allStatuses": "Tất cả trạng thái",
     "total": "Tổng các dòng",
     "empty": "Không có giao dịch phù hợp",
-    "rolloverTitle": "Tiến độ doanh số"
+    "rolloverTitle": "Tiến độ doanh số",
+    "searching": "Tra cứu lịch sử",
+    "dateRange": "Khoảng ngày",
+    "option": {
+      "deposit": "Nạp tiền",
+      "withdrawal": "Rút tiền",
+      "transfer": "Chuyển khoản",
+      "promo": "Khuyến mãi",
+      "bet": "Cược"
+    },
+    "range": {
+      "today": "Hôm nay",
+      "in3days": "Trong 3 ngày",
+      "inAWeek": "Trong 1 tuần",
+      "inAMonth": "Trong 1 tháng"
+    },
+    "col": {
+      "deposit": "Nạp tiền",
+      "amount": "Số tiền",
+      "type": "Loại",
+      "status": "Trạng thái",
+      "reason": "Lý do",
+      "time": "Ngày",
+      "reference": "Mã tham chiếu"
+    },
+    "turnoverRequirement": "Doanh số yêu cầu",
+    "totalTurnover": "Tổng doanh số yêu cầu",
+    "noRows": "Không có dữ liệu",
+    "currentTurnover": "Doanh số hiện tại"
   },
   "pending": {
     "summary": "{count} yêu cầu đang chờ duyệt.",
@@ -137,7 +170,9 @@
     "cancel": "Hủy yêu cầu",
     "cancelled": "Đã hủy yêu cầu",
     "cancelConfirm": "Hủy yêu cầu này? Không thể hoàn tác.",
-    "empty": "Không có mục nào đang chờ"
+    "empty": "Không có mục nào đang chờ",
+    "followUs": "Theo dõi",
+    "officialWebsites": "Website chính thức"
   },
   "inbox": {
     "summary": "{unread} chưa đọc trong {total}",
@@ -155,7 +190,16 @@
     "redeem": "Đổi voucher",
     "redeemTitle": "Đổi mã voucher",
     "redeemPlaceholder": "Nhập mã trong tin nhắn",
-    "redeemSuccess": "Đổi voucher thành công"
+    "redeemSuccess": "Đổi voucher thành công",
+    "tab": {
+      "important": "Quan trọng",
+      "others": "Khác",
+      "promotions": "Khuyến mãi"
+    },
+    "dateTime": "Ngày/Giờ",
+    "subject": "Tiêu đề",
+    "selectAll": "Chọn tất cả",
+    "noData": "Không có tin nhắn"
   },
   "actions": {
     "demoClaimTitle": "Nhận demo",
@@ -179,7 +223,12 @@
     "claimed": "Đã nhận",
     "claimable": "Có thể nhận",
     "pending": "Đang tính",
-    "noRequirement": "Hoàn trả không cần doanh số."
+    "noRequirement": "Hoàn trả không cần doanh số.",
+    "claimFrom": "Có thể nhận từ {date}",
+    "tip": "Sẽ cộng {amount} vào ví chính.",
+    "tipDemo": "*Bản demo — không cộng thật.*",
+    "turnoverLine": "Doanh số {amount}",
+    "rateLine": "Tỷ lệ hoàn trả {rate}%"
   },
   "achievement": {
     "intro": "Tiến độ tính từ cược đã tất toán.",
@@ -192,7 +241,21 @@
     "claim": "Nhận thưởng",
     "locked": "Chưa mở",
     "claimed": "Đã nhận",
-    "currentStatus": "Trạng thái hiện tại"
+    "currentStatus": "Trạng thái hiện tại",
+    "period": {
+      "weekly": "Tuần này",
+      "lastWeek": "Tuần trước"
+    },
+    "category": {
+      "livecasino": "Live Casino",
+      "sports": "Thể thao",
+      "slots": "Slot"
+    },
+    "myTurnover": "Doanh số {game} của tôi",
+    "nextBonus": "Số tiền cần cho thưởng kế tiếp",
+    "turnoverBonus": "Thưởng doanh số",
+    "reward": "Thưởng {amount}",
+    "requirement": "{currency} {amount} trở lên"
   },
   "tickets": {
     "intro": "Vé kiếm được khi chơi; mỗi sự kiện tốn số vé cố định.",
@@ -208,7 +271,30 @@
     },
     "window": "{opens} – {closes}",
     "notEnough": "Chưa đủ vé",
-    "empty": "Không có sự kiện"
+    "empty": "Không có sự kiện",
+    "available": "Vé khả dụng",
+    "perDeposit": "Mỗi <hl>{amount}</hl> nạp = <hl>{tickets}</hl> vé miễn phí",
+    "progressToNext": "Tiến độ tới vé kế tiếp",
+    "unlockDeposit": "Nạp thêm <hl>{amount}</hl> để mở khoá <hl>{ticket}</hl>",
+    "freeTicket": "vé MIỄN PHÍ",
+    "notice": "**Lưu ý: tối đa {cap} vé mỗi tài khoản",
+    "depositBtnTop": "Muốn thêm vé?",
+    "depositBtnBottom": "Nạp ngay",
+    "rules": "Quy định",
+    "rulesTitle": "Quy định vé",
+    "rulesBody": "Mỗi 500 nạp được duyệt = 1 vé; vào sự kiện tốn 1 vé. Bản demo không thay đổi.",
+    "useTop": "Dùng vé ngay",
+    "useBottom": "Tới trang sự kiện",
+    "useTitle": "Trang sự kiện demo",
+    "useBody": "Bản thật mở trang sự kiện và dùng vé của bạn. Ở đây không dùng.",
+    "history": "Lịch sử vé",
+    "tab": {
+      "all": "Tất cả",
+      "received": "Đã nhận",
+      "used": "Đã dùng"
+    },
+    "columnTickets": "Vé",
+    "noData": "Không có dữ liệu"
   },
   "status": {
     "pending": "Đang chờ",
@@ -220,5 +306,18 @@
   "guard": {
     "notice": "Khu vực này cần tài khoản.",
     "redirecting": "Đang chuyển tới đăng nhập…"
+  },
+  "hello": "Xin chào,",
+  "viewWallet": "Xem toàn bộ ví",
+  "verify": "Xác minh",
+  "menu": {
+    "sectionAccount": "Tài khoản"
+  },
+  "summary": {
+    "upgrade": "Số tiền cần để nâng cấp",
+    "withdrawalLimit": "Hạn mức rút",
+    "withdrawalFrequency": "Số lần rút",
+    "registrationDate": "Ngày đăng ký",
+    "time": "Thời gian"
   }
 }

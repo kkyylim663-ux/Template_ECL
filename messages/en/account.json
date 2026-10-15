@@ -75,7 +75,12 @@
     "amountInvalid": "Enter an amount greater than 0",
     "insufficient": "Amount exceeds the available balance",
     "unavailable": "This provider wallet is offline",
-    "lastMoved": "Last transfer: {when}"
+    "lastMoved": "Last transfer: {when}",
+    "max": "Max",
+    "available": "Available",
+    "autoCredit": "Automatic Credit To Game:",
+    "amountWithCurrency": "Transfer Amount*({currency})",
+    "submitLabel": "Submit"
   },
   "profile": {
     "demoTitle": "Demo profile update",
@@ -127,7 +132,35 @@
     "allStatuses": "All statuses",
     "total": "Total of listed rows",
     "empty": "No transactions match this filter",
-    "rolloverTitle": "Promotion rollover status"
+    "rolloverTitle": "Promotion rollover status",
+    "searching": "Searching History",
+    "dateRange": "Date Range",
+    "option": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "transfer": "Transfer",
+      "promo": "Promotion",
+      "bet": "Betting"
+    },
+    "range": {
+      "today": "Today",
+      "in3days": "In 3 Days",
+      "inAWeek": "In a Week",
+      "inAMonth": "In a Month"
+    },
+    "col": {
+      "deposit": "Deposit",
+      "amount": "Amount",
+      "type": "Type",
+      "status": "Status",
+      "reason": "Reason",
+      "time": "Date",
+      "reference": "Reference"
+    },
+    "turnoverRequirement": "Turnover Requirement",
+    "totalTurnover": "Total Turnover Requirement",
+    "noRows": "No records for this filter",
+    "currentTurnover": "Current Turnover"
   },
   "pending": {
     "summary": "{count, plural, one {# request} other {# requests}} waiting for a reviewer.",
@@ -137,7 +170,9 @@
     "cancel": "Cancel request",
     "cancelled": "Request cancelled",
     "cancelConfirm": "Cancel this request? This cannot be undone.",
-    "empty": "Nothing is waiting for review"
+    "empty": "Nothing is waiting for review",
+    "followUs": "Follow Us",
+    "officialWebsites": "Our Official Websites"
   },
   "inbox": {
     "summary": "{unread} unread of {total}",
@@ -146,7 +181,7 @@
     "important": "Important",
     "others": "Others",
     "unread": "{count} unread",
-    "markRead": "Mark as read",
+    "markRead": "Mark As Read",
     "markAllRead": "Mark all as read",
     "delete": "Delete",
     "deleteAll": "Delete all read",
@@ -155,7 +190,16 @@
     "redeem": "Redeem voucher",
     "redeemTitle": "Redeem a voucher code",
     "redeemPlaceholder": "Enter the code from your message",
-    "redeemSuccess": "Voucher redeemed"
+    "redeemSuccess": "Voucher redeemed",
+    "tab": {
+      "important": "Important",
+      "others": "Others",
+      "promotions": "Promotions"
+    },
+    "dateTime": "Date/Time",
+    "subject": "Subject",
+    "selectAll": "Select all messages",
+    "noData": "No messages"
   },
   "actions": {
     "demoClaimTitle": "Demo claim",
@@ -179,7 +223,12 @@
     "claimed": "Claimed",
     "claimable": "Claimable",
     "pending": "Pending",
-    "noRequirement": "No turnover requirement on rebates."
+    "noRequirement": "No turnover requirement on rebates.",
+    "claimFrom": "Claimable from {date}",
+    "tip": "{amount} would be credited to your main wallet.",
+    "tipDemo": "*Demo build — no rebate is credited here.*",
+    "turnoverLine": "Turnover {amount}",
+    "rateLine": "Rebate rate {rate}%"
   },
   "achievement": {
     "intro": "Progress is calculated from settled bets in each product.",
@@ -192,7 +241,21 @@
     "claim": "Claim reward",
     "locked": "Locked",
     "claimed": "Claimed",
-    "currentStatus": "Current status"
+    "currentStatus": "Current status",
+    "period": {
+      "weekly": "Weekly",
+      "lastWeek": "Last week"
+    },
+    "category": {
+      "livecasino": "Live Casino",
+      "sports": "Sports",
+      "slots": "Slot Games"
+    },
+    "myTurnover": "My current turnover for {game}",
+    "nextBonus": "Amount Required for Next Bonus",
+    "turnoverBonus": "Turnover Bonus",
+    "reward": "Bonus {amount}",
+    "requirement": "{currency} {amount} or above"
   },
   "tickets": {
     "intro": "Tickets are earned from play; each event spends a fixed number.",
@@ -208,7 +271,30 @@
     },
     "window": "{opens} – {closes}",
     "notEnough": "Not enough tickets yet",
-    "empty": "No events are running"
+    "empty": "No events are running",
+    "available": "Available Tickets",
+    "perDeposit": "Every <hl>{amount}</hl> Deposit = <hl>{tickets}</hl> Free Ticket",
+    "progressToNext": "Progress to Next Ticket",
+    "unlockDeposit": "Deposit <hl>{amount}</hl> more to unlock your next <hl>{ticket}</hl>",
+    "freeTicket": "FREE ticket",
+    "notice": "**Important Notice : Maximum holding limit is {cap} tickets per account. Additional deposits after reaching the cap will not generate extra tickets",
+    "depositBtnTop": "Wants to get more ticket?",
+    "depositBtnBottom": "Deposit Now",
+    "rules": "Rules & Regulations",
+    "rulesTitle": "Ticket rules",
+    "rulesBody": "Every 500 of approved deposits earns one ticket; entering an event spends one. This demo earns and spends nothing.",
+    "useTop": "Use Tickets Now",
+    "useBottom": "Proceed to Event Page",
+    "useTitle": "Demo event page",
+    "useBody": "The live build opens the event page and spends the tickets you hold. Nothing is spent here.",
+    "history": "Ticket History",
+    "tab": {
+      "all": "All",
+      "received": "Received",
+      "used": "Used"
+    },
+    "columnTickets": "Tickets",
+    "noData": "No Data"
   },
   "status": {
     "pending": "Pending",
@@ -220,5 +306,18 @@
   "guard": {
     "notice": "This area needs an account. Sign in to continue.",
     "redirecting": "Taking you to the sign-in page…"
+  },
+  "hello": "Hi,",
+  "viewWallet": "View Full Wallet",
+  "verify": "Verify",
+  "menu": {
+    "sectionAccount": "Account"
+  },
+  "summary": {
+    "upgrade": "Amount required for upgrade",
+    "withdrawalLimit": "Withdrawal Limit",
+    "withdrawalFrequency": "Withdrawal frequency",
+    "registrationDate": "Registration date",
+    "time": "Time"
   }
 }

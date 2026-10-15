@@ -121,12 +121,29 @@ test('/dev/components has no English UI copy in zh-Hans', async ({ request }) =>
   }
 });
 
+/**
+ * Each member page renders its own heading, so the probe is per route (the
+ * shell's "My account" heading went away with the T39 account layout).
+ */
+const MEMBER_PROBES: Record<string, string> = {
+  '/my/account/deposit': '充值',
+  '/my/account/withdrawal': '提现',
+  '/my/account/transfer': '钱包转账',
+  '/my/account/history': '查询流水',
+  '/my/account/pending': '待处理交易',
+  '/my/account/inbox': '收件箱',
+  '/my/account/rebates': '返水',
+  '/my/account/achievement': '流水奖励',
+  '/my/account/tickets': '可用票券',
+  '/my/account/profile': '个人资料',
+};
+
 for (const route of MEMBER_ROUTES) {
   test(`${route} has no English UI copy in zh-Hans`, async ({ request }) => {
     const html = visible(
       await (await request.get(route, { headers: { cookie: `${ZH}; ${SESSION}` } })).text(),
     );
-    expect(html).toContain('我的账户');
+    expect(html).toContain(MEMBER_PROBES[route] ?? '账户');
     for (const marker of ENGLISH_MARKERS) {
       expect(html, `${route} still shows "${marker}"`).not.toContain(marker);
     }

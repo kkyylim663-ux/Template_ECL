@@ -288,30 +288,138 @@
     "achievements": [
       {
         "id": "ac-1",
-        "gameType": "slots",
-        "title": "Slot explorer",
-        "requirementMinor": 500000,
-        "progressMinor": 418000,
-        "rewardMinor": 5000,
-        "status": "in-progress"
+        "gameType": "livecasino",
+        "title": "Table starter",
+        "requirementMinor": 3000,
+        "progressMinor": 150000,
+        "rewardMinor": 500,
+        "status": "claimed"
       },
       {
         "id": "ac-2",
         "gameType": "livecasino",
         "title": "Table regular",
-        "requirementMinor": 1000000,
-        "progressMinor": 960000,
-        "rewardMinor": 12000,
-        "status": "in-progress"
+        "requirementMinor": 10000,
+        "progressMinor": 10000,
+        "rewardMinor": 1000,
+        "status": "claimable"
       },
       {
         "id": "ac-3",
+        "gameType": "livecasino",
+        "title": "High roller",
+        "requirementMinor": 45000,
+        "progressMinor": 18900,
+        "rewardMinor": 3000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-4",
+        "gameType": "livecasino",
+        "title": "Whale watch",
+        "requirementMinor": 90000,
+        "progressMinor": 37800,
+        "rewardMinor": 6000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-5",
+        "gameType": "livecasino",
+        "title": "Live legend",
+        "requirementMinor": 150000,
+        "progressMinor": 63000,
+        "rewardMinor": 12000,
+        "status": "locked"
+      },
+      {
+        "id": "ac-6",
         "gameType": "sports",
         "title": "First goal",
-        "requirementMinor": 100000,
-        "progressMinor": 100000,
-        "rewardMinor": 3000,
+        "requirementMinor": 3000,
+        "progressMinor": 150000,
+        "rewardMinor": 500,
+        "status": "claimed"
+      },
+      {
+        "id": "ac-7",
+        "gameType": "sports",
+        "title": "Match day",
+        "requirementMinor": 10000,
+        "progressMinor": 10000,
+        "rewardMinor": 1000,
         "status": "claimable"
+      },
+      {
+        "id": "ac-8",
+        "gameType": "sports",
+        "title": "Parlay builder",
+        "requirementMinor": 45000,
+        "progressMinor": 18900,
+        "rewardMinor": 3000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-9",
+        "gameType": "sports",
+        "title": "Derby week",
+        "requirementMinor": 90000,
+        "progressMinor": 37800,
+        "rewardMinor": 6000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-10",
+        "gameType": "sports",
+        "title": "Season champion",
+        "requirementMinor": 150000,
+        "progressMinor": 63000,
+        "rewardMinor": 12000,
+        "status": "locked"
+      },
+      {
+        "id": "ac-11",
+        "gameType": "slots",
+        "title": "Slot explorer",
+        "requirementMinor": 3000,
+        "progressMinor": 150000,
+        "rewardMinor": 500,
+        "status": "claimed"
+      },
+      {
+        "id": "ac-12",
+        "gameType": "slots",
+        "title": "Spinner",
+        "requirementMinor": 10000,
+        "progressMinor": 10000,
+        "rewardMinor": 1000,
+        "status": "claimable"
+      },
+      {
+        "id": "ac-13",
+        "gameType": "slots",
+        "title": "Bonus hunter",
+        "requirementMinor": 45000,
+        "progressMinor": 18900,
+        "rewardMinor": 3000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-14",
+        "gameType": "slots",
+        "title": "Jackpot chaser",
+        "requirementMinor": 90000,
+        "progressMinor": 37800,
+        "rewardMinor": 6000,
+        "status": "in-progress"
+      },
+      {
+        "id": "ac-15",
+        "gameType": "slots",
+        "title": "Slot master",
+        "requirementMinor": 150000,
+        "progressMinor": 63000,
+        "rewardMinor": 12000,
+        "status": "locked"
       }
     ],
     "tickets": [

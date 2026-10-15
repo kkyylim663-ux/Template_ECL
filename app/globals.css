@@ -85,6 +85,9 @@
   --color-ng-from: #0038ff; /* .ng-contest__card animated gradient start */
   --color-ember: #ffc640; /* .rb-ember */
   --color-ember-glow: #ffb800; /* .rb-ember box-shadow */
+  --color-box-pending: #323232; /* member area: .pending-footer__box */
+  --color-panel-tile: #1c1c1c; /* .achievement-category */
+  --color-panel-rank: #222222; /* .ranking-container__box */
 
   /* Content pages (T36). */
   --color-card-foot: #474747; /* .promotion-card__footer */
@@ -133,6 +136,12 @@
   --text-28: calc(28px * var(--fs-fix, 1));
   --text-32: calc(32px * var(--fs-fix, 1));
   --text-40: calc(40px * var(--fs-fix, 1));
+  --text-19: calc(19px * var(--fs-fix, 1)); /* .ranking-container__box--value */
+  --text-56: calc(56px * var(--fs-fix, 1)); /* .card-icon glyph size */
+  /* The member area's stylesheet declares these two as fractional px — copied
+     verbatim (T39) rather than rounded, so the summary cards match. */
+  --text-118: calc(11.821px * var(--fs-fix, 1)); /* .account-summary__currency/…-desc */
+  --text-169: calc(16.8872px * var(--fs-fix, 1)); /* .account-summary__amount */
 
   /* Same treatment for the Tailwind steps this build uses (16px root, so
      0.75rem = 12px etc.). The steps' --line-height companions stay unitless
@@ -5018,5 +5027,1643 @@ details.accordionItem[open] .accordion-icon {
   .bg-wrapper .signup-logo {
     margin-top: 29px;
     margin-bottom: 26px;
+  }
+}
+
+/* --------------------------------------------------- member area (T39) */
+
+/*
+ * The account family (history / transfer / inbox / pending / rebates and the
+ * snapshot-less deposit, withdrawal, profile): a 229px menu column with a
+ * 49.5px gutter beside a 1014px content card, all inside the shell's 1300px
+ * container. The fractional values (15.5722px radius, 11.821px / 16.8872px
+ * type) are what the reference stylesheet literally declares, so they are
+ * copied rather than rounded. Rules that would otherwise leak into the auth
+ * cards (`.form-control`, `.form-group`, `.width-medium`) are scoped to
+ * `.account-content__container` on purpose — `.bg-wrapper .form-control` in
+ * the T38 block keeps the sign-in inputs untouched.
+ */
+.account-wrapper {
+  display: flex;
+  /* The reference declares 45px here, but its content column starts at y=112
+     with the margin collapsing into the container's own 34px offset. Our shell
+     uses the same 34px `--content-top-desktop`, so zero keeps the measured
+     result identical (T39: both sides 112). */
+  margin-top: 0;
+}
+
+.account-content__wrapper {
+  width: 100%;
+}
+
+.account-header {
+  display: flex;
+}
+
+.display-flex {
+  display: flex;
+}
+
+/* 229px profile block: avatar, greeting, balance, "View Full Wallet", verifies. */
+.account-menu__profile {
+  display: flex;
+  flex-direction: column;
+  width: 229px;
+  margin-right: 49.5px;
+  margin-bottom: 26px;
+}
+
+.account-menu__profile-body {
+  display: flex;
+  font-size: var(--text-sm);
+  margin-bottom: 20px;
+}
+
+.account-menu__profile-avatar {
+  width: 70px;
+  height: 70px;
+  margin-right: 14px;
+}
+
+.account-menu__profile-content {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.account-menu__profile-balance__wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 7px;
+  cursor: pointer;
+}
+
+.account-menu__profile-balance {
+  display: flex;
+  align-items: baseline;
+  margin-right: 11px;
+}
+
+.account-menu__profile-balance-currency {
+  font-size: var(--text-xs);
+}
+
+.account-menu__profile-balance-amount {
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.account-menu__profile-wallet {
+  color: var(--color-success);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+
+.account-menu__profile-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 13px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.account-menu__verify-wrapper {
+  display: flex;
+  cursor: pointer;
+}
+
+.account-menu__verify {
+  position: relative;
+  margin-right: 15px;
+}
+
+.account-menu__verify-2 {
+  position: relative;
+  width: 16px;
+  margin-right: 15px;
+}
+
+.account-menu__verfiy-icon-tick,
+.account-menu__verfiy-icon-tick-2 {
+  position: absolute;
+  right: -12px;
+  top: -10px;
+  width: 16px;
+  height: 16px;
+}
+
+.account-menu__verfiy-icon-tick-2 {
+  right: -7px;
+  top: -8px;
+}
+
+/* Menu column: two groups, 61px rows with a hairline under each. */
+.account-menu__sidebar {
+  width: 229px;
+  margin-right: 49.5px;
+}
+
+.account-menu__container {
+  margin-bottom: 49px;
+}
+
+.account-menu__parent-title {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  margin-bottom: 6px;
+}
+
+.account-menu__child-wrapper {
+  display: block;
+}
+
+.account-menu__child-wrapper::after {
+  content: '';
+  display: block;
+  height: 1px;
+  margin: 0 auto;
+  background-color: var(--color-muted);
+}
+
+.account-menu__child-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 19px 0 21px 13px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.account-menu__child-container.selected,
+.account-menu__child-container:hover {
+  background-color: var(--color-line-weak);
+  border-radius: var(--radius-panel);
+}
+
+.account-menu__child-icon {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin-right: 13px;
+}
+
+/* Balance strip: five 186px cards, 21px apart, above the content card. */
+.account-summary__wrapper {
+  display: flex;
+  gap: 21px;
+  margin-bottom: 37px;
+}
+
+.account-summary__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 186px;
+  padding: 19.36px 26.06px 16.33px;
+  background: var(--color-panel-alt);
+  border-radius: 15.5722px;
+  color: var(--color-muted);
+}
+
+.account-summary__card-center {
+  align-items: center;
+  color: var(--color-ink);
+  font-size: var(--text-118);
+  font-weight: 500;
+}
+
+.account-summary__currency {
+  color: var(--color-muted);
+  font-size: var(--text-118);
+}
+
+.account-summary__amount {
+  color: var(--color-ink);
+  font-size: var(--text-169);
+  font-weight: 500;
+}
+
+.account-summary__desc {
+  color: var(--color-muted);
+  font-size: var(--text-118);
+}
+
+.account-summary__badge {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.account-summary__level-icon {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 6.13px;
+}
+
+.account-summary__tooltip {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+/* Content card. */
+.account-content__container {
+  width: 1014px;
+  min-height: 635px;
+  padding: 30px 40px;
+  background: var(--color-panel-alt);
+  border-radius: var(--radius-panel);
+}
+
+/* Forms inside the account cards (scoped — see the note at the top). */
+.account-content__container .form-group {
+  margin-bottom: 20px;
+}
+
+.account-content__container .form-control {
+  display: block;
+  width: 100%;
+  height: 57px;
+  padding: 20px;
+  color: var(--color-muted);
+  background-color: var(--color-line-muted);
+  border-radius: var(--radius-panel);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
+  font-size: var(--text-sm);
+  line-height: 1.42857143;
+}
+
+.account-content__container .form-control-select {
+  background: var(--color-line-muted);
+}
+
+.account-content__container .form-control-dropdown {
+  position: absolute;
+  right: 11px;
+  top: 8px;
+  pointer-events: none;
+}
+
+.account-content__container .form-control__icon-wrapper {
+  position: absolute;
+  right: 16px;
+  top: 19px;
+  display: flex;
+  align-items: center;
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.account-content__container .form-group__side-input-wrapper {
+  display: flex;
+}
+
+.account-content__container .form-group__side-input__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 10px;
+  color: var(--color-muted-dim);
+  font-size: var(--text-xs);
+}
+
+.account-content__container .width-medium {
+  width: 371px;
+}
+
+.account-content__container .form-error {
+  color: var(--color-danger);
+  font-size: var(--text-xs);
+}
+
+/* Scoped to form groups: the reference's 10px sits under the field label, and
+   an unscoped rule would also hit the transfer page's `.switch` label. */
+.account-content__container .form-group label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+/* The reference's transfer form carries `font-size: 0` on `.width-medium.ss`,
+   which collapses the label's line box (groups there are 81px, not 85px). */
+.account-content__container .ss {
+  font-size: 0;
+}
+
+/* History: type + date filters, quick ranges, then the two tables. */
+.dateRangeBtn {
+  background: var(--color-line-deepest);
+  border-radius: var(--radius-panel);
+}
+
+.dateRangeBtn.active {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.history-table {
+  margin-top: 30px;
+}
+
+.turnover-wrapper {
+  margin-top: 24px;
+}
+
+.turnover-title {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  margin-bottom: 20px;
+}
+
+.turnover-table {
+  width: 675px;
+}
+
+.turnover-table td {
+  color: var(--color-muted);
+}
+
+.turnover-header-footer td {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.turnover-table-td-1 {
+  padding-left: 45px !important;
+  font-size: var(--text-sm);
+  text-align: left !important;
+}
+
+.turnover-table-td-2 {
+  padding-right: 114px !important;
+  font-size: var(--text-sm);
+  text-align: right !important;
+}
+
+/* Transfer: form card 596px + credit-to-game card 397px, 19px apart. */
+.transfer-container {
+  display: flex;
+  gap: 19px;
+}
+
+.transfer-left {
+  width: 596px;
+}
+
+.transfer-right {
+  width: 397px;
+  padding: 10px;
+}
+
+.transfer-submit__btn {
+  display: block;
+  width: 371px;
+}
+
+.auto-transfer__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.auto-transfer__title {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+  margin-right: 11px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 45px;
+  height: 22px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.switch input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-line-muted);
+  border-radius: 22px;
+  transition: background-color 0.3s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-ink);
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+.switch input:checked + .slider {
+  background-color: var(--color-success);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(23px);
+}
+
+.switch input:focus-visible + .slider {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* The game list the reference paints with JS; ours comes from the mock wallets. */
+.transfer-credit__list {
+  margin-top: 24px;
+}
+
+.transfer-credit__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.transfer-credit__row:last-child {
+  border-bottom: 0;
+}
+
+.transfer-credit__balance {
+  margin-left: auto;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+/* Inbox: three tab pills, a Mark As Read row, then the message table. */
+.inbox-tabs {
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.inbox-option__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 13px;
+}
+
+.inbox-mark-read {
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.divider-small {
+  width: 2px;
+  height: 17px;
+  margin: 0 9px;
+  background-color: var(--color-muted);
+}
+
+.inbox-table {
+  width: 100%;
+}
+
+.inbox-table__checkbox-th {
+  width: 95px;
+}
+
+.inbox-table-datetime {
+  width: 232px;
+}
+
+/* Pending: the transaction table plus the Follow Us / websites boxes. */
+.pending-footer {
+  display: flex;
+  margin-top: 30px;
+}
+
+.pending-footer__follow-us {
+  margin-right: 20px;
+}
+
+.pending-footer__box {
+  background: var(--color-box-pending);
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.pending-footer__title {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: 26px;
+}
+
+.pending-footer__social-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.pending-footer__social-icon {
+  display: block;
+  margin-right: 22px;
+  color: var(--color-muted);
+}
+
+.pending-footer__website-wrapper {
+  display: flex;
+  gap: 27.4px;
+}
+
+.pending-footer__website {
+  display: flex;
+  align-items: center;
+  color: var(--color-ink);
+  font-size: var(--text-base);
+}
+
+.pending-footer__tick {
+  margin-right: 19px;
+  color: var(--color-muted);
+}
+
+/* Rebates: accordion blocks with a Claim button on the right. */
+.account-promotion__wrapper {
+  margin-top: 20px;
+}
+
+.account-promotion__container-desktop {
+  margin-bottom: 1rem;
+}
+
+.account-promotion__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+  color: var(--color-muted);
+}
+
+.account-promotion__btn-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: right;
+}
+
+.account-promotion__body {
+  height: 0;
+  opacity: 0;
+  padding-left: 46px;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  transition: all 0.3s;
+}
+
+.account-promotion__body.open {
+  height: auto;
+  opacity: 1;
+}
+
+.account-promotion__triangle {
+  width: 11px;
+  height: 11px;
+  margin-right: 30px;
+  transition: all 0.3s;
+}
+
+.account-promotion__triangle.open {
+  transform: rotate(180deg);
+}
+
+.account-promotion__paragraph {
+  display: flex;
+  margin-bottom: 17px;
+  color: var(--color-ink);
+}
+
+.account-promotion__paragraph.disable {
+  color: var(--color-muted);
+}
+
+.account-promotion__paragraph.disable .account-promotion__tick-icon {
+  opacity: 0;
+}
+
+.account-promotion__tick-wrapper {
+  height: 20px;
+  margin-right: 13px;
+}
+
+.account-promotion__tick-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.account-promotion__tips {
+  margin-bottom: 17px;
+  padding-left: 29px;
+  color: var(--color-success);
+}
+
+/* Achievement (standalone page: banner + date tabs + panel). */
+.banner-section {
+  margin-top: 30px;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.banner-section-img {
+  width: 100%;
+  border-radius: 22px;
+}
+
+.personal-achievement {
+  color: var(--color-ink);
+  margin-top: 32px;
+}
+
+.personal-achievement .achievement-date-tabs {
+  padding-left: 12px;
+}
+
+.personal-achievement .achievement-date-tabs .nav-pill__wrapper {
+  display: flex;
+  gap: 12px;
+  overflow: visible;
+}
+
+.personal-achievement .achievement-date-tabs .nav-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  min-height: 37px;
+  margin: 0;
+  padding: 10px 16px;
+  background: var(--color-line) !important;
+  border: 0;
+  border-radius: 18px 18px 0 0;
+  color: var(--color-muted) !important;
+  font-size: var(--text-13);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.personal-achievement .achievement-date-tabs .nav-pill.selected {
+  background: var(--color-accent-bright) !important;
+  color: var(--color-ink-on-accent) !important;
+}
+
+.personal-achievement .achievement-panel {
+  padding: 28px;
+  background: linear-gradient(135deg, var(--color-panel-deep), var(--color-panel-rb-to));
+  border-radius: 20px 0 0 0;
+}
+
+.personal-achievement .achievement-category-tabs {
+  margin-bottom: 28px;
+}
+
+.personal-achievement .achievement-category-tabs .nav-pill__wrapper {
+  display: flex;
+  gap: 18px;
+}
+
+.personal-achievement .achievement-category {
+  display: flex;
+  flex: 0 0 118px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 86px;
+  padding: 16px 12px;
+  background: var(--color-panel-tile);
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: var(--text-13);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.personal-achievement .achievement-category.is-selected {
+  border-color: var(--color-accent-warm);
+}
+
+.personal-achievement .achievement-heading {
+  margin: 0 0 12px;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.personal-achievement .achievement-bonus-heading {
+  margin-top: 34px;
+}
+
+.personal-achievement .ranking-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  margin: 0;
+  padding: 0;
+}
+
+.personal-achievement .ranking-container__box {
+  flex: 0 1 250px;
+  padding: 18px 20px;
+  background: var(--color-panel-rank);
+  border-radius: 20px;
+  text-align: left;
+}
+
+.personal-achievement .ranking-container__box--title {
+  color: var(--color-ink);
+  font-size: var(--text-13);
+  line-height: 1.4;
+}
+
+.personal-achievement .ranking-container__box--value {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-top: 5px;
+  color: var(--color-ink);
+  font-size: var(--text-19);
+  font-weight: 700;
+}
+
+.personal-achievement .mobile-scroll {
+  padding-bottom: 16px;
+  overflow-x: auto;
+}
+
+.personal-achievement .achievement-track {
+  position: relative;
+  width: 900px;
+  min-width: calc(var(--tier-count) * 166px - 18px);
+  padding-top: 24px;
+}
+
+.personal-achievement .achievement-track__rail {
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 100%;
+  height: 6px;
+}
+
+.personal-achievement .achievement-track__rail::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: calc((100% + 18px) / var(--tier-count) / 2 - 9px);
+  top: 0;
+  bottom: 0;
+  background: var(--color-vip-track);
+}
+
+.personal-achievement .achievement-track__fill {
+  position: absolute;
+  width: var(--progress);
+  height: 6px;
+  background: var(--color-accent-warm);
+  transition: width 0.3s;
+}
+
+.personal-achievement .achievement-track__marker {
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-vip-track);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.personal-achievement .achievement-track__marker.is-passed {
+  background: var(--color-accent-warm);
+}
+
+.personal-achievement .achievement-track__tiers,
+.personal-achievement .target-list {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(var(--tier-count), minmax(0, 1fr));
+}
+
+.personal-achievement .achievement-track__tier {
+  position: relative;
+  padding-top: 26px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 20px;
+  text-align: center;
+}
+
+.personal-achievement .target-item {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 174px;
+  margin-top: 30px;
+  padding: 12px 23px 18px;
+  background: var(--color-line);
+  border-radius: 14px;
+}
+
+.personal-achievement .target-item::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - 18px);
+  top: -18px;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-bottom: 18px solid var(--color-line);
+}
+
+.personal-achievement .target-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 144px;
+}
+
+.personal-achievement .coin-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 66px;
+  margin: 0 0 6px;
+}
+
+.personal-achievement .achievement-reward {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.personal-achievement .achievement-requirement {
+  color: var(--color-muted);
+  font-size: var(--text-13);
+  line-height: 1.3;
+  margin-bottom: 12px;
+}
+
+.personal-achievement .btn-claim {
+  display: block;
+  width: 100%;
+  min-height: 33px;
+  margin: auto 0 0;
+  padding: 4px 12px;
+  background: var(--color-muted);
+  border: 0;
+  border-radius: 12px;
+  color: var(--color-panel);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 23px;
+  text-align: center;
+}
+
+.personal-achievement .btn-claim.btn-claim-selected {
+  background: var(--color-accent-warm);
+  color: var(--color-ink-on-accent);
+  cursor: pointer;
+}
+
+/* Ticket centre (standalone page: banner + ticket card + history). */
+.page.ticket-center {
+  display: flex;
+}
+
+.ticket-center .content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 888px;
+  margin: 0 auto;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 30px;
+}
+
+/* The circular badge that straddles the card's top edge. */
+.card-icon {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  font-size: var(--text-40);
+  transform: translateX(-50%);
+}
+
+.ticket-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 345px;
+  padding: 40px 30px 30px;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-accent);
+  border-radius: 16px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+
+.ticket-count {
+  line-height: 1;
+}
+
+.count-current,
+.count-muted {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+
+.count-current {
+  color: var(--color-accent);
+}
+
+.count-muted {
+  color: var(--color-muted);
+}
+
+.subtitle,
+.deposit-info,
+.progress-label,
+.unlock-text,
+.notice,
+.progress-current,
+.progress-total,
+.progress-percent,
+.unlock-highlight,
+.highlight {
+  font-size: var(--text-xs);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+
+.subtitle,
+.deposit-info,
+.progress-label,
+.unlock-text {
+  color: var(--color-ink);
+}
+
+.subtitle,
+.deposit-info {
+  padding-top: 5px;
+}
+
+.progress-total {
+  color: var(--color-muted);
+}
+
+.progress-current,
+.progress-percent,
+.unlock-highlight,
+.highlight {
+  color: var(--color-accent);
+}
+
+.ticket-card .divider {
+  width: 100%;
+  height: 1px;
+  margin: 10px 0;
+  background-color: var(--color-line);
+  border: 0;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progress-row,
+.progress-bar {
+  display: flex;
+  align-items: center;
+}
+
+.progress-row {
+  justify-content: space-between;
+}
+
+.progress-bar {
+  position: relative;
+  justify-content: flex-end;
+  width: 100%;
+  height: 37px;
+  padding-right: 12px;
+  background-color: var(--color-panel-soft);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-panel);
+  transition: width 0.4s ease;
+}
+
+.notice {
+  margin-top: auto;
+  padding-right: 30px;
+  color: var(--color-danger);
+}
+
+.ticket-center .btn-group {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.ticket-center .btn-yellow,
+.ticket-center .btn-dark-gray,
+.ticket-center .btn-green {
+  flex: 1 1 0;
+  width: 0;
+  min-width: 0;
+  height: 72px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ticket-center .btn-yellow {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  padding-right: 20px;
+  background-color: var(--color-accent);
+}
+
+.ticket-center .btn-green {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-color: var(--color-success);
+}
+
+.ticket-center .btn-dark-gray {
+  padding: 14px 16px;
+  background-color: var(--color-panel-soft);
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+
+.ticket-center .btn-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+}
+
+.ticket-center .btn-text-top,
+.ticket-center .btn-text-bottom {
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.ticket-center .btn-green-top,
+.ticket-center .btn-green-bottom {
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.ticket-center .btn-text-top {
+  color: #000;
+  font-size: var(--text-xs);
+}
+
+.ticket-center .btn-text-bottom {
+  color: #000;
+  font-size: var(--text-base);
+}
+
+.ticket-center .btn-green-top {
+  color: var(--color-ink);
+  font-size: var(--text-base);
+}
+
+.ticket-center .btn-green-bottom {
+  padding-top: 3px;
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+}
+
+.ticket-center .btn-green .btn-arrow {
+  color: var(--color-ink);
+}
+
+.ticket-history {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.ticket-history__table-wrapper {
+  width: 100%;
+}
+
+.ticket-history .nav-pill2 {
+  margin-right: 1rem;
+  padding: 10px 35px;
+  background: var(--color-line-deepest);
+  border-radius: var(--radius-panel);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  line-height: 19px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ticket-history .nav-pill2:last-child {
+  margin-right: 0;
+}
+
+.ticket-history .nav-pill2.selected {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.ticket-history__table {
+  width: 100%;
+}
+
+.ticket-history__table thead th {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 100%;
+}
+
+.ticket-history__table tbody td {
+  color: var(--color-muted) !important;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 19px;
+}
+
+.ticket-history__empty {
+  padding: 40px 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+
+@media (min-width: 769px) {
+  .card-wrapper {
+    padding-top: 76px;
+  }
+
+  .card-icon {
+    width: 120px;
+    height: 120px;
+    font-size: var(--text-56);
+  }
+
+  .count-current,
+  .count-muted {
+    font-size: var(--text-40);
+  }
+
+  .subtitle,
+  .deposit-info,
+  .highlight {
+    font-size: var(--text-base);
+  }
+
+  .notice,
+  .progress-current,
+  .progress-label,
+  .progress-percent,
+  .progress-total,
+  .unlock-highlight,
+  .unlock-text {
+    font-size: var(--text-17);
+  }
+
+  .ticket-center .btn-dark-gray,
+  .ticket-center .btn-green-top,
+  .ticket-center .btn-text-bottom {
+    font-size: var(--text-xl);
+  }
+}
+
+/* ------------------------------------------------- member area mobile */
+
+@media (max-width: 768px) {
+  .account-wrapper {
+    margin-top: 0;
+  }
+
+  .account-header,
+  .account-menu__sidebar {
+    display: none;
+  }
+
+  /* Block flow on mobile: as a row of flex items the content card cannot
+     shrink below its table's min-content width, which overflowed the page. */
+  .display-flex {
+    display: block;
+  }
+
+  /* The wide tables scroll inside their own wrapper, as on the reference
+     (`.history-table__wrapper` 91vw, `.inbox-table__wrapper` 96vw). */
+  .history-table__wrapper {
+    width: 91vw;
+    margin-left: 16px;
+    padding-right: 16px;
+    overflow-x: auto;
+  }
+
+  .history-table {
+    width: 747px;
+  }
+
+  .inbox-table__wrapper {
+    margin-left: 16px;
+    margin-right: 16px;
+    overflow-x: auto;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 23px;
+  }
+
+  .inbox-table {
+    width: 450px;
+  }
+
+  .pending-table__wrapper {
+    overflow-x: auto;
+  }
+
+  .account-summary__wrapper {
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding-bottom: 4px;
+    overflow-x: auto;
+  }
+
+  .account-summary__card {
+    flex: 0 0 170px;
+    width: 170px;
+  }
+
+  .account-content__container {
+    width: auto;
+    min-height: auto;
+    padding: 0;
+    background: none;
+  }
+
+  .account-content__container .form-group {
+    margin-bottom: 14px;
+  }
+
+  .account-content__container .form-control {
+    height: 42px;
+    padding: 10px 20px;
+    font-size: var(--text-xs);
+    line-height: 1.9;
+  }
+
+  .account-content__container .form-control-select {
+    background: var(--color-line-soft);
+  }
+
+  .account-content__container .form-control-dropdown {
+    top: 6px;
+  }
+
+  .account-content__container .form-control__icon-wrapper {
+    top: 11px;
+  }
+
+  .account-content__container .width-medium,
+  .transfer-left,
+  .transfer-submit__btn {
+    width: 100%;
+  }
+
+  .account-content__container .form-group__side-input-wrapper {
+    flex-direction: column;
+  }
+
+  .account-content__container .form-group__side-input__text {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 0;
+    padding: 10px 15px;
+    color: var(--color-ink);
+  }
+
+  .transfer-container {
+    flex-direction: column;
+  }
+
+  .transfer-right {
+    display: none;
+  }
+
+  .dateRangeBtn {
+    flex: 1;
+    padding: 11px;
+    background: transparent;
+  }
+
+  .turnover-table {
+    width: 100%;
+  }
+
+  .turnover-header-footer td,
+  .turnover-table-td-1,
+  .turnover-table-td-2 {
+    font-size: var(--text-10);
+  }
+
+  .turnover-table-td-2 {
+    padding-right: 25px !important;
+  }
+
+  .inbox-tabs {
+    padding: 0;
+  }
+
+  .inbox-mark-read {
+    font-size: var(--text-10);
+  }
+
+  .pending-footer {
+    flex-wrap: wrap;
+  }
+
+  .pending-footer__follow-us {
+    margin-right: 0;
+    margin-bottom: 12px;
+  }
+
+  .pending-footer__website-wrapper {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  /* Achievement / ticket centre, per the reference's own mobile block. */
+  .personal-achievement {
+    margin-top: 22px;
+  }
+
+  .personal-achievement .achievement-date-tabs {
+    padding-left: 18px;
+  }
+
+  .personal-achievement .achievement-date-tabs .nav-pill__wrapper {
+    gap: 10px;
+  }
+
+  .personal-achievement .achievement-date-tabs .nav-pill {
+    width: 94px;
+    min-height: 32px;
+    padding: 7px 12px;
+    border-radius: 12px 12px 0 0;
+    font-size: var(--text-xs);
+  }
+
+  .personal-achievement .achievement-panel {
+    padding: 20px 10px 0;
+    background: linear-gradient(#232323, #191b1b 180px);
+    border-radius: 18px 18px 0 0;
+  }
+
+  .personal-achievement .achievement-category-tabs .nav-pill__wrapper {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
+  }
+
+  .personal-achievement .achievement-category {
+    min-width: 0;
+    min-height: 82px;
+    padding: 12px 4px;
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+
+  .personal-achievement .achievement-heading {
+    margin: 0 0 12px;
+    padding: 0 4px;
+    font-size: var(--text-base);
+  }
+
+  .personal-achievement .achievement-bonus-heading {
+    margin: 30px 0 0;
+    padding: 0 10px;
+    font-size: var(--text-15);
+  }
+
+  .personal-achievement .achievement-details {
+    margin: 0 -10px;
+    padding: 14px 10px 20px;
+    background: linear-gradient(135deg, #242424, #1b1c1c);
+    border-radius: 18px 18px 0 0;
+  }
+
+  .personal-achievement .ranking-container {
+    flex-direction: column;
+    gap: 22px;
+    padding: 0 10px;
+  }
+
+  .personal-achievement .ranking-container__box {
+    flex: none;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .personal-achievement .ranking-container__box--title {
+    font-size: var(--text-sm);
+  }
+
+  .personal-achievement .ranking-container__box--value {
+    margin-top: 4px;
+    font-size: var(--text-17);
+  }
+
+  .personal-achievement .achievement-track {
+    --progress: var(--mobile-progress) !important;
+    width: 100%;
+    min-width: 0;
+    padding-top: 26px;
+  }
+
+  .personal-achievement .achievement-track__rail {
+    left: 10px;
+    top: 26px;
+    width: calc(100% - 20px);
+    height: 4px;
+  }
+
+  .personal-achievement .achievement-track__rail::before {
+    right: calc(100% / var(--tier-count) / 2);
+  }
+
+  .personal-achievement .achievement-track__fill {
+    height: 4px;
+  }
+
+  .personal-achievement .achievement-track__marker {
+    top: -2.5px;
+    width: 9px;
+    height: 9px;
+  }
+
+  .personal-achievement .achievement-track__tiers {
+    gap: 0;
+    margin: 0 10px 28px;
+  }
+
+  .personal-achievement .achievement-track__tier {
+    padding-top: 22px;
+    font-size: var(--text-xs);
+    line-height: 18px;
+    word-wrap: anywhere;
+  }
+
+  .personal-achievement .target-list {
+    gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .personal-achievement .target-item {
+    min-height: 68px;
+    margin: 0;
+    padding: 12px 14px 12px 10px;
+    border-radius: 16px;
+  }
+
+  .personal-achievement .target-item::before {
+    display: none;
+  }
+
+  .personal-achievement .target-title {
+    display: grid;
+    grid-template-columns: 38px minmax(0, 1fr) 74px;
+    grid-template-rows: auto auto;
+    column-gap: 8px;
+    row-gap: 3px;
+    align-items: center;
+    min-height: 0;
+  }
+
+  .personal-achievement .coin-box {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 38px;
+    height: 44px;
+    margin: 0;
+  }
+
+  .personal-achievement .achievement-reward {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    font-size: var(--text-sm);
+    word-wrap: anywhere;
+  }
+
+  .personal-achievement .achievement-requirement {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    margin: 0;
+    font-size: var(--text-13);
+    word-wrap: anywhere;
+  }
+
+  .personal-achievement .btn-claim {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    min-height: 32px;
+    margin: 0;
+    padding: 5px 8px;
+    border-radius: 11px;
+    font-size: var(--text-xs);
+    line-height: 1.25;
+  }
+
+  .card-wrapper {
+    padding-top: 30px;
+  }
+
+  .ticket-center .btn-group {
+    flex-direction: column;
   }
 }

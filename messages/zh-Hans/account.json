@@ -75,7 +75,12 @@
     "amountInvalid": "请输入大于 0 的金额",
     "insufficient": "金额超过可用余额",
     "unavailable": "该厂商钱包暂不可用",
-    "lastMoved": "上次转账:{when}"
+    "lastMoved": "上次转账:{when}",
+    "max": "最大",
+    "available": "可用",
+    "autoCredit": "自动充入游戏:",
+    "amountWithCurrency": "转账金额*({currency})",
+    "submitLabel": "提交"
   },
   "profile": {
     "demoTitle": "演示资料更新",
@@ -127,7 +132,35 @@
     "allStatuses": "全部状态",
     "total": "列表合计",
     "empty": "此筛选条件下没有交易",
-    "rolloverTitle": "活动流水进度"
+    "rolloverTitle": "活动流水进度",
+    "searching": "查询流水",
+    "dateRange": "日期范围",
+    "option": {
+      "deposit": "充值",
+      "withdrawal": "提现",
+      "transfer": "转账",
+      "promo": "优惠",
+      "bet": "投注"
+    },
+    "range": {
+      "today": "今天",
+      "in3days": "3 天内",
+      "inAWeek": "一周内",
+      "inAMonth": "一个月内"
+    },
+    "col": {
+      "deposit": "充值",
+      "amount": "金额",
+      "type": "类型",
+      "status": "状态",
+      "reason": "原因",
+      "time": "日期",
+      "reference": "参考号"
+    },
+    "turnoverRequirement": "所需流水",
+    "totalTurnover": "流水要求合计",
+    "noRows": "该筛选条件下暂无记录",
+    "currentTurnover": "当前流水"
   },
   "pending": {
     "summary": "{count} 笔申请等待审核。",
@@ -137,7 +170,9 @@
     "cancel": "取消申请",
     "cancelled": "申请已取消",
     "cancelConfirm": "确认取消此申请?此操作不可撤销。",
-    "empty": "没有待处理项目"
+    "empty": "没有待处理项目",
+    "followUs": "关注我们",
+    "officialWebsites": "我们的官网"
   },
   "inbox": {
     "summary": "未读 {unread} / {total}",
@@ -155,7 +190,16 @@
     "redeem": "兑换礼券",
     "redeemTitle": "兑换礼券码",
     "redeemPlaceholder": "输入消息中的兑换码",
-    "redeemSuccess": "礼券兑换成功"
+    "redeemSuccess": "礼券兑换成功",
+    "tab": {
+      "important": "重要",
+      "others": "其他",
+      "promotions": "优惠"
+    },
+    "dateTime": "日期/时间",
+    "subject": "主题",
+    "selectAll": "全选消息",
+    "noData": "暂无消息"
   },
   "actions": {
     "demoClaimTitle": "演示领取",
@@ -179,7 +223,12 @@
     "claimed": "已领取",
     "claimable": "可领取",
     "pending": "计算中",
-    "noRequirement": "返水无需流水。"
+    "noRequirement": "返水无需流水。",
+    "claimFrom": "可领取时间 {date}",
+    "tip": "将把 {amount} 记入主钱包。",
+    "tipDemo": "*演示版本,此处不会实际入账。*",
+    "turnoverLine": "流水 {amount}",
+    "rateLine": "返水比例 {rate}%"
   },
   "achievement": {
     "intro": "进度按各产品的已结算投注计算。",
@@ -192,7 +241,21 @@
     "claim": "领取奖励",
     "locked": "未解锁",
     "claimed": "已领取",
-    "currentStatus": "当前状态"
+    "currentStatus": "当前状态",
+    "period": {
+      "weekly": "本周",
+      "lastWeek": "上周"
+    },
+    "category": {
+      "livecasino": "真人娱乐",
+      "sports": "体育",
+      "slots": "电子游戏"
+    },
+    "myTurnover": "我的{game}流水",
+    "nextBonus": "距下一档奖励所需金额",
+    "turnoverBonus": "流水奖励",
+    "reward": "奖励 {amount}",
+    "requirement": "{currency} {amount} 及以上"
   },
   "tickets": {
     "intro": "票券通过游戏获得,每项活动消耗固定数量。",
@@ -208,7 +271,30 @@
     },
     "window": "{opens} – {closes}",
     "notEnough": "票券不足",
-    "empty": "当前没有活动"
+    "empty": "当前没有活动",
+    "available": "可用票券",
+    "perDeposit": "每充值 <hl>{amount}</hl> = <hl>{tickets}</hl> 张免费票券",
+    "progressToNext": "距下一张票券的进度",
+    "unlockDeposit": "再充值 <hl>{amount}</hl> 可解锁下一张<hl>{ticket}</hl>",
+    "freeTicket": "免费票券",
+    "notice": "**重要提示:每个账户最多持有 {cap} 张票券,达到上限后的充值不再产生票券",
+    "depositBtnTop": "想获得更多票券?",
+    "depositBtnBottom": "立即充值",
+    "rules": "规则与条款",
+    "rulesTitle": "票券规则",
+    "rulesBody": "每 500 的已通过充值获得一张票券,参加活动消耗一张。演示版不产生也不消耗票券。",
+    "useTop": "立即使用票券",
+    "useBottom": "前往活动页",
+    "useTitle": "演示活动页",
+    "useBody": "正式版会打开活动页并消耗你持有的票券。此处不会消耗。",
+    "history": "票券记录",
+    "tab": {
+      "all": "全部",
+      "received": "获得",
+      "used": "已使用"
+    },
+    "columnTickets": "票券",
+    "noData": "暂无数据"
   },
   "status": {
     "pending": "待处理",
@@ -220,5 +306,18 @@
   "guard": {
     "notice": "此区域需要账号,请先登录。",
     "redirecting": "正在前往登录页…"
+  },
+  "hello": "你好,",
+  "viewWallet": "查看完整钱包",
+  "verify": "验证",
+  "menu": {
+    "sectionAccount": "账户"
+  },
+  "summary": {
+    "upgrade": "升级所需金额",
+    "withdrawalLimit": "提现限额",
+    "withdrawalFrequency": "提现次数",
+    "registrationDate": "注册日期",
+    "time": "时间"
   }
 }

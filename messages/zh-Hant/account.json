@@ -75,7 +75,12 @@
     "amountInvalid": "請輸入大於 0 的金額",
     "insufficient": "金額超過可用餘額",
     "unavailable": "該廠商錢包暫不可用",
-    "lastMoved": "上次轉帳:{when}"
+    "lastMoved": "上次轉帳:{when}",
+    "max": "最大",
+    "available": "可用",
+    "autoCredit": "自動充入遊戲:",
+    "amountWithCurrency": "轉帳金額*({currency})",
+    "submitLabel": "提交"
   },
   "profile": {
     "demoTitle": "示範資料更新",
@@ -127,7 +132,35 @@
     "allStatuses": "全部狀態",
     "total": "列表合計",
     "empty": "此篩選條件下沒有交易",
-    "rolloverTitle": "活動流水進度"
+    "rolloverTitle": "活動流水進度",
+    "searching": "查詢流水",
+    "dateRange": "日期範圍",
+    "option": {
+      "deposit": "充值",
+      "withdrawal": "提現",
+      "transfer": "轉帳",
+      "promo": "優惠",
+      "bet": "投注"
+    },
+    "range": {
+      "today": "今天",
+      "in3days": "3 天內",
+      "inAWeek": "一週內",
+      "inAMonth": "一個月內"
+    },
+    "col": {
+      "deposit": "充值",
+      "amount": "金額",
+      "type": "類型",
+      "status": "狀態",
+      "reason": "原因",
+      "time": "日期",
+      "reference": "參考號"
+    },
+    "turnoverRequirement": "所需流水",
+    "totalTurnover": "流水要求合計",
+    "noRows": "此篩選條件下暫無記錄",
+    "currentTurnover": "當前流水"
   },
   "pending": {
     "summary": "{count} 筆申請等待審核。",
@@ -137,7 +170,9 @@
     "cancel": "取消申請",
     "cancelled": "申請已取消",
     "cancelConfirm": "確認取消此申請?此操作不可撤銷。",
-    "empty": "沒有待處理項目"
+    "empty": "沒有待處理項目",
+    "followUs": "關注我們",
+    "officialWebsites": "我們的官網"
   },
   "inbox": {
     "summary": "未讀 {unread} / {total}",
@@ -155,7 +190,16 @@
     "redeem": "兌換禮券",
     "redeemTitle": "兌換禮券碼",
     "redeemPlaceholder": "輸入訊息中的兌換碼",
-    "redeemSuccess": "禮券兌換成功"
+    "redeemSuccess": "禮券兌換成功",
+    "tab": {
+      "important": "重要",
+      "others": "其他",
+      "promotions": "優惠"
+    },
+    "dateTime": "日期/時間",
+    "subject": "主旨",
+    "selectAll": "全選訊息",
+    "noData": "暫無訊息"
   },
   "actions": {
     "demoClaimTitle": "示範領取",
@@ -179,7 +223,12 @@
     "claimed": "已領取",
     "claimable": "可領取",
     "pending": "計算中",
-    "noRequirement": "返水無需流水。"
+    "noRequirement": "返水無需流水。",
+    "claimFrom": "可領取時間 {date}",
+    "tip": "將把 {amount} 記入主錢包。",
+    "tipDemo": "*示範版本,此處不會實際入賬。*",
+    "turnoverLine": "流水 {amount}",
+    "rateLine": "返水比例 {rate}%"
   },
   "achievement": {
     "intro": "進度按各產品的已結算投注計算。",
@@ -192,7 +241,21 @@
     "claim": "領取獎勵",
     "locked": "未解鎖",
     "claimed": "已領取",
-    "currentStatus": "當前狀態"
+    "currentStatus": "當前狀態",
+    "period": {
+      "weekly": "本週",
+      "lastWeek": "上週"
+    },
+    "category": {
+      "livecasino": "真人娛樂",
+      "sports": "體育",
+      "slots": "電子遊戲"
+    },
+    "myTurnover": "我的{game}流水",
+    "nextBonus": "距下一檔獎勵所需金額",
+    "turnoverBonus": "流水獎勵",
+    "reward": "獎勵 {amount}",
+    "requirement": "{currency} {amount} 及以上"
   },
   "tickets": {
     "intro": "票券透過遊戲獲得,每項活動消耗固定數量。",
@@ -208,7 +271,30 @@
     },
     "window": "{opens} – {closes}",
     "notEnough": "票券不足",
-    "empty": "當前沒有活動"
+    "empty": "當前沒有活動",
+    "available": "可用票券",
+    "perDeposit": "每充值 <hl>{amount}</hl> = <hl>{tickets}</hl> 張免費票券",
+    "progressToNext": "距下一張票券的進度",
+    "unlockDeposit": "再充值 <hl>{amount}</hl> 可解鎖下一張<hl>{ticket}</hl>",
+    "freeTicket": "免費票券",
+    "notice": "**重要提示:每個帳戶最多持有 {cap} 張票券,達到上限後的充值不再產生票券",
+    "depositBtnTop": "想獲得更多票券?",
+    "depositBtnBottom": "立即充值",
+    "rules": "規則與條款",
+    "rulesTitle": "票券規則",
+    "rulesBody": "每 500 的已通過充值獲得一張票券,參加活動消耗一張。示範版不產生也不消耗票券。",
+    "useTop": "立即使用票券",
+    "useBottom": "前往活動頁",
+    "useTitle": "示範活動頁",
+    "useBody": "正式版會開啟活動頁並消耗你持有的票券。此處不會消耗。",
+    "history": "票券記錄",
+    "tab": {
+      "all": "全部",
+      "received": "獲得",
+      "used": "已使用"
+    },
+    "columnTickets": "票券",
+    "noData": "暫無資料"
   },
   "status": {
     "pending": "待處理",
@@ -220,5 +306,18 @@
   "guard": {
     "notice": "此區域需要帳號,請先登入。",
     "redirecting": "正在前往登入頁…"
+  },
+  "hello": "你好,",
+  "viewWallet": "查看完整錢包",
+  "verify": "驗證",
+  "menu": {
+    "sectionAccount": "帳戶"
+  },
+  "summary": {
+    "upgrade": "升級所需金額",
+    "withdrawalLimit": "提現限額",
+    "withdrawalFrequency": "提現次數",
+    "registrationDate": "註冊日期",
+    "time": "時間"
   }
 }
