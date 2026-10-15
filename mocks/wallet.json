@@ -1,0 +1,12 @@
+{
+  "currency": "MYR",
+  "wallets": [
+    { "code": "main", "name": "Main wallet", "kind": "main", "amountMinor": 123450, "available": true },
+    { "code": "pragmatic", "name": "Pragmatic", "kind": "game", "amountMinor": 25000, "available": true },
+    { "code": "pt", "name": "PT", "kind": "game", "amountMinor": 0, "available": true },
+    { "code": "jili", "name": "Jili", "kind": "game", "amountMinor": 8800, "available": false },
+    { "code": "spade", "name": "Spade", "kind": "game", "amountMinor": 0, "available": true },
+    { "code": "joker", "name": "Joker", "kind": "game", "amountMinor": 5000, "available": true },
+    { "code": "cq9", "name": "CQ9", "kind": "game", "amountMinor": 0, "available": true }
+  ]
+}
