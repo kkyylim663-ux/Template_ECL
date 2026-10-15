@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
-import { IconSprite } from '@/components/ui/IconSprite';
 import { useModal } from '@/components/ui/ModalProvider';
 
 /**
@@ -23,7 +22,6 @@ export function SponsorVideoButton({
 
   return (
     <>
-      <IconSprite only={['play']} />
       <button
         type="button"
         data-video={id}

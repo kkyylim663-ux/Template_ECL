@@ -6,6 +6,7 @@ import { JsonLd } from '@/components/content/JsonLd';
 import { breadcrumbLd, pageMetadata } from '@/lib/seo';
 import { brand } from '@/config/brand';
 import { SponsorVideoButton } from '@/components/content/SponsorVideoButton';
+import { IconSprite } from '@/components/ui/IconSprite';
 
 export async function generateMetadata({
   params,
@@ -30,6 +31,7 @@ export default async function SponsorPage({ params }: { params: Promise<{ region
   return (
     <IntlScope namespaces={['content']}>
       <div data-page="sponsor" className="sponsor-warapper container-page">
+        <IconSprite only={['play']} />
         <JsonLd
           data={breadcrumbLd(
             [
