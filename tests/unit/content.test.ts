@@ -96,19 +96,19 @@ describe('content getters (mocks/promotions.json, updates, faq, vip, sponsor, pa
     expect(await getFaq('nonexistent')).toBeNull();
   });
 
-  it('getVipLevels returns five tiers with rising thresholds', async () => {
+  it('getVipLevels returns the five tracked tiers in order', async () => {
     const levels = await getVipLevels();
 
     expect(levels.map((level) => level.name)).toEqual([
+      'Normal',
       'Bronze',
       'Silver',
       'Gold',
       'Platinum',
-      'Diamond',
     ]);
-    const thresholds = levels.map((level) => level.thresholdMinor);
-    expect([...thresholds].sort((a, b) => a - b)).toEqual(thresholds);
-    expect(levels.every((level) => level.benefits.length >= 3)).toBe(true);
+    expect(levels.every((level) => level.desc.length > 0)).toBe(true);
+    expect(levels.every((level) => level.amount.length > 0)).toBe(true);
+    expect(levels.every((level) => level.short.length > 0)).toBe(true);
     expect((await getVipRules()).length).toBeGreaterThan(50);
   });
 
@@ -123,10 +123,6 @@ describe('content getters (mocks/promotions.json, updates, faq, vip, sponsor, pa
     for (const row of rows) {
       expect(Object.keys(row.values).sort()).toEqual([...levelIds].sort());
     }
-    // The withdrawal row carries minor units for the region formatter.
-    const moneyRow = rows.find((row) => row.money);
-    expect(moneyRow).toBeDefined();
-    expect(Number(moneyRow?.values['vip-1'])).toBeGreaterThan(0);
   });
 
   it('getSponsorBlocks carries the carousel, the video grid and the partners', async () => {
@@ -141,7 +137,7 @@ describe('content getters (mocks/promotions.json, updates, faq, vip, sponsor, pa
     for (const slug of ['about', 'contact', 'tnc', 'betting-rules'] as const) {
       const page = await getPageContent(slug);
       expect(page?.slug).toBe(slug);
-      expect(page?.sections.length).toBeGreaterThanOrEqual(3);
+      expect(page?.sections.length).toBeGreaterThanOrEqual(2);
       for (const section of page?.sections ?? []) {
         expect(section.id).toMatch(/^[a-z0-9-]+$/);
         expect(section.title.length).toBeGreaterThan(0);

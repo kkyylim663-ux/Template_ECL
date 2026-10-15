@@ -8,24 +8,14 @@
       "updatedAt": "2026-10-01",
       "sections": [
         {
-          "id": "who-we-are",
-          "title": "Who we are",
-          "body": "Placeholder introduction. This paragraph stands in for the operator's company description and should be replaced with the real one.\n\nA second placeholder paragraph: what the brand does, which markets it serves and who runs it."
+          "id": "about-us",
+          "title": "About Us",
+          "body": "Placeholder introduction. This paragraph stands in for the operator's company description and should be replaced with the real one.\n\nA second placeholder paragraph: what the brand does, which markets it serves and who runs it.\n\nPlaceholder text about the licence. The demo build carries a placeholder licence number; the live build names the regulator and the licence class.\n\n- Regulator: placeholder\n- Licence number: 0000-DEMO\n- Jurisdictions served: Malaysia and Singapore\n\nPlaceholder text about responsible play. The live build lists the tools the operator offers: deposit limits, session reminders, cooling-off periods and self-exclusion.\n\nPlay is for adults only. 18+."
         },
         {
-          "id": "licence",
-          "title": "Licence and regulation",
-          "body": "Placeholder text about the licence. The demo build carries a placeholder licence number; the live build names the regulator and the licence class.\n\n- Regulator: placeholder\n- Licence number: 0000-DEMO\n- Jurisdictions served: Malaysia and Singapore"
-        },
-        {
-          "id": "responsibility",
-          "title": "Responsible play",
-          "body": "Placeholder text about responsible play. The live build lists the tools the operator offers: deposit limits, session reminders, cooling-off periods and self-exclusion.\n\nPlay is for adults only. 18+."
-        },
-        {
-          "id": "careers",
-          "title": "Careers",
-          "body": "Placeholder text. Open roles, where the teams sit and how hiring works — replace with the real copy."
+          "id": "contact-us",
+          "title": "Contact Us",
+          "body": "You can chat to us live through the live chat option. Support runs around the clock every day of the year; the channels beside this text reach the same team."
         }
       ]
     },

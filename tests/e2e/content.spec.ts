@@ -258,60 +258,34 @@ test.describe('FAQ (T21)', () => {
 });
 
 test.describe('VIP and sponsor (T22)', () => {
-  test('the tier track switches the benefits panel', async ({ page }) => {
+  test('the tier track lists the five tiers in order', async ({ page }) => {
     await page.goto('/my/vip');
 
     await expect(page.locator('[data-vip-tier]')).toHaveCount(5);
-    // Bronze leads: entry tier, no threshold.
-    await expect(page.locator('[data-vip-active="vip-1"]')).toBeVisible();
-    await expect(page.getByText('Bronze benefits')).toBeVisible();
-
-    await page.locator('[data-vip-tier="vip-4"]').click();
-    await expect(page.locator('[data-vip-active="vip-4"]')).toBeVisible();
-    await expect(page.getByText('Platinum benefits')).toBeVisible();
-    await expect(page.getByText('A named account manager')).toHaveCount(0);
-
-    await page.locator('[data-vip-tier="vip-5"]').click();
-    await expect(page.getByText('A named account manager')).toBeVisible();
+    await expect(page.locator('.vip-tier-track__item p.vip-tier-track__level')).toHaveText([
+      'Normal',
+      'Bronze',
+      'Silver',
+      'Gold',
+      'Platinum',
+    ]);
+    // The track is one focusable region, like the reference's.
+    await expect(page.getByRole('region', { name: 'Tier Upgrade Requirement' })).toBeVisible();
   });
 
-  test('the privilege matrix has one column per tier and follows the selection', async ({
-    page,
-  }) => {
+  test('the privilege matrix renders one labelled column per tier', async ({ page }) => {
     await page.goto('/my/vip');
 
-    // Header row plus one cell per matrix row, five tier columns throughout.
-    // Ten rows: the derived upgrade row, then nine from the mock.
-    const table = page.locator('[data-vip-table] table');
-    await expect(table).toBeVisible();
-    await expect(page.locator('[data-vip-table] thead th[data-vip-col]')).toHaveCount(5);
-    await expect(page.locator('[data-vip-table] tbody tr')).toHaveCount(10);
-    const columns = await table.evaluate((element) =>
-      Array.from(
-        new Set(
-          Array.from(element.querySelectorAll('tbody td[data-vip-col]')).map((cell) =>
-            cell.getAttribute('data-vip-col'),
-          ),
-        ),
-      ),
-    );
-    expect([...columns].sort()).toEqual(['vip-1', 'vip-2', 'vip-3', 'vip-4', 'vip-5']);
+    // Two header rows (badges, then tier names) and one row per privilege group.
+    await expect(page.locator('[data-vip-table] .vip-row')).toHaveCount(6);
+    await expect(page.locator('[data-vip-table] .vip-level-icon')).toHaveCount(5);
+    await expect(page.locator('[data-vip-table] .section-title')).toHaveText('VIP Privileges');
 
-    // Derived from the thresholds, so it reads back the entry-tier wording.
-    const turnoverRow = page.getByRole('rowheader', { name: 'Rolling 30-day turnover' });
-    await expect(turnoverRow).toBeVisible();
-    await expect(
-      page.locator('[data-vip-table] tbody').getByText('No turnover needed'),
-    ).toBeVisible();
-
-    // Bronze column highlighted in all ten rows; switching moves it.
-    await page.locator('[data-vip-tier="vip-4"]').click();
-    await expect(
-      page.locator('[data-vip-table] td[data-vip-col="vip-4"][data-active="true"]'),
-    ).toHaveCount(10);
-    await expect(
-      page.locator('[data-vip-table] td[data-vip-col="vip-1"][data-active="true"]'),
-    ).toHaveCount(0);
+    // Every value row carries five tier cells; three of them highlight.
+    const wrappers = await page.locator('[data-vip-table] .vip-col__wrapper').count();
+    expect(wrappers).toBeGreaterThanOrEqual(12);
+    await expect(page.locator('[data-vip-table] .vip-col-2 p').first()).toHaveText('Renewable');
+    await expect(page.getByText('0.35%')).toBeVisible();
   });
 
   test('the rules block expands and collapses', async ({ page }) => {
@@ -376,8 +350,8 @@ test.describe('VIP and sponsor (T22)', () => {
 });
 
 test.describe('long-form pages (T23)', () => {
-  test('all four pages render their sections and the contents rail', async ({ page }) => {
-    const counts: Record<string, number> = { about: 4, tnc: 6, 'betting-rules': 5 };
+  test('the long-form pair renders its sections and the contents rail', async ({ page }) => {
+    const counts: Record<string, number> = { tnc: 6, 'betting-rules': 5 };
 
     for (const [slug, sections] of Object.entries(counts)) {
       await page.goto(`/my/${slug}`);
@@ -385,8 +359,22 @@ test.describe('long-form pages (T23)', () => {
       await expect(page.locator('[data-page="longform"] section')).toHaveCount(sections);
       await expect(page.locator('[data-toc="desktop"] [data-toc-link]')).toHaveCount(sections);
     }
+  });
 
-    // Contact adds three blocks of its own: cards, social row and the form.
+  test('about follows the reference shell: copy blocks and four contact columns', async ({
+    page,
+  }) => {
+    await page.goto('/my/about');
+    await expect(page.locator('[data-page="about"]')).toHaveCount(1);
+    await expect(page.locator('[data-page="about"] .desc h3')).toHaveText([
+      'About Us',
+      'Contact Us',
+    ]);
+    await expect(page.locator('.contactUsContent > div')).toHaveCount(4);
+    await expect(page.locator('.contactUsContent .linkTitle')).toHaveCount(4);
+  });
+
+  test('contact keeps its cards, social row and form', async ({ page }) => {
     await page.goto('/my/contact');
     await expect(page.locator('[data-toc="desktop"] [data-toc-link]')).toHaveCount(6);
     await expect(page.locator('[data-contact-card]')).toHaveCount(5);
@@ -461,7 +449,7 @@ test.describe('long-form pages (T23)', () => {
   test('mobile folds the contents into a dropdown, and nothing overflows', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
 
-    for (const slug of ['about', 'contact', 'tnc', 'betting-rules']) {
+    for (const slug of ['contact', 'tnc', 'betting-rules']) {
       await page.goto(`/my/${slug}`);
       await expect(page.locator('[data-toc="desktop"]')).toBeHidden();
       const dropdown = page.locator('[data-toc="mobile"]');

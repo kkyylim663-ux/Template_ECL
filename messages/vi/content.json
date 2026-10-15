@@ -85,6 +85,12 @@
       "demoBody": "Chưa gửi gì cả: bản này chưa có backend. Bản thật sẽ chuyển tin đến hộp thư hỗ trợ."
     }
   },
+  "about": {
+    "contact": "Liên hệ",
+    "websites": "Trang web chính thức",
+    "service": "Hỗ trợ khách hàng 24/7",
+    "follow": "Theo dõi chúng tôi"
+  },
   "rules": {
     "show": "Xem thể lệ",
     "hide": "Ẩn thể lệ"

@@ -6,66 +6,42 @@
       {
         "id": "vip-1",
         "level": 1,
-        "name": "Bronze",
-        "thresholdMinor": 0,
-        "short": "Entry tier",
-        "benefits": [
-          "Standard deposit and withdrawal limits",
-          "Daily rebate on slots turnover",
-          "Support through live chat"
-        ]
+        "name": "Normal",
+        "desc": "Deposit Lesser than",
+        "amount": "RM 50,000",
+        "short": "<RM50K"
       },
       {
         "id": "vip-2",
         "level": 2,
-        "name": "Silver",
-        "thresholdMinor": 800000,
-        "short": "Unlocks the weekly gift",
-        "benefits": [
-          "Weekly VIP gift",
-          "Higher withdrawal limit per request",
-          "Priority queue in live chat",
-          "Birthday credit"
-        ]
+        "name": "Bronze",
+        "desc": "Minimum Deposit",
+        "amount": "RM 50,000",
+        "short": "RM50K+"
       },
       {
         "id": "vip-3",
         "level": 3,
-        "name": "Gold",
-        "thresholdMinor": 3000000,
-        "short": "Adds hosted tables",
-        "benefits": [
-          "Everything in Silver",
-          "A dedicated host on live chat",
-          "Invitations to hosted tables",
-          "Monthly cashback uplift to 8%"
-        ]
+        "name": "Silver",
+        "desc": "Minimum Deposit",
+        "amount": "RM 400,000",
+        "short": "RM400K+"
       },
       {
         "id": "vip-4",
         "level": 4,
-        "name": "Platinum",
-        "thresholdMinor": 9000000,
-        "short": "Event invitations",
-        "benefits": [
-          "Everything in Gold",
-          "Invitations to offline events",
-          "Custom deposit ceiling",
-          "Free withdrawal every day"
-        ]
+        "name": "Gold",
+        "desc": "Minimum Deposit",
+        "amount": "RM 1,000,000",
+        "short": "RM1M+"
       },
       {
         "id": "vip-5",
         "level": 5,
-        "name": "Diamond",
-        "thresholdMinor": 25000000,
-        "short": "By invitation",
-        "benefits": [
-          "Everything in Platinum",
-          "A named account manager",
-          "Negotiated rebate rates",
-          "Travel and hospitality programme"
-        ]
+        "name": "Platinum",
+        "desc": "Minimum Deposit",
+        "amount": "RM 4,000,000",
+        "short": "RM4M+"
       }
     ],
     "privileges": [
@@ -83,6 +59,17 @@
               "vip-4": "Lifetime",
               "vip-5": "Lifetime"
             }
+          },
+          {
+            "id": "tier-upgrade",
+            "label": "Tier Upgrade Requirement",
+            "values": {
+              "vip-1": "RM 0 - 49,999",
+              "vip-2": "RM 50,000 or Above",
+              "vip-3": "RM 400,000 or Above",
+              "vip-4": "RM 1,000,000 or Above",
+              "vip-5": "RM 4,000,000 or Above"
+            }
           }
         ]
       },
@@ -98,103 +85,96 @@
               "vip-2": "0.45%",
               "vip-3": "0.55%",
               "vip-4": "0.65%",
-              "vip-5": "0.75%"
+              "vip-5": "0.7%"
             }
           },
           {
             "id": "sportsbook",
             "label": "Sportsbook",
             "values": {
-              "vip-1": "0.30%",
-              "vip-2": "0.40%",
-              "vip-3": "0.50%",
-              "vip-4": "0.60%",
-              "vip-5": "0.70%"
+              "vip-1": "0.40%",
+              "vip-2": "0.50%",
+              "vip-3": "0.60%",
+              "vip-4": "0.70%",
+              "vip-5": "0.80%"
             }
           },
           {
             "id": "slots",
             "label": "Slots",
             "values": {
-              "vip-1": "0.50%",
-              "vip-2": "0.60%",
-              "vip-3": "0.70%",
-              "vip-4": "0.80%",
-              "vip-5": "0.90%"
+              "vip-1": "0.60%",
+              "vip-2": "0.70%",
+              "vip-3": "0.80%",
+              "vip-4": "0.90%",
+              "vip-5": "1.00%"
             }
           }
         ]
       },
       {
-        "id": "limits",
-        "label": "Limits",
+        "id": "bonus",
+        "label": "Bonus",
         "rows": [
           {
-            "id": "withdrawal-per-request",
-            "label": "Withdrawal per request",
-            "money": true,
+            "id": "birthday",
+            "label": "Birthday",
             "values": {
-              "vip-1": "2000000",
-              "vip-2": "4000000",
-              "vip-3": "8000000",
-              "vip-4": "15000000",
-              "vip-5": "40000000"
-            }
-          }
-        ]
-      },
-      {
-        "id": "support",
-        "label": "Support",
-        "rows": [
-          {
-            "id": "live-chat",
-            "label": "Live chat",
-            "values": {
-              "vip-1": "Standard",
-              "vip-2": "Priority queue",
-              "vip-3": "Dedicated host",
-              "vip-4": "Dedicated host",
-              "vip-5": "Account manager"
-            }
-          }
-        ]
-      },
-      {
-        "id": "gifts",
-        "label": "Gifts",
-        "rows": [
-          {
-            "id": "weekly-gift",
-            "label": "Weekly gift",
-            "values": {
-              "vip-1": "—",
-              "vip-2": "✓",
-              "vip-3": "✓",
-              "vip-4": "✓",
-              "vip-5": "✓"
+              "vip-1": "",
+              "vip-2": "Up to MYR 88",
+              "vip-3": "Up to MYR 388",
+              "vip-4": "Up to MYR 688",
+              "vip-5": "Up to MYR 1,888"
             }
           },
           {
-            "id": "birthday-credit",
-            "label": "Birthday credit",
+            "id": "upgrade",
+            "label": "Upgrade",
             "values": {
-              "vip-1": "—",
-              "vip-2": "✓",
-              "vip-3": "✓",
-              "vip-4": "✓",
-              "vip-5": "✓"
+              "vip-1": "Welcome Bonus",
+              "vip-2": "MYR 88",
+              "vip-3": "MYR 388",
+              "vip-4": "MYR 688",
+              "vip-5": "MYR 1,888"
+            }
+          }
+        ]
+      },
+      {
+        "id": "withdrawal",
+        "label": "Withdrawal",
+        "rows": [
+          {
+            "id": "frequency",
+            "label": "Frequency",
+            "values": {
+              "vip-1": "2 Times",
+              "vip-2": "4 Times",
+              "vip-3": "4 Times",
+              "vip-4": "VIP 5 Times",
+              "vip-5": "VIP 10 Times"
             }
           },
           {
-            "id": "event-invitations",
-            "label": "Event invitations",
+            "id": "amount",
+            "label": "Amount",
             "values": {
-              "vip-1": "—",
-              "vip-2": "—",
-              "vip-3": "Hosted tables",
-              "vip-4": "Offline events",
-              "vip-5": "Travel programme"
+              "vip-1": "MYR 50,000",
+              "vip-2": "MYR 50,000",
+              "vip-3": "MYR 100,000",
+              "vip-4": "VIP MYR 150,000",
+              "vip-5": "VIP MYR 250,000"
+            }
+          },
+          {
+            "id": "channels",
+            "label": "Channels",
+            "values": {
+              "vip-1": "Bank and e-wallets",
+              "vip-2": "Bank and e-wallets",
+              "vip-3": "Bank and e-wallets",
+              "vip-4": "Bank, crypto and e-wallets",
+              "vip-5": "Bank, crypto, e-wallets and more"
             }
           }
         ]

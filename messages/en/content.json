@@ -85,6 +85,12 @@
       "demoBody": "Nothing was sent: this build has no backend yet. The live build delivers this message to the support inbox."
     }
   },
+  "about": {
+    "contact": "Contact",
+    "websites": "Our Official Websites",
+    "service": "24/7 Customer Service",
+    "follow": "Follow Us"
+  },
   "rules": {
     "show": "Show rules",
     "hide": "Hide rules"

@@ -107,6 +107,13 @@ export const brand = {
     { id: 'youtube', label: 'YouTube', href: '#' },
   ],
 
+  /** The group's public domains, listed on the about page. */
+  websites: [
+    { id: 'main', label: 'brand.example', href: '#' },
+    { id: 'alt', label: 'brand-1.example', href: '#' },
+    { id: 'net', label: 'brand.net', href: '#' },
+  ],
+
   legal: {
     operator: 'BRAND Entertainment Ltd. (placeholder)',
     licence: 'Demo build — placeholder licence number 0000-DEMO',

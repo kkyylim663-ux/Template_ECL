@@ -154,10 +154,12 @@ export const vipLevelSchema = z.object({
   id: z.string(),
   level: z.number().int().min(1),
   name: z.string(),
-  /** Rolling turnover needed to reach the tier. */
-  thresholdMinor: z.number().int().min(0),
+  /** Track line under the tier name (desktop only). */
+  desc: z.string(),
+  /** Amount line of the track (desktop only). */
+  amount: z.string(),
+  /** Short label that replaces desc/amount where the track folds on phones. */
   short: z.string(),
-  benefits: z.array(z.string()),
 });
 export type VipLevel = z.infer<typeof vipLevelSchema>;
 

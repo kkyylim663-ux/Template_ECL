@@ -73,6 +73,11 @@
   --color-line-table: #303232; /* .rb-table-scroll / .rb-prize-table frame */
   --color-bar-line: rgb(255 255 255 / 20%); /* .mobile-bar 1px 高光边 */
   --color-rule: #333333; /* .accordionItem / .sidebarItem hairline */
+  --color-vip-track: #4b4d4d; /* tier-track rail and diamond markers */
+  --color-vip-highlight: #1e2020; /* every other tier column of the matrix */
+  --color-vip-bronze: #cd7f32;
+  --color-vip-silver: #c0c0c0;
+  --color-vip-platinum: #e5e4e2;
   --color-arrow: #3a3c3c; /* .rb-rule-arrow */
   --color-live-red: #f03b35; /* .rb-update */
   --color-line-input: #a5a5a5; /* .rb-filter border */
@@ -3765,5 +3770,304 @@ ul.about-ul-disc:last-child {
 
   .accordionItemContent {
     padding-left: 0;
+  }
+}
+
+/* -------------------------------------------- static pages II (T37b) */
+
+/* Page heading with a leading icon. */
+.form-title {
+  display: flex;
+  align-items: center;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-title.large {
+  font-size: 20px;
+}
+
+.page-icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+}
+
+/* The five-step tier track above the vip matrix. */
+.vip-tier-track {
+  margin-top: 40px;
+  margin-bottom: 44px;
+  overflow-x: auto;
+}
+
+.vip-tier-track__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) 130px;
+  min-width: 700px;
+  margin: 0;
+  padding: 12px 8px 8px;
+  list-style: none;
+}
+
+.vip-tier-track__item {
+  position: relative;
+  padding: 28px 16px 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.vip-tier-track__item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: var(--color-vip-track);
+}
+
+.vip-tier-track__marker {
+  position: absolute;
+  top: -4px;
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  background: var(--color-vip-track);
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.vip-tier-track__item p {
+  margin: 0;
+}
+
+.vip-tier-track__item .vip-tier-track__level {
+  margin-bottom: 6px;
+  color: var(--color-ink);
+}
+
+.vip-tier-track__short {
+  display: none;
+}
+
+/* The privileges matrix: label column, sub-label column, five tier columns. */
+.section-title__vip {
+  margin-top: 21px;
+  margin-bottom: 42px;
+}
+
+.vip-table__wrapper {
+  margin-top: 30px;
+  margin-bottom: 60px;
+}
+
+.vip-row {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--color-muted);
+}
+
+.vip-row:last-child,
+.vip-row__borderless {
+  border-bottom: none;
+}
+
+.vip-col__wrapper {
+  display: flex;
+}
+
+.vip-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 195px;
+  padding: 30px 16px 0 24px;
+  color: var(--color-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+.vip-col-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 186px;
+  padding-left: 33px;
+  color: var(--color-accent);
+}
+
+.vip-col-2 {
+  align-items: flex-start;
+  width: 165px;
+  color: var(--color-ink);
+  text-align: left;
+}
+
+.vip-col-1__icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 16px;
+}
+
+.vip-level-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.vip-col__highlighted {
+  background-color: var(--color-vip-highlight);
+}
+
+.vip-row:last-child .vip-col__wrapper:last-child .vip-col__highlighted {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.vip-row .vip-col__wrapper:last-child .vip-col {
+  padding-bottom: 30px;
+}
+
+.vip-col__wrapper-1 .vip-col {
+  color: var(--color-ink);
+  padding-bottom: 0 !important;
+}
+
+.vip-col__highlighted-top,
+.vip-table .vip-row:nth-child(2) .vip-col {
+  padding-bottom: 0 !important;
+}
+
+.vip-col__highlighted-top {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Tier badge tints: the reference ships one SVG per tier. */
+.vip-level--vip-1 { color: var(--color-muted); }
+.vip-level--vip-2 { color: var(--color-vip-bronze); }
+.vip-level--vip-3 { color: var(--color-vip-silver); }
+.vip-level--vip-4 { color: var(--color-accent); }
+.vip-level--vip-5 { color: var(--color-vip-platinum); }
+
+.vip-green {
+  color: var(--color-success);
+}
+
+/* The four-column contact block under the about copy. */
+.generalPage .contactUsContent {
+  padding-top: 28px;
+  font-size: 0;
+}
+
+.generalPage .contactUsContent > div {
+  display: inline-block;
+  width: 25%;
+  vertical-align: top;
+}
+
+.generalPage .contactUsContent > div .linkTitle {
+  padding-bottom: 26px;
+  color: var(--color-muted);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.generalPage .contactUsContent > div .content a {
+  display: block;
+  padding-bottom: 16px;
+  color: var(--color-ink);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  cursor: pointer;
+}
+
+.generalPage .contactUsContent > div .content a > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.generalPage .contactUsContent > div .content a span {
+  padding-left: 18px;
+}
+
+.generalPage .contactUsContent > div .content.inline a {
+  display: inline-block;
+  padding-right: 20px;
+  vertical-align: middle;
+}
+
+.about-follow-us__icon {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 768px) {
+  .form-title.large {
+    font-size: 13px;
+  }
+
+  .page-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .title-special-top {
+    position: relative;
+    top: 14px;
+  }
+
+  .vip-tier-track {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    overflow-x: visible;
+  }
+
+  .vip-tier-track__list {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    min-width: 0;
+  }
+
+  .vip-tier-track__item {
+    padding-right: 0;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .vip-tier-track__item:not(:last-child)::before {
+    left: 50%;
+  }
+
+  .vip-tier-track__marker {
+    left: calc(50% - 7px);
+  }
+
+  .vip-tier-track__amount,
+  .vip-tier-track__desc {
+    display: none;
+  }
+
+  .vip-tier-track__short {
+    display: block;
+  }
+
+  /* The matrix keeps its 1326px inside a scroller, so the page itself stays put. */
+  .vip-table__wrapper {
+    overflow-x: auto;
+  }
+
+  .vip-table {
+    min-width: 1326px;
+  }
+
+  .generalPage .contactUsContent > div {
+    display: block;
+    width: 100%;
+    padding-bottom: 24px;
   }
 }
