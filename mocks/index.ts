@@ -75,6 +75,12 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
     return user ? { sub: user.id, username: user.username } : null;
   },
 
+  [ENDPOINTS.checkAccount]: (raw) => {
+    const { username } = (raw ?? {}) as { username?: string };
+    const needle = username?.trim().toLowerCase();
+    return usersData.some((entry) => entry.username.toLowerCase() === needle);
+  },
+
   /** Detail endpoints answer with the record, or `null` when the id is unknown. */
   [ENDPOINTS.promotionDetail]: (raw) => {
     const { id } = (raw ?? {}) as Body;

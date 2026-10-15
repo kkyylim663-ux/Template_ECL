@@ -33,6 +33,8 @@ export const ENDPOINTS = {
   account: 'getAccount',
   /** Member sign-in. Returns `{ sub, username }` for a match, `null` otherwise. */
   login: 'postLogin',
+  /** Registration duplicate check. Answers `true` when the username is already taken. */
+  checkAccount: 'checkAccExisting',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

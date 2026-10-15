@@ -57,6 +57,20 @@ export const registerSchema = z
 
 export const forgotPasswordSchema = z.object({ email });
 
+/** Forgot-password step one: the account email plus the 6-digit code sent to it. */
+export const forgotIdentitySchema = z.object({ email, otp: otpCode });
+
+/** Forgot-password step two: the new password typed twice. */
+export const forgotResetSchema = z
+  .object({
+    password: z.string().min(8, 'validation.passwordShort'),
+    password2: z.string().min(1, 'validation.passwordRepeat'),
+  })
+  .refine((values) => values.password === values.password2, {
+    message: 'validation.passwordMismatch',
+    path: ['password2'],
+  });
+
 /** Contact page demo form — validated locally, nothing is sent (T23). */
 export const contactSchema = z.object({
   name: z.string().trim().min(2, 'validation.nameRequired'),

@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
 import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
+import { PasswordStrength } from '@/components/auth/PasswordStrength';
+import { useCountdown } from '@/components/auth/useCountdown';
 import { useModal } from '@/components/ui/ModalProvider';
 import { brand, REGION_CODES, type RegionCode } from '@/config/brand';
 import { registerSchema, validate, type FieldErrors } from '@/lib/forms';
@@ -41,6 +43,32 @@ export function RegisterForm({ region }: { region: string }) {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [codeSent, setCodeSent] = useState(false);
   const [shown, setShown] = useState({ password: false, password2: false });
+  const cooldown = useCountdown();
+  const [usernameTaken, setUsernameTaken] = useState(false);
+
+  useEffect(() => {
+    const name = values.username.trim();
+    if (!/^[A-Za-z0-9]{4,20}$/.test(name)) {
+      setUsernameTaken(false);
+      return;
+    }
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      const response = await fetch('/api/mock-auth/check-account', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ username: name }),
+        signal: controller.signal,
+      });
+      if (!response.ok) return;
+      const { d } = (await response.json()) as { d: { taken: boolean } };
+      setUsernameTaken(d.taken);
+    }, 400);
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
+  }, [values.username]);
 
   const firstStepReady = values.email.trim().length > 3 && values.emailOtp.trim().length === 6;
   const secondStepReady =
@@ -155,9 +183,15 @@ export function RegisterForm({ region }: { region: string }) {
                   <button
                     type="button"
                     className="pointer send-sms"
-                    onClick={() => setCodeSent(true)}
+                    disabled={cooldown.running}
+                    onClick={() => {
+                      setCodeSent(true);
+                      cooldown.start();
+                    }}
                   >
-                    {t('register.sendCode')}
+                    {cooldown.running
+                      ? t('login.otpCountdown', { s: cooldown.left })
+                      : t('register.sendCode')}
                   </button>
                 </div>
                 <div className="form-success">{codeSent ? t('register.codeSent') : ''}</div>
@@ -194,7 +228,11 @@ export function RegisterForm({ region }: { region: string }) {
                   onChange={(event) => update('username', event.target.value)}
                 />
                 <small className="form-error form-error-signup">
-                  {errors.username ? tc(errors.username) : ''}
+                  {errors.username
+                    ? tc(errors.username)
+                    : usernameTaken
+                      ? t('register.usernameTaken')
+                      : ''}
                 </small>
               </div>
 
@@ -217,6 +255,7 @@ export function RegisterForm({ region }: { region: string }) {
                 >
                   {shown.password ? t('login.hide') : t('login.show')}
                 </button>
+                <PasswordStrength value={values.password} />
                 <small className="form-error form-error-signup">
                   {errors.password ? tc(errors.password) : ''}
                 </small>

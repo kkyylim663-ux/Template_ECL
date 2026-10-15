@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
+import { CaptchaBox } from '@/components/auth/CaptchaBox';
+import { useCountdown } from '@/components/auth/useCountdown';
 import { REGION_CODES, type RegionCode } from '@/config/brand';
 import {
   loginEmailSchema,
@@ -58,6 +60,7 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [otpSent, setOtpSent] = useState(false);
+  const cooldown = useCountdown();
 
   const active = TABS.find((tab) => tab.id === method) ?? TABS[0];
   const phoneMethod = method === 'sms' || method === 'whatsapp';
@@ -213,8 +216,18 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
                 {t('login.otpHint', { target: values.identifier })}
               </div>
             ) : null}
-            <button type="button" className="link-btn" onClick={() => setOtpSent(true)}>
-              {t('login.sendOtp')}
+            <button
+              type="button"
+              className="link-btn"
+              disabled={cooldown.running || !/^\+?[0-9\s-]{6,20}$/.test(values.identifier.trim())}
+              onClick={() => {
+                setOtpSent(true);
+                cooldown.start();
+              }}
+            >
+              {cooldown.running
+                ? t('login.otpCountdown', { s: cooldown.left })
+                : t('login.sendOtp')}
             </button>
           </div>
         </>
@@ -252,6 +265,9 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
               {showPassword ? t('login.hide') : t('login.show')}
             </button>
             {errors.password ? <div className="form-error">{tc(errors.password)}</div> : null}
+          </div>
+          <div className="form-group mb-0">
+            <CaptchaBox />
           </div>
         </>
       )}
