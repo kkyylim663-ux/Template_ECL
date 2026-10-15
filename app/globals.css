@@ -277,3 +277,132 @@ html {
     animation: none;
   }
 }
+
+/* ------------------------------------------------------- mobile shell (T31) */
+
+/*
+ * Mobile bottom bar (`.footer-container__mobile`): a floating glass pill, 90% of
+ * the viewport, 999px radius, 10px off the bottom. The layers below are the
+ * measured ones — white/black alpha only, no brand colour involved.
+ */
+.mobile-bar {
+  background:
+    radial-gradient(120% 80% at 18% 118%, hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 100%, 0) 60%),
+    radial-gradient(90% 130% at 80% 172%, hsla(0, 0%, 100%, 0.09), hsla(0, 0%, 100%, 0) 55%),
+    linear-gradient(160deg, #3a3a3a, #262626 22%, #1c1c1c 55%, #121212);
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  border-radius: 999px;
+  box-shadow:
+    inset 0 1px 0 hsla(0, 0%, 100%, 0.38),
+    inset 0 16px 30px -16px hsla(0, 0%, 100%, 0.24),
+    inset 0 -1px 0 hsla(0, 0%, 100%, 0.08),
+    0 8px 28px rgb(0 0 0 / 40%);
+  backdrop-filter: blur(32px) saturate(1.8);
+}
+
+/* Selected item pops its icon and turns the label mustard (`.selected`). */
+@keyframes footer-icon-pop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-4px) scale(1.14);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mobile-bar [aria-current='page'] .mobile-bar__icon {
+  animation: footer-icon-pop 0.5s ease forwards;
+  color: var(--color-accent);
+}
+
+/*
+ * Hamburger (`.mobile-menu__burger-icon`): four 32x3 bars, the middle pair
+ * coincident, folding into an X on `.open` — 0.25s per bar, 0.5s on the box.
+ */
+.burger {
+  position: relative;
+  height: 1rem;
+  width: 2rem;
+  transition: 0.5s ease-in-out;
+}
+
+.burger span {
+  position: absolute;
+  left: 0;
+  display: block;
+  height: 0.2rem;
+  width: 100%;
+  background: #fff;
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: 0.25s ease-in-out;
+}
+
+.burger span:first-child {
+  top: 0;
+}
+
+.burger span:nth-child(2),
+.burger span:nth-child(3) {
+  top: 0.5rem;
+}
+
+.burger span:nth-child(4) {
+  top: 1rem;
+}
+
+.burger.open span:first-child {
+  left: 50%;
+  top: 0.5rem;
+  width: 0;
+}
+
+.burger.open span:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.burger.open span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.burger.open span:nth-child(4) {
+  left: 50%;
+  top: 0.5rem;
+  width: 0;
+}
+
+/* Drawer rows: 12px links at 15px/35px, 20x20 icon 30px to the right. */
+.drawer-row {
+  display: flex;
+  align-items: center;
+  padding: 15px 35px;
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+/* The 1px hairline between drawer groups (`.sidemenu-divider`). */
+.drawer-divider {
+  margin: 25px auto;
+  height: 1px;
+  width: 90%;
+  background: #4a4a4e;
+}
+
+.drawer-divider-small {
+  margin: 0 auto;
+  height: 1px;
+  width: 90%;
+  background: #4a4a4e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burger,
+  .burger span,
+  .mobile-bar [aria-current='page'] .mobile-bar__icon {
+    transition: none;
+    animation: none;
+  }
+}

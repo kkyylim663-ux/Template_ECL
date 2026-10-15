@@ -47,10 +47,10 @@
   },
   "bottom": {
     "home": "首頁",
-    "games": "遊戲",
-    "promo": "優惠",
-    "ranking": "排行",
-    "me": "我的"
+    "chat": "聊天",
+    "liveChat": "線上客服",
+    "wallet": "錢包",
+    "profile": "我的"
   },
   "ui": {
     "menu": "選單",

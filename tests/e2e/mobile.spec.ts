@@ -33,6 +33,9 @@ test('drawer opens, navigates and closes', async ({ page }) => {
   await page.getByLabel('Open menu').click();
   await expect(drawer).toHaveAttribute('aria-hidden', 'false');
   await expect(drawer).toBeInViewport();
+  // Sections start collapsed, as on the original (`.sidemenu-child{display:none}`),
+  // so the links under Games appear after its row is expanded.
+  await drawer.getByRole('button', { name: 'Games' }).click();
   await expect(drawer.getByText('Slots')).toBeVisible();
   await page.screenshot({ path: `${SHOTS}/t14-mobile-drawer.png` });
 

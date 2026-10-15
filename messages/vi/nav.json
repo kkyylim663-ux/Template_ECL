@@ -47,10 +47,10 @@
   },
   "bottom": {
     "home": "Trang chủ",
-    "games": "Trò chơi",
-    "promo": "Khuyến mãi",
-    "ranking": "Xếp hạng",
-    "me": "Tôi"
+    "chat": "Chat",
+    "liveChat": "Live Chat",
+    "wallet": "Ví",
+    "profile": "Hồ sơ"
   },
   "ui": {
     "menu": "Menu",

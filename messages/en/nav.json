@@ -47,10 +47,10 @@
   },
   "bottom": {
     "home": "Home",
-    "games": "Games",
-    "promo": "Promo",
-    "ranking": "Ranking",
-    "me": "Me"
+    "chat": "Chat",
+    "liveChat": "Live Chat",
+    "wallet": "Wallet",
+    "profile": "Profile"
   },
   "ui": {
     "menu": "Menu",

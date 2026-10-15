@@ -190,13 +190,17 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
   },
 ];
 
-/** Mobile bottom bar: five entries, as on the reference build. */
+/**
+ * Mobile bottom bar: the original's five entries and order — Home / Chat /
+ * Live Chat / Wallet / Profile. Chat has no widget in this build, so both chat
+ * entries are `#` placeholders (same convention as the Play buttons).
+ */
 export const MOBILE_BAR_ITEMS: MenuLink[] = [
   { href: '', labelKey: 'bottom.home', icon: 'home' },
-  { href: '/slots', labelKey: 'bottom.games', icon: 'slots' },
-  { href: '/promotion', labelKey: 'bottom.promo', icon: 'gift' },
-  { href: '/ranking-board', labelKey: 'bottom.ranking', icon: 'trophy' },
-  { href: '/account/profile', labelKey: 'bottom.me', icon: 'user' },
+  { href: '#', labelKey: 'bottom.chat', icon: 'chat' },
+  { href: '#', labelKey: 'bottom.liveChat', icon: 'chat' },
+  { href: '/account/deposit', labelKey: 'bottom.wallet', icon: 'wallet' },
+  { href: '/account/profile', labelKey: 'bottom.profile', icon: 'user' },
 ];
 
 export function regionPath(region: string, href: string): string {

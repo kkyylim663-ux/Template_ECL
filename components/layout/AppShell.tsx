@@ -26,8 +26,13 @@ export function AppShell({ region, children }: { region: string; children: React
         <Header region={region} />
         <MobileChrome region={region} />
 
-        {/* Bottom padding reserves room for the fixed mobile bar. */}
-        <main className="flex-1 py-6 max-desktop:pb-20">
+        {/*
+          Mobile: the header stack is fixed, so the page clears it (56px, or
+          112px with the download banner — MobileChrome sets --mobile-content-top,
+          the original's `has-header` / `has-app`); 80px at the bottom reserves
+          room for the floating bar (`has-footer`).
+        */}
+        <main className="max-desktop:mt-[var(--mobile-content-top,56px)] flex-1 py-6 max-desktop:pb-20">
           <div className="container-page">{children}</div>
         </main>
 
