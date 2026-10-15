@@ -1,35 +1,89 @@
 @import 'tailwindcss';
 
 /*
- * Design tokens, transcribed from docs/UI_REFERENCE.md. Tailwind v4 turns the
- * @theme entries into utilities (bg-panel, text-muted, rounded-panel, …), so
+ * Design tokens, transcribed from docs/UI_REFERENCE.md and (T29) from the
+ * measured values in docs/FIDELITY_TOKENS.md. Tailwind v4 turns the @theme
+ * entries into utilities (bg-panel, text-muted, rounded-panel, …), so
  * re-branding means editing the values below and the mirror in config/brand.ts.
+ *
+ * `static` keeps every token emitted as a real CSS variable even when no
+ * utility uses it yet — P2 rule: colours and sizes come only from variables, so
+ * components may reference var(--color-modal) directly.
  */
-@theme {
+@theme static {
   /* Backgrounds */
-  --color-surface: #18191a; /* page background */
+  --color-surface: #18191a; /* page background (body{background-color:#18191a}) */
   --color-panel: #242526; /* mobile header/footer, cards */
   --color-panel-alt: #272727;
-  --color-panel-soft: #2d2e30;
+  --color-panel-soft: #2d2e30; /* desktop header + sidebar base (--color-primary-grey) */
+  --color-dropdown: #202020; /* .dropdown-select__wrapper */
+  --color-modal: #171717; /* .modal */
+  --color-modal-inset: #1e2020; /* .info-rule__content */
+  --color-tint: #252727; /* .info-rule__header */
+  --color-visual: #2c2c2e; /* mobile card artwork area */
+  --color-deep: #1c1c1c;
 
   /* Separators and the collapsed rail */
   --color-line: #333435;
   --color-line-soft: #353537;
   --color-line-strong: #363537;
+  --color-line-alt: #3a3b3c;
+  --color-line-muted: #47494b;
+  --color-line-weak: #373737;
+  --color-line-deep: #4b4d4d;
+  --color-line-deepest: #5d5d61;
 
   /* Accents */
   --color-accent: #fabb2e; /* primary (mustard) — buttons, hover underline, tags */
   --color-accent-bright: #ffbf29;
+  --color-accent-warm: #ffbf00;
+  --color-accent-dark: #856b33; /* -5px 0 0 / 5px 0 0 edge shadows */
   --color-success: #289d82; /* secondary (green) — tags, success states */
+  --color-success-bright: #2cbd9c;
   --color-danger: #cc3633; /* new tag, errors */
+  --color-danger-bright: #e0413b;
+  --color-warn: #ffa469;
+  --color-gold: #f9d235; /* VIP */
 
   /* Text */
   --color-ink: #ffffff;
   --color-muted: #b2b2b2;
+  --color-muted-dim: #737373;
+  --color-frame: #b5b8bd; /* -10px 0 0 photo-frame shadow */
 
-  /* Shape */
+  /* Shape: 15px is 142× in the original CSS, 50px/20px are the pill/panel variants */
   --radius-panel: 15px;
   --radius-tag: 0.5rem;
+  --radius-5: 5px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px; /* mobile .game-card__visual */
+  --radius-20: 20px;
+  --radius-pill: 50px;
+
+  /* Site-wide font-size ladder, measured (literal values in the original, not vars):
+     14px 229×, 12px 132×, 16px 70×, 20px 33×; 12/14/16/18/20/24 come from Tailwind's
+     own scale, the rest are added here because the original has no 30/36 but does
+     use 10/11/13/15/17/22/28/32/40. */
+  --text-10: 10px;
+  --text-11: 11px;
+  --text-13: 13px;
+  --text-15: 15px;
+  --text-17: 17px;
+  --text-22: 22px;
+  --text-28: 28px;
+  --text-32: 32px;
+  --text-40: 40px;
+
+  /* Shadows; literals on purpose, so these never depend on another theme var
+     being emitted. Measured values, see docs/FIDELITY_TOKENS.md §4. */
+  --shadow-inset-soft: inset 0 1px 1px rgb(0 0 0 / 8%);
+  --shadow-frame:
+    1px 0 0 #363537, -1px 0 0 #363537, 0 1px 0 #363537, 0 -1px 0 #363537;
+  --shadow-accent-edge: -5px 0 0 #856b33, 5px 0 0 #856b33;
+  --shadow-photo: -10px 0 0 #b5b8bd;
+  --shadow-success-ring: 0 0 1px #289d82;
 
   /* Type: Rubik 400/500 (loaded in app/layout.tsx) with the documented fallbacks */
   --font-sans:
@@ -45,12 +99,52 @@
 
 /* Layout measurements that are not Tailwind utility namespaces. */
 :root {
-  --pad-page-x: 50px; /* desktop body padding, left/right */
+  /*
+   * DEPRECATED (T30): the original lays desktop content out in a centred
+   * `.container{width:1300px;margin:0 auto}` (95vw below 1400px), not as page
+   * padding. The 50px that P0 recorded here is really `.modal-body` padding.
+   * T30 moves the shell onto the container model and drops this.
+   */
+  --pad-page-x: 50px;
+
+  /* Container model, measured from .container */
+  --container-width: 1300px;
+  --container-width-narrow: 95vw; /* <=1400px */
+  --container-shift: 100px; /* <=1350px adds padding-left */
+  --pad-mobile-x: 16px; /* .has-space */
+
+  /* Shell geometry */
   --sidebar-width: 16rem;
   --sidebar-mini-width: 62px;
+  --header-height-desktop: 78px; /* .header-wrapper */
+  --header-height-mobile: 68px; /* .has-header */
+  --mobile-footer-space: 80px; /* .has-footer */
+  --mobile-banner-space: 137px; /* .has-app .has-footer */
+
   --breakpoint-mobile: 768px;
-  --z-sidebar: 13;
+  /* Secondary max-width breakpoints in the original, kept for reference */
+  --bp-1400: 1400px;
+  --bp-1350: 1350px;
+  --bp-1280: 1280px;
+  --bp-1100: 1100px;
+  --bp-1000: 1000px;
+  --bp-900: 900px;
+  --bp-600: 600px;
+  --bp-420: 420px;
+
+  /* z-index ladder, measured (docs/FIDELITY_TOKENS.md §6) */
+  --z-behind: -1;
+  --z-base: 1;
+  --z-raised: 2;
+  --z-sticky: 3;
+  --z-dropdown: 11; /* .header-profile__modal */
+  --z-header: 12; /* .header-wrapper */
+  --z-sidebar: 13; /* .sidebar2 */
+  --z-modal: 13; /* .modalWrapper, .modal-wrapper-disable */
+  --z-sidebar-panel: 14;
   --z-mobile-footer: 12;
+  --z-overlay: 99;
+  --z-toast: 100;
 }
 
 html {

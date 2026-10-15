@@ -29,10 +29,11 @@ export const brand = {
   themeColor: '#18191a',
 
   /**
-   * Colour tokens, mirroring docs/UI_REFERENCE.md. `app/globals.css` declares the
-   * same values as CSS variables, which is what components actually consume;
-   * keep the two in sync when re-branding. Values here are for metadata and
-   * JS-side art (gradients).
+   * Colour tokens, mirroring docs/UI_REFERENCE.md and (from T29) the measured
+   * values in docs/FIDELITY_TOKENS.md. `app/globals.css` declares the same values
+   * as CSS variables, which is what components actually consume; keep the two in
+   * sync when re-branding. Values here are for metadata and JS-side art
+   * (gradients).
    */
   colors: {
     /** Page background. */
@@ -40,18 +41,38 @@ export const brand = {
     /** Panels: mobile header/footer, cards. */
     panel: '#242526',
     panelAlt: '#272727',
+    /** Desktop header + sidebar base (--color-primary-grey). */
     panelSoft: '#2d2e30',
+    /** Dropdown panels. */
+    dropdown: '#202020',
+    /** Modals. */
+    modal: '#171717',
+    /** Modal inset blocks (.info-rule__content). */
+    modalInset: '#1e2020',
+    /** Tinted panels (.info-rule__header). */
+    tint: '#252727',
+    /** Mobile card artwork area. */
+    visual: '#2c2c2e',
     /** Separators. */
     line: '#333435',
+    lineAlt: '#3a3b3c',
+    lineMuted: '#47494b',
     /** Primary accent (mustard) — buttons, hover underline, tags. */
     accent: '#fabb2e',
     accentBright: '#ffbf29',
+    /** Dark accent edge used by the -5px/5px edge shadows. */
+    accentDark: '#856b33',
     /** Secondary accent (green) — tags, success. */
     success: '#289d82',
     /** New tag, errors. */
     danger: '#cc3633',
+    /** Warning / orange badges. */
+    warn: '#ffa469',
+    /** VIP gold. */
+    gold: '#f9d235',
     text: '#ffffff',
     textMuted: '#b2b2b2',
+    textDim: '#737373',
   },
 
   contact: {
