@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
+import { walletService } from '@/lib/api/wallet';
+
 export type SessionState = {
   /** False until the first `/api/mock-auth/session` answer arrives. */
   ready: boolean;
@@ -44,6 +46,7 @@ export function notifySessionChange(): void {
 /** Clears the httpOnly session on the server, then notifies all tabs. */
 export async function signOutRequest(): Promise<void> {
   await fetch('/api/mock-auth/logout', { method: 'POST' });
+  walletService.reset();
   notifySessionChange();
 }
 
@@ -69,7 +72,14 @@ export function useSession(): SessionState {
     try {
       const response = await fetch('/api/mock-auth/session', { cache: 'no-store' });
       const body = (await response.json()) as { d: SessionBody };
-      setState({ ready: true, ...body.d });
+      const main = body.d.member
+        ? (await walletService.getWallets()).find((wallet) => wallet.kind === 'main')
+        : undefined;
+      setState({
+        ready: true,
+        ...body.d,
+        balanceMinor: main?.amountMinor ?? body.d.balanceMinor,
+      });
     } catch {
       setState((current) => ({ ...current, ready: true }));
     }

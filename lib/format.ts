@@ -22,6 +22,17 @@ export function formatMinor(
   }
 }
 
+/**
+ * Parses a typed amount ("1,234.5") into integer minor units without float math.
+ * Returns null for anything that is not a plain amount with at most two decimals.
+ */
+export function parseAmountMinor(input: string): number | null {
+  const match = /^(\d+)(?:\.(\d{1,2}))?$/.exec(input.replace(/,/g, '').trim());
+  if (!match) return null;
+  const minor = Number(match[1]) * 100 + Number((match[2] ?? '').padEnd(2, '0'));
+  return Number.isSafeInteger(minor) ? minor : null;
+}
+
 /** "2026-10-14T09:00:00+08:00" -> "2026-10-14 09:00". */
 export function formatTimestamp(value: string): string {
   return value.slice(0, 16).replace('T', ' ');
