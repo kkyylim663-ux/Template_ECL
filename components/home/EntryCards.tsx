@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import type { IconName } from '@/components/ui/Icon';
 import { Icon } from '@/components/ui/Icon';
-import { LaunchButton } from '@/components/game/LaunchButton';
 import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 
@@ -9,84 +8,75 @@ type Entry = {
   id: string;
   /** Keys inside the `home` namespace. */
   titleKey: string;
-  hintKey: string;
   href: string;
   icon: IconName;
-  /** True when there is no real destination yet: the card link is inert too. */
-  inert?: boolean;
+  /** Gradient modifier: `.home-popular__card--<tone>`. */
+  tone: 'number' | 'ranking' | 'prediction' | 'achievement';
 };
 
 const ENTRIES: Entry[] = [
   {
     id: 'numbergame',
     titleKey: 'entry.numberGame',
-    hintKey: 'entry.numberGameHint',
     href: '/numbergame',
     icon: 'numbers',
+    tone: 'number',
   },
   {
     id: 'ranking',
     titleKey: 'entry.ranking',
-    hintKey: 'entry.rankingHint',
     href: '/ranking-board',
     icon: 'trophy',
+    tone: 'ranking',
   },
   {
     id: 'prediction',
     titleKey: 'entry.prediction',
-    hintKey: 'entry.predictionHint',
     href: '/prediction',
     icon: 'prediction',
+    tone: 'prediction',
   },
   {
     id: 'personal',
     titleKey: 'entry.personal',
-    hintKey: 'entry.personalHint',
-    href: '#',
+    href: '/account/achievement',
     icon: 'achievement',
-    inert: true,
+    tone: 'achievement',
   },
 ];
 
-/** The four quick-entry cards on the home page. Play Now is inert by design. */
+/**
+ * The four quick entries (`.home-popular__wrapper`): one row of 318x70 gradient
+ * cards on desktop, a 343-wide stack on mobile. The whole card is one link and
+ * the "Play Now" pill inside it is the original's — visual only, it opens the
+ * same section page.
+ */
 export async function EntryCards({ region }: { region: string }) {
   const { t } = await getT('home');
 
   return (
-    <ul className="grid grid-cols-2 gap-3 desktop:grid-cols-4 desktop:gap-5">
-      {ENTRIES.map((entry) => {
-        const body = (
-          <>
-            <Icon name={entry.icon} size={26} className="text-accent" />
-            <span className="text-ink mt-3 block text-sm font-semibold">{t(entry.titleKey)}</span>
-            <span className="text-muted mt-0.5 block text-xs">{t(entry.hintKey)}</span>
-          </>
-        );
-
-        return (
-          <li
-            key={entry.id}
-            data-entry={entry.id}
-            className="group border-line bg-panel hover:border-accent rounded-[var(--radius-panel)] border p-4 transition-transform duration-200 hover:-translate-y-0.5"
+    <ul className="mb-[25px] flex flex-col gap-[10px] desktop:mb-[65px] desktop:flex-row">
+      {ENTRIES.map((entry) => (
+        <li key={entry.id} data-entry={entry.id} className="desktop:flex-1">
+          <Link
+            href={regionPath(region, entry.href)}
+            className={`entry-card entry-card--${entry.tone} text-ink flex h-[70px] items-center justify-between rounded-[var(--radius-panel)] px-4 desktop:px-3`}
           >
-            {/*
-              An inert entry renders no anchor at all rather than a link that
-              cancels its own click: it has no destination yet.
-            */}
-            {entry.inert ? (
-              <div>{body}</div>
-            ) : (
-              <Link href={regionPath(region, entry.href)} className="block">
-                {body}
-              </Link>
-            )}
-
-            <div className="mt-3">
-              <LaunchButton provider={entry.id} label={t('entry.playNow')} className="w-full" />
-            </div>
-          </li>
-        );
-      })}
+            <span className="flex items-center">
+              <span className="grid size-[70px] shrink-0 place-items-center">
+                <Icon name={entry.icon} size={44} />
+              </span>
+              <span className="text-15 leading-[normal] font-medium desktop:text-lg leading-[normal]">
+                {t(entry.titleKey)}
+              </span>
+            </span>
+            {/* Padding and `normal` leading are the original's: 12/9px + 14/11px text. */}
+            <span className="hover-grow rounded-[var(--radius-panel)] bg-[var(--color-line-soft)] px-[15px] py-[9px] text-11 leading-[normal] leading-[normal] desktop:px-[14.5px] desktop:py-3 desktop:text-sm leading-[normal]">
+              {t('entry.playNow')}
+            </span>
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }

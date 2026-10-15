@@ -23,6 +23,8 @@ export const ENDPOINTS = {
   contentPage: 'getContentPage',
   /** Ranking boards. The reference build streams this (`ssoTournament`); P0 snapshots it. */
   leaderboard: 'getLeaderboard',
+  /** Home page betting block: recent stakes + top daily winners. */
+  homeBetting: 'getHomeBetting',
   /** Member area payload (profile, wallets, transactions, inbox, rebates, tickets). */
   account: 'getAccount',
 } as const;

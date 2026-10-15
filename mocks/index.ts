@@ -17,6 +17,7 @@ import announcements from './announcements.json';
 import banners from './banners.json';
 import display from './display.json';
 import faq from './faq.json';
+import homeBetting from './home-betting.json';
 import leaderboards from './leaderboards.json';
 import pages from './pages.json';
 import promotions from './promotions.json';
@@ -42,6 +43,7 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.displayPromo]: () => promotions.d,
   [ENDPOINTS.displayPage]: () => display.d,
   [ENDPOINTS.leaderboard]: () => leaderboards.d,
+  [ENDPOINTS.homeBetting]: () => homeBetting.d,
   [ENDPOINTS.account]: () => account.d,
 
   /** Detail endpoints answer with the record, or `null` when the id is unknown. */

@@ -1,64 +1,69 @@
 {
   "hero": {
-    "eyebrow": "欢迎",
-    "cta": "立即领取",
     "carouselLabel": "推荐",
     "goToSlide": "显示第 {index} 张"
   },
-  "section": {
-    "providers": "游戏厂商",
-    "entryCards": "快捷入口",
-    "promotions": "精选优惠",
-    "events": "最新公告",
-    "announcements": "服务通知",
-    "whyUs": "为什么选择我们"
+  "category": {
+    "esports": "电竞",
+    "sports": "体育",
+    "livecasino": "真人娱乐",
+    "slots": "电子游戏",
+    "fastGame": "极速游戏",
+    "game4d": "4D 彩票",
+    "vip": "VIP",
+    "sponsor": "赞助"
   },
   "entry": {
     "playNow": "立即开玩",
     "numberGame": "数字游戏",
-    "numberGameHint": "每 5 分钟开奖",
     "ranking": "排行榜",
-    "rankingHint": "每周流水赛",
     "prediction": "赛事预测",
-    "predictionHint": "免费参加,真实奖品",
-    "achievement": "成就",
-    "achievementHint": "查看你的进度",
-    "personal": "个人中心",
-    "personalHint": "你的进度与奖励"
+    "personal": "个人成就"
   },
-  "why": {
-    "licence": "持牌运营",
-    "licenceHint": "演示版本的占位牌照说明。",
-    "fastWithdrawal": "极速提现",
-    "fastWithdrawalHint": "RM 1,000 以下中位数 5 分钟。",
-    "support": "全天客服",
-    "supportHint": "在线客服,中位回复低于 2 分钟。"
+  "section": {
+    "providers": "游戏厂商",
+    "betting": "投注流水",
+    "sponsors": "赞助商"
   },
-  "promotions": {
-    "validUntil": "有效期至 {date}",
-    "rollover": "流水 {value} 倍",
-    "maxBonus": "最高 {amount}",
-    "terms": "条款与条件",
-    "noRollover": "无流水要求"
+  "betting": {
+    "allBets": "全部投注",
+    "topDailyWinner": "每日赢家榜",
+    "viewMore": "查看更多",
+    "col": {
+      "game": "游戏",
+      "nickname": "昵称",
+      "time": "时间 (GMT+8)",
+      "region": "地区",
+      "amount": "金额 (USD)",
+      "place": "名次"
+    }
   },
-  "ticker": {
-    "label": "即时动态"
+  "bet": {
+    "slots": "电子游戏",
+    "live-casino": "真人娱乐",
+    "sports": "体育",
+    "esports": "电竞"
   },
-  "providers": {
-    "launch": "进入大厅",
-    "titles": "{count} 款游戏"
+  "sponsor": {
+    "ambassador": "品牌大使",
+    "name": "品牌大使",
+    "bio": "本演示版本不使用真实人物,因此这里没有肖像图与人物简介。原站在此栏目介绍品牌大使、他们代言的宣传活动并附上社交链接,肖像图就立在旁边,整栏高度由这段文字撑开。",
+    "followers": "{count} 关注者",
+    "video": "视频占位——本版本不嵌入任何影片。",
+    "instagram": "Instagram"
+  },
+  "download": {
+    "title": "手机应用",
+    "headline": "在这里玩,在这里赢",
+    "body": "下载我们的最新手机应用,安全便捷地开始游戏。",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "section": "下载",
+    "cardOne": "游戏开始!",
+    "cardTwo": "让我们开始吧!",
+    "cardSub": "在这里玩,在这里赢"
   },
   "faq": {
-    "title": "帮助中心",
     "topics": "主题"
-  },
-  "studios": {
-    "summary": "{studios} 家厂商 · {titles} 款游戏 · 仅供浏览",
-    "allBefore": "全部 {count} 家厂商都在",
-    "allLink": "电子游戏大厅",
-    "allAfter": "."
-  },
-  "app": {
-    "get": "获取 App"
   }
 }

@@ -46,6 +46,17 @@
   --color-gold: #f9d235; /* VIP */
   --color-tile: #444447; /* dropdown tile (header-menu__child-card) */
   --color-quest-to: #2779d9; /* quest pill gradient end */
+  /* Home entry-card gradients + table/banner fills (T32, measured from .home-popular__card) */
+  --color-sun: #f8d82e; /* ranking-board gradient end */
+  --color-rose: #ff6489; /* prediction gradient start */
+  --color-violet: #8c5ffa; /* personal-achievement gradient start */
+  --color-indigo: #4139d2; /* personal-achievement gradient end */
+  --color-row: #19191a; /* .table-theme tbody tr:nth-child(odd) */
+  --color-download-card: #252527; /* .home-download__card (mobile) */
+  --color-download-left: #2d2d2f; /* .home-download__left */
+  --color-inset-dark: #1f1c1d; /* .home-download__img-wrapper */
+  --color-bullet: #215b4e; /* .home-banner .swiper-pagination-bullet */
+  --color-bullet-on: #319f87; /* …-bullet-active (the original's teal, not the brand accent) */
 
   /* Text */
   --color-ink: #ffffff;
@@ -91,6 +102,8 @@
   --font-sans:
     var(--font-rubik), Rubik, Roboto, 'Noto Sans', 'Noto Sans Thai', system-ui, -apple-system,
     'Segoe UI', sans-serif;
+  /* Table heads only (component.css `table thead`); --font-noto is set in app/layout.tsx */
+  --font-table-head: var(--font-noto), 'Noto Sans', Roboto, sans-serif;
 
   /*
    * One breakpoint, per docs/UI_REFERENCE.md: <=768px is mobile, >=769px is
@@ -114,6 +127,22 @@
   --header-height-mobile: 68px; /* .has-header */
   --mobile-footer-space: 80px; /* .has-footer */
   --mobile-banner-space: 137px; /* .has-app .has-footer */
+  /* Distance from the fixed header down to the page's first block. The original
+     puts it on `.site-layout-body` (margin-top:112px = 78 header + 34), which is
+     what absorbs the first block's own top margin (T32, measured on two pages). */
+  --content-top-desktop: 34px;
+
+  /* Home geometry (T32, measured from the snapshot at 1440x900 / 375x812) */
+  --hero-height: 320px; /* .home-banner-container */
+  --hero-height-mobile: 70vw; /* .home-banner-container <=768px */
+  --hero-arrow: 40px; /* .home-banner .swiper-button-next */
+  --hero-arrow-offset: -20px; /* …-button-next{right:-20px} */
+  --hero-arrow-inset-mobile: 36px; /* …{right:36px} <=768px */
+  --tile-w: 160px; /* .gamelist-home-card min-width 10rem */
+  --tile-h: 48px; /* .gamelist-home-card height 3rem */
+  --tile-img-w: 145px; /* 160 - 15 (img margin-right) */
+  --tab-h: 37px; /* .nav-pill2 10px padding + 17px line-height */
+  --ambassador-photo-w: 288px; /* .home-sponsor__photo, as rendered on the snapshot */
 
   --breakpoint-mobile: 768px;
   /* Secondary max-width breakpoints in the original, kept for reference */
@@ -143,6 +172,12 @@
 
 html {
   color-scheme: dark;
+  /* Fixed text size: ignore the phone's font-size / auto-inflation, and pin the
+     rem base so Tailwind's rem utilities don't follow the browser's default size. */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  font-size: 16px;
 }
 
 @layer base {
@@ -151,6 +186,16 @@ html {
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-weight: 400;
+  }
+
+  /*
+   * The original sets a font-size and leaves line-height at `normal` (only the
+   * section titles, the pills and the table head carry one). Tailwind's preflight
+   * puts 1.5 on `html`, which stretches every text block by ~20% — measured in
+   * T32 against the snapshot, so it is reset here rather than per element.
+   */
+  html {
+    line-height: normal;
   }
 }
 
@@ -278,6 +323,263 @@ html {
   }
 }
 
+/* --------------------------------------------------------- home (T32) */
+
+/*
+ * Section rhythm. The original wraps every home block in `section.home-section`
+ * (margin-bottom 60px) and titles it with `.section-title` (20px/24px, 500
+ * weight, 16px below) — 16px at <=768px.
+ */
+.home-section {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: 24px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: var(--text-base);
+  }
+}
+
+/*
+ * Blocks that are full-bleed in the original at <=768px: the container there is
+ * `width:auto` and only `.has-space` elements carry the 16px side margin, so the
+ * hero, the category strip and the download rail touch both edges. Our
+ * `.container-page` applies the margin instead, so these three cancel it.
+ */
+.bleed-mobile {
+  margin-inline: 0;
+}
+
+@media (max-width: 768px) {
+  .bleed-mobile {
+    margin-inline: calc(-1 * var(--pad-mobile-x));
+  }
+}
+
+/* Hero: `.home-banner-container` 320px on desktop, 70vw + 10px top pad on mobile */
+.home-banner-container {
+  position: relative;
+  height: var(--hero-height);
+}
+
+@media (max-width: 768px) {
+  .home-banner-container {
+    height: var(--hero-height-mobile);
+    padding-top: 10px;
+  }
+}
+
+/* Slides dim to 50% except the active one, with the original's `all .3s`. */
+.hero-slide {
+  opacity: 0.5;
+  transition: all 0.3s;
+}
+
+.hero-slide[data-active='true'] {
+  opacity: 1;
+}
+
+/* Arrows: 40x40 hit areas parked 20px outside the strip. */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: var(--z-base);
+  display: grid;
+  height: var(--hero-arrow);
+  width: var(--hero-arrow);
+  translate: 0 -50%;
+  place-items: center;
+  color: var(--color-ink);
+}
+
+.hero-arrow--prev {
+  left: var(--hero-arrow-offset);
+}
+
+.hero-arrow--next {
+  right: var(--hero-arrow-offset);
+}
+
+@media (max-width: 768px) {
+  /* The original parks the arrows outside on desktop but inside on mobile. */
+  .hero-arrow--prev {
+    left: var(--hero-arrow-inset-mobile);
+  }
+
+  .hero-arrow--next {
+    right: var(--hero-arrow-inset-mobile);
+  }
+}
+
+/* Pagination sits 20px below the strip (`.swiper-pagination{bottom:-20px}`). */
+.hero-dots {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -20px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.hero-dot {
+  height: 8px;
+  width: 8px;
+  border-radius: 9999px;
+  background: var(--color-bullet);
+}
+
+.hero-dot[aria-current='true'] {
+  background: var(--color-bullet-on);
+}
+
+/*
+ * Entry cards (`.home-popular__card`): a 300%-wide gradient that pans back and
+ * forth every 3s, white 18px/500 label, and a dark "Play Now" pill that grows to
+ * 1.2 on hover (`.hover-grow`).
+ */
+@keyframes animated-gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.entry-card {
+  background-size: 300% 300%;
+  animation: animated-gradient 3s ease infinite alternate;
+}
+
+.entry-card--number {
+  background-image: linear-gradient(91.55deg, var(--color-success) 14.12%, var(--color-quest-to) 138.72%);
+}
+
+.entry-card--ranking {
+  background-image: linear-gradient(91.86deg, var(--color-warn) 14.04%, var(--color-sun) 106.97%);
+}
+
+.entry-card--prediction {
+  background-image: linear-gradient(90.21deg, var(--color-rose) 0.04%, var(--color-danger) 97.87%);
+}
+
+.entry-card--achievement {
+  background-image: linear-gradient(90.21deg, var(--color-violet) 0.04%, var(--color-indigo) 97.87%);
+}
+
+.hover-grow {
+  transition: all 0.3s;
+}
+
+.hover-grow:hover {
+  transform: scale(1.2);
+}
+
+/*
+ * Provider rail (`.gamelist-home__wrapper.marquee`): a horizontal strip of
+ * 160x48 logo tiles, 16px padding top and bottom. The original drives it with
+ * Swiper free-mode; a CSS loop keeps it off the critical JS path.
+ */
+.provider-rail {
+  padding: 16px 0;
+}
+
+.provider-tile {
+  display: flex;
+  height: var(--tile-h);
+  width: var(--tile-w);
+  flex: none;
+  align-items: center;
+}
+
+.provider-tile__img {
+  height: var(--tile-h);
+  width: var(--tile-img-w);
+  margin-right: 15px;
+  border-radius: var(--radius-panel);
+}
+
+/*
+ * Tab pills (`.nav-pill2`): #5d5d61, 15px radius, 14px/700, 10px x 35px padding;
+ * the selected one turns mustard with black text.
+ */
+.pill-tab {
+  padding: 10px 35px;
+  border-radius: var(--radius-panel);
+  background: var(--color-line-deepest);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: normal;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pill-tab[aria-selected='true'] {
+  background: var(--color-accent);
+  color: #000;
+}
+
+/*
+ * Shared table skin (`.table-theme`): 1px #333435 frame at 15px radius, a filled
+ * 16px/600 head, alternating #2d2e30 / #19191a rows, 12px x 16px cells with 14px
+ * body text (measured on the 4D page's static tables, T32).
+ */
+.table-theme {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  table-layout: fixed;
+  text-align: center;
+}
+
+.table-theme thead {
+  background-color: var(--color-line);
+  color: var(--color-ink);
+  /* The original pins the table head to Noto Sans (component.css `table thead`),
+     not the body's Rubik — loaded alongside Rubik in app/layout.tsx. */
+  font-family: var(--font-table-head);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.table-theme thead th {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.table-theme tbody td {
+  padding: 12px 16px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table-theme tbody tr {
+  background-color: var(--color-panel-soft);
+}
+
+.table-theme tbody tr:nth-child(odd) {
+  background-color: var(--color-row);
+}
+
 /* ------------------------------------------------------- mobile shell (T31) */
 
 /*
@@ -379,7 +681,7 @@ html {
   display: flex;
   align-items: center;
   padding: 15px 35px;
-  font-size: 12px;
+  font-size: var(--text-xs);
   color: var(--color-muted);
 }
 

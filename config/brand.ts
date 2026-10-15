@@ -70,6 +70,17 @@ export const brand = {
     warn: '#ffa469',
     /** VIP gold. */
     gold: '#f9d235',
+    /** Home entry-card gradients and table/banner fills (T32, measured). */
+    sun: '#f8d82e',
+    rose: '#ff6489',
+    violet: '#8c5ffa',
+    indigo: '#4139d2',
+    row: '#19191a',
+    downloadCard: '#252527',
+    downloadLeft: '#2d2d2f',
+    insetDark: '#1f1c1d',
+    bullet: '#215b4e',
+    bulletOn: '#319f87',
     text: '#ffffff',
     textMuted: '#b2b2b2',
     textDim: '#737373',

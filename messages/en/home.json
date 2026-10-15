@@ -1,64 +1,69 @@
 {
   "hero": {
-    "eyebrow": "Welcome",
-    "cta": "Claim now",
     "carouselLabel": "Featured",
     "goToSlide": "Show slide {index}"
   },
-  "section": {
-    "providers": "Game studios",
-    "entryCards": "Quick entry",
-    "promotions": "Featured promotions",
-    "events": "Latest news",
-    "announcements": "Service notices",
-    "whyUs": "Why players stay"
+  "category": {
+    "esports": "Esports",
+    "sports": "Sports",
+    "livecasino": "Live Casino",
+    "slots": "Slots",
+    "fastGame": "Fast Game",
+    "game4d": "4D Lottery",
+    "vip": "VIP",
+    "sponsor": "Sponsor"
   },
   "entry": {
-    "playNow": "Play now",
-    "numberGame": "Number game",
-    "numberGameHint": "Draws every 5 minutes",
-    "ranking": "Ranking board",
-    "rankingHint": "Weekly turnover race",
+    "playNow": "Play Now",
+    "numberGame": "Number Game",
+    "ranking": "Ranking Board",
     "prediction": "Prediction",
-    "predictionHint": "Free entry, real prizes",
-    "achievement": "Achievements",
-    "achievementHint": "Track your progress",
-    "personal": "Personal",
-    "personalHint": "Your progress and rewards"
+    "personal": "Personal achievement"
   },
-  "why": {
-    "licence": "Licensed operator",
-    "licenceHint": "Placeholder licence copy for the demo build.",
-    "fastWithdrawal": "Fast withdrawals",
-    "fastWithdrawalHint": "Median 5 minutes under RM 1,000.",
-    "support": "Support 24/7",
-    "supportHint": "Live chat, median reply under 2 minutes."
+  "section": {
+    "providers": "Game Providers",
+    "betting": "Betting Transaction",
+    "sponsors": "Sponsors"
   },
-  "promotions": {
-    "validUntil": "Valid until {date}",
-    "rollover": "{value}x turnover",
-    "maxBonus": "Up to {amount}",
-    "terms": "Terms & conditions",
-    "noRollover": "No turnover requirement"
+  "betting": {
+    "allBets": "All Bets",
+    "topDailyWinner": "Top Daily Winner",
+    "viewMore": "View More",
+    "col": {
+      "game": "Game",
+      "nickname": "Nickname",
+      "time": "Time (GMT+8)",
+      "region": "Region",
+      "amount": "Amount (USD)",
+      "place": "Place"
+    }
   },
-  "ticker": {
-    "label": "Live updates"
+  "bet": {
+    "slots": "Slots",
+    "live-casino": "Live Casino",
+    "sports": "Sports",
+    "esports": "Esports"
   },
-  "providers": {
-    "launch": "Open lobby",
-    "titles": "{count} titles"
+  "sponsor": {
+    "ambassador": "Brand Ambassador",
+    "name": "Our Ambassador",
+    "bio": "This build casts no real person, so the portrait and the biography that go with it are missing here. On the reference site this column introduces the brand ambassador, credits the campaigns they front and links to their social profile, and the portrait stands beside it.",
+    "followers": "{count} Followers",
+    "video": "Video placeholder — this build embeds no clip.",
+    "instagram": "Instagram"
+  },
+  "download": {
+    "title": "MOBILE APP",
+    "headline": "Play here, win here",
+    "body": "Download our latest mobile app, start playing with safety and convenience.",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "section": "Download",
+    "cardOne": "Let the game begin !",
+    "cardTwo": "Let’s start the game !",
+    "cardSub": "Play Here, Win Here"
   },
   "faq": {
-    "title": "Help centre",
     "topics": "Topics"
-  },
-  "studios": {
-    "summary": "{studios} studios · {titles} titles · browse only",
-    "allBefore": "All {count} studios are on the",
-    "allLink": "slots lobby",
-    "allAfter": "."
-  },
-  "app": {
-    "get": "Get the app"
   }
 }

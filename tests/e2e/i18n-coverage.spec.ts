@@ -9,11 +9,14 @@ import { expect, test } from '@playwright/test';
  * `mocks/` and a real backend supplies it per market later.
  */
 const ENGLISH_MARKERS = [
-  'Quick entry',
-  'Game studios',
-  'Featured promotions',
-  'View all',
-  'Get the app',
+  'Game Providers',
+  'Betting Transaction',
+  'All Bets',
+  'Top Daily Winner',
+  'View More',
+  'Nickname',
+  'Sponsors',
+  'Brand Ambassador',
   'Play Now',
   'Search games',
   'Clear search',

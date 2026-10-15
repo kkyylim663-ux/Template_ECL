@@ -1,64 +1,69 @@
 {
   "hero": {
-    "eyebrow": "Chào mừng",
-    "cta": "Nhận ngay",
     "carouselLabel": "Nổi bật",
     "goToSlide": "Xem slide {index}"
   },
-  "section": {
-    "providers": "Nhà phát hành",
-    "entryCards": "Truy cập nhanh",
-    "promotions": "Khuyến mãi nổi bật",
-    "events": "Tin mới nhất",
-    "announcements": "Thông báo dịch vụ",
-    "whyUs": "Vì sao chọn chúng tôi"
+  "category": {
+    "esports": "Esports",
+    "sports": "Thể thao",
+    "livecasino": "Casino trực tuyến",
+    "slots": "Slots",
+    "fastGame": "Game nhanh",
+    "game4d": "Xổ số 4D",
+    "vip": "VIP",
+    "sponsor": "Tài trợ"
   },
   "entry": {
     "playNow": "Chơi ngay",
     "numberGame": "Game số",
-    "numberGameHint": "Quay mỗi 5 phút",
     "ranking": "Bảng xếp hạng",
-    "rankingHint": "Đua doanh số tuần",
     "prediction": "Dự đoán",
-    "predictionHint": "Miễn phí, có thưởng thật",
-    "achievement": "Thành tích",
-    "achievementHint": "Xem tiến độ",
-    "personal": "Cá nhân",
-    "personalHint": "Tiến độ và phần thưởng"
+    "personal": "Thành tích cá nhân"
   },
-  "why": {
-    "licence": "Nhà điều hành có giấy phép",
-    "licenceHint": "Nội dung giấy phép giả cho bản demo.",
-    "fastWithdrawal": "Rút tiền nhanh",
-    "fastWithdrawalHint": "Trung bình 5 phút dưới RM 1,000.",
-    "support": "Hỗ trợ 24/7",
-    "supportHint": "Chat trực tuyến, phản hồi dưới 2 phút."
+  "section": {
+    "providers": "Nhà cung cấp game",
+    "betting": "Giao dịch cược",
+    "sponsors": "Nhà tài trợ"
   },
-  "promotions": {
-    "validUntil": "Hiệu lực đến {date}",
-    "rollover": "Doanh số {value}x",
-    "maxBonus": "Tối đa {amount}",
-    "terms": "Điều khoản",
-    "noRollover": "Không yêu cầu doanh số"
+  "betting": {
+    "allBets": "Tất cả cược",
+    "topDailyWinner": "Người thắng hôm nay",
+    "viewMore": "Xem thêm",
+    "col": {
+      "game": "Trò chơi",
+      "nickname": "Biệt danh",
+      "time": "Thời gian (GMT+8)",
+      "region": "Khu vực",
+      "amount": "Số tiền (USD)",
+      "place": "Hạng"
+    }
   },
-  "ticker": {
-    "label": "Cập nhật trực tiếp"
+  "bet": {
+    "slots": "Slots",
+    "live-casino": "Casino trực tuyến",
+    "sports": "Thể thao",
+    "esports": "Esports"
   },
-  "providers": {
-    "launch": "Vào sảnh",
-    "titles": "{count} trò chơi"
+  "sponsor": {
+    "ambassador": "Đại sứ thương hiệu",
+    "name": "Đại sứ của chúng tôi",
+    "bio": "Bản demo này không dùng người thật, nên phần chân dung và tiểu sử đi kèm không có ở đây. Trang gốc giới thiệu đại sứ thương hiệu trong cột này, nêu các chiến dịch họ đại diện và liên kết tới trang cá nhân, còn chân dung đứng ngay bên cạnh.",
+    "followers": "{count} người theo dõi",
+    "video": "Chỗ trống video — bản này không nhúng clip.",
+    "instagram": "Instagram"
+  },
+  "download": {
+    "title": "ỨNG DỤNG DI ĐỘNG",
+    "headline": "Chơi tại đây, thắng tại đây",
+    "body": "Tải ứng dụng di động mới nhất, chơi an toàn và tiện lợi.",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "section": "Tải ứng dụng",
+    "cardOne": "Bắt đầu chơi!",
+    "cardTwo": "Hãy bắt đầu!",
+    "cardSub": "Chơi tại đây, thắng tại đây"
   },
   "faq": {
-    "title": "Trung tâm trợ giúp",
     "topics": "Chủ đề"
-  },
-  "studios": {
-    "summary": "{studios} nhà phát hành · {titles} trò chơi · chỉ xem",
-    "allBefore": "Cả {count} nhà phát hành đều ở",
-    "allLink": "sảnh slots",
-    "allAfter": "."
-  },
-  "app": {
-    "get": "Tải ứng dụng"
   }
 }

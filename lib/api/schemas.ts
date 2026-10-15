@@ -316,6 +316,40 @@ export type Leaderboard = z.infer<typeof leaderboardSchema>;
 
 export const leaderboardMapSchema = z.record(z.string(), leaderboardSchema);
 
+/* ----------------------------------------------------- home betting (T32) */
+
+/**
+ * The two tables the home page shows in one block: recent stakes and the day's
+ * biggest winners. The game column mirrors the original's typeid map.
+ */
+export const BET_TYPES = ['slots', 'live-casino', 'sports', 'esports'] as const;
+export type BetType = (typeof BET_TYPES)[number];
+
+export const homeBetSchema = z.object({
+  id: z.string(),
+  type: z.enum(BET_TYPES),
+  /** Always masked, as on the reference build. */
+  account: z.string(),
+  betAt: z.string(),
+  region: z.string(),
+  usdBetMinor: z.number().int().min(0),
+});
+export type HomeBet = z.infer<typeof homeBetSchema>;
+
+export const homeWinnerSchema = z.object({
+  rank: z.number().int().min(1),
+  account: z.string(),
+  region: z.string(),
+  usdWinMinor: z.number().int().min(0),
+});
+export type HomeWinner = z.infer<typeof homeWinnerSchema>;
+
+export const homeBettingSchema = z.object({
+  allBets: z.array(homeBetSchema),
+  topDailyWinner: z.array(homeWinnerSchema),
+});
+export type HomeBetting = z.infer<typeof homeBettingSchema>;
+
 /* ------------------------------------------------------- account (demo data) */
 
 export const walletSchema = z.object({

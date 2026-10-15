@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Rubik } from 'next/font/google';
+import { Noto_Sans, Rubik } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
 import { siteUrl } from '@/lib/seo';
@@ -18,6 +18,17 @@ const rubik = Rubik({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-rubik',
+  display: 'swap',
+});
+
+/**
+ * Table heads only (`table thead` in the reference pins Noto Sans over the
+ * body's Rubik; 400 covers the fallback path, 600 the actual head weight).
+ */
+const noto = Noto_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600'],
+  variable: '--font-noto',
   display: 'swap',
 });
 
@@ -49,7 +60,7 @@ export default async function RootLayout({
   const { locale, messages } = await getShell();
 
   return (
-    <html lang={locale} className={`${rubik.variable} motion-safe:scroll-smooth`}>
+    <html lang={locale} className={`${rubik.variable} ${noto.variable} motion-safe:scroll-smooth`}>
       <body className="bg-surface text-ink font-sans antialiased">
         <IconSprite only={SHELL_ICON_NAMES} />
         <NextIntlClientProvider locale={locale} messages={messages}>

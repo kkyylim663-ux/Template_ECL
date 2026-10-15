@@ -2,7 +2,9 @@ import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
 import {
   LEADERBOARD_KINDS,
+  homeBettingSchema,
   leaderboardMapSchema,
+  type HomeBetting,
   type Leaderboard,
   type LeaderboardKind,
 } from './schemas';
@@ -27,4 +29,10 @@ export async function getLeaderboards(): Promise<Record<string, Leaderboard>> {
 export async function getLeaderboard(kind: string): Promise<Leaderboard | null> {
   const boards = await getLeaderboards();
   return boards[kind] ?? null;
+}
+
+/** Home page "Betting Transaction" block: recent stakes + today's top winners. */
+export async function getHomeBetting(): Promise<HomeBetting> {
+  const { d } = await callApi(ENDPOINTS.homeBetting);
+  return homeBettingSchema.parse(d);
 }

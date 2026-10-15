@@ -1,64 +1,69 @@
 {
   "hero": {
-    "eyebrow": "歡迎",
-    "cta": "立即領取",
     "carouselLabel": "推薦",
     "goToSlide": "顯示第 {index} 張"
   },
-  "section": {
-    "providers": "遊戲廠商",
-    "entryCards": "快捷入口",
-    "promotions": "精選優惠",
-    "events": "最新公告",
-    "announcements": "服務通知",
-    "whyUs": "為什麼選擇我們"
+  "category": {
+    "esports": "電競",
+    "sports": "體育",
+    "livecasino": "真人娛樂",
+    "slots": "電子遊戲",
+    "fastGame": "極速遊戲",
+    "game4d": "4D 彩票",
+    "vip": "VIP",
+    "sponsor": "贊助"
   },
   "entry": {
     "playNow": "立即開玩",
     "numberGame": "數字遊戲",
-    "numberGameHint": "每 5 分鐘開獎",
     "ranking": "排行榜",
-    "rankingHint": "每週流水賽",
     "prediction": "賽事預測",
-    "predictionHint": "免費參加,真實獎品",
-    "achievement": "成就",
-    "achievementHint": "查看你的進度",
-    "personal": "個人中心",
-    "personalHint": "你的進度與獎勵"
+    "personal": "個人成就"
   },
-  "why": {
-    "licence": "持牌營運",
-    "licenceHint": "示範版本的佔位牌照說明。",
-    "fastWithdrawal": "極速提現",
-    "fastWithdrawalHint": "RM 1,000 以下中位數 5 分鐘。",
-    "support": "全天客服",
-    "supportHint": "線上客服,中位回覆低於 2 分鐘。"
+  "section": {
+    "providers": "遊戲廠商",
+    "betting": "投注流水",
+    "sponsors": "贊助商"
   },
-  "promotions": {
-    "validUntil": "有效期至 {date}",
-    "rollover": "流水 {value} 倍",
-    "maxBonus": "最高 {amount}",
-    "terms": "條款與條件",
-    "noRollover": "無流水要求"
+  "betting": {
+    "allBets": "全部投注",
+    "topDailyWinner": "每日贏家榜",
+    "viewMore": "查看更多",
+    "col": {
+      "game": "遊戲",
+      "nickname": "暱稱",
+      "time": "時間 (GMT+8)",
+      "region": "地區",
+      "amount": "金額 (USD)",
+      "place": "名次"
+    }
   },
-  "ticker": {
-    "label": "即時動態"
+  "bet": {
+    "slots": "電子遊戲",
+    "live-casino": "真人娛樂",
+    "sports": "體育",
+    "esports": "電競"
   },
-  "providers": {
-    "launch": "進入大廳",
-    "titles": "{count} 款遊戲"
+  "sponsor": {
+    "ambassador": "品牌大使",
+    "name": "品牌大使",
+    "bio": "本示範版本不使用真實人物,因此這裡沒有肖像圖與人物簡介。原站在此欄目介紹品牌大使、他們代言的宣傳活動並附上社交連結,肖像圖就立在旁邊,整欄高度由這段文字撐開。",
+    "followers": "{count} 關注者",
+    "video": "影片佔位——本版本不嵌入任何影片。",
+    "instagram": "Instagram"
+  },
+  "download": {
+    "title": "手機應用",
+    "headline": "在這裡玩,在這裡贏",
+    "body": "下載我們的最新手機應用,安全便捷地開始遊戲。",
+    "appStore": "App Store",
+    "googlePlay": "Google Play",
+    "section": "下載",
+    "cardOne": "遊戲開始!",
+    "cardTwo": "讓我們開始吧!",
+    "cardSub": "在這裡玩,在這裡贏"
   },
   "faq": {
-    "title": "幫助中心",
     "topics": "主題"
-  },
-  "studios": {
-    "summary": "{studios} 家廠商 · {titles} 款遊戲 · 僅供瀏覽",
-    "allBefore": "全部 {count} 家廠商都在",
-    "allLink": "電子遊戲大廳",
-    "allAfter": "."
-  },
-  "app": {
-    "get": "取得 App"
   }
 }

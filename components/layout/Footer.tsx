@@ -14,6 +14,10 @@ import { Icon } from '@/components/ui/Icon';
  *
  * The five blocks and their wording come from crawl/pages/my.html; the first one
  * lists the support channels straight from config/brand.ts.
+ *
+ * Desktop only: the original's mobile template (crawl/mobile/my_mobileUA.html)
+ * carries none of this — no column footer, divider or brand row — so at <=768px
+ * the floating bottom bar is the whole footer (T32, measured).
  */
 export async function Footer({ region }: { region: string }) {
   const { t } = await getT('nav');
@@ -22,7 +26,7 @@ export async function Footer({ region }: { region: string }) {
   );
 
   return (
-    <footer className="desktop:mt-15">
+    <footer className="hidden desktop:mt-15 desktop:block">
       <div className="container-page flex flex-col gap-6 desktop:flex-row desktop:justify-between desktop:gap-0">
         {FOOTER_GROUPS.map((group) => (
           <div key={group.id} className="desktop:shrink-0">

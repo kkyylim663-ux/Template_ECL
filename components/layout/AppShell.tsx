@@ -31,9 +31,15 @@ export function AppShell({ region, children }: { region: string; children: React
           112px with the download banner — MobileChrome sets --mobile-content-top,
           the original's `has-header` / `has-app`); 80px at the bottom reserves
           room for the floating bar (`has-footer`).
+
+          The offset sits on the inner block rather than on `main` so the first
+          block's own top margin collapses into it, exactly as it does in the
+          original (a flex item's margin never collapses, a plain block's does).
         */}
-        <main className="max-desktop:mt-[var(--mobile-content-top,56px)] flex-1 py-6 max-desktop:pb-20">
-          <div className="container-page">{children}</div>
+        <main className="flex-1 pb-6 max-desktop:pb-20">
+          <div className="container-page desktop:mt-[var(--content-top-desktop)] max-desktop:mt-[var(--mobile-content-top,56px)]">
+            {children}
+          </div>
         </main>
 
         <Footer region={region} />
