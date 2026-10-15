@@ -16,13 +16,17 @@ import { MobileFooterBar } from './MobileFooterBar';
  * The site-wide announcement marquee P0 shipped is not part of the original
  * shell (no ticker element or ticker CSS in crawl/), so it is no longer mounted
  * here — see AnnouncementMarquee.tsx, kept for the announcement data path.
+ *
+ * `.app-frame` carries the `min-height` instead of Tailwind's `min-h-dvh`: under
+ * the T32.6 mobile zoom a plain `100dvh` would render at 100dvh x scale, so the
+ * class divides by the scale and the frame stays exactly one screen tall.
  */
 export function AppShell({ region, children }: { region: string; children: React.ReactNode }) {
   return (
     <>
       <DesktopSidebar region={region} />
 
-      <div className="flex min-h-dvh flex-col desktop:pt-[var(--header-height-desktop)]">
+      <div className="app-frame flex flex-col desktop:pt-[var(--header-height-desktop)]">
         <Header region={region} />
         <MobileChrome region={region} />
 

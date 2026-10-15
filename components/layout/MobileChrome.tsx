@@ -66,7 +66,7 @@ export function MobileChrome({ region }: { region: string }) {
   }
 
   return (
-    <div className="fixed inset-x-0 top-0 z-[var(--z-header)] desktop:hidden">
+    <div className="app-top-bar fixed inset-x-0 top-0 z-[var(--z-header)] desktop:hidden">
       {/* Download banner: page-coloured strip, 25x56 close area, 50px logo slot. */}
       {bannerDismissed ? null : (
         <div className="bg-surface flex items-center">
@@ -138,7 +138,7 @@ export function MobileChrome({ region }: { region: string }) {
       <div
         aria-hidden={!drawerOpen}
         onClick={() => setDrawerOpen(false)}
-        className={`fixed inset-x-0 bottom-0 top-[var(--mobile-content-top,56px)] z-[13] bg-black/60 transition-opacity ${
+        className={`app-drawer-layer fixed inset-x-0 bottom-0 top-[var(--mobile-content-top,56px)] z-[13] bg-black/60 transition-opacity ${
           drawerOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />

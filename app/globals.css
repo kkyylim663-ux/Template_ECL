@@ -71,6 +71,7 @@
   --color-panel-deep: #232323; /* .rb-panel gradient start */
   --color-panel-rb-to: #191b1b; /* .rb-panel gradient end */
   --color-line-table: #303232; /* .rb-table-scroll / .rb-prize-table frame */
+  --color-bar-line: rgb(255 255 255 / 20%); /* .mobile-bar 1px 高光边 */
   --color-arrow: #3a3c3c; /* .rb-rule-arrow */
   --color-live-red: #f03b35; /* .rb-update */
   --color-line-input: #a5a5a5; /* .rb-filter border */
@@ -158,6 +159,14 @@
 :root {
   /* Container model, measured from .container */
   --container-width: 1300px;
+  /*
+   * The mobile design width (T32.6). Every mobile value in this file is written
+   * for this width; `--m-scale` (= screenWidth / 375, clamped to the 320–430
+   * band, set by the script in app/layout.tsx) zooms the whole tree so a 360 and
+   * a 414 phone see the same page at different sizes. `.m-root` is therefore one
+   * design-width wide, not one screen wide.
+   */
+  --m-base: 375px;
   --container-width-narrow: 95vw; /* <=1400px */
   --container-shift: 100px; /* <=1350px adds padding-left */
   --pad-mobile-x: 16px; /* .has-space */
@@ -643,7 +652,7 @@ html {
     radial-gradient(120% 80% at 18% 118%, hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 100%, 0) 60%),
     radial-gradient(90% 130% at 80% 172%, hsla(0, 0%, 100%, 0.09), hsla(0, 0%, 100%, 0) 55%),
     linear-gradient(160deg, #3a3a3a, #262626 22%, #1c1c1c 55%, #121212);
-  border: 1px solid hsla(0, 0%, 100%, 0.2);
+  border: 1px solid var(--color-bar-line);
   border-radius: 999px;
   box-shadow:
     inset 0 1px 0 hsla(0, 0%, 100%, 0.38),
@@ -3087,4 +3096,84 @@ html {
   width: 44px;
   height: 22px;
   border-radius: var(--radius-5);
+}
+
+/* ------------------------------------------- mobile scaling (T32.6) */
+
+/*
+ * The frame fills a screen (Tailwind's `min-h-dvh`, moved here so the mobile
+ * rule below can divide it by the zoom); the mobile block overrides the value.
+ */
+.app-frame {
+  min-height: 100dvh;
+}
+
+/*
+ * `zoom` is the whole mechanism, and it is doing exactly what the requirement
+ * asks for: given a `--m-base`-wide box it multiplies every length in the
+ * subtree — widths, heights, paddings, gaps, font sizes, radii, borders — by the
+ * same factor, and percentages resolve inside the zoomed space. So `.m-root` at
+ * `zoom: m` renders exactly `375 * m` = one screen wide on any phone in the band,
+ * and the page is identical across 360 / 375 / 414 — only bigger or smaller.
+ *
+ * The `width` is the design width rather than `100%`, and `margin-inline: auto`
+ * centres the box through the parent's layout (the parent sees the zoomed
+ * footprint), which is what holds the 430px column still on 431–768 viewports.
+ *
+ * Below 769px only: desktop never reads either variable.
+ */
+@media (max-width: 768px) {
+  .m-root {
+    zoom: var(--m-scale, 1);
+    width: var(--m-base);
+    margin-inline: auto;
+  }
+
+  /*
+   * One screen tall, in zoomed px. `.app-frame` would otherwise ask for 100dvh
+   * of the *zoomed* coordinate system, which is `scale` screens.
+   */
+  .app-frame {
+    min-height: calc(100dvh / var(--m-scale, 1));
+  }
+
+  /*
+   * Fixed descendants keep anchoring to the viewport (so `inset-x-0` still means
+   * "one screen wide") but their inner lengths scale like everything else. Past
+   * 430px the shell would therefore run wider than the content column, so the
+   * three fixed layers cap themselves at the column and centre. `max-width` on a
+   * fixed element resolves in the zoomed system, so the cap is the design width
+   * (or 90% of it for the floating bar) and comes out as 430 / 387.
+   */
+  .app-top-bar,
+  .app-drawer-layer {
+    max-width: var(--m-base);
+    margin-inline: auto;
+  }
+
+  /*
+   * The floating bar's hairline moves from `border` to an overlay, and the 2px it
+   * used to occupy move into the padding. A fixed element's own border is the one
+   * length `zoom` does not scale — measured: any non-zero `border-width` (0.4 /
+   * 0.5 / 1 / 2px) paints exactly 1px, so the bar came out 2 * (1 - scale) px off
+   * (0.3px, i.e. 1.02% of its height across the 320–430 band, the one metric over
+   * the T32.6 limit). A *child's* border has no such quirk, so the hairline lives
+   * on `::after`, and the bar's own box is now padding + content — both scaled —
+   * which lands the ratio at ~0%. Total height at 375 is unchanged: 11 + 37.188 +
+   * 11 = 59.188 = the old 1 + 10 + 37.188 + 10 + 1.
+   */
+  .mobile-bar {
+    max-width: calc(var(--m-base) * 0.9);
+    padding-block: 11px;
+    border: 0;
+  }
+
+  .mobile-bar::after {
+    position: absolute;
+    inset: calc(-1px * var(--m-scale, 1));
+    border: 1px solid var(--color-bar-line);
+    border-radius: inherit;
+    content: '';
+    pointer-events: none;
+  }
 }

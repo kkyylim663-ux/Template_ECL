@@ -9,6 +9,95 @@ test.use({ viewport: { width: 375, height: 812 } });
 
 const SHOTS = 'C:/Users/senheng/Desktop/Claude Code/Clone web ECL/site/_scratch/shots';
 
+/**
+ * T32.6: the mobile page is one design scaled to the screen, so a metric divided
+ * by the viewport width has to come out the same on every phone — 360 and 414 see
+ * the same page, only bigger or smaller. The full six-width sweep lives in
+ * `_scratch/t326-verify.mjs`; this is the same check at a size that runs with the
+ * suite. 375 itself is asserted against the measured design values.
+ */
+test.describe('mobile scaling (T32.6)', () => {
+  const RATIOS = ['main .container-page', '.entry-card', '.mobile-bar', '.mobile-bar a span'];
+
+  test('one design across 320 / 360 / 375 / 390 / 414 / 430', async ({ page }) => {
+    const seen: Record<string, number[]> = {};
+    for (const width of [320, 360, 375, 390, 414, 430]) {
+      await page.setViewportSize({ width, height: 812 });
+      await page.goto('/my');
+      await expect(page.locator('.mobile-bar')).toBeVisible();
+
+      const values = await page.evaluate((selectors: string[]) => {
+        const de = document.documentElement;
+        return selectors.map((selector) => {
+          const el = document.querySelector(selector);
+          if (!el) return null;
+          const box = el.getBoundingClientRect();
+          // Width for the containers, height for the text metrics: both scale.
+          const size = selector.includes('span') || selector === '.mobile-bar' ? box.height : box.width;
+          return size / de.clientWidth;
+        });
+      }, RATIOS);
+
+      values.forEach((value: number | null, index: number) => {
+        if (value === null) return;
+        (seen[RATIOS[index]] ??= []).push(value);
+      });
+
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, `${width}px overflows`).toBeLessThanOrEqual(1);
+    }
+
+    for (const [selector, values] of Object.entries(seen)) {
+      expect(values, `${selector} missing`).toHaveLength(6);
+      const spread = (Math.max(...values) - Math.min(...values)) / Math.min(...values);
+      expect(spread, `${selector} varies ${(spread * 100).toFixed(2)}% across widths`).toBeLessThan(0.01);
+    }
+  });
+
+  test('375 is the design width: scale 1 and the measured values', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/my');
+
+    // Scale 1 is an identity transform, so every value below is the T31/T32 one.
+    await expect(page.locator('.m-root')).toHaveCSS('zoom', '1');
+
+    const boxes = await page.evaluate(() => {
+      const box = (selector: string) => {
+        const el = document.querySelector(selector)!;
+        const b = el.getBoundingClientRect();
+        return [Math.round(b.width), Math.round(b.height), Math.round(b.left)];
+      };
+      return {
+        content: box('main .container-page'),
+        entry: box('.entry-card'),
+        hero: box('.home-banner-container'),
+        bar: box('.mobile-bar'),
+      };
+    });
+
+    expect(boxes.content).toEqual([343, boxes.content[1], 16]);
+    expect(boxes.entry.slice(0, 2)).toEqual([343, 70]);
+    expect(boxes.hero.slice(0, 2)).toEqual([375, 263]);
+    expect(boxes.bar.slice(0, 2)).toEqual([338, 59]);
+  });
+
+  test('past 430 the design stops growing and centres', async ({ page }) => {
+    await page.setViewportSize({ width: 600, height: 812 });
+    await page.goto('/my');
+
+    const root = page.locator('.m-root');
+    // The clamped factor is 430/375; compare as a number, not as a string.
+    const measured = await page.evaluate(() => Number(getComputedStyle(document.querySelector('.m-root')!).zoom));
+    expect(measured).toBeCloseTo(430 / 375, 5);
+
+    const box = await root.boundingBox();
+    expect(Math.round(box?.width ?? 0)).toBe(430);
+    expect(Math.round(box?.x ?? 0)).toBe(85);
+  });
+});
+
 test('mobile shell replaces the desktop shell', async ({ page }) => {
   await page.goto('/my');
 
