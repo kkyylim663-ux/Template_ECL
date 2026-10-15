@@ -2,9 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { FormNotice, PrimaryButton, TextField } from '@/components/ui/Field';
 import { forgotPasswordSchema, validate, type FieldErrors } from '@/lib/forms';
 
+/**
+ * Reset form on the same `.card` shell as sign-in: one email field and the
+ * `.login-btn`. Demo only — nothing is sent, and the confirmation says so.
+ */
 export function ForgotPasswordForm() {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
@@ -27,26 +30,26 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-4">
-      <TextField
-        id="email"
-        label={t('forgot.email')}
-        type="email"
-        autoComplete="email"
-        value={email}
-        error={errors.email ? tc(errors.email) : undefined}
-        onChange={(event) => setEmail(event.target.value)}
-      />
+    <form onSubmit={onSubmit} noValidate>
+      <div className="form-group">
+        <input
+          className="form-control"
+          type="email"
+          autoComplete="email"
+          placeholder={t('forgot.email')}
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        {errors.email ? <div className="form-error">{tc(errors.email)}</div> : null}
+      </div>
 
-      <PrimaryButton type="submit" className="w-full">
-        {t('forgot.submit')}
-      </PrimaryButton>
+      <div className="login-btn__wrapper">
+        <button type="submit" className="btn btn-primary login-btn">
+          {t('forgot.submit')}
+        </button>
+      </div>
 
-      {sent ? (
-        <p className="text-sm text-[var(--color-success)]">{t('forgot.sent', { email })}</p>
-      ) : null}
-
-      <FormNotice>{t('forgot.formNotice')}</FormNotice>
+      {sent ? <p className="form-success">{t('forgot.sent', { email })}</p> : null}
     </form>
   );
 }

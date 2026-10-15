@@ -49,8 +49,6 @@ export const registerSchema = z
     fullName: z.string().trim().min(2, 'validation.fullNameRequired'),
     nickname: z.string().trim().min(2, 'validation.nicknameRequired'),
     mobile,
-    upline: z.string().trim().optional(),
-    acceptedTerms: z.literal(true, { message: 'validation.terms' }),
   })
   .refine((values) => values.password === values.password2, {
     message: 'validation.passwordMismatch',

@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { FormNotice, PrimaryButton, TextField } from '@/components/ui/Field';
+import { Icon, type IconName } from '@/components/ui/Icon';
 import { useModal } from '@/components/ui/ModalProvider';
-import { Tabs } from '@/components/ui/Tabs';
+import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
+import { REGION_CODES, type RegionCode } from '@/config/brand';
 import {
   loginEmailSchema,
   loginOtpSchema,
@@ -15,40 +17,61 @@ import {
 } from '@/lib/forms';
 import { DEMO_SESSION_COOKIE, DEMO_SESSION_VALUE } from '@/lib/session';
 
-type Method = 'username' | 'email' | 'otp';
+type Method = 'username' | 'email' | 'sms' | 'whatsapp';
 
-const TAB_KEYS = [
-  { id: 'username', labelKey: 'login.tabUsername' },
-  { id: 'email', labelKey: 'login.tabEmail' },
-  { id: 'otp', labelKey: 'login.tabOtp' },
+/**
+ * `size` copies each reference icon's natural box (`icon-username.png` is 20×20,
+ * `icon-email.png` 16×12, `icon-sms.png` 19×18, `icon-whatsapp.png` 17×18) so
+ * the pill row comes out as wide as the original's.
+ */
+const TABS: { id: Method; labelKey: string; icon: IconName; size: number }[] = [
+  { id: 'username', labelKey: 'login.tabUsername', icon: 'user', size: 20 },
+  { id: 'email', labelKey: 'login.tabEmail', icon: 'mail', size: 16 },
+  { id: 'sms', labelKey: 'login.tabSms', icon: 'phone', size: 19 },
+  { id: 'whatsapp', labelKey: 'login.tabWhatsapp', icon: 'whatsapp', size: 17 },
 ];
 
 const SCHEMAS = {
   username: loginUsernameSchema,
   email: loginEmailSchema,
-  otp: loginOtpSchema,
+  sms: loginOtpSchema,
+  whatsapp: loginOtpSchema,
 };
 
 /**
- * Sign-in form with the three methods the reference build offers. P0 is a
- * placeholder: the values are validated locally and then a demo session cookie is
- * set so the guarded member area can be browsed. No request leaves the page, and
- * the dialog says so.
+ * Sign-in card body, laid out after the reference's `login.css`: a pill row of
+ * the four methods (username / email / sms / whatsapp), a calling-code picker on
+ * the phone tabs, and the same `.form-control` / `.login-btn` shell. Demo only:
+ * values validate locally, a demo cookie is set, and the dialog says nothing was
+ * sent.
  */
-export function LoginForm({ next }: { next?: string }) {
+export function LoginForm({ next, region }: { next?: string; region: string }) {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
   const router = useRouter();
   const modal = useModal();
   const [method, setMethod] = useState<Method>('username');
+  const [callingCode, setCallingCode] = useState<RegionCode>(REGION_CODES[0]);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [values, setValues] = useState({ identifier: '', password: '', otp: '' });
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [otpSent, setOtpSent] = useState(false);
 
-  const tabs = TAB_KEYS.map((tab) => ({ id: tab.id, label: t(tab.labelKey) }));
+  const active = TABS.find((tab) => tab.id === method) ?? TABS[0];
+  const phoneMethod = method === 'sms' || method === 'whatsapp';
+  const ready = phoneMethod
+    ? values.identifier.trim().length >= 6 && values.otp.trim().length === 6
+    : values.identifier.trim().length > 0 && values.password.length > 0;
 
   function update(field: keyof typeof values, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
+  }
+
+  function pick(methodId: Method) {
+    setMethod(methodId);
+    setErrors({});
+    setOtpSent(false);
   }
 
   function onSubmit(event: React.FormEvent) {
@@ -69,69 +92,167 @@ export function LoginForm({ next }: { next?: string }) {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-4">
-      <Tabs tabs={tabs} value={method} onChange={(id) => setMethod(id as Method)} label={t('login.title')} />
+    <form className="login-form" onSubmit={onSubmit} noValidate>
+      <div className="desktop">
+        <div className="nav-tab" role="tablist" aria-label={t('login.title')}>
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={method === tab.id}
+              className={`nav-pill${method === tab.id ? ' selected' : ''}`}
+              onClick={() => pick(tab.id)}
+            >
+              <Icon name={tab.icon} size={tab.size} className="nav-pill__icon" />
+              {t(tab.labelKey)}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      {method === 'otp' ? (
+      <div className={`login-select-tab${pickerOpen ? ' open' : ''}`}>
+        <button
+          type="button"
+          className="select-pill"
+          aria-expanded={pickerOpen}
+          aria-haspopup="listbox"
+          onClick={() => setPickerOpen((open) => !open)}
+        >
+          <span className="select-pill__left">
+            <Icon name={active.icon} size={active.size} className="nav-pill__icon" />
+            <span>{t(active.labelKey)}</span>
+          </span>
+          <Icon name="chevronDown" size={9} />
+        </button>
+        <div className="select-dropdown" role="listbox" aria-label={t('login.loginMode')}>
+          <div className="select-dropdown__header">
+            <span>{t('login.loginMode')}</span>
+            <button
+              type="button"
+              className="select-dropdown__close"
+              aria-label={t('login.closeCard')}
+              onClick={() => setPickerOpen(false)}
+            >
+              <Icon name="close" size={16} />
+            </button>
+          </div>
+          <div className="select-dropdown__body">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                role="option"
+                aria-selected={method === tab.id}
+                className={`select-drown__list${method === tab.id ? ' selected' : ''}`}
+                onClick={() => {
+                  pick(tab.id);
+                  setPickerOpen(false);
+                }}
+              >
+                <Icon name={tab.icon} size={20} className="nav-pill__icon" />
+                <span>{t(tab.labelKey)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {phoneMethod ? (
         <>
-          <TextField
-            id="identifier"
-            label={t('login.identifier.mobile')}
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="+60 12-345 6789"
-            value={values.identifier}
-            error={errors.identifier ? tc(errors.identifier) : undefined}
-            onChange={(event) => update('identifier', event.target.value)}
-          />
-          <TextField
-            id="otp"
-            label={t('login.otp')}
-            inputMode="numeric"
-            maxLength={6}
-            placeholder="123456"
-            value={values.otp}
-            error={errors.otp ? tc(errors.otp) : undefined}
-            hint={otpSent ? t('login.otpHint', { target: values.identifier }) : undefined}
-            onChange={(event) => update('otp', event.target.value)}
-          />
-          <button
-            type="button"
-            onClick={() => setOtpSent(true)}
-            className="border-line text-ink hover:border-accent rounded-[8px] border px-3 py-1.5 text-xs"
-          >
-            {t('login.sendOtp')}
-          </button>
+          <div className="form-group flex">
+            <CallingCodePicker
+              value={callingCode}
+              onChange={setCallingCode}
+              label={t('login.identifier.mobile')}
+            />
+            <input
+              className="form-control"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder={t('login.identifier.mobile')}
+              value={values.identifier}
+              onChange={(event) => update('identifier', event.target.value)}
+            />
+            {errors.identifier ? (
+              <div className="form-error">{tc(errors.identifier)}</div>
+            ) : null}
+          </div>
+          <div className="form-group">
+            <input
+              className="form-control"
+              inputMode="numeric"
+              maxLength={6}
+              autoComplete="one-time-code"
+              placeholder={t('login.otp')}
+              value={values.otp}
+              onChange={(event) => update('otp', event.target.value)}
+            />
+            {errors.otp ? <div className="form-error">{tc(errors.otp)}</div> : null}
+            {otpSent ? (
+              <div className="form-control__tips">
+                {t('login.otpHint', { target: values.identifier })}
+              </div>
+            ) : null}
+            <button type="button" className="link-btn" onClick={() => setOtpSent(true)}>
+              {t('login.sendOtp')}
+            </button>
+          </div>
         </>
       ) : (
         <>
-          <TextField
-            id="identifier"
-            label={method === 'email' ? t('login.identifier.email') : t('login.identifier.username')}
-            type={method === 'email' ? 'email' : 'text'}
-            autoComplete="username"
-            value={values.identifier}
-            error={errors.identifier ? tc(errors.identifier) : undefined}
-            onChange={(event) => update('identifier', event.target.value)}
-          />
-          <TextField
-            id="password"
-            label={t('login.password')}
-            type="password"
-            autoComplete="current-password"
-            value={values.password}
-            error={errors.password ? tc(errors.password) : undefined}
-            onChange={(event) => update('password', event.target.value)}
-          />
+          <div className="form-group">
+            <input
+              className="form-control"
+              type={method === 'email' ? 'email' : 'text'}
+              autoComplete="username"
+              placeholder={
+                method === 'email' ? t('login.identifier.email') : t('login.identifier.username')
+              }
+              value={values.identifier}
+              onChange={(event) => update('identifier', event.target.value)}
+            />
+            {errors.identifier ? (
+              <div className="form-error">{tc(errors.identifier)}</div>
+            ) : null}
+          </div>
+          <div className="form-group mb-0">
+            <input
+              className="form-control"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
+              placeholder={t('login.password')}
+              value={values.password}
+              onChange={(event) => update('password', event.target.value)}
+            />
+            <button
+              type="button"
+              className="password-toggle"
+              onClick={() => setShowPassword((shown) => !shown)}
+            >
+              {showPassword ? t('login.hide') : t('login.show')}
+            </button>
+            {errors.password ? <div className="form-error">{tc(errors.password)}</div> : null}
+          </div>
         </>
       )}
 
-      <PrimaryButton type="submit" className="w-full">
-        {t('login.submit')}
-      </PrimaryButton>
+      <Link className="login-forget-passowrd" href={`/${region}/forgot-password`}>
+        {t('login.forgot')}
+      </Link>
 
-      <FormNotice>{t('login.formNotice')}</FormNotice>
+      <div className="login-btn__wrapper">
+        <button type="submit" className={`btn btn-primary login-btn${ready ? '' : ' disable'}`}>
+          {t('login.submit')}
+        </button>
+      </div>
+
+      <div className="login-signup-tips">
+        <span>{t('login.noAccount')}</span>
+        <Link className="login-signup-now" href={`/${region}/register`}>
+          {t('login.goRegister')}
+        </Link>
+      </div>
     </form>
   );
 }

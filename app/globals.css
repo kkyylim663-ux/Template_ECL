@@ -129,6 +129,7 @@
   --text-17: calc(17px * var(--fs-fix, 1));
   --text-21: calc(21px * var(--fs-fix, 1)); /* .rb-stat-value / .rb-personal-title */
   --text-22: calc(22px * var(--fs-fix, 1));
+  --text-26: calc(26px * var(--fs-fix, 1)); /* .close-page × on the auth cards (T38) */
   --text-28: calc(28px * var(--fs-fix, 1));
   --text-32: calc(32px * var(--fs-fix, 1));
   --text-40: calc(40px * var(--fs-fix, 1));
@@ -4282,5 +4283,740 @@ details.accordionItem[open] .accordion-icon {
   .shortVideoGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     max-width: none;
+  }
+}
+
+/* -------------------------------------------- auth pages (T38) */
+
+/*
+ * The reference renders sign-in and sign-up from its own classic build; these
+ * rules are transcribed from ebv4/main.css + login.css + signup.css (pulled
+ * from its CDN, values kept verbatim, minus the JS-driven scale-in). Everything
+ * is scoped under .bg-wrapper because names like .nav-pill and .btn already
+ * carry page-local meanings elsewhere in this file.
+ */
+.bg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  background-color: #363636;
+}
+
+.bg-wrapper .card {
+  min-width: 450px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background-color: #171717;
+}
+
+.bg-wrapper .card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 20px 30px 18px;
+  border-bottom: 2px solid #2d2e30;
+}
+
+.bg-wrapper .card-title {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  /* The reference's `normal` line box for Rubik lands on 26px here; the login
+     title also carries the 26px `.close-page` glyph, which sets the header's 66px. */
+  line-height: 1.3;
+}
+
+.bg-wrapper .signup-title {
+  /* The sign-up title has no 26px glyph inside it, so its line box is 24px and
+     the header comes out at the reference's 64px. */
+  line-height: 1.2;
+}
+
+.bg-wrapper .card-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+}
+
+.bg-wrapper .card-body {
+  box-sizing: border-box;
+  padding: 0 25px;
+}
+
+.bg-wrapper .nav-tab {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 7px;
+  margin-bottom: 13px;
+  overflow-x: auto;
+}
+
+.bg-wrapper .nav-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* The tab-strip pill (see the `.nav-pill` block above) adds a gap, a right
+     margin, a slate background and a transition; the reference's auth pill has
+     none of those — the pills' 7px spacing comes from `.nav-tab`. */
+  gap: 0;
+  margin-right: 0;
+  padding: 8px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: normal;
+  cursor: pointer;
+  transition: none;
+}
+
+.bg-wrapper .nav-pill__icon {
+  margin-right: 10px;
+}
+
+.bg-wrapper .nav-pill.selected,
+.bg-wrapper .nav-pill:hover {
+  background-color: #363637;
+}
+
+/* The reference swaps the pill row for a select + sheet on phones: `.desktop`
+   holds the pills, `.login-select-tab` is the phone-only control. */
+.bg-wrapper .desktop {
+  display: block;
+}
+
+.bg-wrapper .login-select-tab {
+  display: none;
+}
+
+.bg-wrapper .select-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 156px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 15px;
+  background-color: #353537;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bg-wrapper .select-pill__left {
+  display: flex;
+  align-items: center;
+  margin-right: 20.5px;
+}
+
+.bg-wrapper .select-pill .nav-pill__icon {
+  margin-right: 7px;
+}
+
+.bg-wrapper .select-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  min-width: 241px;
+  max-width: 100%;
+  margin: 0 auto;
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 1;
+  transform-origin: 120px 20px;
+  transform: scale(0);
+  transition: all 0.3s;
+}
+
+.bg-wrapper .login-select-tab.open .select-dropdown {
+  transform: scale(1);
+}
+
+.bg-wrapper .select-dropdown__header {
+  position: relative;
+  padding-top: 11px;
+  padding-bottom: 10px;
+  background-color: #2a2a2b;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.bg-wrapper .select-dropdown__close {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.bg-wrapper .select-drown__list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #4a4a4e;
+  background-color: #363537;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.bg-wrapper .select-drown__list.selected {
+  background-color: #17191a;
+}
+
+.bg-wrapper .select-drown__list:last-child {
+  border-bottom: none;
+}
+
+.bg-wrapper .select-drown__list .nav-pill__icon {
+  margin-right: 7px;
+}
+
+/* The phone-only back arrow the reference puts in both card headers. */
+.bg-wrapper .card-back {
+  display: none;
+}
+
+.bg-wrapper .form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.bg-wrapper .form-control {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 41px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  background-color: #47494b;
+  color: #b2b2b2;
+  outline: none;
+  /* The reference sets no font-size on inputs, so they render at Chrome's own
+     13.3333px rather than inheriting the page's 16px (Tailwind's preflight
+     `font: inherit` would do the opposite); the nearest token stands in. */
+  font-size: var(--text-13);
+}
+
+.bg-wrapper .form-error-signup {
+  padding-left: 19px;
+  min-height: 17px;
+}
+
+.bg-wrapper .form-error-signup-tips {
+  padding-left: 19px;
+}
+
+.bg-wrapper .password-toggle-sms {
+  position: absolute;
+  top: 11px;
+  right: 11.26px;
+  color: #289d82;
+  font-size: 14px;
+}
+
+.bg-wrapper .form-error {
+  display: block;
+  max-width: 400px;
+  color: #cc3633;
+  font-size: 14px;
+}
+
+.bg-wrapper .password-toggle {
+  position: absolute;
+  top: 11px;
+  right: 11.26px;
+  color: #289d82;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bg-wrapper .btn {
+  padding: 12px 33px;
+  border: none;
+  border-radius: 15px;
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+
+.bg-wrapper .btn-primary {
+  background-color: #fabb2e;
+}
+
+.bg-wrapper .btn.disable {
+  background-color: #b2b2b2;
+  pointer-events: none;
+}
+
+.bg-wrapper .login-btn {
+  width: 300px;
+  margin-top: 50px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.bg-wrapper .login-btn__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-wrapper .login-forget-passowrd {
+  display: block;
+  margin-top: 4px;
+  color: #289d82;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.bg-wrapper .login-signup-tips {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  color: #b2b2b2;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.bg-wrapper .login-signup-now {
+  margin-left: 5px;
+  color: #289d82;
+  text-decoration: none;
+}
+
+/* Small helpers the reference's own CSS defines for the card. */
+.bg-wrapper .mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.bg-wrapper .form-control__tips {
+  margin-top: 4px;
+  padding-left: 19px;
+  color: #b2b2b2;
+  font-size: 14px;
+}
+
+.bg-wrapper .link-btn {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #289d82;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.bg-wrapper .card-logo__mark {
+  /* The reference puts logo_v4.png (an 800×800 file) at width:150px, i.e. a
+     square 150×150 slot; the placeholder keeps that box. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 150px;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.bg-wrapper .card-close,
+.bg-wrapper .close-page {
+  color: #fff;
+  font-size: var(--text-26);
+  font-weight: 200;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* In the sign-up header the × rides inside the bullet row and is lifted by a
+   negative margin, so it adds 19px (26 − 7) rather than 26px to the header. */
+.bg-wrapper .pagination-wrapper .close-page {
+  margin-top: -7px;
+}
+
+.bg-wrapper .form-warning {
+  color: #fabb2e;
+  font-size: 12px;
+}
+
+.bg-wrapper .form-success {
+  /* Inline in both reference pages: `.form-success,.form-error{max-width:400px}`
+     and `.form-success{font-size:12px;color:#289d82}`. */
+  color: #289d82;
+  font-size: 12px;
+}
+
+.bg-wrapper .accept-terms {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: #b2b2b2;
+  font-size: 12px;
+}
+
+.bg-wrapper .send-sms {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+
+.bg-wrapper .send-sms.disabled {
+  color: #b2b2b2;
+  cursor: not-allowed;
+}
+
+.bg-wrapper .signup-bg {
+  /* The reference's decorative panel is `signup/v2-general.jpg`, 428×657 at its
+     natural size — the placeholder keeps that box, which is also what fixes the
+     card's 661px height. */
+  width: 428px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  overflow: hidden;
+}
+
+.bg-wrapper .signup-bg .game-placeholder {
+  /* The reference's panel is an inline <img> on the baseline, so its line box
+     carries ~4px of descender — that is what puts the card at 661px. An
+     inline-block placeholder reproduces both the box and that line box. */
+  display: inline-block;
+  vertical-align: baseline;
+  width: 100%;
+  aspect-ratio: 428 / 657;
+}
+
+.bg-wrapper .calling-code__caret {
+  width: 8px;
+  height: 6px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* SMS / WhatsApp tabs pick a calling code like the reference. */
+.bg-wrapper .calling-code__wrapper {
+  position: relative;
+  margin-right: 9px;
+}
+
+.bg-wrapper .calling-code__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7.48px 14.4px;
+  border-radius: 15px;
+  background-color: #47494b;
+  color: #b2b2b2;
+  cursor: pointer;
+}
+
+.bg-wrapper .calling-code {
+  margin-right: 10px;
+  width: 32px;
+  font-size: 14px;
+}
+
+.bg-wrapper .calling-code__dropdown-wrapper {
+  position: absolute;
+  z-index: 1;
+}
+
+.bg-wrapper .calling-code__dropdown {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  z-index: 1;
+  padding: 10px 0;
+  border-radius: 15px;
+  background-color: #2b2c2d;
+  font-size: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  transform: scale(0);
+  transform-origin: 1rem 0;
+  transition: all 0.3s;
+}
+
+.bg-wrapper .calling-code__dropdown.open {
+  transform: scale(1);
+}
+
+.bg-wrapper .calling-code__dropdown-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 180px;
+  padding: 10px;
+  color: #b2b2b2;
+  text-transform: capitalize;
+}
+
+.bg-wrapper .calling-code__dropdown-container:hover {
+  background-color: #47494b;
+}
+
+.bg-wrapper .calling-code__dropdown-tick {
+  display: none;
+}
+
+.bg-wrapper .calling-code__dropdown-container.selected .calling-code__dropdown-tick {
+  display: block;
+}
+
+/* The sign-up card. */
+.bg-wrapper .signup-card {
+  display: flex;
+}
+
+.bg-wrapper .signup-info {
+  width: 430px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  background-color: #171717;
+}
+
+.bg-wrapper .signup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 20px 30px 18px;
+  border-bottom: 2px solid #2d2e30;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.bg-wrapper .signup-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-wrapper .signup-body__container {
+  width: 300px;
+}
+
+.bg-wrapper .signup-logo {
+  margin-top: 35.02px;
+  margin-bottom: 20px;
+}
+
+.bg-wrapper .signup-body__title {
+  /* The reference shows the step-two heading on phones only. */
+  display: none;
+}
+
+.bg-wrapper .signup-btn {
+  /* The reference's submit is a block-level div filling the 300px container (its
+     live button carries `width:100%` inline); 16px at line-height 1.2 reproduces
+     the measured 43px box. */
+  width: 100%;
+  margin: 15.29px 0;
+  font-size: var(--text-base);
+  line-height: 1.2;
+}
+
+.bg-wrapper .step2 .signup-btn {
+  /* The reference's step-one Next is a div (16px, 43px box); its step-two
+     submit is a real <button>, which keeps Chrome's 13.33px form font and lands
+     on 39px. */
+  font-size: var(--text-13);
+  line-height: 1.15;
+}
+
+.bg-wrapper .pagination-wrapper {
+  display: flex;
+}
+
+.bg-wrapper .pagination-btn {
+  width: 12px;
+  height: 12px;
+  margin-right: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #b2b2b2;
+  cursor: pointer;
+}
+
+.bg-wrapper .pagination-btn.active {
+  background-color: #289d82;
+}
+
+@media (max-width: 768px) {
+  .bg-wrapper {
+    position: relative;
+    align-items: flex-start;
+    background-color: #18191a;
+  }
+
+  .bg-wrapper .card {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .bg-wrapper .card-header {
+    padding: 20px 30px 18px;
+  }
+
+  /* Phones show the back arrow and drop the desktop ×, and the pill row turns
+     into the centred select + sheet. */
+  .bg-wrapper .card-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    background: none;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .bg-wrapper .card-close,
+  .bg-wrapper .close-page {
+    display: none;
+  }
+
+  .bg-wrapper .desktop {
+    display: none;
+  }
+
+  .bg-wrapper .login-select-tab {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  .bg-wrapper .pagination-wrapper {
+    position: absolute;
+    right: 20px;
+  }
+
+  .bg-wrapper .login-form .form-group {
+    margin-bottom: 10px;
+  }
+
+  .bg-wrapper .signup-body__container .form-group {
+    margin-bottom: 12px !important;
+  }
+
+  .bg-wrapper .form-control__tips {
+    font-size: 10px;
+  }
+
+  .bg-wrapper .signup-body__title {
+    display: block;
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .bg-wrapper .signup-btn {
+    margin-top: 69px;
+    margin-bottom: 20px;
+  }
+
+  .bg-wrapper .step2 .signup-btn {
+    margin-top: 53px;
+  }
+
+  .bg-wrapper .card-title {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.19;
+  }
+
+  .bg-wrapper .card-body {
+    padding: 0 15px;
+  }
+
+  .bg-wrapper .nav-tab {
+    gap: 3.5px;
+    margin-bottom: 29px;
+  }
+
+  .bg-wrapper .nav-pill {
+    padding: 7px;
+    font-size: 12px;
+  }
+
+  .bg-wrapper .nav-pill__icon {
+    margin-right: 7px;
+  }
+
+  .bg-wrapper .form-error {
+    font-size: 12px;
+  }
+
+  .bg-wrapper .login-btn {
+    margin-bottom: 19px;
+    font-size: 12px;
+  }
+
+  .bg-wrapper .login-forget-passowrd {
+    margin-top: 18px;
+    font-size: 12px;
+  }
+
+  .bg-wrapper .login-signup-tips {
+    font-size: 12px;
+  }
+
+  .bg-wrapper .calling-code__dropdown-container {
+    font-size: 12px;
+  }
+
+  .bg-wrapper .signup-card {
+    flex-direction: column;
+  }
+
+  .bg-wrapper .signup-bg {
+    display: none;
+  }
+
+  .bg-wrapper .signup-info {
+    width: 100vw;
+  }
+
+  .bg-wrapper .signup-body__container {
+    width: 90vw;
+  }
+
+  .bg-wrapper .signup-logo {
+    margin-top: 29px;
+    margin-bottom: 26px;
   }
 }

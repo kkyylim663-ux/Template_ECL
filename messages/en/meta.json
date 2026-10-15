@@ -76,7 +76,7 @@
     "description": "How bets are settled across sports, 4D, number game and live casino."
   },
   "login": {
-    "title": "Sign in",
+    "title": "Login",
     "description": "Sign in with a username, an email address or a mobile number and OTP."
   },
   "register": {

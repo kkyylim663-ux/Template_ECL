@@ -89,10 +89,21 @@ const SESSION = 'brand_session=demo';
  */
 const RAW_KEY = /\b(common|nav|games|home|auth|account|content|meta)\.[a-z][\w]*\.[\w.]+/;
 
+/**
+ * The language probe. Most routes render the shell, so `游戏` (the menu's Games
+ * entry) proves the switch; the auth pages are shell-less by design (T38), so
+ * each uses its own card title instead.
+ */
+const ZH_PROBES: Record<string, string> = {
+  '/my/login': '登录',
+  '/my/register': '注册账号',
+  '/my/forgot-password': '重置密码',
+};
+
 for (const route of PUBLIC_ROUTES) {
   test(`${route} has no English UI copy in zh-Hans`, async ({ request }) => {
     const html = visible(await (await request.get(route, { headers: { cookie: ZH } })).text());
-    expect(html).toContain('游戏'); // the shell switched language
+    expect(html).toContain(ZH_PROBES[route] ?? '游戏');
     for (const marker of ENGLISH_MARKERS) {
       expect(html, `${route} still shows "${marker}"`).not.toContain(marker);
     }

@@ -1,11 +1,14 @@
 import { notFound } from 'next/navigation';
 import { REGION_CODES, isRegionCode } from '@/config/brand';
-import { AppShell } from '@/components/layout/AppShell';
 
 /**
  * Both markets are known up front, so the region segment is prerendered instead
  * of rendered on demand. Pages that read searchParams (the game lobbies) still
  * render dynamically, which is what filtering needs.
+ *
+ * The region guard lives here; the chrome is per route group — `(public)` and
+ * `(member)` mount the AppShell, `(auth)` renders full-screen like the
+ * reference's sign-in pages.
  */
 export function generateStaticParams() {
   return REGION_CODES.map((region) => ({ region }));
@@ -28,5 +31,5 @@ export default async function RegionLayout({
     notFound();
   }
 
-  return <AppShell region={region}>{children}</AppShell>;
+  return <>{children}</>;
 }
