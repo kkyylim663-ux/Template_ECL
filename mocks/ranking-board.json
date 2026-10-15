@@ -1,0 +1,92 @@
+{
+  "status": "0",
+  "msg": "ok",
+  "d": {
+    "prizeStructure": [
+      {
+        "rank": "Top 1",
+        "prize": "2,000"
+      },
+      {
+        "rank": "Top 2",
+        "prize": "800"
+      },
+      {
+        "rank": "Top 3",
+        "prize": "500"
+      },
+      {
+        "rank": "Top 4 - 10",
+        "prize": "100"
+      }
+    ],
+    "prizePools": {
+      "supervip": {
+        "weekly": 2000,
+        "monthly": 13000
+      },
+      "vip": {
+        "weekly": 750,
+        "monthly": 6000
+      }
+    },
+    "rules": {
+      "intro": [
+        {
+          "title": "Event Ranking",
+          "html": "This event is a turnover-based ranking competition in which eligible members compete for a position in the Top 10. Turnover from all eligible game categories will be counted, including Live Casino, Sportsbook, Esports, Slots, Fast Games, and 4D."
+        },
+        {
+          "title": "Automatic Participation",
+          "html": "All eligible members will be automatically enrolled in the event. No registration, opt-in, or additional action is required. Eligible turnover generated during the event period will automatically contribute toward the member’s ranking."
+        },
+        {
+          "title": "International Leaderboard",
+          "html": "This is an international ranking event combining eligible members from Malaysia (MY), Singapore (SG), and Vietnam (VN) on a single leaderboard. For standardized ranking and calculation purposes, all applicable local currencies will be converted and displayed in USD."
+        },
+        {
+          "title": "Turnover Calculation",
+          "html": "Eligible turnover generated across all participating game categories will be combined and accumulated during the event period. Only valid turnover will be counted toward the final ranking."
+        },
+        {
+          "title": "Super VIP Category",
+          "html": "The Super VIP ranking category is applicable to Gold and Platinum Members."
+        },
+        {
+          "title": "VIP Category",
+          "html": "The VIP ranking category is applicable to Normal, Bronze, and Silver Members."
+        },
+        {
+          "title": "Membership Category Lock",
+          "html": "A member’s ranking category will be determined based on their membership tier at the time the Weekly or Monthly event begins and will remain unchanged throughout that event period."
+        },
+        {
+          "html": "For example, if a member starts the event as a Silver Member and is subsequently upgraded to Gold during the event, the member will continue competing under the VIP Category until the current event ends. The member will be placed under the Super VIP Category starting from the next applicable event."
+        }
+      ],
+      "tnc": [
+        {
+          "title": "Event Schedules",
+          "html": "<strong>Weekly Event:</strong> Runs from Monday 12:00 AM to Sunday 11:59 PM.<br><strong>Monthly Event:</strong> Runs from 12:00 AM on the 1st of the month to 11:59 PM on the last day of the month."
+        },
+        {
+          "title": "Competition Categories",
+          "html": "<strong>Separate Leaderboards:</strong> Super VIP (Platinum + Gold) and VIP (Normal + Bronze + Silver) members will compete in <strong>separate, distinct categories</strong>.<br><strong>Independent Ranking:</strong> Prizes are awarded independently to each category based on their respective leaderboard rankings.<br><strong>Prize Pools:</strong> Each category has its own dedicated prize pool as outlined in the event details.<br><br><strong>Example (Weekly Event):</strong><br>Member A is in the Super VIP category and finishes in 1st place. Member A will receive the Super VIP 1st place weekly prize of <strong>$2,000 USD</strong>.<br>Member B is in the VIP category and also finishes in 1st place. Member B will receive the VIP 1st place weekly prize of <strong>$750 USD</strong>.<br><em>(Note: Member A and Member B are competing in different categories, so they do not compete against each other.)</em><br><br><strong>Example (Monthly Event):</strong><br>Member A (Super VIP) finishes 1st place and receives the Super VIP 1st place monthly prize of <strong>$13,000 USD</strong>.<br>Member B (VIP) finishes 1st place and receives the VIP 1st place monthly prize of <strong>$6,000 USD</strong>."
+        },
+        {
+          "title": "Prize Crediting",
+          "html": "All prizes will be automatically credited to the winners’ <strong>Main Wallet</strong> within one (1) day after the event ends. No manual claim is required."
+        },
+        {
+          "title": "Prize Turnover Requirement",
+          "html": "All prizes credited from this event are subject to a <strong>x1 turnover requirement</strong> before the prize amount is eligible for withdrawal."
+        },
+        {
+          "title": "Fraudulent or Abusive Activity",
+          "html": "We reserve the right to withhold, cancel, or forfeit any prize if a member is found to have engaged in fraudulent, abusive, or collusive behavior, or other activities intended to manipulate the event, turnover, or leaderboard results."
+        }
+      ]
+    },
+    "refreshMinutes": 5
+  }
+}

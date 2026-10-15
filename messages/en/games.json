@@ -68,23 +68,28 @@
     "esportsIntro": "Launching shows a VPN notice — no tournament page is entered in this build."
   },
   "fourD": {
-    "latest": "Latest {count} draws",
-    "rulesTitle": "4D rules",
-    "rules": "Placeholder rules: four draws a week, pick a 4-digit number and a bet type, prize tiers First, Second and Third.",
-    "col": {
-      "draw": "Draw",
-      "date": "Date",
-      "first": "First",
-      "second": "Second",
-      "third": "Third"
-    },
-    "playDraw": "Play this draw",
-    "archiveBefore": "Historical results go back further than shown here.",
-    "archiveLink": "See the full archive",
-    "archiveAfter": "· entries are disabled in this build."
+    "title": "4D Lottery",
+    "payout": "Payout",
+    "result": "4D Result",
+    "betNow": "Bet Now",
+    "prize1": "1st Prize",
+    "prize2": "2nd Prize",
+    "prize3": "3rd Prize",
+    "special": "Special",
+    "consolation": "Consolation",
+    "tabs": "Lottery operators",
+    "rulesTitle": "4D rules"
   },
   "numberGame": {
-    "round": "Round {round} · drawn {time} (+08:00)",
+    "round": "Round {round}",
+    "tab": {
+      "current": "Current",
+      "past": "Past",
+      "myRecord": "My Record",
+      "allPrediction": "All prediction"
+    },
+    "live": "Live",
+    "tabs": "Number game filters",
     "rulesTitle": "Number game rules",
     "rules": "Placeholder rules: six numbers are drawn from 1 to 49 every five minutes; match three or more to win a tier.",
     "latest": "Latest draw",
@@ -98,33 +103,71 @@
     }
   },
   "prediction": {
-    "summary": "Free entry · {count} fixtures this week",
+    "summary": "{count} fixtures · free entry",
     "rulesTitle": "Prediction rules",
     "rules": "Placeholder rules: predictions are free; each correct pick earns points that place you on the monthly board.",
-    "leagues": "Leagues",
     "vs": "vs",
     "optionAria": "{home} vs {away}: {option}",
-    "enter": "Enter this week's free prediction"
+    "enter": "Enter prediction",
+    "free": "Free",
+    "prizePool": "Prize pool",
+    "entry": "Entry",
+    "ended": "Ended",
+    "tab": {
+      "all": "All",
+      "activeUpcoming": "Active & Upcoming",
+      "active": "Active",
+      "upcoming": "Upcoming",
+      "ended": "Ended"
+    },
+    "tabs": "Prediction filters"
   },
   "ranking": {
     "title": "Ranking board",
-    "unavailable": "This board is not available in the demo data.",
-    "summary": "{board} · turnover race · updated {time} (+08:00)",
-    "note": "Snapshot data — the reference build streams this board live.",
-    "boards": "Boards",
+    "periods": "Ranking period",
+    "tiers": "Membership tier",
+    "dates": "Ranking dates",
+    "myRanking": "My Current Ranking",
+    "turnoverWeekly": "Turnover Amount ({period})",
+    "top10": "Top 10 Leaderboard",
+    "live": "Live",
     "col": {
-      "rank": "Rank",
-      "player": "Player",
-      "turnover": "Turnover",
-      "prize": "Prize"
+      "no": "No.",
+      "nickname": "Nickname",
+      "region": "Region",
+      "turnoverUsd": "Turnover (USD)",
+      "rankLabel": "Rank",
+      "prizeUsd": "Prize (USD)"
     },
-    "footnote": "Names are masked on purpose. Prizes are credited within 48 hours of a board closing.",
+    "empty": "No Data",
+    "latestUpdated": "Latest Updated : {time}",
+    "updateEvery": "Result Updates every {minutes} minutes",
+    "prizeStructure": "Prize Structure",
+    "personalTitle": "My Current Ranking",
+    "score": "USD {amount}",
+    "approx": "≈ MYR {amount}",
+    "rule": {
+      "introduction": "Introduction",
+      "tnc": "Term and Conditions"
+    },
+    "period": {
+      "weekly": "Weekly",
+      "monthly": "Monthly"
+    },
+    "tier": {
+      "supervip": "Super VIP",
+      "vip": "VIP"
+    },
+    "date": {
+      "current": "Current",
+      "lastweek": "Last week"
+    },
     "board": {
       "weekly": "Weekly",
       "monthly": "Monthly",
       "supervip": "Super VIP",
       "vip": "VIP",
-      "live": "Current LIVE",
+      "live": "Current",
       "lastweek": "Last week"
     }
   },

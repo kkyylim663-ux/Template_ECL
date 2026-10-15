@@ -12,6 +12,10 @@ export const ENDPOINTS = {
   webEvent: 'getWebEvent',
   /** Project-specific: one payload for the display-only pages (4D, number game, prediction). */
   displayPage: 'getDisplayPage',
+  /** Project-specific: 4D payout tables and the seven lottery result books. */
+  lotteryResults: 'getLotteryResults',
+  /** Project-specific: ranking-board prize structure and the two rule accordions. */
+  rankingContent: 'getRankingContent',
   /** Content pages. Project-specific names; P2 maps them onto the live service. */
   promotionDetail: 'getPromotionDetail',
   updateList: 'getUpdateList',

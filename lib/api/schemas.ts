@@ -272,15 +272,20 @@ export const numberGameSchema = drawnRoundSchema.extend({
 export type NumberGame = z.infer<typeof numberGameSchema>;
 
 export const PREDICTION_LEAGUES = ['NBA', 'FIFA', 'UEFA'] as const;
+/** The five tabs on the prediction page filter on this, in the reference's order. */
+export const PREDICTION_STATUSES = ['active', 'upcoming', 'ended'] as const;
 export const predictionFixtureSchema = z.object({
   id: z.string(),
   league: z.enum(PREDICTION_LEAGUES),
+  status: z.enum(PREDICTION_STATUSES),
   home: z.string(),
   away: z.string(),
   startsAt: z.string(),
+  prizePoolMinor: z.number().int().min(0),
   options: z.array(z.object({ id: z.string(), label: z.string(), odds: z.number() })),
 });
 export type PredictionFixture = z.infer<typeof predictionFixtureSchema>;
+export type PredictionStatus = (typeof PREDICTION_STATUSES)[number];
 
 export const displayPayloadSchema = z.object({
   providersByCategory: categoryProviderMapSchema,
@@ -299,6 +304,58 @@ export const displayPayloadSchema = z.object({
 export type DisplayPayload = z.infer<typeof displayPayloadSchema>;
 export type VpnDemo = DisplayPayload['vpnDemo'];
 
+/* ------------------------------------------------------------------- 4D */
+
+export const lotteryBookSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  date: z.string(),
+  first: z.string(),
+  second: z.string(),
+  third: z.string(),
+  /** Ten 4-digit numbers under Special, ten under Consolation. */
+  special: z.array(z.string()),
+  consolation: z.array(z.string()),
+});
+export type LotteryBook = z.infer<typeof lotteryBookSchema>;
+
+export const lotteryPayoutSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  desc: z.string(),
+  head: z.array(z.string()),
+  rows: z.array(z.object({ label: z.string(), amount: z.string() })),
+});
+export type LotteryPayout = z.infer<typeof lotteryPayoutSchema>;
+
+export const lotteryResultsSchema = z.object({
+  payout: z.array(lotteryPayoutSchema),
+  books: z.array(lotteryBookSchema),
+  rules: z.object({
+    items: z.array(z.object({ title: z.string().optional(), body: z.string() })),
+  }),
+});
+export type LotteryResults = z.infer<typeof lotteryResultsSchema>;
+
+/* -------------------------------------------------------- ranking board */
+
+/**
+ * Rule prose keeps its inline markup (`<strong>` / `<em>` / `<br>`) exactly as
+ * the reference renders it. The value comes from `mocks/ranking-board.json`, a
+ * local import with no user input anywhere in the path; the page injects it with
+ * `dangerouslySetInnerHTML`.
+ */
+export const rankingContentSchema = z.object({
+  prizeStructure: z.array(z.object({ rank: z.string(), prize: z.string() })),
+  prizePools: z.record(z.string(), z.object({ weekly: z.number(), monthly: z.number() })),
+  rules: z.object({
+    intro: z.array(z.object({ title: z.string().optional(), html: z.string() })),
+    tnc: z.array(z.object({ title: z.string().optional(), html: z.string() })),
+  }),
+  refreshMinutes: z.number().int(),
+});
+export type RankingContent = z.infer<typeof rankingContentSchema>;
+
 /* ------------------------------------------------------------------ campaigns */
 
 export const LEADERBOARD_KINDS = ['weekly', 'monthly', 'supervip', 'vip', 'live', 'lastweek'] as const;
@@ -309,6 +366,8 @@ export const leaderboardRowSchema = z.object({
   rank: z.number().int().min(1),
   /** Always masked: the public board never shows a full username. */
   displayName: z.string(),
+  /** Market the member plays from — the board's third column (`.rb-table`). */
+  region: z.enum(['MY', 'SG', 'VN']),
   turnoverMinor: z.number().int().min(0),
   prizeMinor: z.number().int().min(0),
 });

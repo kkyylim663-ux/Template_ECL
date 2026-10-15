@@ -4,9 +4,11 @@ import {
   LEADERBOARD_KINDS,
   homeBettingSchema,
   leaderboardMapSchema,
+  rankingContentSchema,
   type HomeBetting,
   type Leaderboard,
   type LeaderboardKind,
+  type RankingContent,
 } from './schemas';
 
 /** The six boards the ranking page switches between, in display order. */
@@ -35,4 +37,13 @@ export async function getLeaderboard(kind: string): Promise<Leaderboard | null> 
 export async function getHomeBetting(): Promise<HomeBetting> {
   const { d } = await callApi(ENDPOINTS.homeBetting);
   return homeBettingSchema.parse(d);
+}
+
+/**
+ * Ranking-board chrome that is not part of a board itself: the prize structure,
+ * the per-category prize pools and the two rule accordions.
+ */
+export async function getRankingContent(): Promise<RankingContent> {
+  const { d } = await callApi(ENDPOINTS.rankingContent);
+  return rankingContentSchema.parse(d);
 }

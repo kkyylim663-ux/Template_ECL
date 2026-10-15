@@ -19,8 +19,10 @@ import display from './display.json';
 import faq from './faq.json';
 import homeBetting from './home-betting.json';
 import leaderboards from './leaderboards.json';
+import lotteryResults from './lottery-results.json';
 import pages from './pages.json';
 import promotions from './promotions.json';
+import rankingBoard from './ranking-board.json';
 import sponsor from './sponsor.json';
 import updates from './updates.json';
 import vip from './vip.json';
@@ -42,6 +44,8 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.announcement]: () => announcements.d,
   [ENDPOINTS.displayPromo]: () => promotions.d,
   [ENDPOINTS.displayPage]: () => display.d,
+  [ENDPOINTS.lotteryResults]: () => lotteryResults.d,
+  [ENDPOINTS.rankingContent]: () => rankingBoard.d,
   [ENDPOINTS.leaderboard]: () => leaderboards.d,
   [ENDPOINTS.homeBetting]: () => homeBetting.d,
   [ENDPOINTS.account]: () => account.d,

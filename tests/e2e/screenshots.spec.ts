@@ -37,6 +37,35 @@ test.describe('desktop screenshots', () => {
   });
 });
 
+/** T35: the four event pages, desktop and mobile, for the final review. */
+test.describe('event screenshots (T35)', () => {
+  const SHOTS = 'C:/Users/senheng/Desktop/Claude Code/Clone web ECL/site/_scratch/shots';
+
+  const ROUTES = [
+    ['/my/4d', '4d'],
+    ['/my/numbergame', 'numbergame'],
+    ['/my/prediction', 'prediction'],
+    ['/my/ranking-board', 'ranking'],
+  ] as const;
+
+  test('desktop at 1440x900', async ({ page }) => {
+    for (const [route, name] of ROUTES) {
+      await page.goto(route);
+      await expect(page.locator('main')).toBeVisible();
+      await page.screenshot({ path: `${SHOTS}/t35-desktop-${name}.png`, fullPage: true });
+    }
+  });
+
+  test('mobile at 375x812', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    for (const [route, name] of ROUTES) {
+      await page.goto(route);
+      await expect(page.locator('main')).toBeVisible();
+      await page.screenshot({ path: `${SHOTS}/t35-mobile-${name}.png`, fullPage: true });
+    }
+  });
+});
+
 /** T28: the content pages, desktop and mobile, for the final review. */
 test.describe('content screenshots (T28)', () => {
   const SHOTS = 'C:/Users/senheng/Desktop/Claude Code/Clone web ECL/site/_scratch/shots';

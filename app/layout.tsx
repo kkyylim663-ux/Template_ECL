@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans, Rubik } from 'next/font/google';
+import { Noto_Sans, Roboto, Rubik } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
 import { siteUrl } from '@/lib/seo';
@@ -29,6 +29,17 @@ const noto = Noto_Sans({
   subsets: ['latin'],
   weight: ['400', '600'],
   variable: '--font-noto',
+  display: 'swap',
+});
+
+/**
+ * The 4D result cards only (`crawl/css` pins Roboto on `.lottery-result__*`).
+ * Loaded alongside Rubik so the six-digit grids keep the reference's digits.
+ */
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-roboto',
   display: 'swap',
 });
 
@@ -75,7 +86,10 @@ export default async function RootLayout({
   const { locale, messages } = await getShell();
 
   return (
-    <html lang={locale} className={`${rubik.variable} ${noto.variable} motion-safe:scroll-smooth`}>
+    <html
+      lang={locale}
+      className={`${rubik.variable} ${noto.variable} ${roboto.variable} motion-safe:scroll-smooth`}
+    >
       <body className="bg-surface text-ink font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: FS_FIX_SCRIPT }} />
         <IconSprite only={SHELL_ICON_NAMES} />

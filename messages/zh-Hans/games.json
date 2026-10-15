@@ -68,23 +68,28 @@
     "esportsIntro": "点击进入会弹出 VPN 提示 — 此版本不进入赛事页。"
   },
   "fourD": {
-    "latest": "最近 {count} 期开奖",
-    "rulesTitle": "4D 规则",
-    "rules": "占位规则:每周四次开奖,选择 4 位数号码与投注类型,奖项分为第一、第二、第三奖。",
-    "col": {
-      "draw": "期号",
-      "date": "日期",
-      "first": "第一奖",
-      "second": "第二奖",
-      "third": "第三奖"
-    },
-    "playDraw": "投注此期",
-    "archiveBefore": "历史开奖比此处显示的更早。",
-    "archiveLink": "查看完整归档",
-    "archiveAfter": "· 此版本不支持投注。"
+    "title": "4D 彩票",
+    "payout": "派彩表",
+    "result": "4D 开奖结果",
+    "betNow": "立即投注",
+    "prize1": "第一奖",
+    "prize2": "第二奖",
+    "prize3": "第三奖",
+    "special": "特别奖",
+    "consolation": "安慰奖",
+    "tabs": "彩票公司",
+    "rulesTitle": "4D 规则"
   },
   "numberGame": {
-    "round": "第 {round} 期 · 开奖 {time} (+08:00)",
+    "round": "第 {round} 期",
+    "tab": {
+      "current": "当前",
+      "past": "往期",
+      "myRecord": "我的记录",
+      "allPrediction": "全部预测"
+    },
+    "live": "进行中",
+    "tabs": "数字游戏筛选",
     "rulesTitle": "数字游戏规则",
     "rules": "占位规则:每 5 分钟从 1 到 49 开出六个号码,命中三个及以上可获奖。",
     "latest": "最新一期",
@@ -98,33 +103,71 @@
     }
   },
   "prediction": {
-    "summary": "免费参与 · 本周 {count} 场",
+    "summary": "{count} 场比赛 · 免费参与",
     "rulesTitle": "预测规则",
     "rules": "占位规则:预测免费,每猜中一场获得积分,计入月度排行榜。",
-    "leagues": "联赛",
     "vs": "对阵",
     "optionAria": "{home} 对 {away}:{option}",
-    "enter": "参加本周免费预测"
+    "enter": "参加预测",
+    "free": "免费",
+    "prizePool": "奖池",
+    "entry": "报名费",
+    "ended": "已结束",
+    "tab": {
+      "all": "全部",
+      "activeUpcoming": "进行中与即将开始",
+      "active": "进行中",
+      "upcoming": "即将开始",
+      "ended": "已结束"
+    },
+    "tabs": "预测筛选"
   },
   "ranking": {
     "title": "排行榜",
-    "unavailable": "演示数据中没有此榜单。",
-    "summary": "{board} · 流水竞赛 · 更新于 {time} (+08:00)",
-    "note": "快照数据 — 参考站为实时推送。",
-    "boards": "榜单",
+    "periods": "榜单周期",
+    "tiers": "会员等级",
+    "dates": "榜单日期",
+    "myRanking": "我的当前排名",
+    "turnoverWeekly": "流水金额({period})",
+    "top10": "前十排行榜",
+    "live": "进行中",
     "col": {
-      "rank": "排名",
-      "player": "玩家",
-      "turnover": "流水",
-      "prize": "奖金"
+      "no": "序号",
+      "nickname": "昵称",
+      "region": "地区",
+      "turnoverUsd": "流水(USD)",
+      "rankLabel": "名次",
+      "prizeUsd": "奖金(USD)"
     },
-    "footnote": "昵称已做遮蔽处理。奖金在榜单结束后 48 小时内发放。",
+    "empty": "暂无数据",
+    "latestUpdated": "最近更新:{time}",
+    "updateEvery": "结果每 {minutes} 分钟更新一次",
+    "prizeStructure": "奖金结构",
+    "personalTitle": "我的当前排名",
+    "score": "USD {amount}",
+    "approx": "≈ MYR {amount}",
+    "rule": {
+      "introduction": "活动介绍",
+      "tnc": "条款与条件"
+    },
+    "period": {
+      "weekly": "每周",
+      "monthly": "每月"
+    },
+    "tier": {
+      "supervip": "超级 VIP",
+      "vip": "VIP"
+    },
+    "date": {
+      "current": "当前",
+      "lastweek": "上周"
+    },
     "board": {
       "weekly": "每周榜",
       "monthly": "每月榜",
       "supervip": "超级 VIP",
       "vip": "VIP",
-      "live": "即时榜",
+      "live": "当前榜",
       "lastweek": "上周榜"
     }
   },

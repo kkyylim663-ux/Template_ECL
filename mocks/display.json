@@ -162,7 +162,9 @@
             "label": "Away",
             "odds": 1.95
           }
-        ]
+        ],
+        "status": "active",
+        "prizePoolMinor": 250000
       },
       {
         "id": "fx-nba-2",
@@ -181,7 +183,9 @@
             "label": "Away",
             "odds": 1.72
           }
-        ]
+        ],
+        "status": "upcoming",
+        "prizePoolMinor": 250000
       },
       {
         "id": "fx-fifa-1",
@@ -205,7 +209,9 @@
             "label": "Away",
             "odds": 4.2
           }
-        ]
+        ],
+        "status": "active",
+        "prizePoolMinor": 400000
       },
       {
         "id": "fx-fifa-2",
@@ -229,7 +235,9 @@
             "label": "Away",
             "odds": 2.9
           }
-        ]
+        ],
+        "status": "upcoming",
+        "prizePoolMinor": 400000
       },
       {
         "id": "fx-uefa-1",
@@ -253,7 +261,9 @@
             "label": "Away",
             "odds": 5.5
           }
-        ]
+        ],
+        "status": "ended",
+        "prizePoolMinor": 300000
       },
       {
         "id": "fx-uefa-2",
@@ -277,7 +287,9 @@
             "label": "Away",
             "odds": 3.7
           }
-        ]
+        ],
+        "status": "upcoming",
+        "prizePoolMinor": 300000
       }
     ],
     "newProviders": {

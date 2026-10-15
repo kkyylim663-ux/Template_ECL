@@ -1,0 +1,304 @@
+{
+  "status": "0",
+  "msg": "ok",
+  "d": {
+    "payout": [
+      {
+        "id": "big",
+        "title": "Prize money for Big Forecast",
+        "desc": "For this Forecast, as shown in the table below, with every $1 bet, the 1st Prize pays $2,500, 2nd Prize $1,000, 3rd Prize $500, Special Prize $200 and Consolation Prize $60.",
+        "head": [
+          "Big Forecast",
+          "Prize Amount"
+        ],
+        "rows": [
+          {
+            "label": "1st Prize",
+            "amount": "$ 2,500.00"
+          },
+          {
+            "label": "2nd Prize",
+            "amount": "$ 1,000.00"
+          },
+          {
+            "label": "3rd Prize",
+            "amount": "$ 500.00"
+          },
+          {
+            "label": "Special",
+            "amount": "$ 200.00"
+          },
+          {
+            "label": "Consolation",
+            "amount": "$ 60.00"
+          }
+        ]
+      },
+      {
+        "id": "small",
+        "title": "Prize money for Small Forecast",
+        "desc": "For this Forecast, as shown in the table below, with every $1 bet, the 1st Prize pays $3,500, 2nd Prize $2,000, 3rd Prize $1,000.",
+        "head": [
+          "Small Forecast",
+          "Prize Amount"
+        ],
+        "rows": [
+          {
+            "label": "1st Prize",
+            "amount": "$ 3,500.00"
+          },
+          {
+            "label": "2nd Prize",
+            "amount": "$ 2,000.00"
+          },
+          {
+            "label": "3rd Prize",
+            "amount": "$ 1,000.00"
+          }
+        ]
+      }
+    ],
+    "books": [
+      {
+        "id": "magnum",
+        "name": "Magnum - 4D",
+        "date": "2026-10-11",
+        "first": "6319",
+        "second": "5321",
+        "third": "3186",
+        "special": [
+          "0316",
+          "1012",
+          "1339",
+          "2263",
+          "3775",
+          "6114",
+          "6225",
+          "6709",
+          "7786",
+          "9757"
+        ],
+        "consolation": [
+          "0365",
+          "0513",
+          "0955",
+          "1371",
+          "4432",
+          "4601",
+          "5576",
+          "6575",
+          "7507",
+          "9840"
+        ]
+      },
+      {
+        "id": "toto",
+        "name": "Sports Toto",
+        "date": "2026-10-11",
+        "first": "2224",
+        "second": "2149",
+        "third": "3561",
+        "special": [
+          "0253",
+          "0288",
+          "1512",
+          "2017",
+          "2962",
+          "5314",
+          "6514",
+          "6951",
+          "7072",
+          "9089"
+        ],
+        "consolation": [
+          "0214",
+          "0293",
+          "2975",
+          "3132",
+          "3711",
+          "3841",
+          "4640",
+          "7118",
+          "8603",
+          "9696"
+        ]
+      },
+      {
+        "id": "damacai",
+        "name": "Damacai 1+3D",
+        "date": "2026-10-11",
+        "first": "7952",
+        "second": "4847",
+        "third": "9772",
+        "special": [
+          "1917",
+          "2464",
+          "3619",
+          "4396",
+          "7148",
+          "7208",
+          "7877",
+          "8680",
+          "9420",
+          "9424"
+        ],
+        "consolation": [
+          "1738",
+          "3366",
+          "5562",
+          "5759",
+          "6299",
+          "6329",
+          "6536",
+          "8721",
+          "9700",
+          "9919"
+        ]
+      },
+      {
+        "id": "singapore",
+        "name": "Singapore 4D",
+        "date": "2026-10-11",
+        "first": "2588",
+        "second": "7397",
+        "third": "3443",
+        "special": [
+          "0450",
+          "0586",
+          "0722",
+          "0824",
+          "1430",
+          "3836",
+          "5954",
+          "6962",
+          "7071",
+          "8367"
+        ],
+        "consolation": [
+          "1433",
+          "2122",
+          "4091",
+          "4112",
+          "4537",
+          "5510",
+          "6141",
+          "8575",
+          "8637",
+          "9928"
+        ]
+      },
+      {
+        "id": "sabah",
+        "name": "Sabah 88",
+        "date": "2026-10-11",
+        "first": "0686",
+        "second": "9917",
+        "third": "9926",
+        "special": [
+          "0716",
+          "1418",
+          "2490",
+          "4443",
+          "5457",
+          "6250",
+          "6638",
+          "7204",
+          "7985",
+          "8151"
+        ],
+        "consolation": [
+          "1460",
+          "1703",
+          "3123",
+          "4765",
+          "4888",
+          "6114",
+          "6228",
+          "7425",
+          "8535",
+          "9411"
+        ]
+      },
+      {
+        "id": "sandakan",
+        "name": "4STC 4D",
+        "date": "2026-10-11",
+        "first": "7846",
+        "second": "1749",
+        "third": "3445",
+        "special": [
+          "1642",
+          "2150",
+          "2653",
+          "4433",
+          "5449",
+          "6569",
+          "8034",
+          "8177",
+          "9245",
+          "9712"
+        ],
+        "consolation": [
+          "1616",
+          "2409",
+          "4495",
+          "5359",
+          "6193",
+          "6838",
+          "6845",
+          "7828",
+          "8752",
+          "9208"
+        ]
+      },
+      {
+        "id": "cashsweep",
+        "name": "Cash Sweep",
+        "date": "2026-10-11",
+        "first": "1666",
+        "second": "3348",
+        "third": "3647",
+        "special": [
+          "0076",
+          "1707",
+          "2750",
+          "2854",
+          "6032",
+          "6963",
+          "8645",
+          "9614",
+          "9712",
+          "9863"
+        ],
+        "consolation": [
+          "0707",
+          "1665",
+          "2626",
+          "2730",
+          "2831",
+          "3437",
+          "4610",
+          "6547",
+          "6756",
+          "8079"
+        ]
+      }
+    ],
+    "rules": {
+      "items": [
+        {
+          "title": "How to play",
+          "body": "Pick a 4-digit number and a bet type for the next draw. Big Forecast covers the 1st, 2nd, 3rd, Special and Consolation prizes; Small Forecast covers the 1st, 2nd and 3rd prizes only. Stakes start from $1 per number."
+        },
+        {
+          "title": "Draws",
+          "body": "Magnum, Sports Toto and Damacai draw every Wednesday, Saturday and Sunday. Singapore 4D draws on Wednesday, Saturday and Sunday. Sabah 88, Sandakan 4D and Cash Sweep draw on Wednesday and Sunday."
+        },
+        {
+          "title": "Prize crediting",
+          "body": "Winnings are credited to the main wallet within one hour of the official result being published, with no turnover requirement on the prize amount."
+        }
+      ]
+    }
+  }
+}

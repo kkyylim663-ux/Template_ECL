@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { getDisplayPayload } from '@/lib/api';
-import { LaunchButton } from '@/components/game/LaunchButton';
-import { RulesButton } from '@/components/ui/RulesButton';
+import { getLotteryResults } from '@/lib/api';
+import { InfoRule } from '@/components/event/InfoRule';
+import { LotteryResultCards } from '@/components/event/LotteryResultCards';
 import { InertLink } from '@/components/ui/InertLink';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
@@ -16,61 +16,92 @@ export async function generateMetadata({
   return pageMetadata('game4d', { region, path: '/4d' });
 }
 
-export default async function FourDPage() {
-  const [{ t }, { fourD }] = await Promise.all([getT('games'), getDisplayPayload()]);
+/**
+ * 4D, in the reference build's order (`crawl/pages/my_4d.html`): banner,
+ * `form-title` with the page icon, then `.lottery-wrapper` holding the Payout
+ * pair of tables, the seven operator result cards and the rule panel. `?book=`
+ * picks which card the mobile tab strip shows; on desktop all seven stay up.
+ */
+export default async function FourDPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ region: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const { region } = await params;
+  const query = await searchParams;
+  const [{ t }, lottery] = await Promise.all([getT('games'), getLotteryResults()]);
+
+  const requested = typeof query.book === 'string' ? query.book : '';
+  const activeId =
+    lottery.books.find((book) => book.id === requested)?.id ?? lottery.books[0]?.id ?? '';
 
   return (
     <IntlScope namespaces={['games']}>
       <div>
-        <header className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h1 className="text-ink text-xl font-semibold">{t('category.game4d')}</h1>
-            <p className="text-muted mt-1 text-xs">{t('fourD.latest', { count: fourD.length })}</p>
+        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder h-40 max-desktop:h-28" />
+
+        <h1 className="page-title has-space">
+          <span aria-hidden className="page-title__icon game-placeholder" />
+          {t('fourD.title')}
+        </h1>
+
+        <div className="lottery-wrapper">
+          <div className="lottery-header">
+            <h2 className="section-title">{t('fourD.payout')}</h2>
+            <InertLink className="btn btn-primary">{t('fourD.betNow')}</InertLink>
           </div>
-          <RulesButton title={t('fourD.rulesTitle')} body={t('fourD.rules')} />
-        </header>
 
-        <div className="border-line bg-panel mt-5 overflow-hidden rounded-[var(--radius-panel)] border">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-panel-alt text-muted text-11 tracking-wide uppercase">
-              <tr>
-                <th className="px-4 py-3">{t('fourD.col.draw')}</th>
-                <th className="px-4 py-3">{t('fourD.col.date')}</th>
-                <th className="px-4 py-3">{t('fourD.col.first')}</th>
-                <th className="px-4 py-3">{t('fourD.col.second')}</th>
-                <th className="px-4 py-3">{t('fourD.col.third')}</th>
-                <th className="px-4 py-3" />
-              </tr>
-            </thead>
-            <tbody>
-              {fourD.map((draw) => (
-                <tr key={draw.draw} className="border-line border-t">
-                  <td className="text-ink px-4 py-3 font-medium">#{draw.draw}</td>
-                  <td className="text-muted px-4 py-3">{draw.date}</td>
-                  <td className="text-accent px-4 py-3 font-mono font-semibold tracking-widest">
-                    {draw.first}
-                  </td>
-                  <td className="text-ink px-4 py-3 font-mono tracking-widest">{draw.second}</td>
-                  <td className="text-ink px-4 py-3 font-mono tracking-widest">{draw.third}</td>
-                  <td className="px-4 py-3">
-                    <LaunchButton
-                      provider="4d"
-                      gameId={draw.draw}
-                      label={t('fourD.playDraw')}
-                      variant="secondary"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="lottery-info">
+            {lottery.payout.map((table) => (
+              <div key={table.id} className="lottery-info__card">
+                <div className="lottery-info__title">{table.title}</div>
+                <p className={`lottery-info__desc desc-${table.id === 'big' ? '1' : '2'}`}>
+                  {table.desc}
+                </p>
+                <table
+                  className={`table-theme lottery-info__table-${table.id === 'big' ? '1' : '2'}`}
+                >
+                  <thead>
+                    <tr>
+                      <th>{table.head[0]}</th>
+                      <th>{table.head[1]}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {table.rows.map((row) => (
+                      <tr key={row.label}>
+                        <td>{row.label}</td>
+                        <td>{row.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+          </div>
+
+          <h2 className="section-title">{t('fourD.result')}</h2>
+          <LotteryResultCards books={lottery.books} region={region} activeId={activeId} />
+
+          <div className="has-space w-90">
+            <div className="info-rule__wrapper">
+              <InfoRule title={t('fourD.rulesTitle')}>
+                <ul className="info-rule__list">
+                  {lottery.rules.items.map((item) => (
+                    <li key={item.title ?? item.body}>
+                      {item.title ? (
+                        <div className="info-rule__item-title">{item.title}</div>
+                      ) : null}
+                      <p>{item.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </InfoRule>
+            </div>
+          </div>
         </div>
-
-        <p className="text-muted mt-4 text-xs">
-          {t('fourD.archiveBefore')}{' '}
-          <InertLink className="text-accent hover:underline">{t('fourD.archiveLink')}</InertLink>{' '}
-          {t('fourD.archiveAfter')}
-        </p>
       </div>
     </IntlScope>
   );

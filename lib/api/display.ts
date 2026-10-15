@@ -1,6 +1,12 @@
 import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
-import { displayPayloadSchema, type DisplayPayload, type VpnDemo } from './schemas';
+import {
+  displayPayloadSchema,
+  lotteryResultsSchema,
+  type DisplayPayload,
+  type LotteryResults,
+  type VpnDemo,
+} from './schemas';
 
 /**
  * Payload behind the display-only game pages (4D results, number game, prediction)
@@ -34,4 +40,14 @@ export async function getCategoryProviderCards(
 export async function getVpnDemo(): Promise<VpnDemo> {
   const payload = await getDisplayPayload();
   return payload.vpnDemo;
+}
+
+/**
+ * 4D page data: the two payout tables, the seven lottery result books and the
+ * rules accordion. The reference streams this after hydration; the values here
+ * are the ones its snapshot was rendering.
+ */
+export async function getLotteryResults(): Promise<LotteryResults> {
+  const { d } = await callApi(ENDPOINTS.lotteryResults);
+  return lotteryResultsSchema.parse(d);
 }

@@ -73,22 +73,36 @@ test.describe('game browsing flow', () => {
     await expect(page.locator('[role=dialog]')).toHaveCount(0);
   });
 
-  test('4D shows draw results and a rules dialog', async ({ page }) => {
+  test('4D shows the seven operator cards and opens its rules panel', async ({ page }) => {
     await page.goto('/my/4d');
-    await expect(page.getByText('4471')).toBeVisible();
-    await page.click('text=Rules & regulations');
-    await expect(page.locator('[role=dialog]')).toContainText('4D');
-    await page.keyboard.press('Escape');
-    await expect(page.locator('[role=dialog]')).toHaveCount(0);
+
+    // Seven cards, each carrying its own 1st/2nd/3rd prize line.
+    const cards = page.locator('.lottery-result__card');
+    await expect(cards).toHaveCount(7);
+    await expect(cards.first()).toContainText('Magnum - 4D');
+    await expect(cards.first()).toContainText('6319');
+
+    // The rule panel is a `<details>`: closed until its header is clicked.
+    const content = page.locator('.info-rule__content');
+    await expect(content).toBeHidden();
+    await page.click('.info-rule__header');
+    await expect(content).toBeVisible();
+    await expect(content).toContainText('Big Forecast');
   });
 
-  test('ranking board switches all six boards', async ({ page }) => {
+  test('ranking board: each of the six buttons selects its board', async ({ page }) => {
     await page.goto('/my/ranking-board');
-    for (const label of ['Monthly', 'Super VIP', 'VIP', 'Current LIVE', 'Last week', 'Weekly']) {
-      await page.click(`nav[aria-label="Boards"] a:text-is("${label}")`);
-      await expect(page.locator('header p').first()).toContainText(label);
-      await expect(page.locator('tbody tr')).toHaveCount(10);
+
+    for (const kind of ['monthly', 'supervip', 'vip', 'live', 'lastweek', 'weekly']) {
+      const button = page.locator(`.rb-board a[href*="board=${kind}"]`);
+      await button.click();
+      await expect(button).toHaveClass(/is-selected/);
+      await expect(page.locator('.rb-table tbody tr')).toHaveCount(10);
     }
+
+    // The period button also drives the summary line above the table.
+    await page.click('.rb-board a[href*="board=monthly"]');
+    await expect(page.locator('.rb-stat').nth(1)).toContainText('Monthly');
   });
 
   test('home page links all resolve or are inert', async ({ page }) => {

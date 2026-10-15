@@ -68,23 +68,28 @@
     "esportsIntro": "Nhấn vào sẽ hiện thông báo VPN — bản này không vào giải đấu."
   },
   "fourD": {
-    "latest": "{count} kỳ gần nhất",
-    "rulesTitle": "Luật 4D",
-    "rules": "Luật minh hoạ: bốn kỳ mỗi tuần, chọn số 4 chữ số và loại cược, giải Nhất, Nhì, Ba.",
-    "col": {
-      "draw": "Kỳ",
-      "date": "Ngày",
-      "first": "Giải nhất",
-      "second": "Giải nhì",
-      "third": "Giải ba"
-    },
-    "playDraw": "Cược kỳ này",
-    "archiveBefore": "Kết quả cũ còn xa hơn mức hiển thị.",
-    "archiveLink": "Xem toàn bộ lưu trữ",
-    "archiveAfter": "· bản này không nhận dự đoán."
+    "title": "Xổ số 4D",
+    "payout": "Bảng trả thưởng",
+    "result": "Kết quả 4D",
+    "betNow": "Cược ngay",
+    "prize1": "Giải nhất",
+    "prize2": "Giải nhì",
+    "prize3": "Giải ba",
+    "special": "Đặc biệt",
+    "consolation": "Khuyến khích",
+    "tabs": "Nhà xổ số",
+    "rulesTitle": "Luật 4D"
   },
   "numberGame": {
-    "round": "Kỳ {round} · quay {time} (+08:00)",
+    "round": "Kỳ {round}",
+    "tab": {
+      "current": "Hiện tại",
+      "past": "Đã qua",
+      "myRecord": "Lịch sử của tôi",
+      "allPrediction": "Tất cả dự đoán"
+    },
+    "live": "Live",
+    "tabs": "Bộ lọc game số",
     "rulesTitle": "Luật game số",
     "rules": "Luật minh hoạ: sáu số từ 1–49 mỗi 5 phút; trúng từ ba số trở lên có thưởng.",
     "latest": "Kỳ mới nhất",
@@ -98,33 +103,71 @@
     }
   },
   "prediction": {
-    "summary": "Miễn phí · {count} trận tuần này",
+    "summary": "{count} trận · miễn phí",
     "rulesTitle": "Luật dự đoán",
     "rules": "Luật minh hoạ: dự đoán miễn phí; mỗi lựa chọn đúng được điểm xếp hạng tháng.",
-    "leagues": "Giải đấu",
     "vs": "vs",
     "optionAria": "{home} vs {away}: {option}",
-    "enter": "Tham gia dự đoán miễn phí tuần này"
+    "enter": "Tham gia dự đoán",
+    "free": "Miễn phí",
+    "prizePool": "Quỹ thưởng",
+    "entry": "Phí vào",
+    "ended": "Đã kết thúc",
+    "tab": {
+      "all": "Tất cả",
+      "activeUpcoming": "Đang diễn ra & sắp tới",
+      "active": "Đang diễn ra",
+      "upcoming": "Sắp tới",
+      "ended": "Đã kết thúc"
+    },
+    "tabs": "Bộ lọc dự đoán"
   },
   "ranking": {
     "title": "Bảng xếp hạng",
-    "unavailable": "Bảng này không có trong dữ liệu demo.",
-    "summary": "{board} · đua doanh số · cập nhật {time} (+08:00)",
-    "note": "Dữ liệu chụp nhanh — bản tham chiếu phát trực tiếp.",
-    "boards": "Bảng",
+    "periods": "Kỳ xếp hạng",
+    "tiers": "Hạng thành viên",
+    "dates": "Ngày xếp hạng",
+    "myRanking": "Xếp hạng hiện tại của tôi",
+    "turnoverWeekly": "Doanh số ({period})",
+    "top10": "Bảng xếp hạng Top 10",
+    "live": "Live",
     "col": {
-      "rank": "Hạng",
-      "player": "Người chơi",
-      "turnover": "Doanh số",
-      "prize": "Thưởng"
+      "no": "STT",
+      "nickname": "Biệt danh",
+      "region": "Khu vực",
+      "turnoverUsd": "Doanh số (USD)",
+      "rankLabel": "Hạng",
+      "prizeUsd": "Thưởng (USD)"
     },
-    "footnote": "Tên được ẩn có chủ đích. Thưởng được cộng trong 48 giờ sau khi bảng kết thúc.",
+    "empty": "Không có dữ liệu",
+    "latestUpdated": "Cập nhật lúc : {time}",
+    "updateEvery": "Kết quả cập nhật mỗi {minutes} phút",
+    "prizeStructure": "Cơ cấu giải thưởng",
+    "personalTitle": "Xếp hạng hiện tại của tôi",
+    "score": "USD {amount}",
+    "approx": "≈ MYR {amount}",
+    "rule": {
+      "introduction": "Giới thiệu",
+      "tnc": "Điều khoản và điều kiện"
+    },
+    "period": {
+      "weekly": "Hàng tuần",
+      "monthly": "Hàng tháng"
+    },
+    "tier": {
+      "supervip": "Super VIP",
+      "vip": "VIP"
+    },
+    "date": {
+      "current": "Hiện tại",
+      "lastweek": "Tuần trước"
+    },
     "board": {
       "weekly": "Tuần",
       "monthly": "Tháng",
       "supervip": "Super VIP",
       "vip": "VIP",
-      "live": "Đang live",
+      "live": "Hiện tại",
       "lastweek": "Tuần trước"
     }
   },
