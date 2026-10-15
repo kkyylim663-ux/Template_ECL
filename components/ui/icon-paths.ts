@@ -66,6 +66,8 @@ export type IconName = keyof typeof ICON_PATHS;
  * not carry the path data.
  */
 export const SHELL_ICON_NAMES = [
+  // The header menu chevron is shell chrome (every page renders it).
+  'chevronUp',
   'home',
   'slots',
   'livecasino',

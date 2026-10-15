@@ -24,13 +24,16 @@ export function AccountSlot({ region }: { region: string }) {
 
   if (!isMember) {
     return (
-      <div className="flex items-center gap-4">
-        <Link href={`/${region}/login`} className="text-ink hover:text-accent text-sm font-medium">
+      <div className="flex items-center">
+        <Link
+          href={`/${region}/login`}
+          className="me-[54px] text-sm font-bold text-white hover:text-[var(--color-accent)]"
+        >
           {t('action.login')}
         </Link>
         <Link
           href={`/${region}/register`}
-          className="bg-accent text-[#1b1b1b] hover:bg-accent-bright rounded-[8px] px-4 py-2 text-sm font-semibold"
+          className="bg-accent hover:bg-accent-bright flex h-[41px] items-center rounded-[15px] px-[33px] text-sm font-bold text-black"
         >
           {t('action.register')}
         </Link>

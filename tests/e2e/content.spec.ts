@@ -48,7 +48,7 @@ test.describe('promotion list (T18)', () => {
     await page.goto('/my/promotion');
 
     const columns = await page
-      .locator('ul.grid')
+      .locator('ul[data-promo-grid]')
       .first()
       .evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length);
     expect(columns).toBe(1);

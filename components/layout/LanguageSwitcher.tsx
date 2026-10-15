@@ -19,7 +19,14 @@ import {
  * a page reload. Two presentations: a dropdown for the desktop header and a chip
  * row for the mobile drawer.
  */
-export function LanguageSwitcher({ variant = 'dropdown' }: { variant?: 'dropdown' | 'inline' }) {
+export function LanguageSwitcher({
+  variant = 'dropdown',
+  compact = false,
+}: {
+  variant?: 'dropdown' | 'inline';
+  /** Icon-only trigger, for the header (see the note in the button). */
+  compact?: boolean;
+}) {
   const locale = resolveLocale(useLocale());
   const t = useTranslations('nav');
   const router = useRouter();
@@ -77,7 +84,7 @@ export function LanguageSwitcher({ variant = 'dropdown' }: { variant?: 'dropdown
   }
 
   return (
-    <div ref={boxRef} className="relative">
+    <div ref={boxRef} className="relative flex h-full items-center">
       <button
         type="button"
         onClick={() => setOpen((current) => !current)}
@@ -87,7 +94,12 @@ export function LanguageSwitcher({ variant = 'dropdown' }: { variant?: 'dropdown
         className="text-ink hover:text-accent flex items-center gap-1.5 text-sm font-medium"
       >
         <Icon name="globe" size={18} />
-        <span>{t(LOCALE_KEYS[locale])}</span>
+        {/*
+          The header keeps the control icon-sized: the original has no language
+          entry in the header (it lives in the side panel), and the wider
+          variant pushed Register past the 1300px container.
+        */}
+        {compact ? null : <span>{t(LOCALE_KEYS[locale])}</span>}
         <Icon name="chevronDown" size={14} className="text-muted" />
       </button>
 

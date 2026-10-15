@@ -99,7 +99,7 @@ export default async function PromotionPage({
         </div>
       ) : (
         // One column at 375px; three on the desktop grid.
-        <ul className="mt-5 grid gap-4 desktop:grid-cols-3 desktop:gap-5">
+        <ul data-promo-grid className="mt-5 grid gap-4 desktop:grid-cols-3 desktop:gap-5">
           {listed.map((promotion) => (
             <li key={promotion.id}>
               <PromotionCard promotion={promotion} region={region} currency={currency} t={t} />

@@ -1,34 +1,66 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { brand } from '@/config/brand';
+import { getT } from '@/lib/i18n/server';
+import { Icon } from '@/components/ui/Icon';
 import { AccountSlot } from './AccountSlot';
 import { HeaderMenu } from './HeaderMenu';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
-/** Desktop header: logo, primary menu cards, account area. Hidden below 769px. */
-export function Header({ region }: { region: string }) {
+/**
+ * Desktop header, measured from the original (crawl/pages/my.html + main.css):
+ * a fixed 78px bar in `--color-panel-soft` holding a centred 1300px container.
+ * Inside: a 145px logo slot (+59px), the three menu cards, then the right
+ * cluster — chat icon with its red dot, the Quest pill, Login / Register.
+ *
+ * The 145x19 logo slot is a text stand-in: the original ships a logo image and
+ * P2 does not load images, but the slot keeps the menu's x position identical.
+ */
+export async function Header({ region }: { region: string }) {
+  const { t } = await getT('nav');
+
   return (
-    <header className="border-line bg-panel hidden border-b desktop:block">
-      <div className="flex h-[68px] items-center gap-6 px-[var(--pad-page-x)]">
-        <Link href={`/${region}`} className="flex min-h-11 shrink-0 items-center gap-2.5">
-          <Image
-            src={brand.logo.src}
-            alt={brand.logo.alt}
-            width={brand.logo.width}
-            height={brand.logo.height}
-            unoptimized
-            priority
-          />
-          <span className="text-ink text-lg font-semibold tracking-wide">{brand.logo.text}</span>
-        </Link>
+    <header className="hidden desktop:block">
+      <div className="bg-panel-soft fixed inset-x-0 top-0 z-[var(--z-header)] h-[var(--header-height-desktop)]">
+        <div className="container-page flex h-full items-center">
+          <Link
+            href={`/${region}`}
+            className="text-ink me-[59px] flex h-[19px] w-[145px] shrink-0 items-center text-[20px] leading-[19px] font-bold tracking-wide"
+          >
+            {brand.logo.text}
+          </Link>
 
-        <HeaderMenu region={region} />
+          <HeaderMenu region={region} />
 
-        <div className="ml-auto flex items-center gap-4">
-          <VoucherEntry region={region} variant="header" />
-          <LanguageSwitcher />
-          <AccountSlot region={region} />
+          {/*
+            Cluster height is the original's 41px (`.btn` / `.quest-badge`);
+            the voucher and language entries are P0 additions the original does
+            not have in the header, so they ride along inside it.
+          */}
+          <div className="ms-auto flex h-[41px] items-center [&>*]:h-[41px] [&>*]:shrink-0 [&>*]:items-center [&>*]:whitespace-nowrap">
+            <a href="#" aria-label={t('ui.chat')} className="relative me-8 block shrink-0">
+              <Icon name="chat" size={25} className="text-ink" />
+              <span className="bg-danger absolute -top-2 -right-2 size-2 rounded-full" />
+            </a>
+
+            {/* Quest pill: original geometry, no quest panel in this build. */}
+            <a
+              href="#"
+              className="quest-pill relative me-[54px] flex min-h-[41px] min-w-[156px] shrink-0 items-center justify-center rounded-[15px]"
+            >
+              <span className="me-[15px] text-sm font-bold text-white">{t('ui.quest')}</span>
+              <Icon name="trophy" size={20} className="absolute right-4 text-white" />
+              <span className="bg-success absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-[10px] leading-none text-white">
+                {t('ui.live')}
+              </span>
+            </a>
+
+            <div className="me-4 flex h-[41px] items-center gap-4">
+              <VoucherEntry region={region} variant="header" />
+              <LanguageSwitcher compact />
+            </div>
+            <AccountSlot region={region} />
+          </div>
         </div>
       </div>
     </header>

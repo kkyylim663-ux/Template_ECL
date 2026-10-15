@@ -44,6 +44,8 @@
   --color-danger-bright: #e0413b;
   --color-warn: #ffa469;
   --color-gold: #f9d235; /* VIP */
+  --color-tile: #444447; /* dropdown tile (header-menu__child-card) */
+  --color-quest-to: #2779d9; /* quest pill gradient end */
 
   /* Text */
   --color-ink: #ffffff;
@@ -99,14 +101,6 @@
 
 /* Layout measurements that are not Tailwind utility namespaces. */
 :root {
-  /*
-   * DEPRECATED (T30): the original lays desktop content out in a centred
-   * `.container{width:1300px;margin:0 auto}` (95vw below 1400px), not as page
-   * padding. The 50px that P0 recorded here is really `.modal-body` padding.
-   * T30 moves the shell onto the container model and drops this.
-   */
-  --pad-page-x: 50px;
-
   /* Container model, measured from .container */
   --container-width: 1300px;
   --container-width-narrow: 95vw; /* <=1400px */
@@ -163,6 +157,61 @@ html {
 /* TODO(T05): allow brand.ts to drive the accent at runtime once the shell lands. */
 
 /* ---------------------------------------------------------------- components */
+
+/*
+ * The original's page container: a centred fixed-width block, not page padding
+ * (crawl CSS: `.container{margin:0 auto;width:1300px}`, 95vw <=1400px,
+ * padding-left 100px <=1350px, width auto <=768px with 16px side margins).
+ * Every page-width section — header, main, footer — sits inside one.
+ */
+.container-page {
+  margin-inline: auto;
+  width: var(--container-width);
+}
+
+@media (max-width: 1400px) {
+  .container-page {
+    width: var(--container-width-narrow);
+  }
+}
+
+@media (max-width: 1350px) {
+  .container-page {
+    padding-left: var(--container-shift);
+  }
+}
+
+@media (max-width: 768px) {
+  .container-page {
+    width: auto;
+    margin-inline: var(--pad-mobile-x);
+    padding-left: 0;
+  }
+}
+
+/*
+ * Quest pill in the header (`.quest-badge`): green→blue gradient, with a "Live"
+ * badge pinned to the top-right and an icon at the right edge. Not wired to a
+ * quest system — the panel does not exist in this build.
+ */
+.quest-pill {
+  background: linear-gradient(93.89deg, var(--color-success) -2.79%, var(--color-quest-to) 137.65%);
+}
+
+/*
+ * Dropdown panel (`.header-menu__child-wrapper`): always in the DOM, revealed by
+ * scale(0) → scale(1) with a 1.5rem origin, `all .3s` — the original's motion,
+ * not a fade or a slide.
+ */
+.menu-panel {
+  transform: scale(0);
+  transform-origin: 1.5rem 0;
+  transition: all 0.3s;
+}
+
+.menu-panel[data-open='true'] {
+  transform: scale(1);
+}
 
 /* Marquee (components/ui/Marquee.tsx): the list is rendered twice, so shifting
    the track by half its width loops seamlessly. Hover pauses it. */

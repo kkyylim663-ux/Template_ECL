@@ -48,9 +48,11 @@ export function VoucherEntry({
         type="button"
         onClick={() => setOpen(true)}
         data-voucher="header"
-        className="border-line text-ink hover:border-accent hover:text-accent rounded-[8px] border px-3 py-2 text-xs font-medium"
+        aria-label={t('voucher.title')}
+        title={t('voucher.title')}
+        className="border-line text-ink hover:border-accent hover:text-accent grid size-[41px] place-items-center rounded-[15px] border text-xs font-medium"
       >
-        {t('voucher.title')}
+        <span className="text-accent">&#9670;</span>
       </button>
     ) : (
       <button

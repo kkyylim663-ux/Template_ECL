@@ -2,7 +2,7 @@
   "primary": {
     "games": "Games",
     "events": "Events",
-    "account": "Account"
+    "function": "Function"
   },
   "items": {
     "slots": "Slots",
@@ -60,6 +60,9 @@
     "region": "Region",
     "signIn": "Sign in",
     "primaryNav": "Primary",
+    "quest": "Quest",
+    "live": "Live",
+    "chat": "Live chat",
     "mobileNav": "Mobile navigation",
     "dismissBanner": "Dismiss app banner",
     "iconRail": "Icon rail",
@@ -70,26 +73,33 @@
     "announcements": "Announcements",
     "demoNote": "Demo build — placeholder brand."
   },
+  "sidebar": {
+    "needHelp": "Need Help?",
+    "contact": "Contact",
+    "region": "Region"
+  },
   "footer": {
     "title": {
-      "help": "Help",
-      "company": "Company",
-      "legal": "Legal"
+      "help": "24/7 Help & Support",
+      "games": "Games",
+      "payment": "Payment Method",
+      "special": "Special",
+      "links": "Links"
     },
     "links": {
-      "gettingStarted": "Getting started",
-      "depositsWithdrawals": "Deposits and withdrawals",
-      "gamesProviders": "Games and providers",
-      "vouchersRewards": "Vouchers and rewards",
-      "contactSupport": "Contacting support",
+      "liveChat": "Live Chat",
+      "localBanks": "Local Banks",
+      "cryptocurrencies": "Cryptocurrencies",
+      "paymentGateway": "Payment Gateway",
+      "game4d": "4D Lottery",
+      "faq": "FAQ",
       "about": "About us",
-      "contact": "Contact us",
-      "sponsorship": "Sponsorship",
-      "news": "News",
       "tnc": "Terms & conditions",
-      "bettingRules": "Betting rules",
-      "mobileApp": "Mobile app"
-    }
+      "bettingRules": "Betting rules"
+    },
+    "followUs": "Follow Us",
+    "licence": "Licence",
+    "supportNotice": "Support hours"
   },
   "support": {
     "liveChat": "Live chat",

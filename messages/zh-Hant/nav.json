@@ -2,7 +2,7 @@
   "primary": {
     "games": "遊戲",
     "events": "活動",
-    "account": "帳戶"
+    "function": "功能"
   },
   "items": {
     "slots": "電子遊戲",
@@ -60,6 +60,9 @@
     "region": "地區",
     "signIn": "登入",
     "primaryNav": "主導覽",
+    "quest": "任務",
+    "live": "直播",
+    "chat": "線上客服",
     "mobileNav": "手機導覽",
     "dismissBanner": "關閉 App 橫幅",
     "iconRail": "圖示列",
@@ -70,26 +73,33 @@
     "announcements": "公告",
     "demoNote": "示範版本 — 佔位品牌。"
   },
+  "sidebar": {
+    "needHelp": "需要協助？",
+    "contact": "聯絡我們",
+    "region": "地區"
+  },
   "footer": {
     "title": {
-      "help": "幫助",
-      "company": "公司",
-      "legal": "法律"
+      "help": "24/7 客服支援",
+      "games": "遊戲",
+      "payment": "支付方式",
+      "special": "特色",
+      "links": "連結"
     },
     "links": {
-      "gettingStarted": "新手上路",
-      "depositsWithdrawals": "充值與提現",
-      "gamesProviders": "遊戲與廠商",
-      "vouchersRewards": "禮券與獎勵",
-      "contactSupport": "聯絡客服",
+      "liveChat": "線上客服",
+      "localBanks": "本地銀行",
+      "cryptocurrencies": "加密貨幣",
+      "paymentGateway": "支付閘道",
+      "game4d": "4D 彩票",
+      "faq": "常見問題",
       "about": "關於我們",
-      "contact": "聯絡我們",
-      "sponsorship": "贊助",
-      "news": "公告",
       "tnc": "條款與條件",
-      "bettingRules": "投注規則",
-      "mobileApp": "手機 App"
-    }
+      "bettingRules": "投注規則"
+    },
+    "followUs": "關注我們",
+    "licence": "牌照",
+    "supportNotice": "客服時間"
   },
   "support": {
     "liveChat": "線上客服",

@@ -105,7 +105,7 @@ export function MobileChrome({ region }: { region: string }) {
         {isMember ? (
           <Link
             href={regionPath(region, '/account/profile')}
-            aria-label={t('primary.account')}
+            aria-label={t('primary.function')}
             className="border-line bg-panel-soft text-accent grid size-11 shrink-0 place-items-center rounded-full border text-[10px] font-semibold"
           >
             {brandInitials}

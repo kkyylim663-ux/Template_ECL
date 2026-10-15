@@ -2,7 +2,7 @@
   "primary": {
     "games": "Trò chơi",
     "events": "Sự kiện",
-    "account": "Tài khoản"
+    "function": "Chức năng"
   },
   "items": {
     "slots": "Slots",
@@ -60,6 +60,9 @@
     "region": "Khu vực",
     "signIn": "Đăng nhập",
     "primaryNav": "Điều hướng chính",
+    "quest": "Nhiệm vụ",
+    "live": "Trực tiếp",
+    "chat": "Live chat",
     "mobileNav": "Điều hướng di động",
     "dismissBanner": "Đóng banner ứng dụng",
     "iconRail": "Thanh biểu tượng",
@@ -70,26 +73,33 @@
     "announcements": "Thông báo",
     "demoNote": "Bản demo — thương hiệu giả."
   },
+  "sidebar": {
+    "needHelp": "Cần hỗ trợ?",
+    "contact": "Liên hệ",
+    "region": "Khu vực"
+  },
   "footer": {
     "title": {
-      "help": "Trợ giúp",
-      "company": "Công ty",
-      "legal": "Pháp lý"
+      "help": "Hỗ trợ 24/7",
+      "games": "Trò chơi",
+      "payment": "Phương thức thanh toán",
+      "special": "Đặc biệt",
+      "links": "Liên kết"
     },
     "links": {
-      "gettingStarted": "Bắt đầu",
-      "depositsWithdrawals": "Nạp và rút tiền",
-      "gamesProviders": "Game và nhà phát hành",
-      "vouchersRewards": "Voucher và phần thưởng",
-      "contactSupport": "Liên hệ hỗ trợ",
+      "liveChat": "Live Chat",
+      "localBanks": "Ngân hàng nội địa",
+      "cryptocurrencies": "Tiền mã hóa",
+      "paymentGateway": "Cổng thanh toán",
+      "game4d": "Xổ số 4D",
+      "faq": "Câu hỏi thường gặp",
       "about": "Về chúng tôi",
-      "contact": "Liên hệ",
-      "sponsorship": "Tài trợ",
-      "news": "Tin tức",
       "tnc": "Điều khoản",
-      "bettingRules": "Luật cược",
-      "mobileApp": "Ứng dụng di động"
-    }
+      "bettingRules": "Luật cược"
+    },
+    "followUs": "Theo dõi chúng tôi",
+    "licence": "Giấy phép",
+    "supportNotice": "Giờ hỗ trợ"
   },
   "support": {
     "liveChat": "Chat trực tuyến",

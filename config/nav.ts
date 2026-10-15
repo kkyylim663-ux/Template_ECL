@@ -52,7 +52,7 @@ export const PRIMARY_MENU: MenuGroup[] = [
   },
   {
     id: 'function',
-    labelKey: 'primary.account',
+    labelKey: 'primary.function',
     items: [
       { href: '/account/deposit', labelKey: 'items.deposit', icon: 'wallet' },
       { href: '/account/withdrawal', labelKey: 'items.withdrawal', icon: 'withdraw' },
@@ -83,35 +83,56 @@ export const SIDEBAR_ITEMS: MenuLink[] = [
   { href: '/vip', labelKey: 'items.vip', icon: 'crown' },
 ];
 
+/**
+ * Desktop footer: five blocks, in the original's order and with its wording
+ * (crawl/pages/my.html). The first block is rendered from CONTACT_CHANNELS, the
+ * rest are plain link lists. Widths in the original: 204 / 74 / 118 / 75 / 182 px
+ * with ~162px between them (space-between inside the 1300px container).
+ */
 export const FOOTER_GROUPS: FooterGroup[] = [
   {
     id: 'help',
     titleKey: 'footer.title.help',
+    items: [],
+  },
+  {
+    id: 'games',
+    titleKey: 'footer.title.games',
     items: [
-      { href: '/faq/gettingstart', labelKey: 'footer.links.gettingStarted' },
-      { href: '/faq/finance', labelKey: 'footer.links.depositsWithdrawals' },
-      { href: '/faq/games', labelKey: 'footer.links.gamesProviders' },
-      { href: '/faq/promotions', labelKey: 'footer.links.vouchersRewards' },
-      { href: '/faq/contactus', labelKey: 'footer.links.contactSupport' },
+      { href: '/esports', labelKey: 'items.esports' },
+      { href: '/sports', labelKey: 'items.sports' },
+      { href: '/livecasino', labelKey: 'items.livecasino' },
+      { href: '/slots', labelKey: 'items.slots' },
+      { href: '/4d', labelKey: 'footer.links.game4d' },
     ],
   },
   {
-    id: 'company',
-    titleKey: 'footer.title.company',
+    id: 'payment',
+    titleKey: 'footer.title.payment',
+    items: [
+      { href: '#', labelKey: 'footer.links.localBanks' },
+      { href: '#', labelKey: 'footer.links.cryptocurrencies' },
+      { href: '#', labelKey: 'footer.links.paymentGateway' },
+    ],
+  },
+  {
+    id: 'special',
+    titleKey: 'footer.title.special',
+    items: [
+      { href: '/promotion', labelKey: 'items.promotions' },
+      { href: '/prediction', labelKey: 'items.prediction' },
+      { href: '/ranking-board', labelKey: 'items.rankingBoard' },
+    ],
+  },
+  {
+    id: 'links',
+    titleKey: 'footer.title.links',
     items: [
       { href: '/about', labelKey: 'footer.links.about' },
-      { href: '/contact', labelKey: 'footer.links.contact' },
-      { href: '/sponsor', labelKey: 'footer.links.sponsorship' },
-      { href: '/update', labelKey: 'footer.links.news' },
-    ],
-  },
-  {
-    id: 'legal',
-    titleKey: 'footer.title.legal',
-    items: [
       { href: '/tnc', labelKey: 'footer.links.tnc' },
       { href: '/betting-rules', labelKey: 'footer.links.bettingRules' },
-      { href: '/faq/downloadapp', labelKey: 'footer.links.mobileApp' },
+      // The original links its footer FAQ entry straight at /gettingstart.
+      { href: '/faq/gettingstart', labelKey: 'footer.links.faq' },
     ],
   },
 ];

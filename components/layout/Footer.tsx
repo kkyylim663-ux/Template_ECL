@@ -4,67 +4,96 @@ import { getT } from '@/lib/i18n/server';
 import { CONTACT_CHANNELS, FOOTER_GROUPS, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
 
+/**
+ * Desktop footer, measured from the original:
+ * a 1300px container with five blocks (204/74/118/75/182px wide, space-between
+ * inside it), each a 12px `#f5f5f5` heading 24px above 14px `--color-muted`
+ * links spaced 16px apart; then a 2px `--color-panel-soft` divider (60px above,
+ * 63px below) and a bottom row — brand mark + licence seal on the left,
+ * "Follow Us" with 29px social icons on the right.
+ *
+ * The five blocks and their wording come from crawl/pages/my.html; the first one
+ * lists the support channels straight from config/brand.ts.
+ */
 export async function Footer({ region }: { region: string }) {
   const { t } = await getT('nav');
+  const supportChannels = CONTACT_CHANNELS.filter((channel) =>
+    ['livechat', 'phone', 'email'].includes(channel.id),
+  );
 
   return (
-    <footer className="border-line bg-panel mt-10 border-t">
-      <div className="grid gap-8 px-[var(--pad-page-x)] py-10 desktop:grid-cols-[1.2fr_repeat(3,1fr)]">
-        <div>
-          <p className="text-ink text-lg font-semibold tracking-wide">{brand.name}</p>
-          <p className="text-muted mt-1 text-sm">{brand.tagline}</p>
-          <p className="text-muted mt-4 max-w-sm text-xs leading-relaxed">{brand.legal.licence}</p>
-          <p className="text-muted mt-1 text-xs">{brand.legal.operator}</p>
-
-          <ul className="mt-4 space-y-1.5">
-            {CONTACT_CHANNELS.slice(0, 3).map((channel) => (
-              <li key={channel.id}>
-                <a
-                  href={channel.href}
-                  className="text-muted hover:text-accent inline-flex min-h-7 items-center gap-2 text-xs"
-                >
-                  <Icon name={channel.icon} size={16} />
-                  <span className="text-ink/80">{t(channel.labelKey)}:</span>
-                  <span>{channel.valueKey ? t(channel.valueKey) : channel.value}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="mt-5 flex items-center gap-3">
-            {SOCIAL_LINKS.map((social) => (
-              <li key={social.id}>
-                <a
-                  href={social.href}
-                  aria-label={social.label}
-                  className="border-line text-muted hover:border-accent hover:text-accent grid size-11 place-items-center rounded-full border"
-                >
-                  <Icon name={social.id} size={18} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
+    <footer className="desktop:mt-15">
+      <div className="container-page flex flex-col gap-6 desktop:flex-row desktop:justify-between desktop:gap-0">
         {FOOTER_GROUPS.map((group) => (
-          <nav key={group.id} aria-label={t(group.titleKey)}>
-            <h2 className="text-ink text-sm font-semibold">{t(group.titleKey)}</h2>
-            <ul className="mt-3 space-y-2">
-              {group.items.map((item) => (
-                <li key={item.href}>
-                  <Link href={regionPath(region, item.href)} className="text-muted hover:text-accent inline-flex min-h-7 items-center text-xs">
-                    {t(item.labelKey)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <div key={group.id} className="desktop:shrink-0">
+            <p className="mb-6 text-xs leading-[14px] text-[#f5f5f5]">{t(group.titleKey)}</p>
+
+            {group.id === 'help' ? (
+              <ul>
+                {supportChannels.map((channel) => (
+                  <li key={channel.id}>
+                    <a
+                      href={channel.href}
+                      className="text-muted hover:text-accent block text-sm leading-[17px]"
+                      style={{ marginBottom: '16px' }}
+                    >
+                      {channel.valueKey ? t(channel.valueKey) : channel.value}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <ul>
+                {group.items.map((item) => (
+                  <li key={`${item.href}-${item.labelKey}`}>
+                    <Link
+                      href={item.href === '#' ? '#' : regionPath(region, item.href)}
+                      className="text-muted hover:text-accent block text-sm leading-[17px]"
+                      style={{ marginBottom: '16px' }}
+                    >
+                      {t(item.labelKey)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ))}
       </div>
 
-      <div className="border-line flex flex-col gap-2 border-t px-[var(--pad-page-x)] py-4 desktop:flex-row desktop:items-center desktop:justify-between">
-        <p className="text-muted text-xs">{brand.legal.ageNotice}</p>
-        <p className="text-muted text-xs">{brand.legal.demoNotice}</p>
+      <div className="container-page">
+        <div className="bg-panel-soft mt-[60px] mb-[63px] h-0.5 w-full" />
+      </div>
+
+      <div className="container-page mb-[25px] flex flex-col gap-6 text-sm desktop:flex-row desktop:justify-between desktop:gap-0">
+        <div className="flex items-end">
+          <span className="border-line text-ink grid size-[145px] place-items-center rounded-[15px] border text-[20px] font-bold tracking-wide">
+            {brand.logo.text}
+          </span>
+          <a
+            href={brand.legal.noticesUrl}
+            className="text-muted ms-2.5 text-sm whitespace-nowrap"
+            title={brand.legal.licence}
+          >
+            {t('footer.licence')}
+          </a>
+        </div>
+
+        <div className="desktop:w-[235px]">
+          <p className="text-muted">{t('footer.followUs')}</p>
+          <div className="mt-3.5 flex items-center">
+            {SOCIAL_LINKS.map((social) => (
+              <a
+                key={social.id}
+                href={social.href}
+                aria-label={social.label}
+                className="hover-grow text-muted hover:text-accent me-[22px] grid size-[29px] place-items-center transition-transform duration-300 hover:scale-110"
+              >
+                <Icon name={social.id} size={29} />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </footer>
   );
