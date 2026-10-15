@@ -1,21 +1,34 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { brand } from '@/config/brand';
-import { useSession } from '@/lib/session/useSession';
+import { regionPath } from '@/config/nav';
+import { formatMinor } from '@/lib/format';
+import { signOutRequest, useSession } from '@/lib/session/useSession';
 
 /** First two letters of the brand name — the avatar placeholder. */
 const brandInitials = brand.name.slice(0, 2).toUpperCase();
 
+const ACCOUNT_LINKS = [
+  { href: '/account/deposit', key: 'deposit' },
+  { href: '/account/withdrawal', key: 'withdrawal' },
+  { href: '/account/transfer', key: 'transfer' },
+  { href: '/account/history', key: 'history' },
+  { href: '/account/inbox', key: 'inbox' },
+  { href: '/account/profile', key: 'profile' },
+] as const;
+
 /**
  * Header account area. Renders the guest state on the server so public pages stay
  * static; once mounted it swaps to the member state once the session check answers.
- * Amounts are demo data, not copy, so they stay literals.
  */
 export function AccountSlot({ region }: { region: string }) {
   const t = useTranslations('common');
-  const { member: isMember, username } = useSession();
+  const tNav = useTranslations('nav');
+  const router = useRouter();
+  const { member: isMember, username, balanceMinor, currency, unread } = useSession();
 
   if (!isMember) {
     return (
@@ -36,6 +49,12 @@ export function AccountSlot({ region }: { region: string }) {
     );
   }
 
+  async function onSignOut() {
+    await signOutRequest();
+    router.push(regionPath(region, ''));
+    router.refresh();
+  }
+
   return (
     <div className="group relative">
       <button type="button" className="flex items-center gap-2.5" aria-label={t('header.summary')}>
@@ -45,28 +64,49 @@ export function AccountSlot({ region }: { region: string }) {
         <span className="text-left">
           <span className="text-ink block text-xs leading-tight font-medium">{username}</span>
           <span className="text-muted block text-11 leading-tight">
-            {t('header.balance', { amount: 'RM 1,234.50' })}
+            {t('header.balance', { amount: formatMinor(balanceMinor, currency) })}
           </span>
         </span>
       </button>
 
-      <div className="border-line bg-panel-alt invisible absolute top-full right-0 z-40 mt-2 w-56 rounded-[var(--radius-panel)] border p-3 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100">
+      <div className="border-line bg-panel-alt invisible absolute top-full right-0 z-40 mt-2 w-56 rounded-[var(--radius-panel)] border p-3 opacity-0 transition-opacity group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
         <p className="text-muted text-11 tracking-wide uppercase">{t('header.summary')}</p>
         <dl className="mt-2 space-y-1 text-xs">
           <div className="flex justify-between">
             <dt className="text-muted">{t('balance.main')}</dt>
-            <dd className="text-ink">RM 1,234.50</dd>
+            <dd className="text-ink">{formatMinor(balanceMinor, currency)}</dd>
           </div>
           <div className="flex justify-between">
             <dt className="text-muted">{t('header.unread')}</dt>
-            <dd className="text-ink">2</dd>
-          </div>
-          <div className="flex justify-between">
-            <dt className="text-muted">{t('header.tierLabel')}</dt>
-            <dd className="text-accent">Silver</dd>
+            <dd className="text-ink">{unread}</dd>
           </div>
         </dl>
-        <p className="border-line text-muted mt-3 border-t pt-2 text-11">{t('header.demoNote')}</p>
+        <ul className="border-line mt-3 space-y-1 border-t pt-2 text-xs">
+          {ACCOUNT_LINKS.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={regionPath(region, item.href)}
+                className="text-ink hover:text-accent flex justify-between py-1"
+              >
+                {tNav(`items.${item.key}`)}
+                {item.key === 'inbox' && unread > 0 ? (
+                  <span className="bg-danger rounded-full px-1.5 text-10 leading-4 text-white">
+                    {unread}
+                  </span>
+                ) : null}
+              </Link>
+            </li>
+          ))}
+          <li>
+            <button
+              type="button"
+              onClick={onSignOut}
+              className="text-muted hover:text-accent w-full py-1 text-start"
+            >
+              {t('action.logout')}
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   );

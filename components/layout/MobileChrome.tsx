@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { brand, REGION_CODES } from '@/config/brand';
 import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
-import { useSession } from '@/lib/session/useSession';
+import { signOutRequest, useSession } from '@/lib/session/useSession';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
 
@@ -29,6 +30,7 @@ const brandInitials = brand.name.slice(0, 2).toUpperCase();
  */
 export function MobileChrome({ region }: { region: string }) {
   const t = useTranslations('nav');
+  const tCommon = useTranslations('common');
   const [drawerOpen, setDrawerOpen] = useState(false);
   // Visible in the server HTML (a first-time visitor sees it at once); only a
   // visitor who dismissed it hides it, right after hydration. Starting hidden
@@ -36,6 +38,7 @@ export function MobileChrome({ region }: { region: string }) {
   const [bannerDismissed, setBannerDismissed] = useState(false);
   // All sections start collapsed, as on the original (`.sidemenu-child{display:none}`).
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const router = useRouter();
   const { member: isMember } = useSession();
 
   // Nothing else is read during render, so the server and the first client pass agree.
@@ -62,6 +65,13 @@ export function MobileChrome({ region }: { region: string }) {
   function dismissBanner() {
     window.localStorage.setItem(BANNER_KEY, '1');
     setBannerDismissed(true);
+  }
+
+  async function onSignOut() {
+    setDrawerOpen(false);
+    await signOutRequest();
+    router.push(regionPath(region, ''));
+    router.refresh();
   }
 
   return (
@@ -263,6 +273,18 @@ export function MobileChrome({ region }: { region: string }) {
               ))}
             </ul>
           </div>
+
+          {isMember ? (
+            <div className="px-[35px]">
+              <button
+                type="button"
+                onClick={onSignOut}
+                className="text-muted flex h-14 w-full items-center"
+              >
+                {tCommon('action.logout')}
+              </button>
+            </div>
+          ) : null}
 
           {/* Social: 30x30 icons, the row indented 31px. */}
           <div className="mt-6 pl-[31px]">
