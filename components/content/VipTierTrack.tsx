@@ -85,7 +85,7 @@ export function VipTierTrack({
                   className={`block size-2.5 rounded-full ${selected ? 'bg-accent' : 'bg-line-strong'}`}
                 />
                 <span className="text-ink mt-2 block text-sm font-semibold">{level.name}</span>
-                <span className="text-muted mt-0.5 block text-[11px]">{level.short}</span>
+                <span className="text-muted mt-0.5 block text-11">{level.short}</span>
                 <span className="text-accent mt-2 block font-mono text-xs">
                   {level.thresholdMinor > 0
                     ? t('vip.threshold', { amount: money(level.thresholdMinor) })
@@ -115,7 +115,7 @@ export function VipTierTrack({
                 >
                   <span
                     aria-hidden
-                    className={`mx-auto grid size-6 place-items-center rounded-full text-[11px] font-semibold ${
+                    className={`mx-auto grid size-6 place-items-center rounded-full text-11 font-semibold ${
                       level.id === active.id ? 'bg-accent text-[#1b1b1b]' : 'bg-panel text-muted'
                     }`}
                   >

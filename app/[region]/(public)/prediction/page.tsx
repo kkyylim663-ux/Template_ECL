@@ -73,7 +73,7 @@ export default async function PredictionPage({
               key={fixture.id}
               className="border-line bg-panel rounded-[var(--radius-panel)] border p-4"
             >
-              <p className="text-muted text-[11px] tracking-widest uppercase">{fixture.league}</p>
+              <p className="text-muted text-11 tracking-widest uppercase">{fixture.league}</p>
               <p className="text-ink mt-1 text-sm font-semibold">
                 {fixture.home}{' '}
                 <span className="text-muted font-normal">{t('prediction.vs')}</span>{' '}

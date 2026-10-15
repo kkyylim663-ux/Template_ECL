@@ -42,10 +42,10 @@ export function ProviderCardGrid({
         >
           <LazyImage alt={t('provider.alt', { provider: provider.id })} tone={toneFromString(provider.id)} ratio="16 / 9" className="rounded-[10px]" />
 
-          <h3 className="text-ink mt-3 text-center text-[15px] leading-tight font-semibold">
+          <h3 className="text-ink mt-3 text-center text-15 leading-tight font-semibold">
             {provider.id}
           </h3>
-          <p className="text-muted mt-0.5 text-center text-[11px]">
+          <p className="text-muted mt-0.5 text-center text-11">
             {t('provider.titles', { count: provider.totalGames })}
           </p>
 

@@ -91,7 +91,7 @@ export default async function ContactPage({ params }: { params: Promise<{ region
                       </span>
                       <span className="min-w-0">
                         <span className="text-ink block text-xs font-semibold">{card.title}</span>
-                        <span className="text-muted block truncate text-[11px]">{card.value}</span>
+                        <span className="text-muted block truncate text-11">{card.value}</span>
                       </span>
                     </a>
                   </li>

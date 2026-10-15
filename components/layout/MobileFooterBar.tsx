@@ -34,7 +34,7 @@ export function MobileFooterBar({ region }: { region: string }) {
             key={item.labelKey}
             href={href}
             aria-current={here ? 'page' : undefined}
-            className="flex flex-1 flex-col items-center text-[0.7rem] leading-[13px]"
+            className="flex flex-1 flex-col items-center text-11 leading-[13px]"
           >
             <Icon
               name={item.icon ?? 'home'}

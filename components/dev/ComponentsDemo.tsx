@@ -32,7 +32,7 @@ export function ComponentsDemo() {
 
   return (
     <main className="mx-auto w-full max-w-5xl px-4 py-10">
-      <p className="text-muted text-[11px] tracking-widest uppercase">{t('dev.eyebrow')}</p>
+      <p className="text-muted text-11 tracking-widest uppercase">{t('dev.eyebrow')}</p>
       <h1 className="text-ink mt-1 text-2xl font-semibold">{t('dev.title')}</h1>
       <p className="text-muted mt-2 text-sm">{t('dev.intro')}</p>
 

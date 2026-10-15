@@ -49,14 +49,14 @@ export function AccountSlot({ region }: { region: string }) {
         </span>
         <span className="text-left">
           <span className="text-ink block text-xs leading-tight font-medium">demo_player</span>
-          <span className="text-muted block text-[11px] leading-tight">
+          <span className="text-muted block text-11 leading-tight">
             {t('header.balance', { amount: 'RM 1,234.50' })}
           </span>
         </span>
       </button>
 
       <div className="border-line bg-panel-alt invisible absolute top-full right-0 z-40 mt-2 w-56 rounded-[var(--radius-panel)] border p-3 opacity-0 transition-opacity group-hover:visible group-hover:opacity-100">
-        <p className="text-muted text-[11px] tracking-wide uppercase">{t('header.summary')}</p>
+        <p className="text-muted text-11 tracking-wide uppercase">{t('header.summary')}</p>
         <dl className="mt-2 space-y-1 text-xs">
           <div className="flex justify-between">
             <dt className="text-muted">{t('balance.main')}</dt>
@@ -71,7 +71,7 @@ export function AccountSlot({ region }: { region: string }) {
             <dd className="text-accent">Silver</dd>
           </div>
         </dl>
-        <p className="border-line text-muted mt-3 border-t pt-2 text-[11px]">{t('header.demoNote')}</p>
+        <p className="border-line text-muted mt-3 border-t pt-2 text-11">{t('header.demoNote')}</p>
       </div>
     </div>
   );

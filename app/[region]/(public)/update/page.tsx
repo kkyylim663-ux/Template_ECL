@@ -65,7 +65,7 @@ export default async function UpdateListPage({
                   style={{ '--tone': String(update.tone) } as React.CSSProperties}
                 />
                 <div className="flex flex-1 flex-col p-4">
-                  <p className="text-muted text-[11px]">
+                  <p className="text-muted text-11">
                     {t('update.published', { date: formatDate(update.publishedAt) })}
                   </p>
                   <h2 className="text-ink mt-1 text-sm font-semibold">{update.title}</h2>

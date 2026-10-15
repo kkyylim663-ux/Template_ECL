@@ -55,7 +55,7 @@ export function SponsorGallery({ sponsor }: { sponsor: SponsorPayload }) {
                 >
                   <span
                     aria-hidden
-                    className="game-placeholder grid h-16 place-items-center rounded-[10px] text-[10px] font-semibold text-white/85"
+                    className="game-placeholder grid h-16 place-items-center rounded-[10px] text-10 font-semibold text-white/85"
                     style={{ '--tone': String(entry.tone) } as React.CSSProperties}
                   >
                     {entry.era}
@@ -87,7 +87,7 @@ export function SponsorGallery({ sponsor }: { sponsor: SponsorPayload }) {
                   <span className="bg-accent grid size-11 place-items-center rounded-full text-[#1b1b1b]">
                     <Icon name="play" size={20} />
                   </span>
-                  <span className="absolute right-2 bottom-2 rounded-[6px] bg-black/70 px-1.5 py-0.5 font-mono text-[10px] text-white">
+                  <span className="absolute right-2 bottom-2 rounded-[6px] bg-black/70 px-1.5 py-0.5 font-mono text-10 text-white">
                     {video.duration}
                   </span>
                 </span>
@@ -114,7 +114,7 @@ export function SponsorGallery({ sponsor }: { sponsor: SponsorPayload }) {
               />
               <span className="min-w-0">
                 <span className="text-ink block truncate text-xs font-medium">{partner.name}</span>
-                <span className="text-muted block truncate text-[10px]">{partner.kind}</span>
+                <span className="text-muted block truncate text-10">{partner.kind}</span>
               </span>
             </li>
           ))}

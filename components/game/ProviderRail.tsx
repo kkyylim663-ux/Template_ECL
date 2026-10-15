@@ -36,7 +36,7 @@ export function ProviderRail({
                 }`}
               >
                 {provider.id}
-                <span className="text-muted ml-1.5 text-[10px]">
+                <span className="text-muted ml-1.5 text-10">
                   {provider.totalGames.toLocaleString('en-MY')}
                 </span>
               </Link>

@@ -79,7 +79,7 @@ export function DesktopSidebar({ region }: { region: string }) {
             aria-label={t('ui.collapseNav')}
             className="flex size-[145px] flex-col items-center justify-center gap-2"
           >
-            <span className="text-ink text-[20px] leading-[19px] font-bold tracking-wide">
+            <span className="text-ink text-xl leading-[19px] font-bold tracking-wide">
               {brand.logo.text}
             </span>
             <span className="text-muted text-xs">{t('ui.menu')}</span>
@@ -145,7 +145,7 @@ export function DesktopSidebar({ region }: { region: string }) {
           </SideSection>
         </nav>
 
-        <p className="border-line text-muted border-t px-5 py-3 text-[11px]">{t('ui.demoNote')}</p>
+        <p className="border-line text-muted border-t px-5 py-3 text-11">{t('ui.demoNote')}</p>
       </aside>
     </>
   );

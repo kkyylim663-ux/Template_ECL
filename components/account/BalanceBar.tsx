@@ -17,7 +17,7 @@ export async function BalanceBar({ payload, region }: { payload: AccountPayload;
   return (
     <section className="border-line bg-panel rounded-[var(--radius-panel)] border p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-muted text-[11px] tracking-widest uppercase">{t('totalBalance')}</p>
+        <p className="text-muted text-11 tracking-widest uppercase">{t('totalBalance')}</p>
         <p className="text-accent font-mono text-lg font-semibold">
           {formatMinor(total, currency)}
         </p>
@@ -37,13 +37,13 @@ export async function BalanceBar({ payload, region }: { payload: AccountPayload;
               {formatMinor(wallet.amountMinor, currency)}
             </span>
             {wallet.available ? null : (
-              <span className="text-danger text-[10px]">{t('walletOffline')}</span>
+              <span className="text-danger text-10">{t('walletOffline')}</span>
             )}
           </li>
         ))}
       </ul>
 
-      <p className="text-muted mt-3 text-[11px]">{t('demoBalances')}</p>
+      <p className="text-muted mt-3 text-11">{t('demoBalances')}</p>
     </section>
   );
 }

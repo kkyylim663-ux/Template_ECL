@@ -40,7 +40,7 @@ export default async function NumberGamePage() {
         </header>
 
         <div className="border-line bg-panel mt-5 rounded-[var(--radius-panel)] border p-5">
-          <p className="text-muted text-[11px] tracking-widest uppercase">
+          <p className="text-muted text-11 tracking-widest uppercase">
             {t('numberGame.latest')}
           </p>
           <ul className="mt-3 flex flex-wrap gap-2.5">
@@ -65,7 +65,7 @@ export default async function NumberGamePage() {
         <h2 className="text-ink mt-8 text-sm font-semibold">{t('numberGame.recent')}</h2>
         <div className="border-line bg-panel mt-3 overflow-hidden rounded-[var(--radius-panel)] border">
           <table className="w-full text-left text-sm">
-            <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
+            <thead className="bg-panel-alt text-muted text-11 tracking-wide uppercase">
               <tr>
                 <th className="px-4 py-3">{t('numberGame.col.round')}</th>
                 <th className="px-4 py-3">{t('numberGame.col.numbers')}</th>

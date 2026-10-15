@@ -128,7 +128,7 @@ export function MobileChrome({ region }: { region: string }) {
         <Link
           href={isMember ? regionPath(region, '/account/profile') : regionPath(region, '/login')}
           aria-label={isMember ? t('primary.function') : t('ui.signIn')}
-          className="border-line bg-panel-soft text-accent ms-auto grid h-14 w-[50px] shrink-0 place-items-center text-[10px] font-semibold"
+          className="border-line bg-panel-soft text-accent ms-auto grid h-14 w-[50px] shrink-0 place-items-center text-10 font-semibold"
         >
           {isMember ? brandInitials : <Icon name="user" size={22} className="text-muted" />}
         </Link>
@@ -255,7 +255,7 @@ export function MobileChrome({ region }: { region: string }) {
                     />
                     <span className="min-w-0">
                       <span className="block">{t(channel.labelKey)}</span>
-                      <span className="text-muted block truncate text-[10px]">
+                      <span className="text-muted block truncate text-10">
                         {channel.valueKey ? t(channel.valueKey) : channel.value}
                       </span>
                     </span>

@@ -49,7 +49,7 @@ export function Tabs({
           >
             {tab.label}
             {typeof tab.count === 'number' ? (
-              <span className="text-muted text-[10px]">({tab.count.toLocaleString('en-MY')})</span>
+              <span className="text-muted text-10">({tab.count.toLocaleString('en-MY')})</span>
             ) : null}
           </button>
         );

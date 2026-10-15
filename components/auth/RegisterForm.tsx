@@ -152,7 +152,7 @@ export function RegisterForm() {
         <span>
           {t('register.acceptTerms')}
           {errors.acceptedTerms ? (
-            <span role="alert" className="mt-1 block text-[11px] text-[var(--color-danger)]">
+            <span role="alert" className="mt-1 block text-11 text-[var(--color-danger)]">
               {tc(errors.acceptedTerms)}
             </span>
           ) : null}

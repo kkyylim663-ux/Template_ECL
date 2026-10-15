@@ -88,7 +88,7 @@ export default async function PromotionDetailPage({
       </p>
 
       <section data-part="promotion-detail__rules" className="border-line bg-panel mt-5 rounded-[var(--radius-panel)] border p-5">
-        <h2 className="text-muted text-[11px] tracking-widest uppercase">
+        <h2 className="text-muted text-11 tracking-widest uppercase">
           {t('promotionDetail.rulesTitle')}
         </h2>
         <div className="mt-2">

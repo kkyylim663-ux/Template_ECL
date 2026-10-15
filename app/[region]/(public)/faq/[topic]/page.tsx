@@ -60,7 +60,7 @@ export default async function FaqTopicPage({
         <div className="mt-5 grid gap-5 desktop:grid-cols-[16rem_1fr]">
           {/* Topic sidebar: a horizontal scroller on phones, a column on desktop. */}
           <nav aria-label={t('faq.topics')} className="-mx-4 overflow-x-auto px-4 desktop:mx-0 desktop:px-0">
-            <p className="text-muted text-[11px] tracking-widest uppercase">{t('faq.topics')}</p>
+            <p className="text-muted text-11 tracking-widest uppercase">{t('faq.topics')}</p>
             <ul className="mt-2 flex w-max gap-2 desktop:w-auto desktop:flex-col desktop:gap-1">
               {topics.map((entry) => {
                 const active = entry.id === topic;
@@ -77,7 +77,7 @@ export default async function FaqTopicPage({
                       }`}
                     >
                       <span>{entry.title}</span>
-                      <span className="text-muted text-[10px]">{entry.count}</span>
+                      <span className="text-muted text-10">{entry.count}</span>
                     </Link>
                   </li>
                 );

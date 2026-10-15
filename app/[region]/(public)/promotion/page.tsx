@@ -143,13 +143,13 @@ function PromotionCard({
         <h2 className="text-ink text-sm font-semibold">{promotion.title}</h2>
         <p className="text-muted mt-1 text-xs">{promotion.summary}</p>
 
-        <p className="text-muted mt-2 text-[11px]">
+        <p className="text-muted mt-2 text-11">
           {t('promotion.validFrom', { date: formatDate(promotion.startsAt) })}
           <br />
           {t('promotion.validUntil', { date: formatDate(promotion.endsAt) })}
         </p>
 
-        <p className="text-accent mt-2 text-[11px]">
+        <p className="text-accent mt-2 text-11">
           {promotion.rolloverMultiplier > 0
             ? t('promotion.rollover', { value: promotion.rolloverMultiplier })
             : t('promotion.noRollover')}

@@ -76,7 +76,7 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
       {method === 'bank' ? (
         <>
           <div className="border-line bg-panel-soft rounded-[var(--radius-panel)] border p-4">
-            <p className="text-muted text-[11px] tracking-widest uppercase">{t('deposit.bankingDetails')}</p>
+            <p className="text-muted text-11 tracking-widest uppercase">{t('deposit.bankingDetails')}</p>
             <SelectField
               id="bankId"
               label={t('deposit.bankSelector')}
@@ -128,7 +128,7 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
                 onChange={(event) => setReceipt(event.target.files?.[0]?.name ?? '')}
                 className="border-line bg-panel text-muted mt-1.5 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-xs"
               />
-              <p className="text-muted mt-1 text-[11px]">
+              <p className="text-muted mt-1 text-11">
                 {receipt ? t('deposit.receiptSelected', { name: receipt }) : t('deposit.receiptHint')}
               </p>
             </div>

@@ -32,7 +32,7 @@ export default async function FourDPage() {
 
         <div className="border-line bg-panel mt-5 overflow-hidden rounded-[var(--radius-panel)] border">
           <table className="w-full text-left text-sm">
-            <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
+            <thead className="bg-panel-alt text-muted text-11 tracking-wide uppercase">
               <tr>
                 <th className="px-4 py-3">{t('fourD.col.draw')}</th>
                 <th className="px-4 py-3">{t('fourD.col.date')}</th>

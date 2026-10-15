@@ -71,7 +71,7 @@ export async function Footer({ region }: { region: string }) {
 
       <div className="container-page mb-[25px] flex flex-col gap-6 text-sm desktop:flex-row desktop:justify-between desktop:gap-0">
         <div className="flex items-end">
-          <span className="border-line text-ink grid size-[145px] place-items-center rounded-[15px] border text-[20px] font-bold tracking-wide">
+          <span className="border-line text-ink grid size-[145px] place-items-center rounded-[15px] border text-xl font-bold tracking-wide">
             {brand.logo.text}
           </span>
           <a

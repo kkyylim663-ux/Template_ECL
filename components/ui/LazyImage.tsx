@@ -66,7 +66,7 @@ export function LazyImage({
         <img src={src} alt={alt} loading="lazy" decoding="async" className="size-full object-cover" />
       ) : (
         <div className="game-placeholder size-full">
-          <span className="text-muted line-clamp-2 px-2 text-center text-[11px] font-medium">
+          <span className="text-muted line-clamp-2 px-2 text-center text-11 font-medium">
             {alt}
           </span>
         </div>

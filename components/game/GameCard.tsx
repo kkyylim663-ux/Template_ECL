@@ -73,7 +73,7 @@ export function GameCard({ game }: { game: GameCardData }) {
         />
       )}
 
-      <h3 className="text-ink mt-3.5 line-clamp-2 text-center text-[15px] leading-tight font-semibold">
+      <h3 className="text-ink mt-3.5 line-clamp-2 text-center text-15 leading-tight font-semibold">
         {game.name}
       </h3>
     </article>

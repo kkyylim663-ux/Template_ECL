@@ -32,7 +32,7 @@ export function InfoRuleToggle({
         className="text-ink flex w-full items-center justify-between gap-3 px-5 py-4 text-sm font-semibold"
       >
         {label}
-        <span className="text-muted flex items-center gap-2 text-[11px] font-normal">
+        <span className="text-muted flex items-center gap-2 text-11 font-normal">
           {open ? t('rules.hide') : t('rules.show')}
           <Icon name={open ? 'chevronDown' : 'chevronRight'} size={16} />
         </span>

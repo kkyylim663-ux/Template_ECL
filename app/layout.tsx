@@ -41,6 +41,21 @@ export const metadata: Metadata = {
   description: brand.legal.demoNotice,
 };
 
+/**
+ * Pins the rendered text size against the phone's system font-size setting
+ * (Android multiplies every font-size by that factor). A hidden 100px probe
+ * measures the factor f, and `<html>` gets `--fs-fix = 1/f`, which every
+ * font-size token in globals.css multiplies by — so text always renders at its
+ * designed size. Runs synchronously before first paint (the App Router has no
+ * hand-written <head>, so the script is the first element of <body>; the
+ * parser executes it before any content or paint). Clamped to 0.8–2, skipped
+ * when f ≈ 1, re-measured on resize / visibilitychange (T32.5).
+ *
+ * The probe is marked `data-fs-probe` so tests can fake the measured factor
+ * (Playwright cannot set the device font scale) by intercepting clientHeight.
+ */
+const FS_FIX_SCRIPT = `(function(){var d=document,r=d.documentElement;function m(){var e=d.createElement("div");e.setAttribute("data-fs-probe","");e.setAttribute("aria-hidden","true");e.style.cssText="position:absolute;top:0;left:-9999px;visibility:hidden;pointer-events:none;font-size:100px;line-height:1;height:auto;min-height:0;max-height:none;padding:0;margin:0;border:0";(d.body||r).appendChild(e);var f=(e.clientHeight||100)/100;e.remove();return f}function a(){var f=m();f=Math.max(.8,Math.min(2,f));if(Math.abs(f-1)<.01){r.style.removeProperty("--fs-fix")}else{r.style.setProperty("--fs-fix",String(1/f))}}a();addEventListener("resize",a);d.addEventListener("visibilitychange",function(){if(!d.hidden)a()})})();`;
+
 export const viewport: Viewport = {
   themeColor: brand.themeColor,
   width: 'device-width',
@@ -62,6 +77,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${rubik.variable} ${noto.variable} motion-safe:scroll-smooth`}>
       <body className="bg-surface text-ink font-sans antialiased">
+        <script dangerouslySetInnerHTML={{ __html: FS_FIX_SCRIPT }} />
         <IconSprite only={SHELL_ICON_NAMES} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>{children}</Providers>

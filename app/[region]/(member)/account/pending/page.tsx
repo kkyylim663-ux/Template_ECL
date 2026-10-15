@@ -43,7 +43,7 @@ export default async function PendingPage({ params }: { params: Promise<{ region
                   {transaction.createdAt.slice(0, 16).replace('T', ' ')}
                 </p>
                 {transaction.note ? (
-                  <p className="text-danger mt-0.5 text-[11px]">{transaction.note}</p>
+                  <p className="text-danger mt-0.5 text-11">{transaction.note}</p>
                 ) : null}
               </div>
               <div className="flex items-center gap-3">

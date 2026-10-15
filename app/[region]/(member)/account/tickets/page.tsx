@@ -24,7 +24,7 @@ export default async function TicketsPage() {
             <div className="flex items-start justify-between gap-2">
               <p className="text-ink text-sm font-semibold">{ticket.name}</p>
               <span
-                className={`rounded-[var(--radius-tag)] px-2 py-0.5 text-[10px] font-semibold ${
+                className={`rounded-[var(--radius-tag)] px-2 py-0.5 text-10 font-semibold ${
                   ticket.status === 'open' ? 'bg-accent text-[#1b1b1b]' : 'bg-panel-soft text-muted'
                 }`}
               >
@@ -32,13 +32,13 @@ export default async function TicketsPage() {
               </span>
             </div>
             <p className="text-muted mt-1 text-xs">{ticket.description}</p>
-            <p className="text-muted mt-2 text-[11px]">
+            <p className="text-muted mt-2 text-11">
               {t('tickets.heldLine', {
                 held: ticket.ticketsHeld,
                 required: ticket.ticketsRequired,
               })}
             </p>
-            <p className="text-muted mt-0.5 text-[11px]">
+            <p className="text-muted mt-0.5 text-11">
               {ticket.opensAt.slice(0, 10)} – {ticket.closesAt.slice(0, 10)}
             </p>
             <div className="mt-3">

@@ -39,7 +39,7 @@ export default async function InboxPage() {
       <div className="mt-5 space-y-6">
         {groups.map((group) => (
           <div key={group.id}>
-            <h3 className="text-muted text-[11px] tracking-widest uppercase">{group.label}</h3>
+            <h3 className="text-muted text-11 tracking-widest uppercase">{group.label}</h3>
             <ul className="mt-2 space-y-2">
               {group.rows.map((message) => (
                 <li
@@ -55,7 +55,7 @@ export default async function InboxPage() {
                         <span className="bg-accent ml-2 inline-block size-1.5 rounded-full align-middle" />
                       )}
                     </p>
-                    <span className="text-muted text-[11px]">
+                    <span className="text-muted text-11">
                       {message.receivedAt.slice(0, 16).replace('T', ' ')}
                     </span>
                   </div>

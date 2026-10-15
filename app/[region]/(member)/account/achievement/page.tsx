@@ -34,7 +34,7 @@ export default async function AchievementPage({ params }: { params: Promise<{ re
           );
           return (
             <li key={achievement.id} className="border-line bg-panel rounded-[var(--radius-panel)] border p-4">
-              <p className="text-muted text-[11px] tracking-widest uppercase">
+              <p className="text-muted text-11 tracking-widest uppercase">
                 {t(`achievement.${achievement.gameType}`)}
               </p>
               <p className="text-ink mt-1 text-sm font-semibold">{achievement.title}</p>
@@ -55,7 +55,7 @@ export default async function AchievementPage({ params }: { params: Promise<{ re
                     what={achievement.title}
                   />
                 ) : (
-                  <span className="text-muted text-[11px]">
+                  <span className="text-muted text-11">
                     {achievement.status === 'claimed'
                       ? t('achievement.claimed')
                       : t('achievement.inProgress')}

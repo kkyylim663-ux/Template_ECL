@@ -103,7 +103,7 @@ export function InboxActionButton({
       onClick={() =>
         explain(t('actions.demoInboxTitle'), t('actions.demoInboxBody', { label, message: messageId }))
       }
-      className="border-line text-muted hover:text-ink hover:border-accent rounded-[8px] border px-2.5 py-1 text-[11px]"
+      className="border-line text-muted hover:text-ink hover:border-accent rounded-[8px] border px-2.5 py-1 text-11"
     >
       {label}
     </button>
@@ -175,7 +175,7 @@ export function HistoryTable({
 
       <div className="border-line bg-panel overflow-x-auto rounded-[var(--radius-panel)] border">
         <table className="w-full text-left text-sm">
-          <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
+          <thead className="bg-panel-alt text-muted text-11 tracking-wide uppercase">
             <tr>
               <th className="px-4 py-3">{t('history.reference')}</th>
               <th className="px-4 py-3">{t('history.type')}</th>
@@ -193,7 +193,7 @@ export function HistoryTable({
                 <td className="text-muted px-4 py-3 text-xs">
                   {transaction.methodLabel}
                   {transaction.note ? (
-                    <span className="text-danger block text-[10px]">{transaction.note}</span>
+                    <span className="text-danger block text-10">{transaction.note}</span>
                   ) : null}
                 </td>
                 <td className="px-4 py-3 text-xs">{t(`status.${transaction.status}`)}</td>

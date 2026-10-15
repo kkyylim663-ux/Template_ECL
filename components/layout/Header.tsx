@@ -25,7 +25,7 @@ export async function Header({ region }: { region: string }) {
         <div className="container-page flex h-full items-center">
           <Link
             href={`/${region}`}
-            className="text-ink me-[59px] flex h-[19px] w-[145px] shrink-0 items-center text-[20px] leading-[19px] font-bold tracking-wide"
+            className="text-ink me-[59px] flex h-[19px] w-[145px] shrink-0 items-center text-xl leading-[19px] font-bold tracking-wide"
           >
             {brand.logo.text}
           </Link>
@@ -50,7 +50,7 @@ export async function Header({ region }: { region: string }) {
             >
               <span className="me-[15px] text-sm font-bold text-white">{t('ui.quest')}</span>
               <Icon name="trophy" size={20} className="absolute right-4 text-white" />
-              <span className="bg-success absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-[10px] leading-none text-white">
+              <span className="bg-success absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-10 leading-none text-white">
                 {t('ui.live')}
               </span>
             </a>

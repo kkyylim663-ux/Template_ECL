@@ -197,7 +197,7 @@ export function Markdown({ source, className }: { source: string; className?: st
         return (
           <div key={key} className="border-line overflow-x-auto rounded-[var(--radius-panel)] border">
             <table className="w-full text-left text-sm">
-              <thead className="bg-panel-alt text-muted text-[11px] tracking-wide uppercase">
+              <thead className="bg-panel-alt text-muted text-11 tracking-wide uppercase">
                 <tr>
                   {block.head.map((cell, cellIndex) => (
                     <th key={`${key}-h${cellIndex}`} className="px-4 py-2.5">
