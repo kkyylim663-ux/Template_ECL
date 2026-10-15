@@ -29,7 +29,7 @@ export default async function FastGamePage({
       <GameLobby
         region={region}
         headingKey="page.fastGame"
-        introKey="page.slotsIntro"
+        tone={150}
         searchParams={await searchParams}
       />
     </IntlScope>

@@ -48,11 +48,12 @@ test('a tap reveals Play Now and Demo on a card', async ({ page }) => {
   await page.goto('/my/slots?provider=pragmatic&tab=all');
 
   const card = page.locator('article[data-game-id]').first();
-  const overlay = card.locator('div.absolute.inset-0');
-  await expect(overlay).toHaveCSS('opacity', '0');
+  // T33 lobby: the cover slides up (transform) instead of fading in.
+  const cover = card.locator('.lobby-card__cover');
+  await expect(cover).toHaveCSS('transform', /matrix\(1, 0, 0, 1, 0, [1-9]/); // translated away from 0
 
-  await page.locator('[aria-label^="Show actions for"]').first().click();
-  await expect(overlay).toHaveCSS('opacity', '1');
+  await card.click();
+  await expect(cover).toHaveCSS('transform', 'matrix(1, 0, 0, 1, 0, 0)');
   await page.screenshot({ path: `${SHOTS}/t14-mobile-card-tapped.png` });
 
   const before = page.url();

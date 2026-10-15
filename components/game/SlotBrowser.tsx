@@ -27,14 +27,12 @@ export function SlotBrowser({
   initialTab,
   initialQuery,
   initialPage,
-  providerTabTotal,
 }: {
   provider: string;
   tabs: TabItem[];
   initialTab: string;
   initialQuery: string;
   initialPage: PagePayload;
-  providerTabTotal: number;
 }) {
   const t = useTranslations('games');
   const tCommon = useTranslations('common');
@@ -190,13 +188,19 @@ export function SlotBrowser({
 
   return (
     <section>
-      <div className="mt-5 flex flex-col gap-3 desktop:flex-row desktop:items-center desktop:justify-between">
-        <IconSprite only={['search']} />
-        <Tabs tabs={tabs} value={tab} onChange={setTab} label={t('browser.categories', { provider })} />
-
-        <div className="relative desktop:w-72">
-          <span className="text-muted pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">
-            <Icon name="search" size={16} />
+      {/*
+       * `.slots-option__wrapper`: category pills on the left (the original's
+       * `.nav-pill__wrapper` scrolls inside the bar), the search pill on the
+       * right — which leaves the bar and stands alone at <=768px.
+       */}
+      <div className="lobby-bar" data-lobby-bar>
+        <div className="min-w-0 flex-1">
+          <Tabs tabs={tabs} value={tab} onChange={setTab} label={t('browser.categories', { provider })} />
+        </div>
+        <div className="lobby-search relative shrink-0 max-desktop:mb-10 max-desktop:w-full max-desktop:min-w-0 max-desktop:max-w-none">
+          <IconSprite only={['search']} />
+          <span className="pointer-events-none absolute left-[17px] top-1/2 -translate-y-1/2">
+            <Icon name="search" size={19} className="lobby-search__icon" />
           </span>
           <input
             type="search"
@@ -204,53 +208,44 @@ export function SlotBrowser({
             onChange={(event) => setQuery(event.target.value)}
             placeholder={t('browser.searchPlaceholder')}
             aria-label={t('browser.searchLabel')}
-            className="border-line bg-panel text-ink placeholder:text-muted focus:border-accent w-full rounded-[var(--radius-tag)] border py-2 pr-3 pl-9 text-sm outline-none"
+            className="lobby-search__input"
           />
         </div>
       </div>
 
-      <p className="text-muted mt-3 text-xs" aria-live="polite">
-        {query ? (
-          <>{t('browser.resultsFor', { count: total, query })}</>
-        ) : (
-          <>
-            {t('browser.titlesIn', { count: total, provider, tab })}
-            {providerTabTotal !== total ? (
-              <> · {t('browser.beforeFiltering', { count: providerTabTotal })}</>
-            ) : null}
-          </>
-        )}
-        {busy ? ` · ${t('browser.updating')}` : null}
-      </p>
-
       {failed ? (
-        <div className="border-line bg-panel mt-4 rounded-[var(--radius-panel)] border p-6 text-center">
-          <p className="text-muted text-sm">{t('browser.loadFailed', { message: failed })}</p>
-          <button
-            type="button"
-            onClick={() => void load(page, tab, query)}
-            className="border-line text-ink hover:border-accent mt-3 rounded-[8px] border px-4 py-2 text-xs"
-          >
-            {tCommon('action.retry')}
-          </button>
+        <div className="lobby-empty" role="alert">
+          <p>
+            {t('browser.loadFailed', { message: failed })}{' '}
+            <button
+              type="button"
+              onClick={() => void load(page, tab, query)}
+              className="text-accent underline underline-offset-2"
+            >
+              {tCommon('action.retry')}
+            </button>
+          </p>
         </div>
       ) : null}
 
       {items.length === 0 && !busy ? (
-        <div className="border-line bg-panel mt-4 rounded-[var(--radius-panel)] border p-8 text-center">
-          <p className="text-ink text-sm font-medium">{t('browser.empty', { query })}</p>
-          <p className="text-muted mt-1 text-xs">{t('browser.emptyHint')}</p>
-          <button
-            type="button"
-            onClick={() => setQuery('')}
-            className="border-line text-ink hover:border-accent mt-4 rounded-[8px] border px-4 py-2 text-xs"
-          >
-            {t('browser.clearSearch')}
-          </button>
+        <div className="lobby-empty" data-lobby-empty>
+          <p>
+            {query ? (
+              <>
+                {t('browser.empty', { query })} ·{' '}
+                <button type="button" onClick={() => setQuery('')} className="text-accent underline underline-offset-2">
+                  {t('browser.clearSearch')}
+                </button>
+              </>
+            ) : (
+              t('browser.emptyHint')
+            )}
+          </p>
         </div>
       ) : null}
 
-      <div className="mt-4 grid grid-cols-2 gap-3 desktop:grid-cols-6 desktop:gap-5">
+      <div className="lobby-grid" data-game-grid>
         {items.map((game) => (
           <GameCard key={`${game.provider}-${game.id}`} game={game} />
         ))}
@@ -261,10 +256,11 @@ export function SlotBrowser({
 
       <div ref={sentinel} aria-hidden className="h-10" />
 
-      <p className="text-muted text-center text-xs">
+      <p className="text-muted text-center text-xs" aria-live="polite">
         {hasMore
           ? t('browser.showing', { shown: items.length, total })
           : t('browser.shown', { count: total })}
+        {busy && items.length > 0 ? ` · ${t('browser.updating')}` : null}
       </p>
     </section>
   );

@@ -3,79 +3,62 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { GameCard as GameCardData } from '@/lib/api/slots';
-import { artUrl } from '@/lib/game/art';
 import { getLaunchHref } from '@/lib/game/launch';
 import { toneFromString } from '@/lib/game/tone';
-import { LazyImage } from '@/components/ui/LazyImage';
 
 /**
- * One game tile, matching docs/UI_REFERENCE.md: lazy artwork, accent border and
- * a 2px lift on hover, Play Now / Demo revealed on hover — or on a single tap
- * where there is no hover. Both actions are `#` in P0 and never navigate.
+ * One game tile (`.gamelist-display__card`): 250px tall (3/4 at <=768px), 15px
+ * radius; the artwork scales to 1.2 on hover while a rgba(0,0,0,.8) cover slides
+ * up (`all .3s`) holding Play Now (`.btn-primary` mustard) over Demo (plain
+ * `.btn`, #2d2d2f). Both actions are `#` and never navigate. Hover (and
+ * `:focus-within` for the keyboard) drives the cover on desktop; on touch, the
+ * first tap on the tile reveals it (the original's mobile interaction is not in
+ * the snapshot — P0's tap-to-reveal is kept, mobile.spec locks it).
  */
 export function GameCard({ game }: { game: GameCardData }) {
   const t = useTranslations('games');
   const [revealed, setRevealed] = useState(false);
   const href = getLaunchHref({ provider: game.provider, gameId: game.id, mode: 'real' });
-  const art = artUrl(game.provider, game.img);
+  const keep = (event: React.MouseEvent) => {
+    if (href === '#') event.preventDefault();
+  };
 
   return (
     <article
       data-game-id={game.id}
       data-provider={game.provider}
-      className="group border-line bg-panel hover:border-accent relative rounded-[var(--radius-panel)] border p-2 transition-transform duration-200 hover:-translate-y-0.5"
+      data-revealed={revealed}
+      onClick={() => setRevealed(true)}
+      className="lobby-card group"
     >
-      <LazyImage
-        src={art}
-        alt={game.name}
-        tone={toneFromString(game.id)}
-        className="rounded-[10px]"
-      >
-        <div
-          className={`absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/55 transition-opacity ${
-            revealed ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-          }`}
+      <span
+        aria-hidden
+        className="lobby-card__img game-placeholder"
+        style={{ '--tone': String(toneFromString(game.id)) } as React.CSSProperties}
+      />
+      <div className="lobby-card__cover">
+        <a
+          href={href}
+          data-game-id={game.id}
+          data-provider={game.provider}
+          data-mode="real"
+          onClick={keep}
+          className="lobby-card__btn lobby-card__btn--play"
         >
-          <a
-            href={href}
-            data-game-id={game.id}
-            data-provider={game.provider}
-            data-mode="real"
-            onClick={(event) => {
-              if (href === '#') event.preventDefault();
-            }}
-            className="bg-accent w-4/5 rounded-[8px] px-3 py-1.5 text-center text-xs font-semibold text-[#1b1b1b]"
-          >
-            {t('card.playNow')}
-          </a>
-          <a
-            href={href}
-            data-game-id={game.id}
-            data-provider={game.provider}
-            data-mode="demo"
-            onClick={(event) => {
-              if (href === '#') event.preventDefault();
-            }}
-            className="border-accent text-accent w-4/5 rounded-[8px] border px-3 py-1.5 text-center text-xs font-semibold"
-          >
-            {t('card.demo')}
-          </a>
-        </div>
-      </LazyImage>
-
-      {/* Touch devices have no hover: the first tap reveals the actions. */}
-      {revealed ? null : (
-        <button
-          type="button"
-          onClick={() => setRevealed(true)}
-          aria-label={t('card.showActions', { name: game.name })}
-          className="absolute inset-x-2 top-2 bottom-8 z-10 rounded-[10px] desktop:hidden"
-        />
-      )}
-
-      <h3 className="text-ink mt-3.5 line-clamp-2 text-center text-15 leading-tight font-semibold">
-        {game.name}
-      </h3>
+          {t('card.playNow')}
+        </a>
+        <a
+          href={href}
+          data-game-id={game.id}
+          data-provider={game.provider}
+          data-mode="demo"
+          onClick={keep}
+          className="lobby-card__btn lobby-card__btn--demo mt-2.5"
+        >
+          {t('card.demo')}
+        </a>
+      </div>
+      <h3 className="lobby-card__title text-sm leading-[normal] font-medium">{game.name}</h3>
     </article>
   );
 }

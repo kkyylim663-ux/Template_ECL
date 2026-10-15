@@ -22,6 +22,8 @@
   --color-tint: #252727; /* .info-rule__header */
   --color-visual: #2c2c2e; /* mobile card artwork area */
   --color-deep: #1c1c1c;
+  --color-tile-soft: #2d2d2f; /* .gamelist-card / .btn (studio tile + demo button) */
+  --color-bar: #2b2b2b; /* .slots-option__wrapper / .no-info-box */
 
   /* Separators and the collapsed rail */
   --color-line: #333435;
@@ -722,5 +724,320 @@ html {
   .mobile-bar [aria-current='page'] .mobile-bar__icon {
     transition: none;
     animation: none;
+  }
+}
+
+/* ------------------------------------------------ game lobbies (T33) */
+
+/*
+ * `banner-section`: every game page opens with one. The CSS gives no height —
+ * the artwork's own ratio decides it, and the artwork is not part of this
+ * build — so the placeholder band is a fixed 160px here (112px at <=768px,
+ * where the original also adds padding-top:15px). Recorded as a known
+ * difference in PROGRESS.md.
+ */
+.page-hero {
+  margin-top: 30px;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+}
+
+/*
+ * `h1.form-title.large` + `.page-icon`: 20px/500 with a 28px icon at
+ * 10px right margin, `mt-20 mb-20`.
+ */
+.page-title {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: normal;
+}
+
+.page-title__icon {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+  border-radius: var(--radius-8);
+}
+
+/*
+ * `.gamelist-wrapper` + `.gamelist-card`: the studio strip. 55px tall, 176px
+ * wide tiles that wrap onto a second row on desktop (gap 10px), full-width rows
+ * on mobile; #2d2d2f fill, 15px radius, the selected/hovered one gets the
+ * accent border, and the strip itself is a 4px custom scrollbar.
+ */
+.lobby-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 5px 1px 0;
+}
+
+.lobby-rail__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 176px;
+  height: 55px;
+  border: 1px solid var(--color-tile-soft);
+  border-radius: var(--radius-panel);
+  background-color: var(--color-tile-soft);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lobby-rail__card[aria-current='true'],
+.lobby-rail__card:hover {
+  border-color: var(--color-accent);
+}
+
+.lobby-rail__img {
+  box-sizing: border-box;
+  height: auto;
+  max-height: 100%;
+  padding: 10px 20px;
+  border-radius: var(--radius-panel);
+  object-fit: contain;
+}
+
+/*
+ * `.slots-option__wrapper`: the bar that holds the category tabs and the search
+ * box — #2b2b2b, 15px radius, 20px/10px padding, 30px margins.
+ */
+.lobby-bar {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  padding: 20px 10px;
+  background-color: var(--color-bar);
+  border-radius: var(--radius-panel);
+}
+
+/*
+ * `.slots-search__wrapper`: a #47494b pill 222px wide, 18.71px icon, 14px
+ * placeholder input. At <=768px it leaves the bar and stands alone at 3rem.
+ */
+.lobby-search {
+  display: flex;
+  align-items: center;
+  min-width: 222px;
+  max-width: 222px;
+  margin-left: 10px;
+  padding: 0 17px;
+  background-color: var(--color-line-muted);
+  border-radius: var(--radius-panel);
+}
+
+.lobby-search__icon {
+  width: 19px;
+  height: 19px;
+  flex: none;
+  color: var(--color-muted);
+}
+
+.lobby-search__input {
+  width: 100%;
+  /* 13px after the icon (which sits at 17px), per `.slots-search__input` */
+  padding-left: 45px;
+  border: none;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  background: transparent;
+  outline: none;
+}
+
+.lobby-search__input::placeholder {
+  color: var(--color-muted);
+}
+
+/*
+ * `.gameslist-display__wrapper`: the 6-column card grid (3 at <=768px),
+ * 20px/30px gutters, 30px bottom margin.
+ */
+.lobby-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 30px 20px;
+  margin-bottom: 30px;
+}
+
+/*
+ * `.gamelist-display__card`: 250px tall (aspect 3/4 at <=768px), 15px radius,
+ * the artwork scales to 1.2 on hover while a rgba(0,0,0,.8) cover slides up
+ * (transform, `all .3s`) holding the Play Now / Demo buttons.
+ */
+.lobby-card {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  border-radius: var(--radius-panel);
+  cursor: pointer;
+}
+
+.lobby-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.lobby-card:hover .lobby-card__img {
+  transform: scale(1.2);
+}
+
+.lobby-card__cover {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(100%);
+  transition: all 0.3s;
+}
+
+.lobby-card:hover .lobby-card__cover,
+.lobby-card:focus-within .lobby-card__cover {
+  transform: translateY(0);
+}
+
+/* Touch has no hover: P0's first-tap reveal (mobile.spec locks it). */
+@media (hover: none) {
+  .lobby-card[data-revealed='false'] .lobby-card__cover {
+    transform: translateY(100%);
+  }
+}
+
+/*
+ * `.gamelist-display__card-cover__btn`: Play Now is `.btn-primary` (mustard,
+ * black text), Demo the plain `.btn` (#2d2d2f, white); both 14px/700, 15px
+ * radius, 12px 33px padding. The cover stacks them with a 10px gap.
+ */
+.lobby-card__btn {
+  padding: 12px 33px;
+  border-radius: var(--radius-panel);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
+}
+
+.lobby-card__btn--play {
+  background-color: var(--color-accent);
+  color: #000;
+}
+
+.lobby-card__btn--demo {
+  background-color: var(--color-tile-soft);
+  color: var(--color-ink);
+}
+
+.lobby-card__title {
+  padding: 5px 0 0;
+  color: var(--color-ink);
+  text-align: center;
+}
+
+/*
+ * `.no-info-box`: the empty state — #2b2b2b, 100px tall, 16px #b2b2b2 text,
+ * full width.
+ */
+.lobby-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  margin: 10px 0;
+  background-color: var(--color-bar);
+  border-radius: var(--radius-panel);
+  color: var(--color-muted);
+  font-size: var(--text-base);
+  text-align: center;
+}
+
+/* Thin 4px scrollbar with the mustard thumb, as `.custom-scroll` paints it. */
+.lobby-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent) transparent;
+}
+
+.lobby-scroll::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+
+.lobby-scroll::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.lobby-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    margin-bottom: 1rem;
+    padding-top: 15px;
+  }
+
+  .page-title {
+    font-size: var(--text-xs);
+  }
+
+  .page-title__icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  /* The strip keeps one row of 176px tiles and scrolls sideways (the wrapper
+     carries `custom-scroll`, and 28 stacked rows would bury the grid; no mobile
+     snapshot exists to check the original's JS behaviour — recorded). */
+  .lobby-rail {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-right: 0;
+  }
+
+  .lobby-rail__card {
+    min-width: 176px;
+  }
+
+  /* `.slots-search__wrapper` at <=768px: two rules agree on 222px wide and 3rem
+     tall, centered; the later one wins margin-bottom (40px over 27px). */
+  .lobby-search {
+    height: 3rem;
+    min-width: 222px;
+    max-width: 222px;
+    margin: 0 auto 40px;
+  }
+
+  .lobby-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .lobby-card {
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .lobby-card__img {
+    object-fit: cover;
+  }
+
+  .lobby-card__btn {
+    padding: 9px 12px;
+    font-size: var(--text-xs);
   }
 }

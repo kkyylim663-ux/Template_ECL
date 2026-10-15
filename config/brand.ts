@@ -53,6 +53,10 @@ export const brand = {
     tint: '#252727',
     /** Mobile card artwork area. */
     visual: '#2c2c2e',
+    /** Studio tile + demo button (.gamelist-card / .btn) and the option bar
+        (.slots-option__wrapper / .no-info-box) — T33, measured. */
+    tileSoft: '#2d2d2f',
+    bar: '#2b2b2b',
     /** Separators. */
     line: '#333435',
     lineAlt: '#3a3b3c',

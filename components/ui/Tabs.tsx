@@ -10,8 +10,11 @@ export type TabItem = {
 };
 
 /**
- * Tabs are controlled on purpose: the slots page keeps the active tab in the URL
- * (T09), and the ranking board swaps tables by tab (T11).
+ * The original's `.nav-pill` tabs: #5d5d61 pills, 13.5px/700, 12px/16px padding,
+ * 18px apart (6px at <=768px), `all .3s`; the selected one turns mustard with
+ * black text. They scroll sideways inside the lobby bar instead of drawing an
+ * underline. Controlled on purpose: the slots page keeps the active tab in the
+ * URL (T09), and the ranking board swaps tables by tab (T11).
  */
 export function Tabs({
   tabs,
@@ -30,7 +33,7 @@ export function Tabs({
     <div
       role="tablist"
       aria-label={label}
-      className={`border-line flex gap-1 overflow-x-auto border-b pb-px ${className ?? ''}`}
+      className={`lobby-scroll flex min-w-0 gap-[18px] overflow-x-auto max-desktop:gap-1.5 ${className ?? ''}`}
     >
       {tabs.map((tab) => {
         const active = tab.id === value;
@@ -41,16 +44,13 @@ export function Tabs({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(tab.id)}
-            className={`flex shrink-0 items-center gap-1.5 rounded-t-[10px] px-3 py-2 text-xs font-medium whitespace-nowrap transition-colors ${
+            className={`flex shrink-0 items-center gap-3 rounded-[var(--radius-panel)] px-4 py-3 text-[13.5px] leading-[normal] font-bold whitespace-nowrap transition-all ${
               active
-                ? 'border-accent text-accent -mb-px border-b-2'
-                : 'text-muted hover:text-ink border-b-2 border-transparent'
-            }`}
+                ? 'bg-accent text-black'
+                : 'bg-[var(--color-line-deepest)] text-white hover:bg-accent hover:text-black'
+            } max-desktop:justify-center max-desktop:px-[18px] max-desktop:py-[7px] max-desktop:text-xs max-desktop:font-medium`}
           >
             {tab.label}
-            {typeof tab.count === 'number' ? (
-              <span className="text-muted text-10">({tab.count.toLocaleString('en-MY')})</span>
-            ) : null}
           </button>
         );
       })}

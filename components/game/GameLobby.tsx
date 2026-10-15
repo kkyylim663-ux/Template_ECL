@@ -22,20 +22,24 @@ function labelForTab(t: ServerTranslate, id: string): string {
 }
 
 /**
- * The browsing lobby used by both /slots and /fast-game: studio strip, the
- * studio's own category tabs, and the card grid. Shared so the two pages cannot
- * drift apart — the difference between them is only the heading.
+ * The browsing lobby shared by /slots and /fast-game, in the original's block
+ * order: `banner-section`, the `h1.form-title.large` with its 28px page icon,
+ * the studio strip (`.gamelist-wrapper`), the option bar with the category
+ * pills and the search pill, then the 6-column card grid. Shared so the two
+ * pages cannot drift apart — the difference between them is the icon tone and
+ * the heading text only.
  */
 export async function GameLobby({
   region,
   headingKey,
-  introKey,
+  tone,
   searchParams,
 }: {
   region: string;
   /** Key inside the `games` namespace. */
   headingKey: string;
-  introKey: string;
+  /** Placeholder hue for the hero band and the page icon. */
+  tone: number;
   searchParams: SearchParams;
 }) {
   const [{ t }, list] = await Promise.all([getT('games'), getSlotGameList()]);
@@ -59,24 +63,25 @@ export async function GameLobby({
   const tabItems: TabItem[] = tabs.map((id) => ({
     id,
     label: labelForTab(t, id),
-    count: list.games[provider]?.[id]?.length ?? 0,
   }));
 
   return (
     <div>
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-ink text-xl font-semibold">{t(headingKey)}</h1>
-          <p className="text-muted mt-1 text-xs">
-            {t('lobby.summary', {
-              count: providers.length,
-              category: labelForTab(t, tab),
-              provider,
-            })}
-          </p>
-        </div>
-        <p className="text-muted text-xs">{t(introKey)}</p>
-      </header>
+      <section
+        data-part="banner-section"
+        aria-hidden
+        className="page-hero game-placeholder h-40 max-desktop:h-28"
+        style={{ '--tone': String(tone) } as React.CSSProperties}
+      />
+
+      <h1 className="page-title has-space">
+        <span
+          aria-hidden
+          className="page-title__icon game-placeholder"
+          style={{ '--tone': String(tone) } as React.CSSProperties}
+        />
+        {t(headingKey)}
+      </h1>
 
       <ProviderRail region={region} providers={providers} active={provider} tab={tab} />
 
@@ -87,7 +92,6 @@ export async function GameLobby({
         initialTab={tab}
         initialQuery={search}
         initialPage={page}
-        providerTabTotal={page.providerTabTotal}
       />
     </div>
   );

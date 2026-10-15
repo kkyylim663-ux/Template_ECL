@@ -12,17 +12,17 @@ test.describe('game browsing flow', () => {
     // First page only: 24 cards, never the whole 698.
     const cards = page.locator('article[data-game-id]');
     await expect(cards).toHaveCount(24);
-    await expect(page.getByText('698 titles in pragmatic / all')).toBeVisible();
+    await expect(page.getByText(/Showing 24 of 698/)).toBeVisible();
 
     // Category switch reloads the grid and updates the URL.
     await page.click('[role=tablist] button:has-text("Top")');
     await expect(page).toHaveURL(/tab=top/);
-    await expect(page.getByText('26 titles in pragmatic / top')).toBeVisible();
+    await expect(page.getByText('Showing 24 of 26 — scroll for more')).toBeVisible();
 
     // Search by name, case-insensitive.
     await page.fill('input[aria-label="Search games"]', 'olympus');
     await expect(page).toHaveURL(/q=olympus/);
-    await expect(page.getByText(/results for/)).toBeVisible();
+    await expect(page.locator('.lobby-grid article')).not.toHaveCount(0);
 
     const results = await cards.count();
     expect(results).toBeGreaterThan(0);
@@ -39,12 +39,12 @@ test.describe('game browsing flow', () => {
     await page.fill('input[aria-label="Search games"]', 'zzzzqq');
     await expect(page.getByText(/No title matches/)).toBeVisible();
     await page.click('text=Clear search');
-    await expect(page.getByText(/titles in pragmatic \/ top/)).toBeVisible();
+    await expect(page.locator('.lobby-grid article').first()).toBeVisible();
   });
 
   test('a different studio brings its own category tabs', async ({ page }) => {
     await page.goto('/my/slots?provider=pt&tab=new');
-    await expect(page.getByText('88 titles in pt / new')).toBeVisible();
+    await expect(page.getByText(/Showing 24 of 88/)).toBeVisible();
 
     const tabs = page.locator('[role=tablist] button');
     await expect(tabs).toHaveCount(8);
@@ -57,7 +57,7 @@ test.describe('game browsing flow', () => {
 
   test('fast-game reuses the same lobby', async ({ page }) => {
     await page.goto('/my/fast-game?provider=pt&tab=new');
-    await expect(page.getByText('88 titles in pt / new')).toBeVisible();
+    await expect(page.getByText(/Showing 24 of 88/)).toBeVisible();
     await expect(page.locator('article[data-game-id]')).toHaveCount(24);
   });
 

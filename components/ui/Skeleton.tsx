@@ -8,12 +8,11 @@ export function Skeleton({ className }: { className?: string }) {
   );
 }
 
-/** Card-shaped skeleton matching the game grid footprint. */
+/** Card-shaped skeleton matching the game grid footprint (`.lobby-card`). */
 export function GameCardSkeleton() {
   return (
-    <div className="border-line bg-panel rounded-[var(--radius-panel)] border p-2">
-      <Skeleton className="aspect-[3/4] w-full" />
-      <Skeleton className="mx-auto mt-3 h-3 w-2/3" />
+    <div className="lobby-card">
+      <Skeleton className="h-full w-full rounded-[var(--radius-panel)]" />
     </div>
   );
 }
