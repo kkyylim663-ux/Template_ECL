@@ -1,7 +1,6 @@
 import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
-import { displayPayloadSchema, type DisplayPayload } from './schemas';
-import { getSlotGameList } from './slots';
+import { displayPayloadSchema, type DisplayPayload, type VpnDemo } from './schemas';
 
 /**
  * Payload behind the display-only game pages (4D results, number game, prediction)
@@ -18,14 +17,21 @@ export async function getCategoryProviders(category: string): Promise<string[]> 
   return payload.providersByCategory[category] ?? [];
 }
 
-/** Studio cards for a category, with the number of titles each studio holds. */
+/** Studio cards for a category, with the reference's own display names. */
 export async function getCategoryProviderCards(
   category: string,
-): Promise<{ id: string; totalGames: number }[]> {
-  const [payload, list] = await Promise.all([getDisplayPayload(), getSlotGameList()]);
+): Promise<{ id: string; isNew: boolean }[]> {
+  const payload = await getDisplayPayload();
+  const fresh = new Set(payload.newProviders?.[category] ?? []);
 
   return (payload.providersByCategory[category] ?? []).map((id) => ({
     id,
-    totalGames: Object.keys(list.details[id] ?? {}).length,
+    isNew: fresh.has(id),
   }));
+}
+
+/** The VPN modal's demo credentials, exactly as the reference build shows them. */
+export async function getVpnDemo(): Promise<VpnDemo> {
+  const payload = await getDisplayPayload();
+  return payload.vpnDemo;
 }

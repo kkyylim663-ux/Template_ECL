@@ -49,6 +49,13 @@
     "vpnTitle": "Phát hiện VPN",
     "vpnBody": "Hãy tắt VPN trước khi vào bàn {category}. Bản {brand} không mở game — thông báo này là điểm dừng."
   },
+  "vpn": {
+    "title": "Tải VPN",
+    "close": "Đóng hộp thoại",
+    "header": "Tải VPN ngay để chơi game bằng thông tin đăng nhập sau:",
+    "loginId": "ID đăng nhập : {id}",
+    "password": "Mật khẩu : {password}"
+  },
   "page": {
     "slots": "Slots",
     "slotsIntro": "Chỉ xem — bản này không mở game.",

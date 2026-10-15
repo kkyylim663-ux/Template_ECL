@@ -49,6 +49,13 @@
     "vpnTitle": "检测到 VPN",
     "vpnBody": "进入 {category} 桌台前请关闭 VPN。{brand} 演示版不会真正启动游戏 — 到这条提示为止。"
   },
+  "vpn": {
+    "title": "VPN 下载",
+    "close": "关闭弹窗",
+    "header": "立即下载 VPN,并使用以下登录凭据享受游戏:",
+    "loginId": "登录 ID:{id}",
+    "password": "密码:{password}"
+  },
   "page": {
     "slots": "电子游戏",
     "slotsIntro": "仅供浏览 — 此版本不启动游戏。",

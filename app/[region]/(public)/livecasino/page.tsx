@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { getCategoryProviderCards } from '@/lib/api';
-import { ProviderCardGrid } from '@/components/game/ProviderCardGrid';
+import { CategoryLobby } from '@/components/game/CategoryLobby';
+import { getCategoryProviderCards, getVpnDemo } from '@/lib/api';
 import { IntlScope } from '@/lib/i18n/scope';
-import { getT } from '@/lib/i18n/server';
 import { pageMetadata } from '@/lib/seo';
 
 export async function generateMetadata({
@@ -14,29 +13,29 @@ export async function generateMetadata({
   return pageMetadata('livecasino', { region, path: '/livecasino' });
 }
 
-export default async function LiveCasinoPage() {
-  const [{ t }, providers] = await Promise.all([
-    getT('games'),
+/**
+ * Live casino, in the reference build's order: banner, `form-title`, the Game
+ * Providers grid and the Betting Transaction block. Play warns about a VPN —
+ * the same dead end the reference has.
+ */
+export default async function LiveCasinoPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
+  const [providers, vpnDemo] = await Promise.all([
     getCategoryProviderCards('livecasino'),
+    getVpnDemo(),
   ]);
 
   return (
-    <IntlScope namespaces={['games']}>
-      <div>
-        <header className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h1 className="text-ink text-xl font-semibold">{t('category.livecasino')}</h1>
-            <p className="text-muted mt-1 text-xs">
-              {t('page.livecasinoSubtitle', { count: providers.length })}
-            </p>
-          </div>
-          <p className="text-muted text-xs">{t('page.livecasinoIntro')}</p>
-        </header>
-
-        <div className="mt-5">
-          <ProviderCardGrid providers={providers} category="livecasino" vpnNotice />
-        </div>
-      </div>
+    <IntlScope namespaces={['games', 'home']}>
+      <CategoryLobby
+        region={region}
+        category="livecasino"
+        headingKey="category.livecasino"
+        tone={8}
+        providers={providers}
+        vpnNotice
+        vpnDemo={vpnDemo}
+      />
     </IntlScope>
   );
 }

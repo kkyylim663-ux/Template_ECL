@@ -49,6 +49,13 @@
     "vpnTitle": "VPN detected",
     "vpnBody": "Turn off your VPN before opening a {category} table. The {brand} build never launches a game — this notice is the end of the flow."
   },
+  "vpn": {
+    "title": "VPN Download",
+    "close": "Close dialog",
+    "header": "Download the VPN now to enjoy the game with the following login credentials:",
+    "loginId": "Login ID : {id}",
+    "password": "Password : {password}"
+  },
   "page": {
     "slots": "Slots",
     "slotsIntro": "Browse only — launching a game is disabled in this build.",

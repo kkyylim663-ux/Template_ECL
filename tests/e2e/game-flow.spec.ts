@@ -63,7 +63,11 @@ test.describe('game browsing flow', () => {
 
   test('live casino warns about a VPN instead of launching', async ({ page }) => {
     await page.goto('/my/livecasino');
-    await page.click('article[data-provider] a[data-mode="real"]');
+    // T34: the Play button lives in the hover panel — hover the card first, as
+    // the reference build requires.
+    const card = page.locator('article[data-provider]').first();
+    await card.hover();
+    await card.locator('a[data-mode="real"]').click();
     await expect(page.locator('[role=dialog]')).toContainText('VPN');
     await page.keyboard.press('Escape');
     await expect(page.locator('[role=dialog]')).toHaveCount(0);

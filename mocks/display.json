@@ -4,52 +4,144 @@
   "d": {
     "providersByCategory": {
       "livecasino": [
-        "pragmatic",
-        "pt",
-        "jili",
-        "fachai",
-        "haba",
-        "relaxgaming",
-        "redtiger",
-        "jdb",
-        "w88",
-        "cq9",
-        "booming",
-        "inout"
+        "Evolution Asia",
+        "PP Club",
+        "PT Club",
+        "Winfinity Club",
+        "On Live",
+        "Allbet Club",
+        "DG Club",
+        "SG Club",
+        "Choice Club",
+        "Ezugi Club",
+        "GP Club",
+        "WM Club",
+        "Creedroomz"
       ],
-      "sports": ["joker", "w88", "cq9", "jili", "spade", "va", "nextspin", "microplus", "btg", "netent"],
+      "sports": [
+        "Saba Sport",
+        "CMD368 Sports",
+        "ECL Sports"
+      ],
       "esports": [
-        "pragmatic",
-        "pt",
-        "hacksaw_ig",
-        "nolimitcity_new",
-        "relaxgaming",
-        "redtiger",
-        "fastspin",
-        "dt",
-        "fatpanda",
-        "playace",
-        "bng",
-        "aviatrix"
+        "Saba Sport",
+        "Saba-Esports",
+        "Inplay Matrix",
+        "CMD368 Sports",
+        "TFGaming",
+        "IA Gaming"
       ]
     },
     "fourD": [
-      { "draw": "4471", "date": "2026-10-12", "first": "1938", "second": "5621", "third": "4703", "tone": 42 },
-      { "draw": "4470", "date": "2026-10-11", "first": "7724", "second": "1189", "third": "9045", "tone": 165 },
-      { "draw": "4469", "date": "2026-10-10", "first": "3360", "second": "8412", "third": "2298", "tone": 205 },
-      { "draw": "4468", "date": "2026-10-09", "first": "9017", "second": "4455", "third": "6112", "tone": 12 },
-      { "draw": "4467", "date": "2026-10-08", "first": "5583", "second": "7701", "third": "3348", "tone": 280 },
-      { "draw": "4466", "date": "2026-10-07", "first": "2244", "second": "9906", "third": "1177", "tone": 100 }
+      {
+        "draw": "4471",
+        "date": "2026-10-12",
+        "first": "1938",
+        "second": "5621",
+        "third": "4703",
+        "tone": 42
+      },
+      {
+        "draw": "4470",
+        "date": "2026-10-11",
+        "first": "7724",
+        "second": "1189",
+        "third": "9045",
+        "tone": 165
+      },
+      {
+        "draw": "4469",
+        "date": "2026-10-10",
+        "first": "3360",
+        "second": "8412",
+        "third": "2298",
+        "tone": 205
+      },
+      {
+        "draw": "4468",
+        "date": "2026-10-09",
+        "first": "9017",
+        "second": "4455",
+        "third": "6112",
+        "tone": 12
+      },
+      {
+        "draw": "4467",
+        "date": "2026-10-08",
+        "first": "5583",
+        "second": "7701",
+        "third": "3348",
+        "tone": 280
+      },
+      {
+        "draw": "4466",
+        "date": "2026-10-07",
+        "first": "2244",
+        "second": "9906",
+        "third": "1177",
+        "tone": 100
+      }
     ],
     "numberGame": {
       "round": "R-2026-10-14-09",
-      "numbers": [3, 11, 19, 26, 34, 42],
+      "numbers": [
+        3,
+        11,
+        19,
+        26,
+        34,
+        42
+      ],
       "drawnAt": "2026-10-14T09:05:00+08:00",
       "history": [
-        { "round": "R-2026-10-14-08", "numbers": [7, 14, 21, 28, 35, 41], "drawnAt": "2026-10-14T08:05:00+08:00" },
-        { "round": "R-2026-10-14-07", "numbers": [2, 9, 17, 25, 33, 48], "drawnAt": "2026-10-14T07:05:00+08:00" },
-        { "round": "R-2026-10-14-06", "numbers": [5, 12, 20, 29, 37, 44], "drawnAt": "2026-10-14T06:05:00+08:00" },
-        { "round": "R-2026-10-14-05", "numbers": [1, 8, 16, 24, 31, 46], "drawnAt": "2026-10-14T05:05:00+08:00" }
+        {
+          "round": "R-2026-10-14-08",
+          "numbers": [
+            7,
+            14,
+            21,
+            28,
+            35,
+            41
+          ],
+          "drawnAt": "2026-10-14T08:05:00+08:00"
+        },
+        {
+          "round": "R-2026-10-14-07",
+          "numbers": [
+            2,
+            9,
+            17,
+            25,
+            33,
+            48
+          ],
+          "drawnAt": "2026-10-14T07:05:00+08:00"
+        },
+        {
+          "round": "R-2026-10-14-06",
+          "numbers": [
+            5,
+            12,
+            20,
+            29,
+            37,
+            44
+          ],
+          "drawnAt": "2026-10-14T06:05:00+08:00"
+        },
+        {
+          "round": "R-2026-10-14-05",
+          "numbers": [
+            1,
+            8,
+            16,
+            24,
+            31,
+            46
+          ],
+          "drawnAt": "2026-10-14T05:05:00+08:00"
+        }
       ]
     },
     "prediction": [
@@ -60,8 +152,16 @@
         "away": "Straits Ravens",
         "startsAt": "2026-10-15T09:00:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 1.85 },
-          { "id": "away", "label": "Away", "odds": 1.95 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 1.85
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 1.95
+          }
         ]
       },
       {
@@ -71,8 +171,16 @@
         "away": "Highland Bears",
         "startsAt": "2026-10-16T10:30:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 2.1 },
-          { "id": "away", "label": "Away", "odds": 1.72 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 2.1
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 1.72
+          }
         ]
       },
       {
@@ -82,9 +190,21 @@
         "away": "Penang United",
         "startsAt": "2026-10-15T20:45:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 1.6 },
-          { "id": "draw", "label": "Draw", "odds": 3.8 },
-          { "id": "away", "label": "Away", "odds": 4.2 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 1.6
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "odds": 3.8
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 4.2
+          }
         ]
       },
       {
@@ -94,9 +214,21 @@
         "away": "Johor City",
         "startsAt": "2026-10-17T19:00:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 2.4 },
-          { "id": "draw", "label": "Draw", "odds": 3.2 },
-          { "id": "away", "label": "Away", "odds": 2.9 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 2.4
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "odds": 3.2
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 2.9
+          }
         ]
       },
       {
@@ -106,9 +238,21 @@
         "away": "Coastal Sporting",
         "startsAt": "2026-10-15T03:00:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 1.5 },
-          { "id": "draw", "label": "Draw", "odds": 4.1 },
-          { "id": "away", "label": "Away", "odds": 5.5 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 1.5
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "odds": 4.1
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 5.5
+          }
         ]
       },
       {
@@ -118,11 +262,33 @@
         "away": "Old Town FC",
         "startsAt": "2026-10-18T04:00:00+08:00",
         "options": [
-          { "id": "home", "label": "Home", "odds": 1.95 },
-          { "id": "draw", "label": "Draw", "odds": 3.5 },
-          { "id": "away", "label": "Away", "odds": 3.7 }
+          {
+            "id": "home",
+            "label": "Home",
+            "odds": 1.95
+          },
+          {
+            "id": "draw",
+            "label": "Draw",
+            "odds": 3.5
+          },
+          {
+            "id": "away",
+            "label": "Away",
+            "odds": 3.7
+          }
         ]
       }
-    ]
+    ],
+    "newProviders": {
+      "livecasino": [
+        "Winfinity Club"
+      ]
+    },
+    "vpnDemo": {
+      "loginId": "LilyValley6868",
+      "password": "1212CCyy@6868",
+      "link": "https://windscribe.com/download/"
+    }
   }
 }

@@ -44,7 +44,7 @@ export function Tabs({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(tab.id)}
-            className={`flex shrink-0 items-center gap-3 rounded-[var(--radius-panel)] px-4 py-3 text-[13.5px] leading-[normal] font-bold whitespace-nowrap transition-all ${
+            className={`flex shrink-0 items-center gap-3 rounded-[var(--radius-panel)] px-4 py-3 text-135 leading-[normal] font-bold whitespace-nowrap transition-all ${
               active
                 ? 'bg-accent text-black'
                 : 'bg-[var(--color-line-deepest)] text-white hover:bg-accent hover:text-black'

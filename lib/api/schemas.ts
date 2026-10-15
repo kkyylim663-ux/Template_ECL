@@ -284,11 +284,20 @@ export type PredictionFixture = z.infer<typeof predictionFixtureSchema>;
 
 export const displayPayloadSchema = z.object({
   providersByCategory: categoryProviderMapSchema,
+  /** Studios wearing the red "New" tag, per category (`.game-card__label.new`). */
+  newProviders: z.record(z.string(), z.array(z.string())).optional(),
+  /** The VPN modal's demo credentials (`.vpn-download__*`). */
+  vpnDemo: z.object({
+    loginId: z.string(),
+    password: z.string(),
+    link: z.string().url(),
+  }),
   fourD: z.array(drawResultSchema),
   numberGame: numberGameSchema,
   prediction: z.array(predictionFixtureSchema),
 });
 export type DisplayPayload = z.infer<typeof displayPayloadSchema>;
+export type VpnDemo = DisplayPayload['vpnDemo'];
 
 /* ------------------------------------------------------------------ campaigns */
 
