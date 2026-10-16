@@ -100,7 +100,21 @@
       "round": "Kỳ",
       "numbers": "Số",
       "drawnAt": "Thời gian quay"
-    }
+    },
+    "countdown": {
+      "round": "Số kỳ",
+      "drawing": "Ngày quay số",
+      "remaining": "Thời gian còn lại"
+    },
+    "jackpot": "Jackpot tích lũy",
+    "rulesButton": "Luật chơi",
+    "manual": "Thủ công",
+    "auto": "Tự động",
+    "random": "Ngẫu nhiên tất cả",
+    "reset": "Đặt lại",
+    "submit": "Gửi ngay",
+    "latestPrediction": "Dự đoán mới nhất",
+    "viewMore": "Xem thêm"
   },
   "prediction": {
     "summary": "{count} trận · miễn phí",

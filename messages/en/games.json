@@ -100,7 +100,21 @@
       "round": "Round",
       "numbers": "Numbers",
       "drawnAt": "Drawn at"
-    }
+    },
+    "countdown": {
+      "round": "No of Game",
+      "drawing": "Drawing date",
+      "remaining": "Time remaining"
+    },
+    "jackpot": "Grand Jackpot",
+    "rulesButton": "Rules",
+    "manual": "Manual",
+    "auto": "Auto",
+    "random": "Random All",
+    "reset": "Reset",
+    "submit": "Submit Now",
+    "latestPrediction": "Latest Prediction",
+    "viewMore": "View More"
   },
   "prediction": {
     "summary": "{count} fixtures · free entry",

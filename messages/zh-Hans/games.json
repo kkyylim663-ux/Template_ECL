@@ -100,7 +100,21 @@
       "round": "期号",
       "numbers": "号码",
       "drawnAt": "开奖时间"
-    }
+    },
+    "countdown": {
+      "round": "期数",
+      "drawing": "开奖时间",
+      "remaining": "剩余时间"
+    },
+    "jackpot": "累积奖池",
+    "rulesButton": "规则",
+    "manual": "手动",
+    "auto": "自动",
+    "random": "全部随机",
+    "reset": "重置",
+    "submit": "立即提交",
+    "latestPrediction": "最新预测",
+    "viewMore": "查看更多"
   },
   "prediction": {
     "summary": "{count} 场比赛 · 免费参与",

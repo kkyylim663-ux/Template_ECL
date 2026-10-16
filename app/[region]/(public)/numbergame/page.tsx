@@ -16,6 +16,17 @@ const TABS = [
   { id: 'all', key: 'numberGame.tab.allPrediction', live: true, search: '?tab=all' },
 ] as const;
 
+/** Mock jackpot figures: the reference streams these, the build shows fixed values. */
+const JACKPOT = { usd: 'USD 250,000', myr: 'MYR 1,010,000' };
+const COUNTDOWN_MOCK = '05:00';
+
+/** The three prize-pool cards under the jackpot, in the reference's order. */
+const POOLS = [
+  { id: 'ETH', prize: 'USD 2,000', date: '16/10/2026' },
+  { id: 'TRC20', prize: 'USD 2,000', date: '16/10/2026' },
+  { id: 'BEP20', prize: 'USD 2,000', date: '16/10/2026' },
+] as const;
+
 export async function generateMetadata({
   params,
 }: {
@@ -26,11 +37,10 @@ export async function generateMetadata({
 }
 
 /**
- * Number game, in the reference build's order (`crawl/pages/my_numbergame.html`):
- * banner, the `.nav-pill__outsider` slab holding four 192px tabs, then
- * `.ng-body` (flex, 33px apart, 60px clear of the footer). The reference
- * hydrates the body, so the round card inside follows `.ng-contest__card` from
- * the stylesheet and the table reuses the shared `.table-theme` skin.
+ * Number game, in the reference build's order (`crawl/pages/my_numbergame.html`
+ * and the live page at 375 and 1280): banner, the `.nav-pill__outsider` slab,
+ * then `.ng-body`. Desktop is two columns, the 685px `.ng-contest-wrapper` beside
+ * the 398px `.latest-prediction-wrapper` (33px apart); phones stack them.
  */
 export default async function NumberGamePage({
   params,
@@ -47,14 +57,35 @@ export default async function NumberGamePage({
   const tab = TABS.find((option) => option.id === requested)?.id ?? 'current';
   const base = regionPath(region, '/numbergame');
 
+  const history = (
+    <table className="table-theme number-game__latest-prediction__table">
+      <thead>
+        <tr>
+          <th>{t('numberGame.col.round')}</th>
+          <th>{t('numberGame.col.numbers')}</th>
+          <th>{t('numberGame.col.drawnAt')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {numberGame.history.map((round) => (
+          <tr key={round.round}>
+            <td>{round.round}</td>
+            <td>{round.numbers.join(' · ')}</td>
+            <td>{round.drawnAt.slice(0, 16).replace('T', ' ')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+
   return (
     <IntlScope namespaces={['games']}>
       <div>
-        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder h-40 max-desktop:h-28" />
+        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder game-banner" />
 
         <h1 className="sr-only">{t('category.numberGame')}</h1>
 
-        <div className="nav-pill__outsider banner-top section-bottom">
+        <div className="nav-pill__outsider banner-top section-bottom ng-tabs">
           <div className="nav-pill__wrapper" role="group" aria-label={t('numberGame.tabs')}>
             {TABS.map((option) => (
               <Link
@@ -72,61 +103,91 @@ export default async function NumberGamePage({
           </div>
         </div>
 
-        <div className="ng-body has-space">
+        <div className="ng-body">
           {tab === 'current' ? (
-            <div className="ng-contest__card">
-              <div className="ng-contest__card-inner">
-                <div className="ng-contest__label">
-                  {t('numberGame.round', { round: numberGame.round })}
+            <>
+              <div className="section-card ng-contest-wrapper">
+                <div className="ng-contest__countdown">
+                  <div className="ng-contest__countdown-wrapper">
+                    <p className="ng-contest__countdown-text">{t('numberGame.countdown.remaining')}</p>
+                    <p className="ng-contest__countdown-timer">{COUNTDOWN_MOCK}</p>
+                  </div>
+                  <div className="ng-contest__countdown-wrapper">
+                    <p className="ng-contest__countdown-text">{t('numberGame.countdown.drawing')}</p>
+                    <p className="ng-contest__countdown-timer">{numberGame.drawnAt.slice(11, 16)}</p>
+                  </div>
+                  <div className="ng-contest__countdown-wrapper">
+                    <p className="ng-contest__countdown-text">{t('numberGame.countdown.round')}</p>
+                    <p className="ng-contest__countdown-timer">{numberGame.round}</p>
+                  </div>
                 </div>
-                <p className="ng-contest__label-2">{numberGame.drawnAt.slice(11, 16)} (+08:00)</p>
 
-                <p className="ng-contest__section-title">{t('numberGame.latest')}</p>
-                <ul className="ng-contest__numbers">
-                  {numberGame.numbers.map((number) => (
-                    <li key={number} className="ng-contest__number">
-                      {number}
-                    </li>
+                <div className="ng-contest__card">
+                  <div className="ng-contest__card-inner">
+                    <div className="ng-contest__label">{t('numberGame.jackpot')}</div>
+                    <div className="ng-contest__usd">{JACKPOT.usd}</div>
+                    <div className="ng-contest__myr-1">{JACKPOT.myr}</div>
+                  </div>
+                </div>
+
+                <div className="ng-contest__section-prize-pool">
+                  {POOLS.map((pool) => (
+                    <div key={pool.id} className={`ng-contest__card-1 ${pool.id}_JACKPOT`}>
+                      <div className="ng-contest__card-inner ng-contest__prize-pool-inner">
+                        <div className="ng-contest__prize-pool-separator">----</div>
+                        <div className={`ng-contest__prize-pool-prize ${pool.id}_JACKPOT`}>
+                          {pool.prize}
+                        </div>
+                        <div className="ng-contest__desc-type">{pool.id}</div>
+                        <div className="ng-contest__prize-pool-date">{pool.date}</div>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
                 <div className="ng-contest__actions">
                   <LaunchButton provider="numbergame" label={t('numberGame.playNext')} />
-                  <InertLink className="text-accent text-sm hover:underline">
-                    {t('numberGame.verify')}
-                  </InertLink>
+                  <InertLink className="btn btn-secondary">{t('numberGame.rulesButton')}</InertLink>
+                </div>
+
+                <div className="ng-spin__wrapper">
+                  <div className="ng-spin__header">
+                    <span className="nav-pill selected">{t('numberGame.manual')}</span>
+                    <span className="nav-pill">{t('numberGame.auto')}</span>
+                  </div>
+                  <div className="ng-spin__body">
+                    <div className="ng-spin__manual-grid">
+                      {Array.from({ length: 6 }, (_, index) => (
+                        <div key={index} className="ng-spin__manual-add" />
+                      ))}
+                    </div>
+                    <div className="ng-spin__actions">
+                      <InertLink className="btn btn-primary mr-7">{t('numberGame.random')}</InertLink>
+                      <InertLink className="btn btn-normal">{t('numberGame.reset')}</InertLink>
+                    </div>
+                    <InertLink className="btn btn-primary ng-spin__submit">
+                      {t('numberGame.submit')}
+                    </InertLink>
+                  </div>
                 </div>
               </div>
-            </div>
+
+              <div className="section-card latest-prediction-wrapper">
+                <div className="latest-prediction-title-box">
+                  <h2 className="latest-prediction-title">{t('numberGame.latestPrediction')}</h2>
+                  <InertLink className="btn btn-primary">{t('numberGame.viewMore')}</InertLink>
+                </div>
+                {history}
+              </div>
+            </>
           ) : null}
 
           {/* "Past" is the round history; the two member tabs have no data in a
               build with no session, so they show the reference's empty state. */}
-          {tab === 'current' || tab === 'past' ? (
-            <div>
-              <h2 className="section-title">{t('numberGame.recent')}</h2>
-              <table className="table-theme">
-                <thead>
-                  <tr>
-                    <th>{t('numberGame.col.round')}</th>
-                    <th>{t('numberGame.col.numbers')}</th>
-                    <th>{t('numberGame.col.drawnAt')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {numberGame.history.map((round) => (
-                    <tr key={round.round}>
-                      <td>{round.round}</td>
-                      <td>{round.numbers.join(' · ')}</td>
-                      <td>{round.drawnAt.slice(0, 16).replace('T', ' ')}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
+          {tab === 'past' ? <div className="section-card latest-prediction-wrapper">{history}</div> : null}
+          {tab === 'record' || tab === 'all' ? (
             <div className="no-info-box">{t('ranking.empty')}</div>
-          )}
+          ) : null}
         </div>
       </div>
     </IntlScope>
