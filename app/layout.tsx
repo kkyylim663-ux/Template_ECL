@@ -97,6 +97,8 @@ export default async function RootLayout({
     <html
       lang={locale}
       className={`${rubik.variable} ${noto.variable} ${roboto.variable} motion-safe:scroll-smooth`}
+      // VIEWPORT_SCRIPT sets --m-scale / --fs-fix on <html> before React hydrates.
+      suppressHydrationWarning
     >
       <body className="bg-surface text-ink font-sans antialiased">
         <script dangerouslySetInnerHTML={{ __html: VIEWPORT_SCRIPT }} />
