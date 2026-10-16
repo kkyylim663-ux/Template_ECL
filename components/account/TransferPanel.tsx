@@ -8,7 +8,8 @@ import { formatMinor, parseAmountMinor } from '@/lib/format';
 import { walletService, WalletError, type Wallet } from '@/lib/api/wallet';
 import { notifySessionChange } from '@/lib/session/useSession';
 
-const QUICK_AMOUNTS_MINOR = [5000, 10000, 50000];
+/** The reference's Transfer All sends every provider balance back to main. */
+const MAIN_WALLET = 'main';
 
 type LoadState = 'loading' | 'error' | 'empty' | 'ready';
 type ErrorKey = 'amountInvalid' | 'sameWallet' | 'insufficient' | 'unavailable' | 'failed';
@@ -77,7 +78,9 @@ export function TransferPanel({ currency }: { currency: string }) {
   const walletByCode = (code: string) => wallets.find((wallet) => wallet.code === code);
   const nameOf = (code: string) => walletByCode(code)?.name ?? code;
   const available = walletByCode(from)?.amountMinor ?? 0;
-  const availableText = formatMinor(available, currency);
+  // The reference fills #availableFund with parseFloat(balance).toFixed(2) —
+  // a bare number, no currency label and no thousands separators.
+  const availableText = minorToInput(available);
 
   async function refreshWallets() {
     setWallets(await walletService.getWallets());
@@ -147,28 +150,17 @@ export function TransferPanel({ currency }: { currency: string }) {
               : null;
     setFormError(problem);
     if (problem || amountMinor === null) return;
-    const source = from;
-    const target = to;
-    modal.confirm(
-      t('transfer.confirmTitle'),
-      t('transfer.confirmBody', {
-        amount: formatMinor(amountMinor, currency),
-        from: nameOf(source),
-        to: nameOf(target),
-      }),
-      () => void runTransfer(source, target, amountMinor),
-      t('transfer.confirmAction'),
-    );
+    void runTransfer(from, to, amountMinor);
   }
 
   function handleTransferAll() {
     if (submittingRef.current) return;
-    const target = to;
     modal.confirm(
-      t('transfer.confirmTitle'),
-      t('transfer.allConfirmBody', { to: nameOf(target) }),
-      () => void runTransferAll(target),
-      t('transfer.confirmAction'),
+      t('transfer.allConfirmTitle'),
+      t('transfer.allConfirmBody'),
+      () => void runTransferAll(MAIN_WALLET),
+      t('transfer.allConfirmYes'),
+      t('transfer.allConfirmNo'),
     );
   }
 
@@ -177,7 +169,7 @@ export function TransferPanel({ currency }: { currency: string }) {
       <div className="transfer-container myTransferContainer has-space">
         <div className="account-content__container transfer-left" role="status">
           <h1 className="form-title history-title">{t('transfer.title')}</h1>
-          <p className="mt-5">{t('transfer.loading')}</p>
+          <p>{t('transfer.loading')}</p>
         </div>
       </div>
     );
@@ -188,7 +180,7 @@ export function TransferPanel({ currency }: { currency: string }) {
       <div className="transfer-container myTransferContainer has-space">
         <div className="account-content__container transfer-left" role="alert">
           <h1 className="form-title history-title">{t('transfer.title')}</h1>
-          <p className="mt-5">{t('transfer.loadFailed')}</p>
+          <p>{t('transfer.loadFailed')}</p>
           <button type="button" className="btn btn-primary mt-5" onClick={() => void load()}>
             {t('transfer.retry')}
           </button>
@@ -202,7 +194,7 @@ export function TransferPanel({ currency }: { currency: string }) {
       <div className="transfer-container myTransferContainer has-space">
         <div className="account-content__container transfer-left">
           <h1 className="form-title history-title">{t('transfer.title')}</h1>
-          <p className="mt-5">{t('transfer.empty')}</p>
+          <p>{t('transfer.empty')}</p>
         </div>
       </div>
     );
@@ -212,7 +204,7 @@ export function TransferPanel({ currency }: { currency: string }) {
     <div className="transfer-container myTransferContainer has-space">
       <div className="account-content__container transfer-left">
         <h1 className="form-title history-title">{t('transfer.title')}</h1>
-        <form id="transferForm" className="mt-5" onSubmit={handleSubmit} noValidate>
+        <form id="transferForm" onSubmit={handleSubmit} noValidate>
           <div className="width-medium ss">
             <div className="form-group">
               <label htmlFor="t_from">{t('transfer.from')}</label>
@@ -229,8 +221,8 @@ export function TransferPanel({ currency }: { currency: string }) {
                     </option>
                   ))}
                 </select>
-                <span className="form-control-dropdown icon-dropdown">
-                  <Icon name="chevronDown" size={16} className="text-muted" />
+                <span className="form-control-dropdown icon-dropdown" aria-hidden="true">
+                  <span className="icon-triangle" />
                 </span>
               </div>
               <div className="form-error s" />
@@ -251,8 +243,8 @@ export function TransferPanel({ currency }: { currency: string }) {
                     </option>
                   ))}
                 </select>
-                <span className="form-control-dropdown icon-dropdown">
-                  <Icon name="chevronDown" size={16} className="text-muted" />
+                <span className="form-control-dropdown icon-dropdown" aria-hidden="true">
+                  <span className="icon-triangle" />
                 </span>
               </div>
               <div className="form-error" />
@@ -276,7 +268,10 @@ export function TransferPanel({ currency }: { currency: string }) {
                   <button
                     type="button"
                     className="form-control__icon-wrapper maxbutton"
-                    onClick={() => setAmount(minorToInput(available))}
+                    onClick={() => {
+                      // The reference's Max no-ops while the balance is 0.00.
+                      if (available > 0) setAmount(minorToInput(available));
+                    }}
                   >
                     {t('transfer.max')}
                   </button>
@@ -291,19 +286,6 @@ export function TransferPanel({ currency }: { currency: string }) {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {QUICK_AMOUNTS_MINOR.map((minor) => (
-                <button
-                  key={minor}
-                  type="button"
-                  className="btn"
-                  onClick={() => setAmount(minorToInput(minor))}
-                >
-                  {formatMinor(minor, currency, 'en-MY', { compact: true })}
-                </button>
-              ))}
-            </div>
-            <p className="mt-2 text-muted">{t('transfer.minHint', { min: formatMinor(1, currency) })}</p>
           </div>
           <button
             className="btn btn-primary transfer-submit__btn width-medium"

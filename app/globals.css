@@ -3811,6 +3811,12 @@ details.accordionItem[open] .accordion-icon {
   font-size: 20px;
 }
 
+/* The reference's member-page h1 carries the 20px gap (and is hidden on
+   phones, where nothing replaces it), so the form itself takes no top margin. */
+.history-title {
+  margin-bottom: 20px;
+}
+
 .page-icon {
   width: 28px;
   height: 28px;
@@ -5307,6 +5313,25 @@ details.accordionItem[open] .accordion-icon {
   pointer-events: none;
 }
 
+/* The reference's marker is icon_triangle_solid_white.svg (never crawled, 404
+   on the live site) inside a 41px round box it rotates 180deg; drawn here as
+   the same 11px solid triangle already pointing down. */
+.account-content__container .form-control-dropdown.icon-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 41px;
+  height: 41px;
+  border-radius: 50%;
+}
+
+.account-content__container .icon-triangle {
+  width: 11px;
+  height: 11px;
+  background: var(--color-ink);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
 .account-content__container .form-control__icon-wrapper {
   position: absolute;
   right: 16px;
@@ -5327,7 +5352,8 @@ details.accordionItem[open] .accordion-icon {
   flex-direction: column;
   justify-content: end;
   margin-left: 10px;
-  color: var(--color-muted-dim);
+  /* The reference writes the CSS keyword `grey` (#808080), like .update-card. */
+  color: var(--color-divider);
   font-size: var(--text-xs);
 }
 
@@ -6401,8 +6427,30 @@ details.accordionItem[open] .accordion-icon {
     top: 6px;
   }
 
+  .account-content__container .form-control-dropdown.icon-dropdown {
+    width: 30px;
+    height: 30px;
+  }
+
   .account-content__container .form-control__icon-wrapper {
     top: 11px;
+  }
+
+  /* The reference's mobile rule repaints the Max chip in the primary yellow
+     (the desktop chip stays green). */
+  .account-content__container .maxbutton {
+    color: var(--color-accent);
+  }
+
+  /* The reference hides the member-page h1 on phones. */
+  .history-title {
+    display: none;
+  }
+
+  /* The reference lightens every button and pill on phones. */
+  .btn,
+  .nav-pill {
+    font-weight: 500;
   }
 
   .account-content__container .width-medium,

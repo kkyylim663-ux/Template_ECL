@@ -15,10 +15,11 @@ type MenuItem = { href: string; labelKey: string; icon: IconName };
  * first group's title element is present but empty — that is where the
  * reference's 6px top offset comes from.
  *
- * Our route set differs from the original's SPA views: "My Wallet" and
- * "Banking Details" have no route here, so the wallet view maps to the
- * transfer page and the two standalone pages (achievements, tickets) join the
- * Account group for reachability.
+ * The item set is the reference's, mapped to our routes: "My Wallet" points at
+ * /my/mytransfer in the reference too. "Banking Details" (/my/mybanks) is the
+ * one item with no crawled page, so it is left out rather than pointed at an
+ * invented route; the standalone achievement and ticket pages are likewise not
+ * menu entries in the reference, so they are not added here.
  */
 const GROUPS: { titleKey?: string; items: MenuItem[] }[] = [
   {
@@ -36,8 +37,6 @@ const GROUPS: { titleKey?: string; items: MenuItem[] }[] = [
       { href: '/account/inbox', labelKey: 'inbox.title', icon: 'mail' },
       { href: '/account/profile', labelKey: 'profile.title', icon: 'user' },
       { href: '/account/rebates', labelKey: 'rebates.title', icon: 'rebate' },
-      { href: '/account/achievement', labelKey: 'achievement.title', icon: 'achievement' },
-      { href: '/account/tickets', labelKey: 'tickets.title', icon: 'ticket' },
     ],
   },
 ];

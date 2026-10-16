@@ -9,6 +9,7 @@ type ModalRequest = {
   title: string;
   body?: string;
   confirmLabel?: string;
+  cancelLabel?: string;
   onConfirm?: () => void;
 };
 
@@ -25,7 +26,13 @@ type ModalApi = {
   loading: (title?: string) => void;
   close: () => void;
   /** Confirmation with a callback — the shape used before destructive actions. */
-  confirm: (title: string, body: string, onConfirm: () => void, confirmLabel?: string) => void;
+  confirm: (
+    title: string,
+    body: string,
+    onConfirm: () => void,
+    confirmLabel?: string,
+    cancelLabel?: string,
+  ) => void;
 };
 
 const ModalContext = createContext<ModalApi | null>(null);
@@ -51,8 +58,8 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       message: (title, body) => show({ variant: 'message', title, body }),
       rules: (title, body) => show({ variant: 'rules', title, body }),
       loading: (title = t('modal.working')) => show({ variant: 'loading', title }),
-      confirm: (title, body, onConfirm, confirmLabel = t('action.confirm')) =>
-        show({ variant: 'alert', title, body, onConfirm, confirmLabel }),
+      confirm: (title, body, onConfirm, confirmLabel = t('action.confirm'), cancelLabel) =>
+        show({ variant: 'alert', title, body, onConfirm, confirmLabel, cancelLabel }),
     }),
     [show, t],
   );
@@ -76,7 +83,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
                   }}
                   className="border-line text-ink hover:border-accent rounded-[8px] border px-4 py-2 text-sm"
                 >
-                  {t('action.cancel')}
+                  {request.cancelLabel ?? t('action.cancel')}
                 </button>
               ) : null}
               <button
