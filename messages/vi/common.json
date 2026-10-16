@@ -135,6 +135,8 @@
     "amountFormat": "Nhập số tiền hợp lệ, tối đa hai chữ số thập phân",
     "amountBelowMin": "Thấp hơn mức nạp tối thiểu",
     "amountAboveMax": "Cao hơn mức nạp tối đa",
+    "receiptType": "Chỉ chấp nhận tệp JPG, PNG hoặc PDF",
+    "receiptSize": "Tệp phải từ 5 MB trở xuống",
     "bankRequired": "Chọn tài khoản ngân hàng",
     "walletFrom": "Chọn ví nguồn",
     "walletTo": "Chọn ví đích",

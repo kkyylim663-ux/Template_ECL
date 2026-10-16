@@ -8006,3 +8006,240 @@ details.accordionItem[open] .accordion-icon {
     text-align: center; /* reference ≤768 */
   }
 }
+
+/* ── Deposit receipt upload (T53) ───────────────────────────────────────────
+   The step the reference swaps in once a bank deposit is submitted
+   (`#rec-upload-tpl`): Transaction ID, "Please upload bank deposit slip.", the
+   Attachment field and the UPLOAD / SKIP pair. The reference's own markup sat in
+   bootstrap columns (`col-sm-10` / `col-sm-8`) inside page JS that was never
+   captured, so the dropzone follows the form's own 405px field column instead
+   (full width on phones); the dropzone skin, thumbnail frame, progress bar and
+   button pair are ours. The ATM note reuses `.deposit-atm-tips` (T51). */
+
+.deposit-receipt__transid {
+  margin-bottom: 4px;
+  color: var(--color-ink);
+  font-size: var(--text-15);
+  font-weight: 500;
+}
+
+.deposit-receipt__prompt {
+  margin-bottom: 8px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.deposit-receipt__attachment {
+  margin: 4px 0 8px;
+  color: var(--color-ink);
+  font-size: var(--text-15);
+  font-weight: 500;
+}
+
+.deposit-receipt__pick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 405px;
+  max-width: 100%;
+}
+
+/* Empty state: a centered column. With a file: a row, and a click replaces it. */
+.deposit-receipt__dropzone {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 88px;
+  padding: 16px;
+  border: 1px dashed var(--color-line);
+  border-radius: var(--radius-10);
+  background: var(--color-panel-alt);
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.deposit-receipt__dropzone.has-file {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.deposit-receipt__dropzone:hover,
+.deposit-receipt__dropzone:focus-visible,
+.deposit-receipt__dropzone.is-dragging {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.deposit-receipt__dropzone.is-dragging {
+  background: var(--color-tile-soft);
+}
+
+.deposit-receipt__icon {
+  color: var(--color-muted);
+}
+
+.deposit-receipt__choose {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.deposit-receipt__hint {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.deposit-receipt__thumb {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  object-fit: cover;
+}
+
+/* A PDF (or an image the browser handed over without a type) gets a badge. */
+.deposit-receipt__badge {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: var(--color-tile-soft);
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+}
+
+.deposit-receipt__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.deposit-receipt__name {
+  overflow: hidden;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deposit-receipt__size {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.deposit-receipt__remove {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.deposit-receipt__remove:hover {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+/* Visually hidden, but in the DOM: the reference's own `input[name=receipt]`. */
+.deposit-receipt__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.deposit-receipt__progress {
+  width: 405px;
+  max-width: 100%;
+  height: 6px;
+  margin-top: 12px;
+  border-radius: 999px;
+  background: var(--color-panel-alt);
+  overflow: hidden;
+}
+
+.deposit-receipt__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-success);
+  transition: width 120ms linear;
+}
+
+.deposit-receipt__status {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.deposit-receipt__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* The UPLOAD / SKIP pair; UPLOAD carries the accent like `.deposit-btn-submit`. */
+.deposit-receipt__btn {
+  min-height: 41px;
+  padding: 12px 33px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: none;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.deposit-receipt__btn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.deposit-receipt__btn--upload {
+  border: 0;
+  background: var(--color-accent);
+  color: var(--color-ink-on-accent);
+}
+
+.deposit-receipt__btn--upload:hover:not(:disabled) {
+  border: 0;
+  color: var(--color-ink-on-accent);
+}
+
+.deposit-receipt__btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (max-width: 768px) {
+  .deposit-receipt__pick,
+  .deposit-receipt__progress {
+    width: 100%;
+  }
+
+  .deposit-receipt__actions {
+    width: 100%;
+  }
+
+  .deposit-receipt__btn {
+    flex: 1;
+  }
+}

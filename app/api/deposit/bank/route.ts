@@ -5,8 +5,9 @@ import { getDepositCatalog } from '@/lib/api/deposit';
  * MOCK-ONLY: the bank-transfer leg of the reference's `a/makeBDepositV3`. The
  * failure statuses are the reference dictionary's own codes — 50 "Deposit Bank
  * Error", 52 / 53 "Deposit Amount Less / More Than Bank … Requirement" — and
- * `d` carries the transaction id the receipt step quotes back. No money moves
- * and no balance is credited here.
+ * `d` carries the transaction id the receipt step quotes back, plus the mock
+ * `token` / `ticketid` its hidden fields expect. No money moves and no balance is
+ * credited here.
  */
 export async function POST(request: Request) {
   let body: { bankId?: unknown; amountMinor?: unknown };
@@ -33,14 +34,20 @@ export async function POST(request: Request) {
     return envelope('53', 'Deposit Amount More Than Bank Maximum Requirement', 400);
   }
 
+  const transactionId = `DEP-${Date.now().toString(36).toUpperCase()}${Math.floor(Math.random() * 1296)
+    .toString(36)
+    .toUpperCase()
+    .padStart(2, '0')}`;
+
   return NextResponse.json({
     status: '0',
     msg: 'Done',
     d: {
-      transactionId: `DEP-${Date.now().toString(36).toUpperCase()}${Math.floor(Math.random() * 1296)
-        .toString(36)
-        .toUpperCase()
-        .padStart(2, '0')}`,
+      transactionId,
+      // The reference's receipt form carried the server's `token` and `ticketid`
+      // in hidden fields; these stand in for them (nothing verifies them here).
+      token: `MOCK-TOKEN-${transactionId}`,
+      ticketid: `MOCK-TICKET-${transactionId}`,
       bankId: bank.id,
       amountMinor,
       createdAt: new Date().toISOString(),

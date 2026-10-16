@@ -112,8 +112,12 @@ test.describe('deposit bank transfer form', () => {
     await submit.click();
     // One click, one request: the button cannot be pressed again while pending.
     await expect(form.getByRole('button', { name: 'Submitting...' })).toBeDisabled();
-    await expect(page.getByText('Transaction ID: DEP-TEST')).toBeVisible();
+    // T53: the form gives way to the receipt step, and the success dialog only
+    // comes after UPLOAD or SKIP.
+    await expect(page.getByTestId('deposit-receipt')).toContainText('Transaction ID : DEP-TEST');
     expect(posts).toBe(1);
+    await page.getByRole('button', { name: 'Skip' }).click();
+    await expect(page.getByText('Transaction ID: DEP-TEST')).toBeVisible();
   });
 
   test('mobile 375: the form fits and overflows neither axis', async ({ page }) => {

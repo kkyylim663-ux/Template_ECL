@@ -135,6 +135,8 @@
     "amountFormat": "請輸入有效金額,最多兩位小數",
     "amountBelowMin": "低於最低充值金額",
     "amountAboveMax": "高於最高充值金額",
+    "receiptType": "僅支援 JPG、PNG 或 PDF 檔案",
+    "receiptSize": "檔案需小於 5 MB",
     "bankRequired": "請選擇銀行帳戶",
     "walletFrom": "請選擇轉出錢包",
     "walletTo": "請選擇轉入錢包",

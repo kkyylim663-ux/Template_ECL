@@ -13,6 +13,7 @@ import {
   quickAmounts,
 } from '@/lib/format';
 import type { DepositBank, DepositMethod } from '@/lib/api/schemas';
+import { DepositReceiptUpload } from './DepositReceiptUpload';
 
 /**
  * T52: the bank-transfer form of the bank tab. The reference contract is the old
@@ -22,8 +23,10 @@ import type { DepositBank, DepositMethod } from '@/lib/api/schemas';
  * amount field carries the method's own limits and the `.deposit-amount__
  * selection-pill` quick picks; the submit button is `.deposit-btn-submit`.
  *
- * The submission is the mock of `a/makeBDepositV3` (POST /api/deposit/bank);
- * the receipt step that follows it in the reference lands in T53.
+ * The submission is the mock of `a/makeBDepositV3` (POST /api/deposit/bank).
+ * T53 then swaps the form for the receipt step (`#rec-upload-tpl`), and the
+ * success dialog the reference's `showSuccess` raises only comes after UPLOAD or
+ * SKIP.
  */
 export function DepositBankForm({
   banks,
@@ -43,6 +46,7 @@ export function DepositBankForm({
   const [terms, setTerms] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
+  const [receipt, setReceipt] = useState<ReceiptStep | null>(null);
 
   const bank = banks.find((entry) => entry.id === bankId) ?? null;
   const schema = useMemo(
@@ -85,6 +89,14 @@ export function DepositBankForm({
     }
   }
 
+  /** The dialog `_Deposit.showSuccess()` raises; UPLOAD and SKIP both land here. */
+  function finish(id: string) {
+    modal.success(t('deposit.requestTitle'), t('deposit.requestBody', { id }));
+    setAmount('');
+    setTerms(false);
+    setReceipt(null);
+  }
+
   async function onSubmit(event: FormEvent) {
     event.preventDefault();
     if (submitting) return;
@@ -104,16 +116,15 @@ export function DepositBankForm({
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ bankId, amountMinor }),
       });
-      const payload = (await response.json()) as { status?: string; d?: { transactionId?: string } };
+      const payload = (await response.json()) as {
+        status?: string;
+        d?: { transactionId?: string; token?: string; ticketid?: string };
+      };
       if (payload?.status !== '0' || !payload.d?.transactionId) {
         throw new Error(payload?.status ?? `HTTP ${response.status}`);
       }
-      modal.success(
-        t('deposit.requestTitle'),
-        t('deposit.requestBody', { id: payload.d.transactionId }),
-      );
-      setAmount('');
-      setTerms(false);
+      const { transactionId, token, ticketid } = payload.d;
+      setReceipt({ transactionId, token, ticketid });
     } catch {
       modal.error(t('deposit.failedTitle'), t('wallet.network'));
     } finally {
@@ -123,6 +134,21 @@ export function DepositBankForm({
 
   if (banks.length === 0) {
     return <p className="deposit-text">{t('deposit.noBank')}</p>;
+  }
+
+  // The receipt step replaces the form (the reference renders `#rec-upload-tpl`
+  // over the same wrapper) until UPLOAD or SKIP closes the flow.
+  if (receipt) {
+    return (
+      <div className="deposit-bank-form">
+        <DepositReceiptUpload
+          transactionId={receipt.transactionId}
+          token={receipt.token}
+          ticketid={receipt.ticketid}
+          onComplete={() => finish(receipt.transactionId)}
+        />
+      </div>
+    );
   }
 
   return (
@@ -269,3 +295,6 @@ export function DepositBankForm({
     </div>
   );
 }
+
+/** What POST /api/deposit/bank hands the receipt step (mock `token` / `ticketid`). */
+type ReceiptStep = { transactionId: string; token?: string; ticketid?: string };
