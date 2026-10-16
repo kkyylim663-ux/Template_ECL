@@ -52,6 +52,7 @@ export const ICON_PATHS = {
   play: ['M8 5l12 7-12 7z'],
   download: ['M12 4v12', 'M7 12l5 5 5-5', 'M5 20h14'],
   check: ['M5 13l4 4L19 7'],
+  plus: ['M12 5v14', 'M5 12h14'],
   alert: [c(12, 12, 8), 'M12 8v4', 'M12 16h.01'],
   info: [c(12, 12, 8), 'M12 11v5', 'M12 8h.01'],
   success: [c(12, 12, 8), 'M8.5 12.5l2.5 2.5 4.5-5'],

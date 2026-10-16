@@ -29,6 +29,7 @@ import rankingBoard from './ranking-board.json';
 import sponsor from './sponsor.json';
 import updates from './updates.json';
 import vip from './vip.json';
+import withdrawal from './withdrawal.json';
 import gameList from './slots.gamelist.json';
 
 /** `d` of the captured slots payload. */
@@ -53,6 +54,7 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.homeBetting]: () => homeBetting.d,
   [ENDPOINTS.account]: () => account.d,
   [ENDPOINTS.depositMethods]: () => depositMethods.d,
+  [ENDPOINTS.withdrawalInfo]: () => withdrawal.d,
 
   /** Matches the identifier against username, email or phone, then the password or OTP. */
   [ENDPOINTS.login]: async (raw) => {

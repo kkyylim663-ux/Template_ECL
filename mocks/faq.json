@@ -55,7 +55,7 @@
         {
           "id": "fi-3",
           "q": "What are the withdrawal limits?",
-          "a": "Placeholder answer. Minimum RM 50 and maximum RM 5,000 per request in this demo data."
+          "a": "Placeholder answer. Minimum RM 200.00 and maximum RM 50,000.00 per request in this demo data (the withdrawal page's own Min/Max values)."
         },
         {
           "id": "fi-4",

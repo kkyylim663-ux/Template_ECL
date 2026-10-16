@@ -41,6 +41,9 @@ export const ENDPOINTS = {
   changePassword: 'setPassword',
   /** Deposit method limits/fees (P4). The live service folds these into getBanks/settings. */
   depositMethods: 'getDepositMethods',
+  /** Withdrawal limits/processing notes (P4). The live service splits these across
+   * getBankAccount / getMyBankAccVerified and its settings payload. */
+  withdrawalInfo: 'getWithdrawalInfo',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

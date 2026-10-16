@@ -607,6 +607,31 @@ export const rolloverSchema = z.object({
   expiresAt: z.string(),
 });
 
+/* ------------------------------------------------------- withdrawal (T56) */
+
+/** Per-request payout limits. Same numbers the FAQ quotes (RM 50 – RM 5,000). */
+export const withdrawalLimitsSchema = z.object({
+  minAmountMinor: z.number().int().positive(),
+  maxAmountMinor: z.number().int().positive(),
+});
+export type WithdrawalLimits = z.infer<typeof withdrawalLimitsSchema>;
+
+/**
+ * What `/api/withdrawal/info` answers: the bound accounts with the bank catalog
+ * they reference, the per-request limits the page prints, and the member's own
+ * document-check state (the "What to verify" rows). The live service splits
+ * this across `getBankAccount` / `getMyBankAccVerified` and its settings
+ * payload. Limits are the reference's own my/sg values (`withdraw-placeholder-my`
+ * = "Min 200.00 / Max 50,000.00").
+ */
+export const withdrawalInfoSchema = z.object({
+  bankAccounts: z.array(savedBankAccountSchema),
+  banks: z.array(bankSchema),
+  limits: withdrawalLimitsSchema,
+  kycStatus: z.enum(['unverified', 'pending', 'verified']),
+});
+export type WithdrawalInfo = z.infer<typeof withdrawalInfoSchema>;
+
 export const accountProfileSchema = z.object({
   username: z.string(),
   nickname: z.string(),

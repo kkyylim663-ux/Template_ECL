@@ -1,7 +1,5 @@
-import { getAccountPayload } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
-import { Icon } from '@/components/ui/Icon';
-import { WithdrawalForm } from '@/components/account/forms';
+import { WithdrawalPanel } from '@/components/account/WithdrawalPanel';
 
 import type { Metadata } from 'next';
 
@@ -11,20 +9,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * No snapshot exists for this page (the crawl's `my_mywithdrawal.html` is 0
- * bytes); the content is the build's own withdrawal demo under the reference's
- * account card.
+ * No snapshot exists for this page (the crawl's `my_mywithdrawal.html` is a
+ * 0-byte 302), so the body follows the captured stylesheet's withdrawal classes
+ * and the four-language Fluent strings embedded in the original's shared bundle
+ * (evidence: `site/_scratch/t56-research.md`). The panel owns the reference's
+ * header (`.withdraw-header`, inside the phone-only `__wrapper`), so the page
+ * only supplies the content container.
  */
-export default async function WithdrawalPage() {
-  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
+export default async function WithdrawalPage({ params }: { params: Promise<{ region: string }> }) {
+  const { region } = await params;
 
   return (
     <div className="account-content__container">
-      <h1 className="form-title mb-5 large">
-        <Icon name="withdraw" size={28} className="page-icon" />
-        {t('withdrawal.title')}
-      </h1>
-      <WithdrawalForm payload={payload} />
+      <WithdrawalPanel region={region} />
     </div>
   );
 }

@@ -1,151 +1,17 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { regionConfig, type RegionCode } from '@/config/brand';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { FormNotice, PrimaryButton, SelectField, TextField } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
-import {
-  profileSchema,
-  transferSchema,
-  validate,
-  withdrawalSchema,
-  type FieldErrors,
-} from '@/lib/forms';
+import { profileSchema, transferSchema, validate, type FieldErrors } from '@/lib/forms';
 import type { AccountPayload } from '@/lib/api/schemas';
-import { walletService, WalletError } from '@/lib/api/wallet';
-import { formatMinor, parseAmountMinor } from '@/lib/format';
-import { notifySessionChange } from '@/lib/session/useSession';
 
 const amount = (value: string) => Number(value.replace(/[^0-9.]/g, ''));
 
 function useDemoSubmit() {
   const modal = useModal();
   return (title: string, body: string) => modal.success(title, body);
-}
-
-
-/**
- * Runs one mock money movement through the wallet service: one in-flight call at
- * a time, balances (header, account card, wallet list) update through the
- * service's own subscription, and the ledger gets the entry.
- */
-function useWalletAction() {
-  const modal = useModal();
-  const t = useTranslations('account');
-  const busy = useRef(false);
-  const { region } = useParams<{ region: string }>();
-  const currency = regionConfig(region as RegionCode).currency;
-  const [submitting, setSubmitting] = useState(false);
-
-  async function run(kind: 'deposit' | 'withdraw', rawAmount: string, onDone?: () => void) {
-    if (busy.current) return;
-    const amountMinor = parseAmountMinor(rawAmount.replace(/[^0-9.,]/g, ''));
-    if (amountMinor === null || amountMinor <= 0) {
-      modal.error(t(`${kind === 'deposit' ? 'deposit' : 'withdrawal'}.failedTitle`), t('wallet.amountInvalid'));
-      return;
-    }
-    busy.current = true;
-    setSubmitting(true);
-    const ns = kind === 'deposit' ? 'deposit' : 'withdrawal';
-    try {
-      if (kind === 'deposit') await walletService.deposit(amountMinor);
-      else await walletService.withdraw(amountMinor);
-      notifySessionChange();
-      onDone?.();
-      modal.success(
-        t(`${ns}.successTitle`),
-        t(`${ns}.successBody`, { amount: formatMinor(amountMinor, currency) }),
-      );
-    } catch (error) {
-      const code = error instanceof WalletError ? error.code : 'network';
-      modal.error(
-        t(`${ns}.failedTitle`),
-        t(code === 'insufficient' ? 'wallet.insufficient' : code === 'network' ? 'wallet.network' : 'wallet.amountInvalid'),
-      );
-    } finally {
-      busy.current = false;
-      setSubmitting(false);
-    }
-  }
-
-  return { run, submitting };
-}
-
-export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
-  const t = useTranslations('account');
-  const tc = useTranslations('common');
-  const action = useWalletAction();
-  const verified = payload.bankAccounts.filter((account) => account.verified);
-  const [values, setValues] = useState({
-    bankAccountId: verified[0]?.id ?? '',
-    amount: '',
-  });
-  const [errors, setErrors] = useState<FieldErrors>({});
-
-  function onSubmit(event: React.FormEvent) {
-    event.preventDefault();
-    const result = validate(withdrawalSchema, {
-      bankAccountId: values.bankAccountId,
-      amount: amount(values.amount),
-    });
-
-    if (!result.ok) {
-      setErrors(result.errors);
-      return;
-    }
-
-    setErrors({});
-    // MOCK-ONLY: the real flow files a withdrawal request that appears under pending transactions.
-    void action.run('withdraw', values.amount, () =>
-      setValues((current) => ({ ...current, amount: '' })),
-    );
-  }
-
-  return (
-    <form onSubmit={onSubmit} noValidate className="space-y-4">
-      {verified.length === 0 ? (
-        <FormNotice>{t('withdrawal.noBankAccount')}</FormNotice>
-      ) : null}
-
-      <SelectField
-        id="bankAccountId"
-        label={t('withdrawal.bankAccount')}
-        value={values.bankAccountId}
-        error={errors.bankAccountId ? tc(errors.bankAccountId) : undefined}
-        onChange={(event) => setValues((c) => ({ ...c, bankAccountId: event.target.value }))}
-        options={payload.bankAccounts.map((account) => ({
-          value: account.id,
-          label: t('withdrawal.optionLabel', {
-            bank: account.bankId.toUpperCase(),
-            number: account.accountNumberMasked,
-            state: account.verified
-              ? t('withdrawal.optionVerified')
-              : t('withdrawal.optionUnverified'),
-          }),
-          disabled: !account.verified,
-        }))}
-      />
-
-      <TextField
-        id="amount"
-        label={t('withdrawal.amount')}
-        inputMode="decimal"
-        placeholder="100.00"
-        value={values.amount}
-        error={errors.amount}
-        hint={t('withdrawal.limits', { min: 'RM 50', max: 'RM 5,000' })}
-        onChange={(event) => setValues((c) => ({ ...c, amount: event.target.value }))}
-      />
-
-      <PrimaryButton type="submit" disabled={action.submitting}>
-        {t('withdrawal.submit')}
-      </PrimaryButton>
-
-      <FormNotice>{t('withdrawal.placeholderNotice')}</FormNotice>
-    </form>
-  );
 }
 
 export function TransferForm({ payload }: { payload: AccountPayload }) {

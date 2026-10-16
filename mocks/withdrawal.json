@@ -1,0 +1,7 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "limits": { "minAmountMinor": 20000, "maxAmountMinor": 5000000 }
+  }
+}

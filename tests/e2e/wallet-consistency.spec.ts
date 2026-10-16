@@ -84,10 +84,15 @@ test.describe('wallet figures agree everywhere', () => {
     await expect(page.getByTestId('wallet-total')).toBeVisible();
     const before = await readFigures(page);
 
-    await page.goto('/my/account/withdrawal');
-    await page.getByLabel(/Amount/).first().fill('50');
-    await page.getByRole('button', { name: /Request withdrawal/ }).last().click();
-    await expect(page.getByText('Withdrawal recorded')).toBeVisible();
+    // P4: the withdrawal page's own request form returns in T58. Until then the
+    // same walletService.withdraw runs through the /dev/wallet simulator, so the
+    // "one balance everywhere" invariant keeps its coverage (exactly as the
+    // deposit half above does while the deposit forms are rebuilt).
+    await page.goto('/dev/wallet');
+    await page.locator('#dev-withdraw').getByLabel('Amount').fill('50');
+    await page.locator('#dev-withdraw').getByRole('button', { name: 'Simulate withdrawal' }).click();
+    // Wait for the write before navigating away (same as the deposit half).
+    await expect(page.locator('.dev-wallet-total')).toHaveText('MYR 1,572.50');
 
     await page.goto('/my/account/transfer');
     await expect(page.getByTestId('wallet-total')).toBeVisible();
@@ -96,10 +101,11 @@ test.describe('wallet figures agree everywhere', () => {
     expect(after.total).toBe(before.total - 5_000);
     expect(after.card).toBe(after.total);
 
-    await page.goto('/my/account/withdrawal');
-    await page.getByLabel(/Amount/).first().fill('99999');
-    await page.getByRole('button', { name: /Request withdrawal/ }).last().click();
-    await expect(page.getByText('Withdrawal failed')).toBeVisible();
+    await page.goto('/dev/wallet');
+    await page.locator('#dev-withdraw').getByLabel('Amount').fill('99999');
+    await page.locator('#dev-withdraw').getByRole('button', { name: 'Simulate withdrawal' }).click();
+    await expect(page.locator('.dev-wallet-error')).toContainText('exceeds the available balance');
+
     await page.goto('/my/account/transfer');
     await expect(page.getByTestId('wallet-total')).toBeVisible();
     expect((await readFigures(page)).main).toBe(after.main); // the refused one changed nothing

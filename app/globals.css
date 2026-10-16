@@ -8489,3 +8489,254 @@ details.accordionItem[open] .accordion-icon {
 .deposit-promo__row dd {
   font-weight: 700;
 }
+/* ── Withdrawal page (T56) ──────────────────────────────────────────────────
+   The reference's withdrawal view is a client-rendered chunk that was never
+   captured (my_mywithdrawal.html is a 0-byte 302), so the class names and
+   values below come from the stylesheet that *was* captured
+   (crawl/css/oh1dJZt….css @242 082–247 109). The reference's own spellings are
+   kept verbatim — `.widthdraw-*` (sic) is what the stylesheet ships.
+   `.withdraw-header__wrapper` carries rules only in the ≤768 block; desktop
+   shows the bare header row. `.withdraw-state__*`, `.withdraw-empty__text` and
+   the reminder box (.withdraw-reminder*) are ours: the capture has no state
+   chrome, and the reminder sentences print as loose text on the old build. */
+
+.withdraw-header {
+  display: flex;
+  align-items: center;
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 500;
+}
+
+/* Reference `.withdraw-alert` is a 71×71 illustration; the asset is not
+   shipped, so the shell's own withdraw glyph stands in the same frame. */
+.withdraw-alert {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 71px;
+  height: 71px;
+  margin-right: 10px;
+  color: var(--color-muted);
+}
+
+.withdraw-verify__list-wrapper {
+  display: inline-block;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.withdraw-verify__list-header {
+  display: flex;
+  align-items: center;
+  padding-top: 11px;
+  padding-bottom: 12px;
+  background: var(--color-line);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.withdraw-verify__list-body {
+  display: flex;
+  padding: 9px 0 12px;
+  background: var(--color-panel-alt);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.withdraw-verify__list-body:nth-child(2n) {
+  background: var(--color-panel-soft);
+}
+
+.withdraw-verify__list-what {
+  min-width: 190px;
+  padding-left: 45px;
+  padding-right: 45px;
+  text-align: left;
+}
+
+.withdraw-verify__list-status__wrapper {
+  display: flex;
+  padding-right: 45px;
+}
+
+.withdraw-verify__list-status {
+  min-width: 100px;
+  margin-right: 10px;
+  text-align: right;
+}
+
+.withdraw-verify__list-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-success);
+}
+
+.withdraw-verify__verified {
+  color: var(--color-success);
+}
+
+.withdraw-verify__unverified {
+  color: var(--color-danger);
+}
+
+.withdraw-verify-now {
+  color: var(--color-success);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+/* The account row — reference `.widthdraw-dropdown-select` (sic): a 1 / 1.5 /
+   0.8 span split (label, control, badge). */
+.widthdraw-dropdown-select {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.widthdraw-dropdown-select__span {
+  position: relative;
+  flex: 1;
+  text-align: left;
+}
+
+.widthdraw-dropdown-select__span.span-2 {
+  flex: 1.5;
+}
+
+.widthdraw-dropdown-select__span.span-3 {
+  display: flex;
+  flex: 0.8;
+  align-items: center;
+  font-weight: 500;
+}
+
+/* Reference sets the margin only; the colour is the verified green. */
+.withdraw-verified {
+  margin-right: 10px;
+  color: var(--color-success);
+}
+
+/* Ours: the reference's row has no spacing of its own; the capture's neighbours
+   that used to space it out were not part of it. The reference sets no mobile
+   overrides for `.widthdraw-*`, so the 1 / 1.5 / 0.8 split stands at 375 too. */
+.withdraw-plus__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+
+.withdraw-plus {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.withdraw-info {
+  margin-top: 10px;
+}
+
+.withdraw-info__limits {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.withdraw-info__line {
+  margin-top: 6px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.withdraw-reminder {
+  margin-top: 20px;
+}
+
+.withdraw-reminder__title {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
+.withdraw-reminder__list {
+  margin-top: 6px;
+  padding-left: 18px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.withdraw-reminder__list li + li {
+  margin-top: 6px;
+}
+
+.withdraw-empty__text {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.withdraw-state__text {
+  padding: 16px 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.withdraw-state__action {
+  padding-top: 16px;
+}
+
+@media (max-width: 768px) {
+  .withdraw-header {
+    flex-direction: column;
+  }
+
+  .withdraw-header__wrapper {
+    padding: 15px;
+    margin-bottom: 37px;
+    background: var(--color-panel-alt);
+    border-radius: var(--radius-panel);
+  }
+
+  .withdraw-verify__list-wrapper {
+    width: 100%;
+  }
+
+  .withdraw-verify-tips {
+    font-size: var(--text-base);
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .withdraw-verify__list-status__wrapper {
+    padding-right: 0;
+  }
+
+  /* Ours: the reference's 190px fixed label column plus the two 100px columns
+     add up past our 375 design width, so the label column absorbs the slack
+     here (the right columns keep the reference's own fixed widths) and gives
+     up the base rule's 45px right padding, which would wrap the label. */
+  .withdraw-verify__list-what {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    min-width: 0;
+    padding-left: 11px;
+    padding-right: 0;
+  }
+
+  .withdraw-verify-now {
+    width: 100px;
+    text-align: right;
+  }
+}
