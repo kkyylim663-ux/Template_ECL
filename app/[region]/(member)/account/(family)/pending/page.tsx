@@ -1,9 +1,9 @@
 import { getAccountPayload } from '@/lib/api';
-import { formatTimestamp } from '@/lib/format';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { brand } from '@/config/brand';
 import { SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon, type IconName } from '@/components/ui/Icon';
+import { PendingPanel } from '@/components/account/PendingPanel';
 import { getT } from '@/lib/i18n/server';
 
 import type { Metadata } from 'next';
@@ -35,43 +35,23 @@ export default async function PendingPage({ params }: { params: Promise<{ region
 
   return (
     <div className="account-content__container">
-      <h1 className="form-title mb-5">
+      <h1 className="form-title mb-20 has-space">
         <Icon name="pending" size={28} className="page-icon" />
         {t('pending.title')}
       </h1>
 
-      <div className="pending-table__wrapper selected">
-        <table className="table-theme table-theme-light pending-table">
-          <thead>
-            <tr>
-              <th>{t('history.col.time')}</th>
-              <th>{t('history.col.reference')}</th>
-              <th>{t('history.col.type')}</th>
-              <th>{t('history.col.amount')}</th>
-              <th>{t('history.col.status')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {pending.length > 0 ? (
-              pending.map((transaction) => (
-                <tr key={transaction.id}>
-                  <td>{formatTimestamp(transaction.createdAt)}</td>
-                  <td>{transaction.reference}</td>
-                  <td>{transaction.methodLabel}</td>
-                  <td>
-                    {currency} {(transaction.amountMinor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-                  </td>
-                  <td>{t(`status.${transaction.status}`)}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5}>{t('history.noRows')}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <PendingPanel
+        rows={pending.map((transaction) => ({
+          id: transaction.id,
+          reference: transaction.reference,
+          kind: transaction.kind as 'deposit' | 'withdrawal' | 'transfer',
+          status: transaction.status as 'pending' | 'processing',
+          amountMinor: transaction.amountMinor,
+          method: transaction.methodLabel,
+          createdAt: transaction.createdAt,
+        }))}
+        currency={currency}
+      />
 
       <div className="pending-footer">
         <div className="pending-footer__follow-us box-1 pending-footer__box">

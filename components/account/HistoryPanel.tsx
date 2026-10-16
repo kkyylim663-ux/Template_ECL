@@ -1,8 +1,9 @@
 'use client';
 
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
+import { readCancelledTransactions } from '@/lib/api/pending';
 import type { HistoryRow } from '@/lib/api/schemas';
 
 type Kind = HistoryRow['kind'];
@@ -69,6 +70,36 @@ export function HistoryPanel({
   const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'at', dir: 'desc' });
+
+  /** Pending requests cancelled on /account/pending arrive here as history rows. */
+  const [cancelledRows, setCancelledRows] = useState<HistoryRow[]>([]);
+  useEffect(() => {
+    setCancelledRows(
+      readCancelledTransactions().map((entry): HistoryRow =>
+        entry.kind === 'transfer'
+          ? {
+              id: entry.id,
+              kind: 'transfer',
+              at: entry.at,
+              amountMinor: entry.amountMinor,
+              from: entry.from ?? entry.method,
+              to: entry.to ?? '–',
+              status: 'cancelled',
+            }
+          : {
+              id: entry.id,
+              kind: entry.kind,
+              at: entry.at,
+              amountMinor: entry.amountMinor,
+              method: entry.method,
+              status: 'cancelled',
+              reason: t('pending.cancelReason'),
+            },
+      ),
+    );
+  }, [t]);
+
+  const all = useMemo(() => [...history, ...cancelledRows], [history, cancelledRows]);
 
   const money = (minor: number) => (minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 });
 
@@ -206,7 +237,7 @@ export function HistoryPanel({
       : 0;
     const to = windowStart ? new Date(`${windowStart}T23:59:59Z`).getTime() : 0;
     const needle = query.trim().toLowerCase();
-    return history.filter((row) => {
+    return all.filter((row) => {
       if (row.kind !== kind) return false;
       if (row.kind === 'bet' && row.event !== event) return false;
       const at = new Date(row.at).getTime();
@@ -214,7 +245,7 @@ export function HistoryPanel({
       if (!needle) return true;
       return columns.some((column) => String(column.value(row)).toLowerCase().includes(needle));
     });
-  }, [history, kind, event, range, query, anchor, columns]);
+  }, [all, kind, event, range, query, anchor, columns]);
 
   const sorted = useMemo(() => {
     const column = columns.find((item) => item.key === sort.key) ?? columns[0];

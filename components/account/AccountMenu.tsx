@@ -28,7 +28,7 @@ const GROUPS: { titleKey?: string; items: MenuItem[] }[] = [
       { href: '/account/withdrawal', labelKey: 'withdrawal.title', icon: 'withdraw' },
       { href: '/account/transfer', labelKey: 'transfer.title', icon: 'transfer' },
       { href: '/account/history', labelKey: 'history.title', icon: 'history' },
-      { href: '/account/pending', labelKey: 'pending.title', icon: 'pending' },
+      { href: '/account/pending', labelKey: 'pending.menuLabel', icon: 'pending' },
     ],
   },
   {
