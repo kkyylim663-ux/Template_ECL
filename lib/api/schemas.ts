@@ -459,6 +459,31 @@ export const depositChannelSchema = z.object({
   feePct: z.number(),
   tone: z.number().int().min(0).max(359),
 });
+export type DepositChannel = z.infer<typeof depositChannelSchema>;
+
+/** P4: the three deposit methods the reference's tab row switches between. */
+export const DEPOSIT_METHOD_IDS = ['bank', 'gateway', 'qr'] as const;
+export type DepositMethodId = (typeof DEPOSIT_METHOD_IDS)[number];
+
+export function isDepositMethodId(value: unknown): value is DepositMethodId {
+  return typeof value === 'string' && (DEPOSIT_METHOD_IDS as readonly string[]).includes(value);
+}
+
+export const depositMethodSchema = z.object({
+  id: z.enum(DEPOSIT_METHOD_IDS),
+  minAmountMinor: z.number().int().positive(),
+  maxAmountMinor: z.number().int().positive(),
+  feePct: z.number().min(0),
+});
+export type DepositMethod = z.infer<typeof depositMethodSchema>;
+
+/** What `/api/deposit/methods` answers: the methods plus the pay-in rails. */
+export const depositCatalogSchema = z.object({
+  methods: z.array(depositMethodSchema),
+  banks: z.array(bankSchema),
+  channels: z.array(depositChannelSchema),
+});
+export type DepositCatalog = z.infer<typeof depositCatalogSchema>;
 
 export const TRANSACTION_KINDS = ['deposit', 'withdrawal', 'transfer', 'rebate', 'bonus'] as const;
 export const TRANSACTION_STATUSES = [

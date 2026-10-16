@@ -68,6 +68,8 @@ export const brand = {
     accentDark: '#856b33',
     /** Secondary accent (green) — tags, success. */
     success: '#289d82',
+    /** Deposit bank-logo tile background (.deposit-banklist-icon__container, T51). */
+    depositLogo: '#ececec',
     /** New tag, errors. */
     danger: '#cc3633',
     /** Warning / orange badges. */

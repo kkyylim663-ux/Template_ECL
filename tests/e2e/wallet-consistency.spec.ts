@@ -38,13 +38,13 @@ test.describe('wallet figures agree everywhere', () => {
     await expect(page.getByTestId('wallet-total')).toBeVisible();
     const before = await readFigures(page);
 
-    await page.goto('/my/account/deposit');
-    await page.getByLabel(/Amount/).first().fill('100');
-    await page.getByLabel(/Your account name|account name/i).first().fill('Demo Player').catch(() => {});
-    await page.getByLabel(/Your account number|account number/i).first().fill('1234567890').catch(() => {});
-    await page.getByLabel(/reference/i).first().fill('REF123').catch(() => {});
-    await page.getByRole('button', { name: /Submit|Deposit/ }).last().click();
-    await expect(page.getByText('Deposit recorded')).toBeVisible();
+    // P4: the deposit page's own form returns in T52. Until then the same
+    // walletService.deposit runs through the /dev/wallet simulator, so the
+    // "one balance everywhere" invariant keeps its coverage.
+    await page.goto('/dev/wallet');
+    await page.locator('#dev-deposit').getByLabel('Amount').fill('100');
+    await page.locator('#dev-deposit').getByRole('button', { name: 'Simulate deposit' }).click();
+    await expect(page.locator('.dev-wallet-total')).toHaveText('MYR 1,722.50');
 
     await page.goto('/my/account/transfer');
     await expect(page.getByTestId('wallet-total')).toBeVisible();

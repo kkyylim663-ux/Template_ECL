@@ -37,6 +37,8 @@ export const ENDPOINTS = {
   checkAccount: 'checkAccExisting',
   /** Profile password change (T49). Mock only: the override lives in memory. */
   changePassword: 'setPassword',
+  /** Deposit method limits/fees (P4). The live service folds these into getBanks/settings. */
+  depositMethods: 'getDepositMethods',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

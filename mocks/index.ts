@@ -16,6 +16,7 @@ import { ENDPOINTS } from '@/lib/api/endpoints';
 import account from './account.json';
 import announcements from './announcements.json';
 import banners from './banners.json';
+import depositMethods from './deposit-methods.json';
 import display from './display.json';
 import faq from './faq.json';
 import homeBetting from './home-betting.json';
@@ -74,6 +75,7 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.leaderboard]: () => leaderboards.d,
   [ENDPOINTS.homeBetting]: () => homeBetting.d,
   [ENDPOINTS.account]: () => account.d,
+  [ENDPOINTS.depositMethods]: () => depositMethods.d,
 
   /** Matches the identifier against username, email or phone, then the password or OTP. */
   [ENDPOINTS.login]: (raw) => {

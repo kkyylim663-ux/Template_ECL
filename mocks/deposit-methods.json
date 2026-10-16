@@ -1,0 +1,11 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "methods": [
+      { "id": "bank", "minAmountMinor": 5000, "maxAmountMinor": 5000000, "feePct": 0 },
+      { "id": "gateway", "minAmountMinor": 5000, "maxAmountMinor": 2000000, "feePct": 0 },
+      { "id": "qr", "minAmountMinor": 5000, "maxAmountMinor": 500000, "feePct": 0 }
+    ]
+  }
+}

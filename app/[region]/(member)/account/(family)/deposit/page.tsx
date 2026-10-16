@@ -1,7 +1,8 @@
-import { getAccountPayload } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
+import { regionConfig, type RegionCode } from '@/config/brand';
 import { Icon } from '@/components/ui/Icon';
-import { DepositForm } from '@/components/account/forms';
+import { DepositPanel } from '@/components/account/DepositPanel';
+import { resolveMethodId } from '@/lib/api/deposit';
 
 import type { Metadata } from 'next';
 
@@ -10,13 +11,24 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t('items.deposit'), robots: { index: false, follow: false } };
 }
 
+type SearchParams = Record<string, string | string[] | undefined>;
+
 /**
- * No snapshot exists for this page (the crawl's `my_mydeposit.html` is 0
- * bytes), so the content is the build's own deposit demo — only the account
- * card and heading follow the reference's family.
+ * The reference's deposit view is a client-rendered Vue page whose chunk was
+ * never captured (the crawl's `my_mydeposit.html` is a 0-byte 302), so the
+ * surface follows the stylesheet's own deposit classes (`.deposit-tab__wrapper`,
+ * `.deposit-banklist__*`, `.deposit-rule`) and the Fluent strings embedded in
+ * the original's JS. The open tab lives in `?method=` so a refresh keeps it.
  */
-export default async function DepositPage() {
-  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
+export default async function DepositPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ region: string }>;
+  searchParams: Promise<SearchParams>;
+}) {
+  const [{ t }, { region }, query] = await Promise.all([getT('account'), params, searchParams]);
+  const currency = regionConfig(region as RegionCode).currency;
 
   return (
     <div className="account-content__container">
@@ -24,7 +36,7 @@ export default async function DepositPage() {
         <Icon name="wallet" size={28} className="page-icon" />
         {t('deposit.title')}
       </h1>
-      <DepositForm payload={payload} />
+      <DepositPanel initialMethod={resolveMethodId(query.method)} currency={currency} />
     </div>
   );
 }
