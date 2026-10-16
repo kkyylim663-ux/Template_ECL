@@ -41,6 +41,39 @@ export function parseAmountMinor(input: string): number | null {
   return Number.isSafeInteger(minor) ? minor : null;
 }
 
+/**
+ * Re-renders what is being typed into an amount field: digits only, thousands
+ * separators in the integer part and at most two decimals ("1234.5" -> "1,234.5").
+ * Anything else is dropped as it is typed, so the field never holds a figure
+ * `parseAmountMinor` would refuse.
+ */
+export function formatAmountInput(raw: string): string {
+  const cleaned = raw.replace(/[^0-9.]/g, '');
+  const [head, ...rest] = cleaned.split('.');
+  const grouped = head.replace(/^0+(?=\d)/, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  if (rest.length === 0) return grouped;
+  return `${grouped === '' ? '0' : grouped}.${rest.join('').slice(0, 2)}`;
+}
+
+/** 5000 -> "50", 5050 -> "50.50": the plain figure an amount input shows. */
+export function formatMinorToInput(amountMinor: number): string {
+  const units = Math.trunc(amountMinor / 100);
+  const cents = amountMinor % 100;
+  return cents === 0 ? String(units) : `${units}.${String(cents).padStart(2, '0')}`;
+}
+
+/**
+ * The quick-pick amounts of a deposit method (reference
+ * `.deposit-amount__selection-pill`): a 1/2/10/20/100 ladder off the minimum,
+ * kept inside the method's own limits. The reference's own picks live in the
+ * page JS that was never captured, so the ladder is ours.
+ */
+export function quickAmounts(minMinor: number, maxMinor: number): number[] {
+  return [1, 2, 10, 20, 100]
+    .map((factor) => minMinor * factor)
+    .filter((amountMinor) => amountMinor <= maxMinor);
+}
+
 /** "2026-10-14T09:00:00+08:00" -> "2026-10-14 09:00". */
 export function formatTimestamp(value: string): string {
   return value.slice(0, 16).replace('T', ' ');

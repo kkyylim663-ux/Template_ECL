@@ -441,6 +441,8 @@ export const bankSchema = z.object({
   tone: z.number().int().min(0).max(359),
 });
 
+export type DepositBank = z.infer<typeof bankSchema>;
+
 export const savedBankAccountSchema = z.object({
   id: z.string(),
   bankId: z.string(),

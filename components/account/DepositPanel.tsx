@@ -8,6 +8,7 @@ import { IconSprite } from '@/components/ui/IconSprite';
 import { PrimaryButton } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
 import { formatMinor } from '@/lib/format';
+import { DepositBankForm } from './DepositBankForm';
 import {
   DEPOSIT_METHOD_IDS,
   depositCatalogSchema,
@@ -211,6 +212,10 @@ export function DepositPanel({
             </dl>
           </DepositSection>
         </div>
+
+        {active.id === 'bank' ? (
+          <DepositBankForm banks={catalog.banks} method={active} currency={currency} />
+        ) : null}
 
         <aside className="deposit-rule">
           <p className="deposit-rule__title">{t('deposit.ruleTitle')}</p>

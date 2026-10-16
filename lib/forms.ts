@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { parseAmountMinor } from './format';
 
 /**
  * Form schemas. Kept free of any server import so the same rules run in the
@@ -82,17 +83,32 @@ export const contactSchema = z.object({
   message: z.string().trim().min(10, 'validation.messageShort'),
 });
 
-export const depositSchema = z.object({
-  method: z.enum(['bank', 'gateway']),
-  amount: z
-    .number({ message: 'validation.amountTransferred' })
-    .positive('validation.amountPositive'),
-  bankId: z.string().optional(),
-  senderName: z.string().trim().optional(),
-  senderAccount: z.string().trim().optional(),
-  bankReference: z.string().trim().optional(),
-  channelId: z.string().optional(),
-});
+/**
+ * The bank-transfer deposit form (T52). `amount` arrives as the field shows it
+ * ("1,234.50") and is parsed here into minor units; the three amount failures
+ * mirror the reference's own error codes — 52 "Deposit Amount Less Than Bank
+ * Minimum Requirement" and 53 "… More Than Bank … Requirement". The limits come
+ * from the method, so the same schema serves every rail.
+ */
+export function bankDepositSchema({ minMinor, maxMinor }: { minMinor: number; maxMinor: number }) {
+  return z.object({
+    bankId: z.string().min(1, 'validation.bankRequired'),
+    amount: z
+      .string()
+      .trim()
+      .min(1, 'validation.amountDeposit')
+      .refine((value) => parseAmountMinor(value) !== null, {
+        message: 'validation.amountFormat',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? 0) >= minMinor, {
+        message: 'validation.amountBelowMin',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? Infinity) <= maxMinor, {
+        message: 'validation.amountAboveMax',
+      }),
+    terms: z.boolean().refine((accepted) => accepted, { message: 'validation.terms' }),
+  });
+}
 
 export const withdrawalSchema = z.object({
   bankAccountId: z.string().min(1, 'validation.bankRequired'),
