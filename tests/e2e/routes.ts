@@ -51,6 +51,8 @@ export const ACCOUNT_PAGES = [
   /** T54's deposit sub-pages. */
   'deposit/gateway',
   'deposit/result',
+  /** T57's Banking Details page (the reference's `/my/mybanks`). */
+  'banks',
 ] as const;
 
 /** Routes that must answer 200 without a session. */

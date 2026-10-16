@@ -18,7 +18,8 @@
     "filter": "筛选",
     "reset": "重置",
     "close": "关闭",
-    "copy": "复制"
+    "copy": "复制",
+    "delete": "删除"
   },
   "demoData": "演示数据",
   "state": {
@@ -138,6 +139,9 @@
     "receiptType": "仅支持 JPG、PNG 或 PDF 文件",
     "receiptSize": "文件需小于 5 MB",
     "bankRequired": "请选择银行账户",
+    "accountNameRequired": "请输入账户名",
+    "accountNumberRequired": "请输入您的银行帐号。",
+    "accountNumberLength": "请输入 6–20 位数字",
     "walletFrom": "请选择转出钱包",
     "walletTo": "请选择转入钱包",
     "walletSame": "请选择两个不同的钱包",

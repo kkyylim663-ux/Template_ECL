@@ -47,3 +47,27 @@ export function buildVerifyRows(input: {
 export function verifyRowsComplete(rows: WithdrawalVerifyRow[]): boolean {
   return rows.every((row) => row.verified);
 }
+
+/* ------------------------------------------------ bound accounts (T57) */
+
+/**
+ * How many accounts one member may bind. The reference's banking-detail page
+ * documents no cap (its add form is a plain bank + account name + number), so
+ * three is this build's rule and the guard lives in the mock store.
+ */
+export const MAX_BOUND_ACCOUNTS = 3;
+
+/** Account numbers are held as digits only; the form strips separators as it types. */
+export function normalizeAccountNumber(value: string): string {
+  return value.replace(/\D/g, '');
+}
+
+/** The list form of a number: last four digits, e.g. `514288904471` → `**** 4471`. */
+export function maskAccountNumber(accountNumber: string): string {
+  const digits = normalizeAccountNumber(accountNumber);
+  return `**** ${digits.slice(-4).padStart(4, '*')}`;
+}
+
+/** Digits a bound account number may hold — the reference's own rule was not captured. */
+export const ACCOUNT_NUMBER_MIN_DIGITS = 6;
+export const ACCOUNT_NUMBER_MAX_DIGITS = 20;

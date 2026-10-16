@@ -23,6 +23,8 @@ export const ICON_PATHS = {
   sponsor: ['M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8 9.5 8z'],
   wallet: ['M3 8h15a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', 'M3 8V6a2 2 0 0 1 2-2h11', c(16.5, 13, 1.4)],
   withdraw: ['M4 6h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z', 'M12 10v5', 'M9.5 12.5 12 10l2.5 2.5'],
+  /** Banking Details — the reference's own `icon-banking-details.svg` is not shipped. */
+  bankingDetails: ['M3 9.5 12 5l9 4.5', 'M5.5 11.5v7.5', 'M9.5 11.5v7.5', 'M14.5 11.5v7.5', 'M18.5 11.5v7.5', 'M3.5 19.5h17'],
   transfer: ['M4 8h13', 'M14 5l3 3-3 3', 'M20 16H7', 'M10 13l-3 3 3 3'],
   history: [c(12, 12, 8), 'M12 8v4l3 2'],
   calendar: ['M4 6h16v14H4z', 'M4 10h16', 'M8 3v4', 'M16 3v4'],
@@ -87,6 +89,7 @@ export const SHELL_ICON_NAMES = [
   'sponsor',
   'wallet',
   'withdraw',
+  'bankingDetails',
   'transfer',
   'history',
   'pending',

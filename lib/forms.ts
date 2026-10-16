@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { parseAmountMinor } from './format';
+import { ACCOUNT_NUMBER_MAX_DIGITS, ACCOUNT_NUMBER_MIN_DIGITS } from './withdrawal-flow';
 
 /**
  * Form schemas. Kept free of any server import so the same rules run in the
@@ -149,6 +150,26 @@ export function gatewayDepositSchema({
 export const withdrawalSchema = z.object({
   bankAccountId: z.string().min(1, 'validation.bankRequired'),
   amount: z.number({ message: 'validation.amountWithdraw' }).positive('validation.amountPositive'),
+});
+
+/**
+ * Banking Details (T57): the reference's add-bank contract. Its old form posts a
+ * bank plus an account number (`#baBankId` + `#baNo`, digits only — the
+ * dictionary answers `err_add_acc_empty_bank` / `err_add_acc_empty_bank_no`),
+ * and the new resource adds the account name (`account-name`). The name has to
+ * match the member's own name, which the page states with `withdrawal.nameNote`.
+ */
+export const bankAccountFormSchema = z.object({
+  bankId: z.string().trim().min(1, 'validation.bankRequired'),
+  accountName: z.string().trim().min(2, 'validation.accountNameRequired'),
+  accountNumber: z
+    .string()
+    .trim()
+    .min(1, 'validation.accountNumberRequired')
+    .regex(
+      new RegExp(`^\\d{${ACCOUNT_NUMBER_MIN_DIGITS},${ACCOUNT_NUMBER_MAX_DIGITS}}$`),
+      'validation.accountNumberLength',
+    ),
 });
 
 export const transferSchema = z

@@ -18,7 +18,8 @@
     "filter": "Filter",
     "reset": "Reset",
     "close": "Close",
-    "copy": "Copy"
+    "copy": "Copy",
+    "delete": "Delete"
   },
   "demoData": "Demo data",
   "state": {
@@ -138,6 +139,9 @@
     "receiptType": "Only JPG, PNG or PDF files are accepted",
     "receiptSize": "The file must be 5 MB or smaller",
     "bankRequired": "Choose a bank account",
+    "accountNameRequired": "Enter the account name",
+    "accountNumberRequired": "Please enter your bank account no.",
+    "accountNumberLength": "Enter 6–20 digits",
     "walletFrom": "Choose a source wallet",
     "walletTo": "Choose a destination wallet",
     "walletSame": "Choose two different wallets",

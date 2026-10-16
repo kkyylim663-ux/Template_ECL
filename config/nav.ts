@@ -64,6 +64,7 @@ export const PRIMARY_MENU: MenuGroup[] = [
       { href: '/account/achievement', labelKey: 'items.achievement', icon: 'achievement' },
       { href: '/account/tickets', labelKey: 'items.tickets', icon: 'ticket' },
       { href: '/account/profile', labelKey: 'items.profile', icon: 'user' },
+      { href: '/account/banks', labelKey: 'items.bankingDetails', icon: 'bankingDetails' },
     ],
   },
 ];

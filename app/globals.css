@@ -8740,3 +8740,182 @@ details.accordionItem[open] .accordion-icon {
     text-align: right;
   }
 }
+/* ── Banking details page (T57) ─────────────────────────────────────────────
+   The reference's banking-detail view (`/my/mybanks`, "Banking Details") is a
+   client-rendered chunk that was never captured, like the withdrawal page it
+   hangs off. The class names and values below come from the captured
+   stylesheet's own banking rules (`.mybank-wrapper`, `.bank-table__acc`,
+   `.my-bank__verfied`, `.my-bank-action`, `.mybank-verify-now`, and the mobile
+   `__mobile` pair); the capture ships no banking-table skin, so the table wears
+   the same skin as the reference's verify table (`.withdraw-verify__list-*`,
+   T56). `.mybank-state__*`, `.mybank-empty__text`, `.mybank-limit`,
+   `.mybank-form*` and the row-action buttons are ours — the capture has no
+   state chrome and no form rules for this page. Mobile follows the stylesheet's
+   `.mybank-verify-now__mobile` (12px) and keeps 375 free of horizontal
+   overflow. */
+
+.mybank-wrapper {
+  margin-bottom: 50px;
+}
+
+.bank-table {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.bank-table th {
+  padding: 11px 12px 12px;
+  background: var(--color-line);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-align: left;
+}
+
+.bank-table td {
+  padding: 9px 12px 12px;
+  background: var(--color-panel-alt);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  vertical-align: middle;
+}
+
+.bank-table tbody tr:nth-child(2n) td {
+  background: var(--color-panel-soft);
+}
+
+/* Reference `.bank-table__acc{width:320px}`. */
+.bank-table__acc {
+  width: 320px;
+}
+
+/* Reference `.my-bank__verfied{color:primary-green;margin-right:13px}`. */
+.my-bank__verfied {
+  margin-right: 13px;
+  color: var(--color-success);
+}
+
+.my-bank-pending {
+  color: var(--color-muted);
+}
+
+/* Reference `.my-bank-action{color:#fff;font-size:14px;font-weight:500}`. */
+.my-bank-action {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+/* The reference's `.mybank-verify-now` green link, worn by the row actions. */
+.my-bank-action__button,
+.mybank-verify-now {
+  color: var(--color-success);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.my-bank-action__button:hover {
+  text-decoration: underline;
+}
+
+.my-bank-action__danger {
+  color: var(--color-danger);
+}
+
+.my-bank-default {
+  color: var(--color-success);
+}
+
+.mybank-state__text {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.mybank-state__action {
+  margin-top: 12px;
+}
+
+.mybank-empty__text {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.mybank-limit {
+  margin-top: 16px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.mybank-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 405px;
+  margin-top: 24px;
+}
+
+.mybank-form__title {
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.mybank-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mybank-form__cancel {
+  color: var(--color-muted);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.mybank-form__cancel:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 768px) {
+  /* The reference's 320px account column does not fit 375 alongside three more
+     columns, so the table goes fixed-layout and every cell wraps. */
+  .bank-table {
+    table-layout: fixed;
+  }
+
+  .bank-table__acc {
+    width: auto;
+  }
+
+  .bank-table th,
+  .bank-table td {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* Reference `.my-bank-action__mobile` / `.mybank-verify-now__mobile`: 12px. */
+  .my-bank-action {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    font-size: var(--text-xs);
+  }
+
+  .my-bank-action__button {
+    font-size: var(--text-xs);
+  }
+
+  .mybank-form {
+    max-width: none;
+  }
+}

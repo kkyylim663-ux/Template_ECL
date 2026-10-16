@@ -52,6 +52,8 @@ const MEMBER_ROUTES = [
   '/my/account/achievement',
   '/my/account/tickets',
   '/my/account/profile',
+  // T57: Banking Details — the bound-account table and its add form.
+  '/my/account/banks',
   // T54: the deposit sub-pages — the gateway window's empty state and the four
   // result layouts (the no-order variants are deterministic).
   '/my/account/deposit/gateway?order=PG-MISSING',

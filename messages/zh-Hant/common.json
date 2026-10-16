@@ -18,7 +18,8 @@
     "filter": "篩選",
     "reset": "重置",
     "close": "關閉",
-    "copy": "複製"
+    "copy": "複製",
+    "delete": "刪除"
   },
   "demoData": "示範資料",
   "state": {
@@ -138,6 +139,9 @@
     "receiptType": "僅支援 JPG、PNG 或 PDF 檔案",
     "receiptSize": "檔案需小於 5 MB",
     "bankRequired": "請選擇銀行帳戶",
+    "accountNameRequired": "請輸入帳戶名",
+    "accountNumberRequired": "請輸入您的銀行帳號。",
+    "accountNumberLength": "請輸入 6–20 位數字",
     "walletFrom": "請選擇轉出錢包",
     "walletTo": "請選擇轉入錢包",
     "walletSame": "請選擇兩個不同的錢包",

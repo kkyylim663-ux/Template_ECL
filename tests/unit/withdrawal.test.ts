@@ -37,8 +37,9 @@ describe('withdrawal flow helpers', () => {
     id,
     bankId: 'maybank',
     accountName: 'Demo Player',
-    accountNumberMasked: '**** 4471',
+    accountNumber: '514288904471',
     verified,
+    isDefault: false,
     addedAt: '2026-04-02T11:00:00+08:00',
   });
 

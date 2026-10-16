@@ -1,0 +1,26 @@
+{
+  "status": "0",
+  "msg": "Done",
+  "d": {
+    "accounts": [
+      {
+        "id": "ba-1",
+        "bankId": "maybank",
+        "accountName": "Demo Player",
+        "accountNumber": "514288904471",
+        "verified": true,
+        "isDefault": true,
+        "addedAt": "2026-04-02T11:00:00+08:00"
+      },
+      {
+        "id": "ba-2",
+        "bankId": "cimb",
+        "accountName": "Demo Player",
+        "accountNumber": "702133488890",
+        "verified": false,
+        "isDefault": false,
+        "addedAt": "2026-09-19T15:30:00+08:00"
+      }
+    ]
+  }
+}

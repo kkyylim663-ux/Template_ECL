@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { IconSprite } from '@/components/ui/IconSprite';
@@ -10,6 +11,7 @@ import { regionPath } from '@/config/nav';
 import { withdrawalInfoSchema, type WithdrawalInfo } from '@/lib/api/schemas';
 import {
   buildVerifyRows,
+  maskAccountNumber,
   verifiedBankAccounts,
   verifyRowsComplete,
   type WithdrawalVerifyRow,
@@ -32,8 +34,9 @@ const ROW_LABEL: Record<WithdrawalVerifyRowId, string> = {
  * the `.withdraw-plus` tile, `.withdraw-info`) and its copy comes from the
  * Fluent resources embedded in the shared bundle. The verified-account row
  * stands in for the reference's `getMyBankAccVerified` dropdown; the request
- * form and the binding form arrive with T57/T58, so the plus tile points at
- * the page's own anchor until then.
+ * form arrives with T58, and the plus tile now leads to the Banking Details page
+ * (`/account/banks`) that binds, edits and drops accounts — the reference's own
+ * plus target is the one thing its capture left open.
  */
 export function WithdrawalPanel({ region }: { region: string }) {
   const t = useTranslations('account');
@@ -111,9 +114,13 @@ export function WithdrawalPanel({ region }: { region: string }) {
             ) : (
               <AccountRow info={info} />
             )}
-            <a className="withdraw-plus" href="#" aria-label={t('withdrawal.addBank')}>
+            <Link
+              className="withdraw-plus"
+              href={regionPath(region, '/account/banks')}
+              aria-label={t('withdrawal.addBank')}
+            >
               <Icon name="plus" size={20} />
-            </a>
+            </Link>
           </div>
           <WithdrawalInfoBlock info={info} />
         </>
@@ -142,7 +149,7 @@ function AccountRow({ info }: { info: WithdrawalInfo }) {
           <option value="">{t('withdrawal.pleaseSelect')}</option>
           {accounts.map((account) => (
             <option key={account.id} value={account.id}>
-              {`${bankName(account.bankId)} ${account.accountNumberMasked}`}
+              {`${bankName(account.bankId)} ${maskAccountNumber(account.accountNumber)}`}
             </option>
           ))}
         </select>

@@ -617,6 +617,25 @@ export const withdrawalLimitsSchema = z.object({
 export type WithdrawalLimits = z.infer<typeof withdrawalLimitsSchema>;
 
 /**
+ * A member's own bound account (T57's Banking Details page). Unlike the
+ * read-only `savedBankAccountSchema` of the account payload, this one carries
+ * the whole number so the edit form can work on it; every list renders
+ * `maskAccountNumber` instead, and `isDefault` is what the withdrawal picker
+ * pre-selects. The reference keeps this list behind `getMyBankAccVerified` and
+ * its banking-detail resource (`bank` / `account-number` / `status` / `action`).
+ */
+export const boundBankAccountSchema = z.object({
+  id: z.string(),
+  bankId: z.string(),
+  accountName: z.string(),
+  accountNumber: z.string(),
+  verified: z.boolean(),
+  isDefault: z.boolean(),
+  addedAt: z.string(),
+});
+export type BoundBankAccount = z.infer<typeof boundBankAccountSchema>;
+
+/**
  * What `/api/withdrawal/info` answers: the bound accounts with the bank catalog
  * they reference, the per-request limits the page prints, and the member's own
  * document-check state (the "What to verify" rows). The live service splits
@@ -625,7 +644,7 @@ export type WithdrawalLimits = z.infer<typeof withdrawalLimitsSchema>;
  * = "Min 200.00 / Max 50,000.00").
  */
 export const withdrawalInfoSchema = z.object({
-  bankAccounts: z.array(savedBankAccountSchema),
+  bankAccounts: z.array(boundBankAccountSchema),
   banks: z.array(bankSchema),
   limits: withdrawalLimitsSchema,
   kycStatus: z.enum(['unverified', 'pending', 'verified']),

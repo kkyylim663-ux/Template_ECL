@@ -18,7 +18,8 @@
     "filter": "Lọc",
     "reset": "Đặt lại",
     "close": "Đóng",
-    "copy": "Sao chép"
+    "copy": "Sao chép",
+    "delete": "Xóa"
   },
   "demoData": "Dữ liệu demo",
   "state": {
@@ -138,6 +139,9 @@
     "receiptType": "Chỉ chấp nhận tệp JPG, PNG hoặc PDF",
     "receiptSize": "Tệp phải từ 5 MB trở xuống",
     "bankRequired": "Chọn tài khoản ngân hàng",
+    "accountNameRequired": "Nhập tên tài khoản",
+    "accountNumberRequired": "Vui lòng nhập số tài khoản ngân hàng của bạn.",
+    "accountNumberLength": "Nhập 6–20 chữ số",
     "walletFrom": "Chọn ví nguồn",
     "walletTo": "Chọn ví đích",
     "walletSame": "Chọn hai ví khác nhau",
