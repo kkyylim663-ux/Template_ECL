@@ -33,8 +33,10 @@ export const ENDPOINTS = {
   account: 'getAccount',
   /** Member sign-in. Returns `{ sub, username }` for a match, `null` otherwise. */
   login: 'postLogin',
-  /** Registration duplicate check. Answers `true` when the username is already taken. */
+  /** Registration duplicate check. Answers `true` when the username, email or mobile is already taken. */
   checkAccount: 'checkAccExisting',
+  /** Registration. Answers the new account, or the field that is already in use. */
+  register: 'postRegister',
   /** Profile password change (T49). Mock only: the override lives in memory. */
   changePassword: 'setPassword',
   /** Deposit method limits/fees (P4). The live service folds these into getBanks/settings. */

@@ -1,13 +1,19 @@
-// MOCK-ONLY: 整个钱包服务是 mock：种子来自 mocks/wallet.json，状态写 localStorage，含 300–800ms 假延迟与可注入失败；还带演示用的 deposit/withdraw/ledger。接后台后换成真实 walletTransfer/walletTransferAll（带幂等键）与余额接口。
+// MOCK-ONLY: 整个钱包服务是 mock：种子来自 mocks/wallet.json，状态写 localStorage，含 300–800ms 假延迟与可注入失败；还带演示用的 deposit/withdraw/ledger。每个账号一套钱包（bindAccount）。接后台后换成真实 walletTransfer/walletTransferAll（带幂等键）与余额接口。
 import walletSeed from '@/mocks/wallet.json';
 
 /**
  * Mock wallet service for the member area. Every amount is an integer count of
  * minor units; no float arithmetic happens on money. State lives in memory and
  * is mirrored to localStorage so a refresh keeps balances; `reset()` (logout)
- * restores the seed and clears the mirror.
+ * restores the opening balances and clears the mirror.
+ *
+ * Each signed-in account has its own mirror (`bindAccount`). Guests and the
+ * /dev/wallet simulator use the default mirror. A registered account opens at
+ * zero in every wallet; a preset account opens at the seed.
  */
 export type WalletKind = 'main' | 'game';
+
+export type WalletOpening = 'seed' | 'zero';
 
 export interface Wallet {
   code: string;
@@ -47,7 +53,7 @@ export type LedgerKind = 'deposit' | 'withdraw' | 'transfer';
 /**
  * One money movement. Every wallet action appends here, which is what lets the
  * dev page show the ledger and hold the invariant
- * `total = seed + Σ deposits − Σ withdrawals` (transfers are neutral).
+ * `total = opening + Σ deposits − Σ withdrawals` (transfers are neutral).
  */
 export interface LedgerEntry {
   id: string;
@@ -90,9 +96,14 @@ export interface WalletService {
   skippedByMaintenance(to: string): Wallet[];
   /** Mock-mode switch for a wallet's maintenance state (the dev page uses it). */
   setAvailable(code: string, available: boolean): void;
+  /**
+   * Switches to the wallet set of `accountId` (null = the default set for guests).
+   * A no-op when that set is already active. Calls subscribers when it switches.
+   */
+  bindAccount(accountId: string | null, opening?: WalletOpening): void;
   /** Calls `listener` after every change to balances, availability or the ledger. */
   subscribe(listener: () => void): () => void;
-  /** The seeded total, the invariant's baseline. */
+  /** The opening total of the active wallet set, the invariant's baseline. */
   seedTotalMinor(): number;
   reset(): void;
 }
@@ -111,6 +122,20 @@ function browserStorage(): WalletServiceOptions['storage'] {
   return typeof window === 'undefined' ? null : window.localStorage;
 }
 
+function scopeKeys(accountId: string | null) {
+  if (!accountId) return { wallets: STORAGE_KEY, ledger: LEDGER_KEY };
+  return {
+    wallets: `${STORAGE_KEY}:acct:${accountId}`,
+    ledger: `${LEDGER_KEY}:acct:${accountId}`,
+  };
+}
+
+function openingWallets(opening: WalletOpening): Map<string, Wallet> {
+  return new Map(
+    seedWallets.map((w) => [w.code, { ...w, amountMinor: opening === 'zero' ? 0 : w.amountMinor }]),
+  );
+}
+
 function isWallet(value: unknown): value is Wallet {
   if (typeof value !== 'object' || value === null) return false;
   const w = value as Record<string, unknown>;
@@ -122,9 +147,13 @@ function isWallet(value: unknown): value is Wallet {
   );
 }
 
-function loadWallets(storage: WalletServiceOptions['storage']): Map<string, Wallet> {
-  const wallets = new Map(seedWallets.map((w) => [w.code, { ...w }]));
-  const raw = storage?.getItem(STORAGE_KEY);
+function loadWallets(
+  storage: WalletServiceOptions['storage'],
+  key: string,
+  opening: WalletOpening,
+): Map<string, Wallet> {
+  const wallets = openingWallets(opening);
+  const raw = storage?.getItem(key);
   if (!raw) return wallets;
   try {
     const saved: unknown = JSON.parse(raw);
@@ -139,13 +168,13 @@ function loadWallets(storage: WalletServiceOptions['storage']): Map<string, Wall
       }
     }
   } catch {
-    // A corrupt mirror falls back to the seed rather than blocking the page.
+    // A corrupt mirror falls back to the opening balances rather than blocking the page.
   }
   return wallets;
 }
 
-function loadLedger(storage: WalletServiceOptions['storage']): LedgerEntry[] {
-  const raw = storage?.getItem(LEDGER_KEY);
+function loadLedger(storage: WalletServiceOptions['storage'], key: string): LedgerEntry[] {
+  const raw = storage?.getItem(key);
   if (!raw) return [];
   try {
     const saved: unknown = JSON.parse(raw);
@@ -175,8 +204,11 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
   const random = options.random ?? Math.random;
   const shouldFail = options.shouldFail ?? (() => false);
 
-  let wallets = loadWallets(storage);
-  let ledger = loadLedger(storage);
+  let owner: string | null = null;
+  let opening: WalletOpening = 'seed';
+  let keys = scopeKeys(null);
+  let wallets = loadWallets(storage, keys.wallets, opening);
+  let ledger = loadLedger(storage, keys.ledger);
   const completed = new Map<string, TransferReceipt>();
   const inFlight = new Map<string, Promise<TransferReceipt>>();
   const completedOps = new Map<string, LedgerEntry>();
@@ -189,14 +221,14 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
   }
 
   function persist() {
-    storage?.setItem(STORAGE_KEY, JSON.stringify([...wallets.values()]));
+    storage?.setItem(keys.wallets, JSON.stringify([...wallets.values()]));
     notify();
   }
 
   function record(entry: Omit<LedgerEntry, 'id' | 'at'>): LedgerEntry {
     const full: LedgerEntry = { id: crypto.randomUUID(), at: new Date().toISOString(), ...entry };
     ledger = [full, ...ledger];
-    storage?.setItem(LEDGER_KEY, JSON.stringify(ledger));
+    storage?.setItem(keys.ledger, JSON.stringify(ledger));
     return full;
   }
 
@@ -207,6 +239,14 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
   function delay(): Promise<void> {
     const ms = MIN_DELAY_MS + Math.floor(random() * (MAX_DELAY_MS - MIN_DELAY_MS + 1));
     return wait(ms);
+  }
+
+  /**
+   * A request started under one account must not land in another: if the account
+   * switched while it was waiting, it is treated as not completed.
+   */
+  function assertSameAccount(scope: string | null) {
+    if (owner !== scope) throw new WalletError('network');
   }
 
   function requireWallet(code: string): Wallet {
@@ -235,6 +275,7 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     kind: 'deposit' | 'withdraw',
     amountMinor: number,
     idempotencyKey: string,
+    scope: string | null = owner,
   ): Promise<LedgerEntry> {
     const replay = completedOps.get(idempotencyKey);
     if (replay) return replay;
@@ -244,6 +285,7 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     const work = (async () => {
       await delay();
       if (shouldFail()) throw new WalletError('network');
+      assertSameAccount(scope);
       if (!Number.isSafeInteger(amountMinor) || amountMinor <= 0) {
         throw new WalletError('invalid_amount');
       }
@@ -275,6 +317,7 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     to: string,
     amountMinor: number,
     idempotencyKey: string,
+    scope: string | null = owner,
   ): Promise<TransferReceipt> {
     const replay = completed.get(idempotencyKey);
     if (replay) return replay;
@@ -284,6 +327,7 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     const work = (async () => {
       await delay();
       if (shouldFail()) throw new WalletError('network');
+      assertSameAccount(scope);
       applyTransfer(from, to, amountMinor);
       const receipt: TransferReceipt = { idempotencyKey, from, to, amountMinor };
       completed.set(idempotencyKey, receipt);
@@ -308,13 +352,20 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     },
 
     async transferAll(to, idempotencyKey = crypto.randomUUID()) {
+      const scope = owner;
       const sources = [...wallets.values()].filter(
         (w) => w.code !== to && w.available && w.amountMinor > 0,
       );
       const receipts: TransferReceipt[] = [];
       for (const source of sources) {
         receipts.push(
-          await runTransfer(source.code, to, source.amountMinor, `${idempotencyKey}:${source.code}`),
+          await runTransfer(
+            source.code,
+            to,
+            source.amountMinor,
+            `${idempotencyKey}:${source.code}`,
+            scope,
+          ),
         );
       }
       return receipts;
@@ -349,6 +400,21 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
       persist();
     },
 
+    bindAccount(accountId, nextOpening = 'seed') {
+      const nextOwner = accountId || null;
+      if (nextOwner === owner) return;
+      owner = nextOwner;
+      opening = nextOpening;
+      keys = scopeKeys(nextOwner);
+      wallets = loadWallets(storage, keys.wallets, opening);
+      ledger = loadLedger(storage, keys.ledger);
+      completed.clear();
+      inFlight.clear();
+      completedOps.clear();
+      inFlightOps.clear();
+      notify();
+    },
+
     subscribe(listener) {
       listeners.add(listener);
       return () => {
@@ -357,18 +423,18 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     },
 
     seedTotalMinor() {
-      return seedWallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
+      return [...openingWallets(opening).values()].reduce((sum, wallet) => sum + wallet.amountMinor, 0);
     },
 
     reset() {
-      wallets = loadWallets(null);
+      wallets = openingWallets(opening);
       ledger = [];
       completed.clear();
       inFlight.clear();
       completedOps.clear();
       inFlightOps.clear();
-      storage?.removeItem(STORAGE_KEY);
-      storage?.removeItem(LEDGER_KEY);
+      storage?.removeItem(keys.wallets);
+      storage?.removeItem(keys.ledger);
       notify();
     },
   };

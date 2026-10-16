@@ -1,4 +1,4 @@
-// MOCK-ONLY: mock 端点注册表：mocks/*.json 的全部假数据（账号、余额、历史、收件箱、榜单、公告、促销…）、演示账号、运行期密码覆盖都在这里挂载。接后台后整目录可删（或保留为离线演示模式）。
+// MOCK-ONLY: mock 端点注册表：mocks/*.json 的全部假数据（账号、余额、历史、收件箱、榜单、公告、促销…）、演示账号、注册与改密码都在这里挂载。接后台后整目录可删（或保留为离线演示模式）。
 /**
  * Mock endpoints, keyed by the real endpoint names from docs/API_OBSERVED.md.
  *
@@ -13,6 +13,7 @@
  * components must fetch `/api/*` route handlers instead.
  */
 import { ENDPOINTS } from '@/lib/api/endpoints';
+import { accountStore, type NewAccount } from '@/lib/mock-auth/accounts';
 import account from './account.json';
 import announcements from './announcements.json';
 import banners from './banners.json';
@@ -27,7 +28,6 @@ import promotions from './promotions.json';
 import rankingBoard from './ranking-board.json';
 import sponsor from './sponsor.json';
 import updates from './updates.json';
-import users from './users.json';
 import vip from './vip.json';
 import gameList from './slots.gamelist.json';
 
@@ -40,29 +40,6 @@ const promotionsData = promotions.d as { id: string; slug: string }[] & unknown[
 const updatesData = updates.d as { id: string }[];
 const faqData = faq.d as { id: string; title: string; items: unknown[] }[];
 const pagesData = pages.d as { slug: string }[];
-const usersData = users as {
-  id: string;
-  username: string;
-  email: string;
-  phone: string;
-  password: string;
-  otp: string;
-}[];
-
-/**
- * Passwords changed through the profile form (T49). The fixture files are
- * read-only, so an override lives in this process's memory — a fresh server
- * starts from `users.json` again, which is exactly what the demo needs.
- */
-const passwordOverrides = new Map<string, string>();
-
-function findUser(identifier: string | undefined) {
-  const needle = identifier?.trim().toLowerCase();
-  if (!needle) return undefined;
-  return usersData.find((entry) =>
-    [entry.username, entry.email, entry.phone].some((value) => value.toLowerCase() === needle),
-  );
-}
 
 export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.gameList]: () => gameList.d,
@@ -78,38 +55,57 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.depositMethods]: () => depositMethods.d,
 
   /** Matches the identifier against username, email or phone, then the password or OTP. */
-  [ENDPOINTS.login]: (raw) => {
+  [ENDPOINTS.login]: async (raw) => {
     const { identifier, password, otp } = (raw ?? {}) as {
       identifier?: string;
       password?: string;
       otp?: string;
     };
-    const user = findUser(identifier);
+    const user = identifier ? await accountStore.findByIdentifier(identifier) : undefined;
     if (!user) return null;
-    const effective = passwordOverrides.get(user.id) ?? user.password;
-    const matches = password ? effective === password : user.otp === otp;
+    const matches = password
+      ? await accountStore.verifyPassword(user, password)
+      : user.otp === otp;
     return matches ? { sub: user.id, username: user.username } : null;
   },
 
   /** T49: the current password has to match before the new one replaces it. */
-  [ENDPOINTS.changePassword]: (raw) => {
+  [ENDPOINTS.changePassword]: async (raw) => {
     const { identifier, currentPassword, newPassword } = (raw ?? {}) as {
       identifier?: string;
       currentPassword?: string;
       newPassword?: string;
     };
-    const user = findUser(identifier);
-    if (!user) return null;
-    if ((passwordOverrides.get(user.id) ?? user.password) !== currentPassword) return null;
+    const user = identifier ? await accountStore.findByIdentifier(identifier) : undefined;
+    if (!user || !currentPassword) return null;
+    if (!(await accountStore.verifyPassword(user, currentPassword))) return null;
     if (typeof newPassword !== 'string' || newPassword.length < 8) return null;
-    passwordOverrides.set(user.id, newPassword);
+    await accountStore.setPassword(user.id, newPassword);
     return { ok: true };
   },
 
-  [ENDPOINTS.checkAccount]: (raw) => {
-    const { username } = (raw ?? {}) as { username?: string };
-    const needle = username?.trim().toLowerCase();
-    return usersData.some((entry) => entry.username.toLowerCase() === needle);
+  /** True when the username, email or mobile is already registered (preset or created). */
+  [ENDPOINTS.checkAccount]: async (raw) => {
+    const { username, email, phone } = (raw ?? {}) as {
+      username?: string;
+      email?: string;
+      phone?: string;
+    };
+    return (await accountStore.takenField({ username, email, phone })) !== null;
+  },
+
+  /** Creates the account, or answers the field that is already in use. */
+  [ENDPOINTS.register]: async (raw) => {
+    const result = await accountStore.create(raw as NewAccount);
+    if (!result.ok) return { ok: false, field: result.field };
+    return {
+      ok: true,
+      account: {
+        sub: result.account.id,
+        username: result.account.username,
+        walletOpening: result.account.walletOpening,
+      },
+    };
   },
 
   /** Detail endpoints answer with the record, or `null` when the id is unknown. */
