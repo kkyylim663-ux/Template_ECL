@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { getLotteryResults } from '@/lib/api';
+import { getHomeBetting, getLotteryResults } from '@/lib/api';
+import { BettingTransaction } from '@/components/home/BettingTransaction';
 import { InfoRule } from '@/components/event/InfoRule';
 import { LotteryResultCards } from '@/components/event/LotteryResultCards';
 import { InertLink } from '@/components/ui/InertLink';
@@ -31,18 +32,22 @@ export default async function FourDPage({
 }) {
   const { region } = await params;
   const query = await searchParams;
-  const [{ t }, lottery] = await Promise.all([getT('games'), getLotteryResults()]);
+  const [{ t }, lottery, betting] = await Promise.all([
+    getT('games'),
+    getLotteryResults(),
+    getHomeBetting(),
+  ]);
 
   const requested = typeof query.book === 'string' ? query.book : '';
   const activeId =
     lottery.books.find((book) => book.id === requested)?.id ?? lottery.books[0]?.id ?? '';
 
   return (
-    <IntlScope namespaces={['games']}>
+    <IntlScope namespaces={['games', 'home']}>
       <div>
-        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder h-40 max-desktop:h-28" />
+        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder game-banner" />
 
-        <h1 className="page-title has-space">
+        <h1 className="page-title has-space lottery-page-title">
           <span aria-hidden className="page-title__icon game-placeholder" />
           {t('fourD.title')}
         </h1>
@@ -82,10 +87,10 @@ export default async function FourDPage({
             ))}
           </div>
 
-          <h2 className="section-title">{t('fourD.result')}</h2>
+          <h2 className="section-title lottery-result-title">{t('fourD.result')}</h2>
           <LotteryResultCards books={lottery.books} region={region} activeId={activeId} />
 
-          <div className="has-space w-90">
+          <div className="has-space w-90 lottery-rule-box">
             <div className="info-rule__wrapper">
               <InfoRule title={t('fourD.rulesTitle')}>
                 <ul className="info-rule__list">
@@ -100,6 +105,11 @@ export default async function FourDPage({
                 </ul>
               </InfoRule>
             </div>
+          </div>
+
+          {/* Phones only: the reference's betting block sits below the rules bar. */}
+          <div className="lottery-mobile-only">
+            <BettingTransaction betting={betting} region={region} />
           </div>
         </div>
       </div>

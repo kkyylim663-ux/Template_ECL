@@ -100,7 +100,21 @@
       "round": "期號",
       "numbers": "號碼",
       "drawnAt": "開獎時間"
-    }
+    },
+    "countdown": {
+      "round": "期數",
+      "drawing": "開獎時間",
+      "remaining": "剩餘時間"
+    },
+    "jackpot": "累積獎池",
+    "rulesButton": "規則",
+    "manual": "手動",
+    "auto": "自動",
+    "random": "全部隨機",
+    "reset": "重設",
+    "submit": "立即提交",
+    "latestPrediction": "最新預測",
+    "viewMore": "查看更多"
   },
   "prediction": {
     "summary": "{count} 場比賽 · 免費參與",
