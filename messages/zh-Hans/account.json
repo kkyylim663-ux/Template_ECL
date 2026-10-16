@@ -360,5 +360,31 @@
     "withdrawalFrequency": "提现次数",
     "registrationDate": "注册日期",
     "time": "时间"
+  },
+  "dev": {
+    "wallet": {
+      "title": "钱包模拟器",
+      "intro": "仅 mock 模式:手动演示余额变动并观察总额。",
+      "total": "总额",
+      "initial": "初始总额",
+      "deposits": "充值合计",
+      "withdrawals": "提现合计",
+      "checkHolds": "总额 = 初始 + 充值 − 提现:成立",
+      "checkBroken": "总额 = 初始 + 充值 − 提现:被破坏",
+      "deposit": "模拟充值",
+      "withdraw": "模拟提现",
+      "transfer": "模拟转账",
+      "from": "从",
+      "to": "至",
+      "amount": "金额",
+      "ledger": "流水",
+      "kind": {
+        "deposit": "充值",
+        "withdraw": "提现",
+        "transfer": "转账"
+      },
+      "empty": "暂无流水。",
+      "reset": "重置为初始值"
+    }
   }
 }

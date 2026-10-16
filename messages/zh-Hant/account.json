@@ -360,5 +360,31 @@
     "withdrawalFrequency": "提現次數",
     "registrationDate": "註冊日期",
     "time": "時間"
+  },
+  "dev": {
+    "wallet": {
+      "title": "錢包模擬器",
+      "intro": "僅 mock 模式:手動演示餘額變動並觀察總額。",
+      "total": "總額",
+      "initial": "初始總額",
+      "deposits": "充值合計",
+      "withdrawals": "提現合計",
+      "checkHolds": "總額 = 初始 + 充值 − 提現:成立",
+      "checkBroken": "總額 = 初始 + 充值 − 提現:被破壞",
+      "deposit": "模擬充值",
+      "withdraw": "模擬提現",
+      "transfer": "模擬轉帳",
+      "from": "從",
+      "to": "至",
+      "amount": "金額",
+      "ledger": "流水",
+      "kind": {
+        "deposit": "充值",
+        "withdraw": "提現",
+        "transfer": "轉帳"
+      },
+      "empty": "暫無流水。",
+      "reset": "重置為初始值"
+    }
   }
 }

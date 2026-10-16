@@ -360,5 +360,31 @@
     "withdrawalFrequency": "Số lần rút",
     "registrationDate": "Ngày đăng ký",
     "time": "Thời gian"
+  },
+  "dev": {
+    "wallet": {
+      "title": "Trình mô phỏng ví",
+      "intro": "Chỉ ở chế độ mock: tự tay thay đổi số dư demo.",
+      "total": "Tổng cộng",
+      "initial": "Tổng ban đầu",
+      "deposits": "Tổng nạp",
+      "withdrawals": "Tổng rút",
+      "checkHolds": "Tổng = ban đầu + nạp − rút: đúng",
+      "checkBroken": "Tổng = ban đầu + nạp − rút: SAI",
+      "deposit": "Mô phỏng nạp",
+      "withdraw": "Mô phỏng rút",
+      "transfer": "Mô phỏng chuyển",
+      "from": "Từ",
+      "to": "Đến",
+      "amount": "Số tiền",
+      "ledger": "Sổ cái",
+      "kind": {
+        "deposit": "Nạp",
+        "withdraw": "Rút",
+        "transfer": "Chuyển"
+      },
+      "empty": "Chưa có giao dịch.",
+      "reset": "Đặt lại về ban đầu"
+    }
   }
 }

@@ -41,6 +41,23 @@ export interface TransferReceipt {
   amountMinor: number;
 }
 
+export type LedgerKind = 'deposit' | 'withdraw' | 'transfer';
+
+/**
+ * One money movement. Every wallet action appends here, which is what lets the
+ * dev page show the ledger and hold the invariant
+ * `total = seed + Σ deposits − Σ withdrawals` (transfers are neutral).
+ */
+export interface LedgerEntry {
+  id: string;
+  kind: LedgerKind;
+  amountMinor: number;
+  /** ISO timestamp. */
+  at: string;
+  from?: string;
+  to?: string;
+}
+
 export interface WalletServiceOptions {
   storage?: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> | null;
   /** Resolves after the simulated network delay. Injected so tests run instantly. */
@@ -60,10 +77,20 @@ export interface WalletService {
     idempotencyKey?: string,
   ): Promise<TransferReceipt>;
   transferAll(to: string, idempotencyKey?: string): Promise<TransferReceipt[]>;
+  /** Mock-mode simulation of money entering the main wallet. */
+  deposit(amountMinor: number, idempotencyKey?: string): Promise<LedgerEntry>;
+  /** Mock-mode simulation of money leaving the main wallet (insufficient rejects). */
+  withdraw(amountMinor: number, idempotencyKey?: string): Promise<LedgerEntry>;
+  /** Newest first. */
+  ledger(): LedgerEntry[];
+  /** The seeded total, the invariant's baseline. */
+  seedTotalMinor(): number;
   reset(): void;
 }
 
 const STORAGE_KEY = 'brand:wallets';
+const LEDGER_KEY = 'brand:wallets:ledger';
+const MAIN_CODE = 'main';
 const MIN_DELAY_MS = 300;
 const MAX_DELAY_MS = 800;
 
@@ -105,6 +132,31 @@ function loadWallets(storage: WalletServiceOptions['storage']): Map<string, Wall
   return wallets;
 }
 
+function loadLedger(storage: WalletServiceOptions['storage']): LedgerEntry[] {
+  const raw = storage?.getItem(LEDGER_KEY);
+  if (!raw) return [];
+  try {
+    const saved: unknown = JSON.parse(raw);
+    if (Array.isArray(saved)) return saved.filter((item) => isLedgerEntry(item));
+  } catch {
+    // Same tolerance as the balance mirror: a corrupt ledger starts empty.
+  }
+  return [];
+}
+
+function isLedgerEntry(value: unknown): value is LedgerEntry {
+  if (typeof value !== 'object' || value === null) return false;
+  const entry = value as Record<string, unknown>;
+  return (
+    typeof entry.id === 'string' &&
+    typeof entry.at === 'string' &&
+    (entry.kind === 'deposit' || entry.kind === 'withdraw' || entry.kind === 'transfer') &&
+    typeof entry.amountMinor === 'number' &&
+    Number.isSafeInteger(entry.amountMinor) &&
+    entry.amountMinor > 0
+  );
+}
+
 export function createWalletService(options: WalletServiceOptions = {}): WalletService {
   const storage = options.storage === undefined ? browserStorage() : options.storage;
   const wait = options.wait ?? defaultWait;
@@ -112,11 +164,21 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
   const shouldFail = options.shouldFail ?? (() => false);
 
   let wallets = loadWallets(storage);
+  let ledger = loadLedger(storage);
   const completed = new Map<string, TransferReceipt>();
   const inFlight = new Map<string, Promise<TransferReceipt>>();
+  const completedOps = new Map<string, LedgerEntry>();
+  const inFlightOps = new Map<string, Promise<LedgerEntry>>();
 
   function persist() {
     storage?.setItem(STORAGE_KEY, JSON.stringify([...wallets.values()]));
+  }
+
+  function record(entry: Omit<LedgerEntry, 'id' | 'at'>): LedgerEntry {
+    const full: LedgerEntry = { id: crypto.randomUUID(), at: new Date().toISOString(), ...entry };
+    ledger = [full, ...ledger];
+    storage?.setItem(LEDGER_KEY, JSON.stringify(ledger));
+    return full;
   }
 
   function snapshot(): Wallet[] {
@@ -146,6 +208,47 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
     source.amountMinor -= amountMinor;
     target.amountMinor += amountMinor;
     persist();
+    record({ kind: 'transfer', amountMinor, from, to });
+  }
+
+  /** deposit / withdraw share one idempotent path; both move the main wallet. */
+  async function runLedgerOp(
+    kind: 'deposit' | 'withdraw',
+    amountMinor: number,
+    idempotencyKey: string,
+  ): Promise<LedgerEntry> {
+    const replay = completedOps.get(idempotencyKey);
+    if (replay) return replay;
+    const pending = inFlightOps.get(idempotencyKey);
+    if (pending) return pending;
+
+    const work = (async () => {
+      await delay();
+      if (shouldFail()) throw new WalletError('network');
+      if (!Number.isSafeInteger(amountMinor) || amountMinor <= 0) {
+        throw new WalletError('invalid_amount');
+      }
+      const main = requireWallet(MAIN_CODE);
+      if (kind === 'withdraw' && main.amountMinor < amountMinor) {
+        throw new WalletError('insufficient');
+      }
+      main.amountMinor += kind === 'deposit' ? amountMinor : -amountMinor;
+      persist();
+      const entry = record(
+        kind === 'deposit'
+          ? { kind, amountMinor, to: MAIN_CODE }
+          : { kind, amountMinor, from: MAIN_CODE },
+      );
+      completedOps.set(idempotencyKey, entry);
+      return entry;
+    })();
+
+    inFlightOps.set(idempotencyKey, work);
+    try {
+      return await work;
+    } finally {
+      inFlightOps.delete(idempotencyKey);
+    }
   }
 
   async function runTransfer(
@@ -198,11 +301,31 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
       return receipts;
     },
 
+    deposit(amountMinor, idempotencyKey = crypto.randomUUID()) {
+      return runLedgerOp('deposit', amountMinor, idempotencyKey);
+    },
+
+    withdraw(amountMinor, idempotencyKey = crypto.randomUUID()) {
+      return runLedgerOp('withdraw', amountMinor, idempotencyKey);
+    },
+
+    ledger() {
+      return ledger.map((entry) => ({ ...entry }));
+    },
+
+    seedTotalMinor() {
+      return seedWallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
+    },
+
     reset() {
       wallets = loadWallets(null);
+      ledger = [];
       completed.clear();
       inFlight.clear();
+      completedOps.clear();
+      inFlightOps.clear();
       storage?.removeItem(STORAGE_KEY);
+      storage?.removeItem(LEDGER_KEY);
     },
   };
 }

@@ -360,5 +360,31 @@
     "withdrawalFrequency": "Withdrawal frequency",
     "registrationDate": "Registration date",
     "time": "Time"
+  },
+  "dev": {
+    "wallet": {
+      "title": "Wallet simulator",
+      "intro": "Mock mode only: drive the demo balances by hand and watch the total.",
+      "total": "Total",
+      "initial": "Seed total",
+      "deposits": "Deposits",
+      "withdrawals": "Withdrawals",
+      "checkHolds": "Total = seed + deposits − withdrawals: holds",
+      "checkBroken": "Total = seed + deposits − withdrawals: BROKEN",
+      "deposit": "Simulate deposit",
+      "withdraw": "Simulate withdrawal",
+      "transfer": "Simulate transfer",
+      "from": "From",
+      "to": "To",
+      "amount": "Amount",
+      "ledger": "Ledger",
+      "kind": {
+        "deposit": "Deposit",
+        "withdraw": "Withdrawal",
+        "transfer": "Transfer"
+      },
+      "empty": "No movements yet.",
+      "reset": "Reset to seed"
+    }
   }
 }
