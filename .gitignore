@@ -45,3 +45,6 @@ next-env.d.ts
 /_scratch/
 /test-results/
 /playwright-report/
+
+# mock member accounts created by registration (MOCK-ONLY)
+/.mock-data/

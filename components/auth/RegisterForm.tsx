@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
@@ -8,9 +9,10 @@ import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { useCountdown } from '@/components/auth/useCountdown';
 import { useGoBack } from '@/components/auth/CardBack';
-import { useModal } from '@/components/ui/ModalProvider';
 import { brand, REGION_CODES, type RegionCode } from '@/config/brand';
+import { walletService, type WalletOpening } from '@/lib/api/wallet';
 import { registerSchema, validate, type FieldErrors } from '@/lib/forms';
+import { notifySessionChange } from '@/lib/session/useSession';
 
 type Step = 1 | 2;
 
@@ -28,20 +30,25 @@ const EMPTY = {
 /** Which fields step one owns; Next blocks on this set only. */
 const STEP_ONE: readonly (keyof typeof EMPTY)[] = ['email', 'emailOtp'];
 
+/** A server answer about one field (or the whole form) after the submit. */
+type RemoteError = { field: 'email' | 'emailOtp' | 'mobile' | 'form'; text: string } | null;
+
 /**
  * The sign-up card, laid out after the reference's `signup.css`: header with the
  * step bullets, a logo slot, then the two-step form — email + verification code
- * first (with Send and the yellow warning), the profile fields second. Demo only:
- * nothing is submitted and no account is created.
+ * first (with Send and the yellow warning), the profile fields second. Submitting
+ * creates a mock member account, signs it in and opens the home page.
  */
 export function RegisterForm({ region }: { region: string }) {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
-  const modal = useModal();
+  const router = useRouter();
   const [step, setStep] = useState<Step>(1);
   const [values, setValues] = useState({ ...EMPTY });
   const [callingCode, setCallingCode] = useState<RegionCode>(REGION_CODES[0]);
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [remoteError, setRemoteError] = useState<RemoteError>(null);
+  const [submitting, setSubmitting] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
   const [shown, setShown] = useState({ password: false, password2: false });
   const cooldown = useCountdown();
@@ -81,6 +88,7 @@ export function RegisterForm({ region }: { region: string }) {
     values.mobile.trim().length >= 6;
 
   function update<K extends keyof typeof EMPTY>(field: K, value: (typeof EMPTY)[K]) {
+    setRemoteError(null);
     setValues((current) => ({ ...current, [field]: value }));
   }
 
@@ -103,8 +111,11 @@ export function RegisterForm({ region }: { region: string }) {
 
   const goBack = useGoBack(region);
 
-  function onSubmit(event: React.FormEvent) {
+  async function onSubmit(event: React.FormEvent) {
     event.preventDefault();
+    // A second submit while the first is in flight would create a second account attempt.
+    if (submitting) return;
+
     const result = validate(registerSchema, values);
 
     if (!result.ok) {
@@ -113,10 +124,54 @@ export function RegisterForm({ region }: { region: string }) {
     }
 
     setErrors({});
-    modal.success(t('register.demoTitle'), t('register.demoBody'));
-    setValues({ ...EMPTY });
-    setCodeSent(false);
-    setStep(1);
+    setRemoteError(null);
+    setSubmitting(true);
+    const dialCode = brand.regions[callingCode].dialCode;
+    const localDigits = values.mobile.replace(/\D/g, '').replace(/^0+/, '');
+    const response = await fetch('/api/mock-auth/register', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        email: values.email.trim(),
+        emailOtp: values.emailOtp.trim(),
+        username: values.username.trim(),
+        password: values.password,
+        fullName: values.fullName.trim(),
+        nickname: values.nickname.trim(),
+        phone: `${dialCode}${localDigits}`,
+      }),
+    }).catch(() => null);
+
+    if (!response?.ok) {
+      setSubmitting(false);
+      const body = (await response?.json().catch(() => null)) as { d?: { field?: string } } | null;
+      const field = body?.d?.field;
+      if (field === 'username') {
+        setUsernameTaken(true);
+        setStep(2);
+      } else if (field === 'email') {
+        setStep(1);
+        setRemoteError({ field: 'email', text: t('register.emailTaken') });
+      } else if (field === 'emailOtp') {
+        setStep(1);
+        setRemoteError({ field: 'emailOtp', text: t('register.codeWrong') });
+      } else if (field === 'mobile') {
+        setStep(2);
+        setRemoteError({ field: 'mobile', text: t('register.mobileTaken') });
+      } else {
+        setRemoteError({ field: 'form', text: t('register.submitFailed') });
+      }
+      return;
+    }
+
+    // Stays disabled until the router leaves this page: the account now exists.
+    const { d } = (await response.json()) as {
+      d: { sub: string; walletOpening: WalletOpening };
+    };
+    walletService.bindAccount(d.sub, d.walletOpening);
+    notifySessionChange();
+    router.refresh();
+    router.push(`/${region}`);
   }
 
   return (
@@ -147,7 +202,7 @@ export function RegisterForm({ region }: { region: string }) {
             onClick={() => setStep(2)}
           />
           <Link href={`/${region}`} className="close-page" aria-label={t('login.closeCard')}>
-            {'\u00d7'}
+            {'×'}
           </Link>
         </div>
       </div>
@@ -168,7 +223,11 @@ export function RegisterForm({ region }: { region: string }) {
                   onChange={(event) => update('email', event.target.value)}
                 />
                 <small className="form-error form-error-signup">
-                  {errors.email ? tc(errors.email) : ''}
+                  {errors.email
+                    ? tc(errors.email)
+                    : remoteError?.field === 'email'
+                      ? remoteError.text
+                      : ''}
                 </small>
               </div>
 
@@ -198,7 +257,13 @@ export function RegisterForm({ region }: { region: string }) {
                   </button>
                 </div>
                 <div className="form-success">{codeSent ? t('register.codeSent') : ''}</div>
-                <div className="form-error">{errors.emailOtp ? tc(errors.emailOtp) : ''}</div>
+                <div className="form-error">
+                  {errors.emailOtp
+                    ? tc(errors.emailOtp)
+                    : remoteError?.field === 'emailOtp'
+                      ? remoteError.text
+                      : ''}
+                </div>
                 <div className="form-warning">{t('register.verifyHint')}</div>
               </div>
 
@@ -332,16 +397,24 @@ export function RegisterForm({ region }: { region: string }) {
                   />
                 </div>
                 <small className="form-error form-error-signup">
-                  {errors.mobile ? tc(errors.mobile) : ''}
+                  {errors.mobile
+                    ? tc(errors.mobile)
+                    : remoteError?.field === 'mobile'
+                      ? remoteError.text
+                      : ''}
                 </small>
               </div>
 
               <button
                 type="submit"
                 className={`btn btn-primary signup-btn${secondStepReady ? '' : ' disable'}`}
+                disabled={submitting}
               >
                 {t('register.submit')}
               </button>
+              {remoteError?.field === 'form' ? (
+                <div className="form-error">{remoteError.text}</div>
+              ) : null}
 
               <div className="login-signup-tips">
                 <span>{t('register.haveAccount')}</span>

@@ -2,11 +2,13 @@
 import { NextResponse } from 'next/server';
 import { getAccountPayload, totalBalanceMinor } from '@/lib/api';
 import { DEFAULT_REGION, brand } from '@/config/brand';
+import { accountStore } from '@/lib/mock-auth/accounts';
 import { getSession } from '@/lib/session/server';
 
 /**
  * Says whether a member is signed in, plus the header summary numbers. The token
  * itself never leaves the server. Guests get zeros so the body shape never changes.
+ * `accountId` and `walletOpening` tell the client which wallet set to show.
  */
 export async function GET() {
   const session = await getSession();
@@ -14,10 +16,19 @@ export async function GET() {
     return NextResponse.json({
       status: '0',
       msg: 'Done',
-      d: { member: false, username: null, balanceMinor: 0, currency: '', unread: 0 },
+      d: {
+        member: false,
+        username: null,
+        accountId: null,
+        walletOpening: 'seed',
+        balanceMinor: 0,
+        currency: '',
+        unread: 0,
+      },
     });
   }
 
+  const account = await accountStore.getById(session.sub);
   const payload = await getAccountPayload();
   return NextResponse.json({
     status: '0',
@@ -25,6 +36,8 @@ export async function GET() {
     d: {
       member: true,
       username: session.username,
+      accountId: session.sub,
+      walletOpening: account?.walletOpening ?? 'seed',
       balanceMinor: totalBalanceMinor(payload),
       currency: brand.regions[DEFAULT_REGION].currency,
       unread: payload.inbox.filter((message) => !message.read).length,

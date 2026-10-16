@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { walletService } from '@/lib/api/wallet';
+import { walletService, type WalletOpening } from '@/lib/api/wallet';
 
 export type SessionState = {
   /** False until the first `/api/mock-auth/session` answer arrives. */
@@ -19,6 +19,8 @@ export type SessionState = {
 type SessionBody = {
   member: boolean;
   username: string | null;
+  accountId: string | null;
+  walletOpening: WalletOpening;
   balanceMinor: number;
   currency: string;
   unread: number;
@@ -72,11 +74,14 @@ export function useSession(): SessionState {
     try {
       const response = await fetch('/api/mock-auth/session', { cache: 'no-store' });
       const body = (await response.json()) as { d: SessionBody };
+      const { accountId, walletOpening, ...summary } = body.d;
+      // Each signed-in account has its own wallets; guests share the default set.
+      walletService.bindAccount(body.d.member ? accountId : null, walletOpening);
       // The header shows total assets: the main wallet plus whatever still sits in game wallets.
       if (body.d.member) await walletService.getWallets();
       setState({
         ready: true,
-        ...body.d,
+        ...summary,
         balanceMinor: body.d.member ? walletService.totalMinor() : body.d.balanceMinor,
       });
     } catch {
