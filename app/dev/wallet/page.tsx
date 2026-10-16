@@ -1,3 +1,4 @@
+// MOCK-ONLY: /dev/wallet 仅 mock 模式可见（非 mock 直接 404）。接后台后可删。
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { DevWalletPanel } from '@/components/dev/DevWalletPanel';

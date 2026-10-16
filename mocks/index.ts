@@ -1,3 +1,4 @@
+// MOCK-ONLY: mock 端点注册表：mocks/*.json 的全部假数据（账号、余额、历史、收件箱、榜单、公告、促销…）、演示账号、运行期密码覆盖都在这里挂载。接后台后整目录可删（或保留为离线演示模式）。
 /**
  * Mock endpoints, keyed by the real endpoint names from docs/API_OBSERVED.md.
  *

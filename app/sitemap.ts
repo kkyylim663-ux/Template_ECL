@@ -32,10 +32,13 @@ const STATIC_PATHS = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // T49.5: this is the one statically-built route, and a build with
+  // NEXT_PUBLIC_USE_MOCK=0 has no backend to ask — the dynamic entries are then
+  // skipped instead of failing the export (the static paths still ship).
   const [promotions, updates, topics] = await Promise.all([
-    getPromotions(),
-    getUpdates(),
-    getFaqTopics(),
+    getPromotions().catch(() => []),
+    getUpdates().catch(() => []),
+    getFaqTopics().catch(() => []),
   ]);
 
   const entries: MetadataRoute.Sitemap = [];

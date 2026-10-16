@@ -1,5 +1,7 @@
 'use client';
 
+// MOCK-ONLY: 演示用钱包模拟器面板（充值/提现/转账 + 流水 + 不变量）。接后台后可删。
+
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { parseAmountMinor } from '@/lib/format';

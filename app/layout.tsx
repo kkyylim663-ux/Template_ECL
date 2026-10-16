@@ -7,6 +7,7 @@ import { getShell } from '@/lib/i18n/server';
 import { IconSprite } from '@/components/ui/IconSprite';
 import { SHELL_ICON_NAMES } from '@/components/ui/icon-paths';
 import { Providers } from '@/components/ui/Providers';
+import { DemoDataBadge } from '@/components/layout/DemoDataBadge';
 import './globals.css';
 
 /**
@@ -112,6 +113,7 @@ export default async function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>{children}</Providers>
           </NextIntlClientProvider>
+          <DemoDataBadge />
         </div>
       </body>
     </html>

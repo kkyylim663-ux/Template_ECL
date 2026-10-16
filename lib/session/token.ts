@@ -1,3 +1,4 @@
+// MOCK-ONLY: 会话 token 由本地 HMAC 签发（SESSION_SECRET），仅演示。接后台后改为后台下发并校验的会话/令牌。
 /**
  * Signed session token: `base64url(payload).base64url(hmac-sha256(payload))`.
  *

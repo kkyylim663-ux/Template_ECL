@@ -1,3 +1,4 @@
+// MOCK-ONLY: 待处理的取消状态存 localStorage（brand:pending:cancelled）。接后台后改为调用取消接口（原站 cancel_transaction），取消记录由后台回写历史。
 /**
  * Cancelled pending transactions. The reference cancels them through
  * `cancel_transaction` and the row then shows up in the member's history; our

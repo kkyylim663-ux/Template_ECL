@@ -1,3 +1,4 @@
+// MOCK-ONLY: /dev 页面仅演示用（noindex，robots 已禁 /dev）。接后台后可删。
 import type { Metadata } from 'next';
 import { ComponentsDemo } from '@/components/dev/ComponentsDemo';
 import { IntlScope } from '@/lib/i18n/scope';

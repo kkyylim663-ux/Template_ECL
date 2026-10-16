@@ -1,3 +1,4 @@
+// MOCK-ONLY: 资料编辑存 localStorage（brand:profile:edits）、改密码打 /api/mock-auth/change-password（服务端内存覆盖）。接后台后改为 setProfile / setPassword 真实接口。
 /**
  * Profile edits. The account payload is a read-only fixture, so the member's own
  * changes (nickname / email / mobile) live in localStorage and the profile page

@@ -20,6 +20,7 @@
     "close": "關閉",
     "copy": "複製"
   },
+  "demoData": "示範資料",
   "state": {
     "loading": "載入中…",
     "empty": "暫無內容",

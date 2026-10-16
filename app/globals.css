@@ -5836,6 +5836,22 @@ details.accordionItem[open] .accordion-icon {
   color: var(--color-muted);
 }
 
+/* T49.5: the demo-data marker, fixed to the corner and gone once a real
+   backend is wired (NEXT_PUBLIC_USE_MOCK=0). */
+.demo-data-badge {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+  z-index: 60;
+  padding: 2px 8px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  background: var(--color-panel-alt);
+  color: var(--color-muted);
+  font-size: var(--text-10);
+  pointer-events: none;
+}
+
 /* Profile (T49): the reference renders this view with its own client code and
    the crawl has no snapshot of it, so this geometry is ours — built on the
    account card's own tokens. */
@@ -6820,6 +6836,11 @@ details.accordionItem[open] .accordion-icon {
   .history-table table thead th {
     padding: 12px 0 12px 25px;
     font-size: var(--text-xs);
+  }
+
+  /* Above the mobile bottom bar. */
+  .demo-data-badge {
+    bottom: 84px;
   }
 
   .inbox-mark-read {

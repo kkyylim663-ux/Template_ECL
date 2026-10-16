@@ -20,6 +20,7 @@
     "close": "Đóng",
     "copy": "Sao chép"
   },
+  "demoData": "Dữ liệu demo",
   "state": {
     "loading": "Đang tải…",
     "empty": "Chưa có nội dung",

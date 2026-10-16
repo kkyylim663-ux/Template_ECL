@@ -1,3 +1,4 @@
+// MOCK-ONLY: mock 传输层：NEXT_PUBLIC_USE_MOCK!=0（默认）时所有数据由 mocks/ 的注册表应答。接后台后删 mockCall 分支、只留 liveCall。
 import type { ApiEnvelope } from './schemas';
 
 /**

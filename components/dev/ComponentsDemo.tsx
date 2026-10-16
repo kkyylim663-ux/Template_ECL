@@ -1,5 +1,7 @@
 'use client';
 
+// MOCK-ONLY: 演示用组件画廊（/dev/components）。接后台后可删。
+
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { LazyImage } from '@/components/ui/LazyImage';

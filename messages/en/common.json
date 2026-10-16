@@ -20,6 +20,7 @@
     "close": "Close",
     "copy": "Copy"
   },
+  "demoData": "Demo data",
   "state": {
     "loading": "Loading…",
     "empty": "Nothing here yet",

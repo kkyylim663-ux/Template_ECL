@@ -1,5 +1,7 @@
 'use client';
 
+// MOCK-ONLY: 收件箱已读/删除状态存 localStorage（brand:inbox:state），头部徽标据此重算。接后台后改为收件箱真实接口。
+
 import { useEffect, useState } from 'react';
 
 /**

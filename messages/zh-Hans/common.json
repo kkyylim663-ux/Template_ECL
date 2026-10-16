@@ -20,6 +20,7 @@
     "close": "关闭",
     "copy": "复制"
   },
+  "demoData": "演示数据",
   "state": {
     "loading": "加载中…",
     "empty": "暂无内容",

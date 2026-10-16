@@ -50,6 +50,20 @@ test.describe('boundary behaviour', () => {
       await expect(page.getByText(marker, { exact: false }).first()).toBeVisible();
     }
   });
+
+  test('the demo-data marker is on (mock mode is the default)', async ({ page }) => {
+    await page.goto('/my');
+    await expect(page.locator('[data-demo-badge="true"]')).toHaveText('Demo data');
+  });
+
+  test('/dev/wallet drives the mock balances (T45 supplement)', async ({ page }) => {
+    const errors = collectErrors(page);
+    const response = await page.goto('/dev/wallet', { waitUntil: 'domcontentloaded' });
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('.dev-wallet-total')).toHaveText('MYR 1,622.50');
+    await expect(page.locator('.dev-wallet-check')).toHaveAttribute('data-holds', 'true');
+    expect(errors, 'console errors on /dev/wallet').toEqual([]);
+  });
 });
 
 test.describe('member area', () => {

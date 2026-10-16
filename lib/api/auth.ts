@@ -1,3 +1,4 @@
+// MOCK-ONLY: 登录校验走 mock 的 postLogin（mocks/users.json 的两个演示账号）。接后台后指向真实登录接口，演示账号随之删除。
 import { callApi, ApiError } from './client';
 import { ENDPOINTS } from './endpoints';
 import type { SessionUser } from '@/lib/session';

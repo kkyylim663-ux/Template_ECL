@@ -1,3 +1,4 @@
+// MOCK-ONLY: 会话 cookie 的读写（httpOnly brand_session）；与 token.ts 同属演示实现。
 import { cookies, headers } from 'next/headers';
 import { SESSION_COOKIE, SESSION_MAX_AGE, readSession, type Session } from './token';
 

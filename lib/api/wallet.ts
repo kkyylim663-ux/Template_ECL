@@ -1,3 +1,4 @@
+// MOCK-ONLY: 整个钱包服务是 mock：种子来自 mocks/wallet.json，状态写 localStorage，含 300–800ms 假延迟与可注入失败；还带演示用的 deposit/withdraw/ledger。接后台后换成真实 walletTransfer/walletTransferAll（带幂等键）与余额接口。
 import walletSeed from '@/mocks/wallet.json';
 
 /**
