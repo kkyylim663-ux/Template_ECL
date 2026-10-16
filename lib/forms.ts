@@ -24,6 +24,9 @@ const mobile = z
 
 const otpCode = z.string().trim().regex(/^\d{6}$/, 'validation.otpInvalid');
 
+/** On the profile a blank field means "leave it as it is", so '' passes. */
+const optionalMobile = z.union([mobile, z.literal('')]).optional();
+
 export const loginUsernameSchema = z.object({
   identifier: z.string().trim().min(1, 'validation.usernameRequired'),
   password: z.string().min(1, 'validation.passwordRequired'),
@@ -123,7 +126,9 @@ export const profileSchema = z
       .min(2, 'validation.nicknameRequired')
       .max(24, 'validation.nicknameLong'),
     fullName: z.string().trim().min(2, 'validation.fullNamePlain'),
-    mobile: mobile.optional(),
+    /** Editable since T49 (nickname / email / mobile are the member's own fields). */
+    email,
+    mobile: optionalMobile,
     currentPassword: z.string().optional(),
     newPassword: z.string().optional(),
     confirmPassword: z.string().optional(),

@@ -121,7 +121,11 @@
     "passwordTitle": "修改密码",
     "currentPassword": "当前密码",
     "newPassword": "新密码",
-    "confirmPassword": "确认新密码"
+    "confirmPassword": "确认新密码",
+    "language": "语言",
+    "passwordSaved": "密码已更新",
+    "wrongPassword": "当前密码不正确",
+    "mockHint": "模拟模式：修改只保存在本浏览器；新密码有效期至模拟服务器重启。"
   },
   "history": {
     "intro": "按类型与状态筛选演示数据;下方流水进度追踪进行中的活动。",

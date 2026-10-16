@@ -121,7 +121,11 @@
     "passwordTitle": "Đổi mật khẩu",
     "currentPassword": "Mật khẩu hiện tại",
     "newPassword": "Mật khẩu mới",
-    "confirmPassword": "Xác nhận mật khẩu"
+    "confirmPassword": "Xác nhận mật khẩu",
+    "language": "Ngôn ngữ",
+    "passwordSaved": "Đã đổi mật khẩu",
+    "wrongPassword": "Mật khẩu hiện tại không đúng",
+    "mockHint": "Chế độ mock: thay đổi chỉ lưu trong trình duyệt này; mật khẩu mới có hiệu lực đến khi máy chủ mock khởi động lại."
   },
   "history": {
     "intro": "Lọc dữ liệu demo theo loại và trạng thái.",

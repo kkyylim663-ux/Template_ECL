@@ -5836,6 +5836,55 @@ details.accordionItem[open] .accordion-icon {
   color: var(--color-muted);
 }
 
+/* Profile (T49): the reference renders this view with its own client code and
+   the crawl has no snapshot of it, so this geometry is ours — built on the
+   account card's own tokens. */
+.profile-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 21px;
+  margin-bottom: 30px;
+}
+
+.profile-fact {
+  min-width: 186px;
+  padding: 15px 18px;
+  border-radius: var(--radius-panel);
+  background: var(--color-panel-soft);
+}
+
+.profile-fact dt {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.profile-fact dd {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  margin-top: 6px;
+}
+
+.profile-form {
+  margin-bottom: 30px;
+}
+
+.profile-section-title {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.profile-hint {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  margin-top: 12px;
+}
+
+.profile-language {
+  margin-bottom: 10px;
+}
+
 /* Rebates: accordion blocks with a Claim button on the right. */
 .account-promotion__wrapper {
   margin-top: 20px;

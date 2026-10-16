@@ -35,6 +35,8 @@ export const ENDPOINTS = {
   login: 'postLogin',
   /** Registration duplicate check. Answers `true` when the username is already taken. */
   checkAccount: 'checkAccExisting',
+  /** Profile password change (T49). Mock only: the override lives in memory. */
+  changePassword: 'setPassword',
 } as const;
 
 export type EndpointName = (typeof ENDPOINTS)[keyof typeof ENDPOINTS];

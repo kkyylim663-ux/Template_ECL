@@ -121,7 +121,11 @@
     "passwordTitle": "修改密碼",
     "currentPassword": "目前密碼",
     "newPassword": "新密碼",
-    "confirmPassword": "確認新密碼"
+    "confirmPassword": "確認新密碼",
+    "language": "語言",
+    "passwordSaved": "密碼已更新",
+    "wrongPassword": "目前密碼不正確",
+    "mockHint": "模擬模式：修改只保存在本瀏覽器；新密碼有效期至模擬伺服器重啟。"
   },
   "history": {
     "intro": "按類型與狀態篩選示範資料;下方流水進度追蹤進行中的活動。",

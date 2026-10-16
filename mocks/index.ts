@@ -47,6 +47,21 @@ const usersData = users as {
   otp: string;
 }[];
 
+/**
+ * Passwords changed through the profile form (T49). The fixture files are
+ * read-only, so an override lives in this process's memory — a fresh server
+ * starts from `users.json` again, which is exactly what the demo needs.
+ */
+const passwordOverrides = new Map<string, string>();
+
+function findUser(identifier: string | undefined) {
+  const needle = identifier?.trim().toLowerCase();
+  if (!needle) return undefined;
+  return usersData.find((entry) =>
+    [entry.username, entry.email, entry.phone].some((value) => value.toLowerCase() === needle),
+  );
+}
+
 export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
   [ENDPOINTS.gameList]: () => gameList.d,
   [ENDPOINTS.homeBanner]: () => banners.d,
@@ -66,13 +81,26 @@ export const MOCK_ENDPOINTS: Record<string, (body?: unknown) => unknown> = {
       password?: string;
       otp?: string;
     };
-    const needle = identifier?.trim().toLowerCase();
-    const user = usersData.find(
-      (entry) =>
-        [entry.username, entry.email, entry.phone].some((value) => value.toLowerCase() === needle) &&
-        (password ? entry.password === password : entry.otp === otp),
-    );
-    return user ? { sub: user.id, username: user.username } : null;
+    const user = findUser(identifier);
+    if (!user) return null;
+    const effective = passwordOverrides.get(user.id) ?? user.password;
+    const matches = password ? effective === password : user.otp === otp;
+    return matches ? { sub: user.id, username: user.username } : null;
+  },
+
+  /** T49: the current password has to match before the new one replaces it. */
+  [ENDPOINTS.changePassword]: (raw) => {
+    const { identifier, currentPassword, newPassword } = (raw ?? {}) as {
+      identifier?: string;
+      currentPassword?: string;
+      newPassword?: string;
+    };
+    const user = findUser(identifier);
+    if (!user) return null;
+    if ((passwordOverrides.get(user.id) ?? user.password) !== currentPassword) return null;
+    if (typeof newPassword !== 'string' || newPassword.length < 8) return null;
+    passwordOverrides.set(user.id, newPassword);
+    return { ok: true };
   },
 
   [ENDPOINTS.checkAccount]: (raw) => {

@@ -121,7 +121,11 @@
     "passwordTitle": "Change password",
     "currentPassword": "Current password",
     "newPassword": "New password",
-    "confirmPassword": "Confirm new password"
+    "confirmPassword": "Confirm new password",
+    "language": "Language",
+    "passwordSaved": "Password updated",
+    "wrongPassword": "Current password is incorrect",
+    "mockHint": "Mock mode: edits stay in this browser, and a changed password lasts until the mock server restarts."
   },
   "history": {
     "intro": "Filter the demo rows by type and status; the rollover block tracks active promotions.",
