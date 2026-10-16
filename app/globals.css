@@ -8444,3 +8444,48 @@ details.accordionItem[open] .accordion-icon {
     flex: 1;
   }
 }
+/* --- T55: deposit bonus picker and its turnover readout --- */
+.deposit-promo {
+  margin-top: 16px;
+}
+.deposit-promo__label {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-muted);
+}
+.deposit-promo__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.deposit-promo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.deposit-promo__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.deposit-promo__quote {
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+}
+.deposit-promo__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+}
+.deposit-promo__row + .deposit-promo__row {
+  margin-top: 6px;
+}
+.deposit-promo__row dd {
+  font-weight: 700;
+}

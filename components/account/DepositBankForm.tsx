@@ -13,6 +13,7 @@ import {
   quickAmounts,
 } from '@/lib/format';
 import type { DepositBank, DepositMethod } from '@/lib/api/schemas';
+import { DepositPromoPicker } from './DepositPromoPicker';
 import { DepositReceiptUpload } from './DepositReceiptUpload';
 
 /**
@@ -44,6 +45,7 @@ export function DepositBankForm({
   const [bankId, setBankId] = useState('');
   const [amount, setAmount] = useState('');
   const [terms, setTerms] = useState(false);
+  const [promoId, setPromoId] = useState('');
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [receipt, setReceipt] = useState<ReceiptStep | null>(null);
@@ -94,6 +96,7 @@ export function DepositBankForm({
     modal.success(t('deposit.requestTitle'), t('deposit.requestBody', { id }));
     setAmount('');
     setTerms(false);
+    setPromoId('');
     setReceipt(null);
   }
 
@@ -267,6 +270,15 @@ export function DepositBankForm({
             </button>
           ))}
         </div>
+
+        <DepositPromoPicker
+          amountMinor={parseAmountMinor(amount)}
+          methodId={method.id}
+          minMinor={method.minAmountMinor}
+          currency={currency}
+          value={promoId}
+          onChange={setPromoId}
+        />
 
         <label className="deposit-terms">
           <input

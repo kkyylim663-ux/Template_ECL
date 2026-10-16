@@ -13,6 +13,7 @@ import {
 } from '@/lib/format';
 import { depositGatewayUrl, depositResultUrl } from '@/lib/deposit-flow';
 import type { DepositMethod } from '@/lib/api/schemas';
+import { DepositPromoPicker } from './DepositPromoPicker';
 
 /**
  * T54: the gateway tab's form. Submitting is the mock of the reference's
@@ -37,6 +38,7 @@ export function DepositGatewayForm({
   const modal = useModal();
   const [amount, setAmount] = useState('');
   const [terms, setTerms] = useState(false);
+  const [promoId, setPromoId] = useState('');
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitting, setSubmitting] = useState(false);
   const [step, setStep] = useState<{ orderId: string } | null>(null);
@@ -217,6 +219,15 @@ export function DepositGatewayForm({
             </button>
           ))}
         </div>
+
+        <DepositPromoPicker
+          amountMinor={parseAmountMinor(amount)}
+          methodId={method.id}
+          minMinor={method.minAmountMinor}
+          currency={currency}
+          value={promoId}
+          onChange={setPromoId}
+        />
 
         <label className="deposit-terms">
           <input
