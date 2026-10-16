@@ -18,10 +18,16 @@ export async function getWithdrawalInfo(): Promise<WithdrawalInfo> {
     bankAccountStore.list(),
   ]);
 
+  const turnoverRemainingMinor = payload.promotionRollover.reduce(
+    (sum, row) => sum + Math.max(0, row.requirementMinor - row.progressMinor),
+    0,
+  );
+
   return withdrawalInfoSchema.parse({
     bankAccounts,
     banks: payload.banks,
     limits: d?.limits,
     kycStatus: payload.profile.kycStatus,
+    turnoverRemainingMinor,
   });
 }

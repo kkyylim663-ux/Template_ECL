@@ -147,10 +147,25 @@ export function gatewayDepositSchema({
   });
 }
 
-export const withdrawalSchema = z.object({
-  bankAccountId: z.string().min(1, 'validation.bankRequired'),
-  amount: z.number({ message: 'validation.amountWithdraw' }).positive('validation.amountPositive'),
-});
+/** T58: the payout request. Limits come from the withdrawal info, never hard-coded here. */
+export function withdrawalRequestSchema({ minMinor, maxMinor }: { minMinor: number; maxMinor: number }) {
+  return z.object({
+    bankAccountId: z.string().min(1, 'validation.bankRequired'),
+    amount: z
+      .string()
+      .trim()
+      .min(1, 'validation.amountWithdraw')
+      .refine((value) => parseAmountMinor(value) !== null, {
+        message: 'validation.amountFormat',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? 0) >= minMinor, {
+        message: 'validation.amountBelowWithdraw',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? Infinity) <= maxMinor, {
+        message: 'validation.amountAboveWithdraw',
+      }),
+  });
+}
 
 /**
  * Banking Details (T57): the reference's add-bank contract. Its old form posts a

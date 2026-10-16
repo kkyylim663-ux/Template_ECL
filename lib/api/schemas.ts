@@ -648,6 +648,8 @@ export const withdrawalInfoSchema = z.object({
   banks: z.array(bankSchema),
   limits: withdrawalLimitsSchema,
   kycStatus: z.enum(['unverified', 'pending', 'verified']),
+  /** Turnover still owed across the member's promotions; a payout waits until it reaches 0. */
+  turnoverRemainingMinor: z.number().int().min(0),
 });
 export type WithdrawalInfo = z.infer<typeof withdrawalInfoSchema>;
 

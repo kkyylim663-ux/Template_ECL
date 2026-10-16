@@ -25,7 +25,7 @@ describe('withdrawal info', () => {
   });
 
   it('requires the document-check state on the info payload', () => {
-    const base = { bankAccounts: [], banks: [], limits: fixture.d.limits };
+    const base = { bankAccounts: [], banks: [], limits: fixture.d.limits, turnoverRemainingMinor: 0 };
     expect(() => withdrawalInfoSchema.parse({ ...base, kycStatus: 'verified' })).not.toThrow();
     expect(() => withdrawalInfoSchema.parse(base)).toThrow();
     expect(() => withdrawalInfoSchema.parse({ ...base, kycStatus: 'nonsense' })).toThrow();
@@ -46,7 +46,13 @@ describe('withdrawal flow helpers', () => {
   const info = (
     kycStatus: WithdrawalInfo['kycStatus'],
     accounts: ReturnType<typeof accountOf>[],
-  ): WithdrawalInfo => ({ bankAccounts: accounts, banks: [], limits: fixture.d.limits, kycStatus });
+  ): WithdrawalInfo => ({
+    bankAccounts: accounts,
+    banks: [],
+    limits: fixture.d.limits,
+    kycStatus,
+    turnoverRemainingMinor: 0,
+  });
 
   it('offers payouts only from verified accounts', () => {
     const data = info('verified', [accountOf('a', true), accountOf('b', false)]);

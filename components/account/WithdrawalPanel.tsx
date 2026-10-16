@@ -17,6 +17,7 @@ import {
   type WithdrawalVerifyRow,
   type WithdrawalVerifyRowId,
 } from '@/lib/withdrawal-flow';
+import { WithdrawalRequestForm } from './WithdrawalRequestForm';
 
 type LoadState = 'loading' | 'error' | 'empty' | 'ready';
 
@@ -34,7 +35,7 @@ const ROW_LABEL: Record<WithdrawalVerifyRowId, string> = {
  * the `.withdraw-plus` tile, `.withdraw-info`) and its copy comes from the
  * Fluent resources embedded in the shared bundle. The verified-account row
  * stands in for the reference's `getMyBankAccVerified` dropdown; the request
- * form arrives with T58, and the plus tile now leads to the Banking Details page
+ * form sits under it (T58), and the plus tile leads to the Banking Details page
  * (`/account/banks`) that binds, edits and drops accounts — the reference's own
  * plus target is the one thing its capture left open.
  */
@@ -43,6 +44,7 @@ export function WithdrawalPanel({ region }: { region: string }) {
   const tc = useTranslations('common');
   const [state, setState] = useState<LoadState>('loading');
   const [info, setInfo] = useState<WithdrawalInfo | null>(null);
+  const [accountId, setAccountId] = useState('');
 
   const load = useCallback(async () => {
     setState('loading');
@@ -112,7 +114,7 @@ export function WithdrawalPanel({ region }: { region: string }) {
             {state === 'empty' ? (
               <p className="withdraw-empty__text">{t('withdrawal.noAvailableBank')}</p>
             ) : (
-              <AccountRow info={info} />
+              <AccountRow info={info} value={accountId} onChange={setAccountId} />
             )}
             <Link
               className="withdraw-plus"
@@ -122,6 +124,7 @@ export function WithdrawalPanel({ region }: { region: string }) {
               <Icon name="plus" size={20} />
             </Link>
           </div>
+          {state === 'ready' ? <WithdrawalRequestForm info={info} accountId={accountId} /> : null}
           <WithdrawalInfoBlock info={info} />
         </>
       ) : null}
@@ -130,7 +133,15 @@ export function WithdrawalPanel({ region }: { region: string }) {
 }
 
 /** The reference's `getMyBankAccVerified` dropdown: label, account, badge. */
-function AccountRow({ info }: { info: WithdrawalInfo }) {
+function AccountRow({
+  info,
+  value,
+  onChange,
+}: {
+  info: WithdrawalInfo;
+  value: string;
+  onChange: (accountId: string) => void;
+}) {
   const t = useTranslations('account');
   const accounts = verifiedBankAccounts(info);
   const bankName = (bankId: string) => info.banks.find((bank) => bank.id === bankId)?.name ?? bankId;
@@ -144,7 +155,8 @@ function AccountRow({ info }: { info: WithdrawalInfo }) {
         <select
           id="bankAccountId"
           className="border-line bg-panel text-ink focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none"
-          defaultValue=""
+          value={value}
+          onChange={(event) => onChange(event.target.value)}
         >
           <option value="">{t('withdrawal.pleaseSelect')}</option>
           {accounts.map((account) => (

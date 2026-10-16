@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { signIn } from './session';
 
 /**
@@ -34,7 +34,7 @@ test.describe('withdrawal page', () => {
     ).toBeVisible();
     await expect(page.locator('.withdraw-verify-now')).toHaveCount(2);
 
-    await expect(page.getByText('Min 200.00 / Max 50,000.00')).toBeVisible();
+    await expect(page.locator('.withdraw-info__limits')).toHaveText('Min 200.00 / Max 50,000.00');
     await expect(page.getByText('Friendly Reminder')).toBeVisible();
     await expect(page.getByRole('link', { name: 'Add Bank Account' })).toBeVisible();
   });
@@ -119,3 +119,95 @@ test.describe('withdrawal page', () => {
     expect(overflow).toBe(0);
   });
 });
+
+/**
+ * T58: the request form under the account row. Demo account has turnover still
+ * owed (promotion ro-1), so the form starts disabled. The success path clears
+ * that gate on the info route and answers the POST with a canned success, since
+ * the server reads its turnover itself. The server rules are covered by the unit
+ * tests; the pending row is the same store the unit test reads.
+ */
+test.describe('withdrawal request', () => {
+  test.beforeEach(async ({ context }) => {
+    await signIn(context);
+  });
+
+  test('owed turnover disables the form and explains why', async ({ page }) => {
+    await page.goto('/my/account/withdrawal');
+    await expect(page.getByTestId('withdrawal-state')).toHaveAttribute('data-state', 'ready');
+    await expect(page.getByText('You still have remaining turnover')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Submit withdrawal request' })).toBeDisabled();
+  });
+
+  test('rejects a below-minimum and an above-maximum amount without posting', async ({ page }) => {
+    await clearTurnover(page);
+    let posts = 0;
+    await page.route('**/api/withdrawal/requests', (route) => {
+      posts += 1;
+      return route.continue();
+    });
+    await page.goto('/my/account/withdrawal');
+    await page.locator('#bankAccountId').selectOption({ label: 'Maybank **** 4471' });
+
+    const amount = page.getByLabel('Amount', { exact: true });
+    const submit = page.getByRole('button', { name: 'Submit withdrawal request' });
+
+    await amount.fill('19.99');
+    await submit.click();
+    await expect(page.getByText('Below the minimum withdrawal amount')).toBeVisible();
+
+    await amount.fill('50,000.01');
+    await submit.click();
+    await expect(page.getByText('Above the maximum withdrawal amount')).toBeVisible();
+    expect(posts).toBe(0);
+  });
+
+  test('refuses an amount the wallet cannot cover before posting', async ({ page }) => {
+    await clearTurnover(page);
+    let posts = 0;
+    await page.route('**/api/withdrawal/requests', (route) => {
+      posts += 1;
+      return route.continue();
+    });
+    await page.goto('/my/account/withdrawal');
+    await page.locator('#bankAccountId').selectOption({ label: 'Maybank **** 4471' });
+    await page.getByLabel('Amount', { exact: true }).fill('50,000');
+    await page.getByRole('button', { name: 'Submit withdrawal request' }).click();
+    await expect(page.getByText('Amount exceeds your main wallet balance.')).toBeVisible();
+    expect(posts).toBe(0);
+  });
+
+  test('a double submit posts once and debits the wallet once', async ({ page }) => {
+    await clearTurnover(page);
+    let posts = 0;
+    await page.route('**/api/withdrawal/requests', async (route) => {
+      posts += 1;
+      await route.fulfill({
+        json: {
+          status: '0',
+          msg: 'Done',
+          d: { id: 'wd_e2e', reference: 'WD-E2E', amountMinor: 50_000, methodLabel: 'Maybank **** 4471', createdAt: new Date().toISOString(), replayed: false },
+        },
+      });
+    });
+    await page.goto('/my/account/withdrawal');
+    await page.locator('#bankAccountId').selectOption({ label: 'Maybank **** 4471' });
+    await page.getByLabel('Amount', { exact: true }).fill('500');
+    await page.getByRole('button', { name: 'Submit withdrawal request' }).click();
+
+    const confirm = page.getByRole('button', { name: 'Confirm' });
+    await confirm.dblclick();
+    await expect(page.getByRole('dialog').getByText('Successfully', { exact: true })).toBeVisible();
+    expect(posts).toBe(1);
+  });
+});
+
+/** Turnover is a promotion field; the success path clears it in the page's own info payload. */
+async function clearTurnover(page: Page) {
+  await page.route('**/api/withdrawal/info', async (route) => {
+    const body = await (await route.fetch()).json();
+    await route.fulfill({
+      json: { ...body, d: { ...body.d, turnoverRemainingMinor: 0 } },
+    });
+  });
+}

@@ -5,6 +5,7 @@ import { SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { PendingPanel } from '@/components/account/PendingPanel';
 import { getT } from '@/lib/i18n/server';
+import { withdrawalRequestStore } from '@/lib/mock-withdrawal/requests';
 
 import type { Metadata } from 'next';
 
@@ -26,7 +27,11 @@ const SOCIALS = [
 
 export default async function PendingPage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;
-  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
+  const [{ t }, payload, requests] = await Promise.all([
+    getT('account'),
+    getAccountPayload(),
+    withdrawalRequestStore.list(),
+  ]);
   const currency = regionConfig(region as RegionCode).currency;
 
   const pending = payload.transactions.filter((transaction) =>
@@ -41,15 +46,26 @@ export default async function PendingPage({ params }: { params: Promise<{ region
       </h1>
 
       <PendingPanel
-        rows={pending.map((transaction) => ({
-          id: transaction.id,
-          reference: transaction.reference,
-          kind: transaction.kind as 'deposit' | 'withdrawal' | 'transfer',
-          status: transaction.status as 'pending' | 'processing',
-          amountMinor: transaction.amountMinor,
-          method: transaction.methodLabel,
-          createdAt: transaction.createdAt,
-        }))}
+        rows={[
+          ...requests.map((request) => ({
+            id: request.id,
+            reference: request.reference,
+            kind: 'withdrawal' as const,
+            status: 'pending' as const,
+            amountMinor: request.amountMinor,
+            method: request.methodLabel,
+            createdAt: request.createdAt,
+          })),
+          ...pending.map((transaction) => ({
+            id: transaction.id,
+            reference: transaction.reference,
+            kind: transaction.kind as 'deposit' | 'withdrawal' | 'transfer',
+            status: transaction.status as 'pending' | 'processing',
+            amountMinor: transaction.amountMinor,
+            method: transaction.methodLabel,
+            createdAt: transaction.createdAt,
+          })),
+        ]}
         currency={currency}
       />
 
