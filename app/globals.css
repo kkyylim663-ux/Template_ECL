@@ -4461,9 +4461,10 @@ details.accordionItem[open] .accordion-icon {
 
 .bg-wrapper .select-dropdown {
   position: absolute;
-  top: 100%;
+  top: 0;
   left: 0;
   right: 0;
+  width: 241px;
   min-width: 241px;
   max-width: 100%;
   margin: 0 auto;
@@ -4503,6 +4504,8 @@ details.accordionItem[open] .accordion-icon {
 
 .bg-wrapper .select-drown__list {
   display: flex;
+  box-sizing: border-box;
+  width: 100%;
   align-items: center;
   justify-content: center;
   padding: 10px;
