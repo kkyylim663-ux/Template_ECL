@@ -134,3 +134,73 @@ describe('wallet service', () => {
     expect(storage.getItem('brand:wallets')).toBeNull();
   });
 });
+
+describe('wallet single source of truth', () => {
+  const sum = (ws: Wallet[]) => ws.reduce((s, w) => s + w.amountMinor, 0);
+
+  it('totalMinor is main plus every game wallet and matches getWallets', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    expect(service.totalMinor()).toBe(sum(await service.getWallets()));
+    await service.deposit(30_000);
+    expect(service.totalMinor()).toBe(sum(await service.getWallets()));
+  });
+
+  it('keeps total = seed + deposits - withdrawals across any mix of actions', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    await service.deposit(50_000);
+    await service.transfer('main', 'pragmatic', 20_000);
+    await service.transfer('pragmatic', 'pt', 5_000);
+    await service.withdraw(10_000);
+    await service.transferAll('main');
+    expect(service.totalMinor()).toBe(service.seedTotalMinor() + 50_000 - 10_000);
+  });
+
+  it('a failed action changes no balance', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    const before = await service.getWallets();
+    await expect(service.withdraw(999_999_999)).rejects.toMatchObject({ code: 'insufficient' });
+    await expect(service.transfer('main', 'main', 100)).rejects.toMatchObject({ code: 'same_wallet' });
+    await expect(service.transfer('main', 'jili', 100)).rejects.toMatchObject({ code: 'unavailable' });
+    expect(await service.getWallets()).toEqual(before);
+  });
+
+  it('transferAll leaves maintenance wallets alone and reports them', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    const skipped = service.skippedByMaintenance('main');
+    expect(skipped.map((w) => w.code)).toContain('jili');
+    await service.transferAll('main');
+    const after = await service.getWallets();
+    expect(after.find((w) => w.code === 'jili')!.amountMinor).toBeGreaterThan(0);
+    for (const w of after.filter((w) => w.kind === 'game' && w.available)) {
+      expect(w.amountMinor).toBe(0);
+    }
+  });
+
+  it('reopening a wallet lets its money move again', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    service.setAvailable('jili', true);
+    const jili = (await service.getWallets()).find((w) => w.code === 'jili')!;
+    await service.transfer('jili', 'main', jili.amountMinor);
+    expect((await service.getWallets()).find((w) => w.code === 'jili')!.amountMinor).toBe(0);
+  });
+
+  it('subscribers hear about every change', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    let calls = 0;
+    const off = service.subscribe(() => (calls += 1));
+    await service.deposit(1_000);
+    await service.transfer('main', 'pt', 500);
+    service.setAvailable('pt', false);
+    expect(calls).toBe(3);
+    off();
+    await service.withdraw(100);
+    expect(calls).toBe(3);
+  });
+
+  it('a double-submitted deposit only counts once', async () => {
+    const service = createWalletService({ storage: null, ...instant });
+    const [a, b] = await Promise.all([service.deposit(7_000, 'k1'), service.deposit(7_000, 'k1')]);
+    expect(a.id).toBe(b.id);
+    expect(service.totalMinor()).toBe(service.seedTotalMinor() + 7_000);
+  });
+});

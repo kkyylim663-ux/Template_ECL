@@ -37,7 +37,10 @@
     "promoNone": "不使用優惠",
     "submit": "提交充值申請",
     "pendingNotice": "示範版本同樣由人工審核,但不會真正入帳。",
-    "firstTime": "首次充值?"
+    "firstTime": "首次充值?",
+    "successTitle": "儲值已記錄",
+    "successBody": "{amount} 已加入主錢包。",
+    "failedTitle": "儲值失敗"
   },
   "withdrawal": {
     "intro": "每月首次提現免手續費,之後收取少量費用。",
@@ -57,7 +60,10 @@
     "amount": "金額",
     "submit": "提交提現",
     "limits": "最低 {min},最高 {max}",
-    "feeNotice": "每月首次提現免手續費,之後收取少量費用。"
+    "feeNotice": "每月首次提現免手續費,之後收取少量費用。",
+    "successTitle": "提款已記錄",
+    "successBody": "已從主錢包扣除 {amount}。",
+    "failedTitle": "提款失敗"
   },
   "transfer": {
     "intro": "在進入遊戲前,在主錢包與廠商錢包之間轉帳。",
@@ -74,7 +80,7 @@
     "sameWallet": "請選擇兩個不同的錢包",
     "amountInvalid": "請輸入大於 0 的金額",
     "insufficient": "金額超過可用餘額",
-    "unavailable": "該廠商錢包暫不可用",
+    "unavailable": "該錢包正在維護，維護結束前餘額無法轉出或轉入。",
     "lastMoved": "上次轉帳:{when}",
     "loading": "正在載入錢包…",
     "empty": "暫無可轉帳的錢包。",
@@ -94,7 +100,10 @@
     "available": "可用",
     "autoCredit": "自動充入遊戲:",
     "amountWithCurrency": "轉帳金額*({currency})",
-    "submitLabel": "提交"
+    "submitLabel": "提交",
+    "maintenanceTag": "維護中",
+    "total": "總資產",
+    "allPartialBody": "已將 {count} 個錢包的餘額轉入 {to}。未轉出（維護中）：{skipped}。"
   },
   "profile": {
     "demoTitle": "示範資料更新",
@@ -384,7 +393,13 @@
         "transfer": "轉帳"
       },
       "empty": "暫無流水。",
-      "reset": "重置為初始值"
+      "reset": "重置為初始值",
+      "maintenance": "維護中"
     }
+  },
+  "wallet": {
+    "amountInvalid": "請輸入大於 0 的金額，最多兩位小數。",
+    "insufficient": "金額超過主錢包餘額。",
+    "network": "出錯了，餘額沒有任何變化，請重試。"
   }
 }

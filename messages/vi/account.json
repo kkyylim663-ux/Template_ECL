@@ -37,7 +37,10 @@
     "promoNone": "Không dùng khuyến mãi",
     "submit": "Gửi yêu cầu nạp",
     "pendingNotice": "Bản demo được duyệt thủ công, không cộng tiền thật.",
-    "firstTime": "Nạp lần đầu?"
+    "firstTime": "Nạp lần đầu?",
+    "successTitle": "Đã ghi nhận nạp tiền",
+    "successBody": "{amount} đã được cộng vào ví chính.",
+    "failedTitle": "Nạp tiền thất bại"
   },
   "withdrawal": {
     "intro": "Lần rút đầu mỗi tháng miễn phí, các lần sau có phí.",
@@ -57,7 +60,10 @@
     "amount": "Số tiền",
     "submit": "Yêu cầu rút",
     "limits": "Tối thiểu {min}, tối đa {max}",
-    "feeNotice": "Lần rút đầu mỗi tháng miễn phí."
+    "feeNotice": "Lần rút đầu mỗi tháng miễn phí.",
+    "successTitle": "Đã ghi nhận rút tiền",
+    "successBody": "Đã trừ {amount} khỏi ví chính.",
+    "failedTitle": "Rút tiền thất bại"
   },
   "transfer": {
     "intro": "Chuyển tiền giữa ví chính và ví nhà phát hành trước khi chơi.",
@@ -74,7 +80,7 @@
     "sameWallet": "Chọn hai ví khác nhau",
     "amountInvalid": "Nhập số tiền lớn hơn 0",
     "insufficient": "Vượt quá số dư khả dụng",
-    "unavailable": "Ví nhà phát hành đang ngoại tuyến",
+    "unavailable": "Ví này đang bảo trì. Số dư không thể chuyển cho đến khi ví hoạt động lại.",
     "lastMoved": "Lần chuyển trước: {when}",
     "loading": "Đang tải ví…",
     "empty": "Chưa có ví nào để chuyển.",
@@ -94,7 +100,10 @@
     "available": "Khả dụng",
     "autoCredit": "Tự động nạp vào game:",
     "amountWithCurrency": "Số tiền*({currency})",
-    "submitLabel": "Gửi"
+    "submitLabel": "Gửi",
+    "maintenanceTag": "Đang bảo trì",
+    "total": "Tổng tài sản",
+    "allPartialBody": "Đã chuyển số dư của {count} ví vào {to}. Chưa chuyển (đang bảo trì): {skipped}."
   },
   "profile": {
     "demoTitle": "Cập nhật hồ sơ demo",
@@ -384,7 +393,13 @@
         "transfer": "Chuyển"
       },
       "empty": "Chưa có giao dịch.",
-      "reset": "Đặt lại về ban đầu"
+      "reset": "Đặt lại về ban đầu",
+      "maintenance": "đang bảo trì"
     }
+  },
+  "wallet": {
+    "amountInvalid": "Nhập số tiền lớn hơn 0, tối đa hai chữ số thập phân.",
+    "insufficient": "Số tiền vượt quá số dư ví chính.",
+    "network": "Đã xảy ra lỗi. Số dư không thay đổi — vui lòng thử lại."
   }
 }

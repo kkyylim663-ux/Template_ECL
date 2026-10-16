@@ -75,6 +75,11 @@ export function TransferPanel({ currency }: { currency: string }) {
     void load();
   }, [load]);
 
+  useEffect(
+    () => walletService.subscribe(() => void walletService.getWallets().then(setWallets)),
+    [],
+  );
+
   const walletByCode = (code: string) => wallets.find((wallet) => wallet.code === code);
   const nameOf = (code: string) => walletByCode(code)?.name ?? code;
   const available = walletByCode(from)?.amountMinor ?? 0;
@@ -116,9 +121,21 @@ export function TransferPanel({ currency }: { currency: string }) {
     submittingRef.current = true;
     setSubmitting(true);
     try {
+      const skipped = walletService.skippedByMaintenance(target);
       const receipts = await walletService.transferAll(target);
       await refreshWallets();
-      if (receipts.length === 0) {
+      if (skipped.length > 0) {
+        modal.success(
+          t('transfer.successTitle'),
+          t('transfer.allPartialBody', {
+            count: receipts.length,
+            to: nameOf(target),
+            skipped: skipped
+              .map((wallet) => `${wallet.name} ${formatMinor(wallet.amountMinor, currency)}`)
+              .join(', '),
+          }),
+        );
+      } else if (receipts.length === 0) {
         modal.success(t('transfer.successTitle'), t('transfer.allNone'));
       } else {
         modal.success(
@@ -218,6 +235,7 @@ export function TransferPanel({ currency }: { currency: string }) {
                   {wallets.map((wallet) => (
                     <option key={wallet.code} value={wallet.code}>
                       {wallet.name}
+                      {wallet.available ? '' : ` (${t('transfer.maintenanceTag')})`}
                     </option>
                   ))}
                 </select>
@@ -240,6 +258,7 @@ export function TransferPanel({ currency }: { currency: string }) {
                   {wallets.map((wallet) => (
                     <option key={wallet.code} value={wallet.code}>
                       {wallet.name}
+                      {wallet.available ? '' : ` (${t('transfer.maintenanceTag')})`}
                     </option>
                   ))}
                 </select>
@@ -322,11 +341,23 @@ export function TransferPanel({ currency }: { currency: string }) {
             <li key={wallet.code} className="transfer-credit__row">
               <Icon name="wallet" size={20} className="text-muted" />
               {wallet.name}
+              {wallet.available ? null : (
+                <span className="transfer-credit__tag">{t('transfer.maintenanceTag')}</span>
+              )}
               <span className="transfer-credit__balance">
                 {formatMinor(wallet.amountMinor, currency)}
               </span>
             </li>
           ))}
+          <li className="transfer-credit__row transfer-credit__total">
+            {t('transfer.total')}
+            <span className="transfer-credit__balance" data-testid="wallet-total">
+              {formatMinor(
+                wallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0),
+                currency,
+              )}
+            </span>
+          </li>
         </ul>
       </div>
     </div>

@@ -90,6 +90,24 @@ export function DevWalletPanel() {
           </tbody>
         </table>
 
+        <div className="dev-wallet-maintenance text-xs">
+          {wallets
+            .filter((wallet) => wallet.kind === 'game')
+            .map((wallet) => (
+              <label key={wallet.code} className="mr-3 inline-flex items-center gap-1">
+                <input
+                  type="checkbox"
+                  checked={!wallet.available}
+                  onChange={(event) => {
+                    walletService.setAvailable(wallet.code, !event.target.checked);
+                    void refresh();
+                  }}
+                />
+                {wallet.name} · {t('dev.wallet.maintenance')}
+              </label>
+            ))}
+        </div>
+
         <p className="dev-wallet-check text-xs" data-holds={holds ? 'true' : 'false'}>
           {t('dev.wallet.initial')} {money(walletService.seedTotalMinor())} + {t('dev.wallet.deposits')}{' '}
           {money(deposits)} − {t('dev.wallet.withdrawals')} {money(withdrawals)} = {money(expected)} ·{' '}

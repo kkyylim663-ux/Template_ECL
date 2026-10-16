@@ -72,13 +72,12 @@ export function useSession(): SessionState {
     try {
       const response = await fetch('/api/mock-auth/session', { cache: 'no-store' });
       const body = (await response.json()) as { d: SessionBody };
-      const main = body.d.member
-        ? (await walletService.getWallets()).find((wallet) => wallet.kind === 'main')
-        : undefined;
+      // The header shows total assets: the main wallet plus whatever still sits in game wallets.
+      if (body.d.member) await walletService.getWallets();
       setState({
         ready: true,
         ...body.d,
-        balanceMinor: main?.amountMinor ?? body.d.balanceMinor,
+        balanceMinor: body.d.member ? walletService.totalMinor() : body.d.balanceMinor,
       });
     } catch {
       setState((current) => ({ ...current, ready: true }));
@@ -91,7 +90,9 @@ export function useSession(): SessionState {
     const bus = sessionChannel();
     window.addEventListener(SESSION_EVENT, sync);
     bus?.addEventListener('message', sync);
+    const offWallet = walletService.subscribe(sync);
     return () => {
+      offWallet();
       window.removeEventListener(SESSION_EVENT, sync);
       bus?.removeEventListener('message', sync);
     };

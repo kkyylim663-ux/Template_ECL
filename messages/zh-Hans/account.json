@@ -37,7 +37,10 @@
     "promoNone": "不使用优惠",
     "submit": "提交充值申请",
     "pendingNotice": "演示版本同样由人工审核,但不会真正入账。",
-    "firstTime": "首次充值?"
+    "firstTime": "首次充值?",
+    "successTitle": "充值已记录",
+    "successBody": "{amount} 已加入主钱包。",
+    "failedTitle": "充值失败"
   },
   "withdrawal": {
     "intro": "每月首次提现免手续费,之后收取少量费用。",
@@ -57,7 +60,10 @@
     "amount": "金额",
     "submit": "提交提现",
     "limits": "最低 {min},最高 {max}",
-    "feeNotice": "每月首次提现免手续费,之后收取少量费用。"
+    "feeNotice": "每月首次提现免手续费,之后收取少量费用。",
+    "successTitle": "提现已记录",
+    "successBody": "已从主钱包扣除 {amount}。",
+    "failedTitle": "提现失败"
   },
   "transfer": {
     "intro": "在进入游戏前,在主钱包与厂商钱包之间转账。",
@@ -74,7 +80,7 @@
     "sameWallet": "请选择两个不同的钱包",
     "amountInvalid": "请输入大于 0 的金额",
     "insufficient": "金额超过可用余额",
-    "unavailable": "该厂商钱包暂不可用",
+    "unavailable": "该钱包正在维护，维护结束前余额无法转出或转入。",
     "lastMoved": "上次转账:{when}",
     "loading": "正在加载钱包…",
     "empty": "暂无可转账的钱包。",
@@ -94,7 +100,10 @@
     "available": "可用",
     "autoCredit": "自动充入游戏:",
     "amountWithCurrency": "转账金额*({currency})",
-    "submitLabel": "提交"
+    "submitLabel": "提交",
+    "maintenanceTag": "维护中",
+    "total": "总资产",
+    "allPartialBody": "已将 {count} 个钱包的余额转入 {to}。未转出（维护中）：{skipped}。"
   },
   "profile": {
     "demoTitle": "演示资料更新",
@@ -384,7 +393,13 @@
         "transfer": "转账"
       },
       "empty": "暂无流水。",
-      "reset": "重置为初始值"
+      "reset": "重置为初始值",
+      "maintenance": "维护中"
     }
+  },
+  "wallet": {
+    "amountInvalid": "请输入大于 0 的金额，最多两位小数。",
+    "insufficient": "金额超过主钱包余额。",
+    "network": "出错了，余额没有任何变化，请重试。"
   }
 }

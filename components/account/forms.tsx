@@ -1,7 +1,9 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { regionConfig, type RegionCode } from '@/config/brand';
+import { useRef, useState } from 'react';
 import { FormNotice, PrimaryButton, SelectField, TextField } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
 import { Tabs } from '@/components/ui/Tabs';
@@ -14,6 +16,9 @@ import {
   type FieldErrors,
 } from '@/lib/forms';
 import type { AccountPayload } from '@/lib/api/schemas';
+import { walletService, WalletError } from '@/lib/api/wallet';
+import { formatMinor, parseAmountMinor } from '@/lib/format';
+import { notifySessionChange } from '@/lib/session/useSession';
 
 const amount = (value: string) => Number(value.replace(/[^0-9.]/g, ''));
 
@@ -22,10 +27,58 @@ function useDemoSubmit() {
   return (title: string, body: string) => modal.success(title, body);
 }
 
+
+/**
+ * Runs one mock money movement through the wallet service: one in-flight call at
+ * a time, balances (header, account card, wallet list) update through the
+ * service's own subscription, and the ledger gets the entry.
+ */
+function useWalletAction() {
+  const modal = useModal();
+  const t = useTranslations('account');
+  const busy = useRef(false);
+  const { region } = useParams<{ region: string }>();
+  const currency = regionConfig(region as RegionCode).currency;
+  const [submitting, setSubmitting] = useState(false);
+
+  async function run(kind: 'deposit' | 'withdraw', rawAmount: string, onDone?: () => void) {
+    if (busy.current) return;
+    const amountMinor = parseAmountMinor(rawAmount.replace(/[^0-9.,]/g, ''));
+    if (amountMinor === null || amountMinor <= 0) {
+      modal.error(t(`${kind === 'deposit' ? 'deposit' : 'withdrawal'}.failedTitle`), t('wallet.amountInvalid'));
+      return;
+    }
+    busy.current = true;
+    setSubmitting(true);
+    const ns = kind === 'deposit' ? 'deposit' : 'withdrawal';
+    try {
+      if (kind === 'deposit') await walletService.deposit(amountMinor);
+      else await walletService.withdraw(amountMinor);
+      notifySessionChange();
+      onDone?.();
+      modal.success(
+        t(`${ns}.successTitle`),
+        t(`${ns}.successBody`, { amount: formatMinor(amountMinor, currency) }),
+      );
+    } catch (error) {
+      const code = error instanceof WalletError ? error.code : 'network';
+      modal.error(
+        t(`${ns}.failedTitle`),
+        t(code === 'insufficient' ? 'wallet.insufficient' : code === 'network' ? 'wallet.network' : 'wallet.amountInvalid'),
+      );
+    } finally {
+      busy.current = false;
+      setSubmitting(false);
+    }
+  }
+
+  return { run, submitting };
+}
+
 export function DepositForm({ payload }: { payload: AccountPayload }) {
   const t = useTranslations('account');
   const tc = useTranslations('common');
-  const notify = useDemoSubmit();
+  const action = useWalletAction();
   const [method, setMethod] = useState<'bank' | 'gateway'>('bank');
   const [values, setValues] = useState({
     amount: '',
@@ -58,7 +111,10 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(t('deposit.demoTitle'), t('deposit.demoBody'));
+    // MOCK-ONLY: the real flow submits a bank transfer / gateway order and waits for review.
+    void action.run('deposit', values.amount, () =>
+      setValues((current) => ({ ...current, amount: '', senderName: '', senderAccount: '', bankReference: '' })),
+    );
   }
 
   return (
@@ -157,7 +213,9 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
         onChange={(event) => setValues((c) => ({ ...c, amount: event.target.value }))}
       />
 
-      <PrimaryButton type="submit">{t('deposit.submit')}</PrimaryButton>
+      <PrimaryButton type="submit" disabled={action.submitting}>
+        {t('deposit.submit')}
+      </PrimaryButton>
 
       <FormNotice>{t('deposit.pendingNotice')}</FormNotice>
     </form>
@@ -167,7 +225,7 @@ export function DepositForm({ payload }: { payload: AccountPayload }) {
 export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
   const t = useTranslations('account');
   const tc = useTranslations('common');
-  const notify = useDemoSubmit();
+  const action = useWalletAction();
   const verified = payload.bankAccounts.filter((account) => account.verified);
   const [values, setValues] = useState({
     bankAccountId: verified[0]?.id ?? '',
@@ -188,7 +246,10 @@ export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
     }
 
     setErrors({});
-    notify(t('withdrawal.demoTitle'), t('withdrawal.demoBody'));
+    // MOCK-ONLY: the real flow files a withdrawal request that appears under pending transactions.
+    void action.run('withdraw', values.amount, () =>
+      setValues((current) => ({ ...current, amount: '' })),
+    );
   }
 
   return (
@@ -227,7 +288,9 @@ export function WithdrawalForm({ payload }: { payload: AccountPayload }) {
         onChange={(event) => setValues((c) => ({ ...c, amount: event.target.value }))}
       />
 
-      <PrimaryButton type="submit">{t('withdrawal.submit')}</PrimaryButton>
+      <PrimaryButton type="submit" disabled={action.submitting}>
+        {t('withdrawal.submit')}
+      </PrimaryButton>
 
       <FormNotice>{t('withdrawal.placeholderNotice')}</FormNotice>
     </form>

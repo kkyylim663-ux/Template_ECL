@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getAccountPayload, mainWallet } from '@/lib/api';
+import { getAccountPayload, totalBalanceMinor } from '@/lib/api';
 import { DEFAULT_REGION, brand } from '@/config/brand';
 import { getSession } from '@/lib/session/server';
 
@@ -24,7 +24,7 @@ export async function GET() {
     d: {
       member: true,
       username: session.username,
-      balanceMinor: mainWallet(payload)?.amountMinor ?? 0,
+      balanceMinor: totalBalanceMinor(payload),
       currency: brand.regions[DEFAULT_REGION].currency,
       unread: payload.inbox.filter((message) => !message.read).length,
     },
