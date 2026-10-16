@@ -110,9 +110,9 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     id: 'payment',
     titleKey: 'footer.title.payment',
     items: [
-      { href: '#', labelKey: 'footer.links.localBanks' },
-      { href: '#', labelKey: 'footer.links.cryptocurrencies' },
-      { href: '#', labelKey: 'footer.links.paymentGateway' },
+      { href: '/account/deposit', labelKey: 'footer.links.localBanks' },
+      { href: '/account/deposit', labelKey: 'footer.links.cryptocurrencies' },
+      { href: '/account/deposit', labelKey: 'footer.links.paymentGateway' },
     ],
   },
   {

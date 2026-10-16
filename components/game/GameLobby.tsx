@@ -87,6 +87,8 @@ export async function GameLobby({
 
       <SlotBrowser
         key={provider}
+        region={region}
+        providers={providers}
         provider={provider}
         tabs={tabItems}
         initialTab={tab}

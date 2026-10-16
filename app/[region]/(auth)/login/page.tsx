@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CardBack } from '@/components/auth/CardBack';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { Icon } from '@/components/ui/Icon';
 import { IntlScope } from '@/lib/i18n/scope';
@@ -36,9 +37,9 @@ export default async function LoginPage({
     <IntlScope namespaces={['auth']}>
       <div className="card" data-auth-card="login">
         <div className="card-header">
-          <Link href={`/${region}`} className="card-back" aria-label={t('login.back')}>
+          <CardBack region={region} label={t('login.back')}>
             <Icon name="chevronLeft" size={20} />
-          </Link>
+          </CardBack>
           <h1 className="card-title">{t('login.title')}</h1>
           <Link href={`/${region}`} className="card-close" aria-label={t('login.closeCard')}>
             {'\u00d7'}

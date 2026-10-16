@@ -1073,13 +1073,18 @@ html {
     margin-right: 8px;
   }
 
-  /* The strip keeps one row of 176px tiles and scrolls sideways (the wrapper
-     carries `custom-scroll`, and 28 stacked rows would bury the grid; no mobile
-     snapshot exists to check the original's JS behaviour — recorded). */
+  /* The original's phone template has no studio strip (no `gamelist-wrapper` in
+     the mobile slots markup), so the rail is hidden here; the dropdowns in
+     MobileLobbyFilters take its place. */
   .lobby-rail {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-right: 0;
+    display: none;
+  }
+
+  /* The desktop panel behind the search goes at <=768px: the search stands alone. */
+  .lobby-bar {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
   }
 
   .lobby-rail__card {

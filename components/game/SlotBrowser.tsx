@@ -3,12 +3,13 @@
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { GameCard as GameCardData, GamePage } from '@/lib/api/slots';
+import type { GameCard as GameCardData, GamePage, ProviderSummary } from '@/lib/api/slots';
 import { Icon } from '@/components/ui/Icon';
 import { IconSprite } from '@/components/ui/IconSprite';
 import { GameCardSkeleton } from '@/components/ui/Skeleton';
 import { Tabs, type TabItem } from '@/components/ui/Tabs';
 import { GameCard } from './GameCard';
+import { MobileLobbyFilters } from './MobileLobbyFilters';
 
 type PagePayload = GamePage;
 
@@ -22,12 +23,16 @@ type PagePayload = GamePage;
  * is on screen.
  */
 export function SlotBrowser({
+  region,
+  providers,
   provider,
   tabs,
   initialTab,
   initialQuery,
   initialPage,
 }: {
+  region: string;
+  providers: ProviderSummary[];
   provider: string;
   tabs: TabItem[];
   initialTab: string;
@@ -188,13 +193,22 @@ export function SlotBrowser({
 
   return (
     <section>
+      <MobileLobbyFilters
+        region={region}
+        providers={providers}
+        provider={provider}
+        tabs={tabs}
+        tab={tab}
+        onTabChange={setTab}
+      />
+
       {/*
        * `.slots-option__wrapper`: category pills on the left (the original's
        * `.nav-pill__wrapper` scrolls inside the bar), the search pill on the
        * right — which leaves the bar and stands alone at <=768px.
        */}
       <div className="lobby-bar" data-lobby-bar>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 max-desktop:hidden">
           <Tabs tabs={tabs} value={tab} onChange={setTab} label={t('browser.categories', { provider })} />
         </div>
         <div className="lobby-search relative shrink-0 max-desktop:mb-10 max-desktop:w-full max-desktop:min-w-0 max-desktop:max-w-none">

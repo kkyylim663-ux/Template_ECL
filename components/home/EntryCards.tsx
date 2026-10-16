@@ -71,7 +71,7 @@ export async function EntryCards({ region }: { region: string }) {
               </span>
             </span>
             {/* Padding and `normal` leading are the original's: 12/9px + 14/11px text. */}
-            <span className="hover-grow rounded-[var(--radius-panel)] bg-[var(--color-line-soft)] px-[15px] py-[9px] text-11 leading-[normal] leading-[normal] desktop:px-[14.5px] desktop:py-3 desktop:text-sm leading-[normal]">
+            <span className="hover-grow shrink-0 whitespace-nowrap rounded-[var(--radius-panel)] bg-[var(--color-line-soft)] px-[15px] py-[9px] text-11 leading-[normal] leading-[normal] desktop:px-[14.5px] desktop:py-3 desktop:text-sm leading-[normal]">
               {t('entry.playNow')}
             </span>
           </Link>

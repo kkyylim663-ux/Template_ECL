@@ -61,7 +61,7 @@ export default async function NumberGamePage({
                 key={option.id}
                 href={`${base}${option.search}`}
                 aria-current={option.id === tab ? 'true' : undefined}
-                className="nav-pill nav-pill__fix-width"
+                className="nav-pill desktop:w-[192px]"
               >
                 <span>{t(option.key)}</span>
                 {option.live ? (

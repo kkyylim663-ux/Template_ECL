@@ -7,6 +7,7 @@ import { Icon } from '@/components/ui/Icon';
 import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { useCountdown } from '@/components/auth/useCountdown';
+import { useGoBack } from '@/components/auth/CardBack';
 import { useModal } from '@/components/ui/ModalProvider';
 import { brand, REGION_CODES, type RegionCode } from '@/config/brand';
 import { registerSchema, validate, type FieldErrors } from '@/lib/forms';
@@ -100,6 +101,8 @@ export function RegisterForm({ region }: { region: string }) {
     setStep(2);
   }
 
+  const goBack = useGoBack(region);
+
   function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     const result = validate(registerSchema, values);
@@ -123,7 +126,7 @@ export function RegisterForm({ region }: { region: string }) {
           type="button"
           className="card-back"
           aria-label={t('register.back')}
-          onClick={() => setStep(1)}
+          onClick={() => (step === 2 ? setStep(1) : goBack())}
         >
           <Icon name="chevronLeft" size={20} />
         </button>

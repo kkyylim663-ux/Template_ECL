@@ -106,12 +106,12 @@ export function MobileChrome({ region }: { region: string }) {
 
       {/* Header: hamburger, hanging logo block, account. */}
       <header className="bg-panel relative flex h-14 items-center">
-        {/* 128x128 brand block, centred on the bar at z-1 so it hangs below it. */}
+        {/* 128x128 brand mark at z-1, centred on the bar and hidden behind it: the dark circle is gone. */}
         <div className="pointer-events-none absolute inset-x-0 top-1/2 z-[-1] flex -translate-y-1/2 justify-center">
           <Link
             href={regionPath(region, '')}
             aria-label={brand.logo.alt}
-            className="bg-line border-line text-ink pointer-events-auto grid size-32 place-items-center rounded-full border text-xl font-bold tracking-wide"
+            className="text-ink pointer-events-auto grid size-32 place-items-center text-xl font-bold tracking-wide"
           >
             {brand.logo.text}
           </Link>
