@@ -643,6 +643,15 @@ html {
 :is(.table-theme, .rb-table, .rb-prize-table) th {
   padding: 12px 16px;
   text-align: left;
+  /* The reference's cells inherit the head's 600 instead of the UA's bold. */
+  font-weight: 600;
+}
+
+/* The reference's light variant repaints the odd rows #272727 (its rule is a
+   plain `.table-theme-light`, but the shared skin below is equally specific, so
+   the compound selector keeps this one winning). */
+.table-theme.table-theme-light tbody tr:nth-child(odd) {
+  background-color: var(--color-panel-alt);
 }
 
 :is(.table-theme, .rb-table, .rb-prize-table) td {
@@ -3817,6 +3826,11 @@ details.accordionItem[open] .accordion-icon {
   margin-bottom: 20px;
 }
 
+/* The reference's own utility, used by the history h1. */
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .page-icon {
   width: 28px;
   height: 28px;
@@ -5397,6 +5411,110 @@ details.accordionItem[open] .accordion-icon {
   margin-top: 30px;
 }
 
+/* History: every table gets the shared skin (the reference declares it on bare
+   `table`, and its `.no-border` class has no rule of its own), the templates
+   centre every cell, and `.table-theme-light` repaints the odd rows #272727. */
+.history-table th,
+.history-table td {
+  text-align: center;
+}
+
+.history-table tbody tr:nth-child(odd) {
+  background-color: var(--color-panel-alt);
+}
+
+/* DataTables' chrome (length menu / search / info / simple_numbers paging) is
+   injected by its JS and never reached the snapshot, so it is styled here with
+   the site's own tokens. */
+.history-toolbar,
+.history-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.history-toolbar {
+  margin-bottom: 12px;
+}
+
+.history-footer {
+  margin-top: 12px;
+}
+
+.history-length,
+.history-search {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.history-length select,
+.history-search input {
+  height: 32px;
+  padding: 4px 10px;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: var(--color-line-muted);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+}
+
+.history-search input {
+  width: 160px;
+}
+
+.history-sort {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.history-empty {
+  color: var(--color-muted);
+}
+
+.history-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.history-page {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  background: var(--color-line-deepest);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.history-page.is-current {
+  background: var(--color-accent);
+  color: #000;
+  font-weight: 700;
+}
+
+.history-page:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.history-page.is-gap {
+  border: 0;
+  background: none;
+}
+
 .turnover-wrapper {
   margin-top: 24px;
 }
@@ -6447,6 +6565,20 @@ details.accordionItem[open] .accordion-icon {
     display: none;
   }
 
+  /* The reference's phone utility: field labels marked `.desktop` disappear
+     (scoped compound so the account form-label rule cannot outrank it). */
+  .account-content__container .form-group label.desktop,
+  .desktop {
+    display: none;
+  }
+
+  /* The reference wraps the history ranges in a #353537 capsule on phones. */
+  .selectDateRangeWrapper {
+    padding: 5px;
+    border-radius: 20px;
+    background: var(--color-line-soft);
+  }
+
   /* The reference lightens every button and pill on phones. */
   .btn,
   .nav-pill {
@@ -6479,19 +6611,28 @@ details.accordionItem[open] .accordion-icon {
     display: none;
   }
 
-  .dateRangeBtn {
-    flex: 1;
+  /* The reference's phone ranges (measured): 12px/500 pills, `flex: 1`, 11px
+     padding, transparent over the #353537 capsule, 6px apart. */
+  .selectDateRangeWrapper .nav-pill {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
     padding: 11px;
     background: transparent;
+    font-size: var(--text-xs);
   }
 
   .turnover-table {
     width: 100%;
   }
 
+  /* The skin's `:is(…) td` outranks a bare page class, so the two value cells
+     need the extra class to keep the reference's 10px on phones. */
   .turnover-header-footer td,
-  .turnover-table-td-1,
-  .turnover-table-td-2 {
+  .turnover-table .turnover-table-td-1,
+  .turnover-table .turnover-table-td-2 {
     font-size: var(--text-10);
   }
 

@@ -481,6 +481,55 @@ export const accountTransactionSchema = z.object({
 });
 export type AccountTransaction = z.infer<typeof accountTransactionSchema>;
 
+/**
+ * The history page's rows. The reference draws five different tables from its
+ * `depositHistory` / `walletHistory` / `promoHistory` / `betHistory` textarea
+ * templates (there is no separate withdrawal template), so each kind carries
+ * exactly the fields its template's columns need.
+ */
+export const HISTORY_EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain'] as const;
+
+export const historyRowSchema = z.discriminatedUnion('kind', [
+  z.object({
+    id: z.string(),
+    kind: z.enum(['deposit', 'withdrawal']),
+    at: z.string(),
+    amountMinor: z.number().int(),
+    method: z.string(),
+    status: z.enum(TRANSACTION_STATUSES),
+    reason: z.string(),
+  }),
+  z.object({
+    id: z.string(),
+    kind: z.literal('transfer'),
+    at: z.string(),
+    amountMinor: z.number().int(),
+    from: z.string(),
+    to: z.string(),
+    status: z.enum(TRANSACTION_STATUSES),
+  }),
+  z.object({
+    id: z.string(),
+    kind: z.literal('promo'),
+    at: z.string(),
+    amountMinor: z.number().int(),
+    promoType: z.string(),
+    status: z.enum(TRANSACTION_STATUSES),
+    reason: z.string(),
+  }),
+  z.object({
+    id: z.string(),
+    kind: z.literal('bet'),
+    at: z.string(),
+    event: z.enum(HISTORY_EVENTS),
+    transactions: z.number().int(),
+    turnoverMinor: z.number().int(),
+    winLoseMinor: z.number().int(),
+    realBetMinor: z.number().int(),
+  }),
+]);
+export type HistoryRow = z.infer<typeof historyRowSchema>;
+
 export const inboxMessageSchema = z.object({
   id: z.string(),
   kind: z.enum(['important', 'others']),
@@ -549,6 +598,7 @@ export const accountPayloadSchema = z.object({
   banks: z.array(bankSchema),
   channels: z.array(depositChannelSchema),
   transactions: z.array(accountTransactionSchema),
+  history: z.array(historyRowSchema),
   inbox: z.array(inboxMessageSchema),
   rebates: z.array(rebateSchema),
   achievements: z.array(achievementSchema),

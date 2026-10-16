@@ -25,6 +25,7 @@ export const ICON_PATHS = {
   withdraw: ['M4 6h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z', 'M12 10v5', 'M9.5 12.5 12 10l2.5 2.5'],
   transfer: ['M4 8h13', 'M14 5l3 3-3 3', 'M20 16H7', 'M10 13l-3 3 3 3'],
   history: [c(12, 12, 8), 'M12 8v4l3 2'],
+  calendar: ['M4 6h16v14H4z', 'M4 10h16', 'M8 3v4', 'M16 3v4'],
   pending: [c(12, 12, 8), 'M12 8v4', 'M12 16h.01'],
   mail: ['M3 6h18v12H3z', 'M3 7l9 6 9-6'],
   rebate: ['M6 18 18 6', c(9, 9, 2), c(15, 15, 2)],

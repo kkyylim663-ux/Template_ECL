@@ -1,65 +1,281 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
-import type { AccountTransaction } from '@/lib/api/schemas';
+import type { HistoryRow } from '@/lib/api/schemas';
 
-type Kind = 'deposit' | 'withdrawal' | 'transfer' | 'promo' | 'bet';
-
-/** The reference's own option set; `promo`/`bet` fold onto our rebate/bonus rows. */
+type Kind = HistoryRow['kind'];
 const KINDS: Kind[] = ['deposit', 'withdrawal', 'transfer', 'promo', 'bet'];
-const KIND_ROW: Record<Kind, AccountTransaction['kind']> = {
-  deposit: 'deposit',
-  withdrawal: 'withdrawal',
-  transfer: 'transfer',
-  promo: 'rebate',
-  bet: 'bonus',
+
+/** The reference's four quick ranges ("Today / In 3 Days / In a Week / In a Month"). */
+const RANGES = ['today', 'in3days', 'inAWeek', 'inAMonth'] as const;
+type Range = (typeof RANGES)[number];
+const RANGE_DAYS: Record<Range, number> = { today: 1, in3days: 3, inAWeek: 7, inAMonth: 30 };
+
+/** DataTables' own page lengths; the reference initialises with 10. */
+const PAGE_SIZES = [10, 25, 50, 100] as const;
+
+const EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain'] as const;
+type Event = (typeof EVENTS)[number];
+
+type Column = {
+  key: string;
+  label: string;
+  value: (row: HistoryRow) => string | number;
+  render: (row: HistoryRow) => ReactNode;
+  numeric?: boolean;
 };
 
-const RANGES = ['today', 'in3days', 'inAWeek', 'inAMonth'] as const;
+const timeOf = (at: string) => at.slice(11, 16);
+/** "2026-10-16T21:33:00+08:00" -> "16/10/2026" (the reference's moment format). */
+const dateShort = (at: string) => `${at.slice(8, 10)}/${at.slice(5, 7)}/${at.slice(0, 4)}`;
+
+function RolloverRow({ label, amount, currency }: { label: string; amount: string; currency: string }) {
+  return (
+    <tr>
+      <td className="turnover-table-td-1">{label}</td>
+      <td className="turnover-table-td-2">
+        <span className="currency">{currency}</span>
+        <span>{amount}</span>
+      </td>
+    </tr>
+  );
+}
 
 /**
- * The history page body: the reference's search form (type select + read-only
- * date field + four quick ranges) above the transaction table and the
- * "Promotion Rollover Status" turnover table. The table body is mock data —
- * the original renders its rows with JS, so its own snapshot table is empty —
- * but the columns are the snapshot's `depositTable` template verbatim
- * (Deposit / Amount / Type / Status / Reason).
+ * The history page body. The reference's own layout: type select, read-only
+ * date-range field with the calendar chip, four quick pills, then a DataTables
+ * table (`iDisplayLength: 10`, simple_numbers paging, search) whose column set
+ * changes with the type — see the page's depositHistory / walletHistory /
+ * promoHistory / betHistory templates. Its own rows come from the server (the
+ * snapshot's bodies are empty), so our data is the mock `history` array and the
+ * date windows are anchored on its newest row.
  */
 export function HistoryPanel({
-  rows,
+  history,
   currency,
   rollover,
 }: {
-  rows: { id: string; kind: AccountTransaction['kind']; date: string; amount: string; type: string; status: string; reason: string }[];
+  history: HistoryRow[];
   currency: string;
-  rollover: { id: string; title: string; requirement: string; progress: string }[];
+  rollover: { id: string; title: string; requirementMinor: number; progressMinor: number }[];
 }) {
   const t = useTranslations('account');
   const [kind, setKind] = useState<Kind>('deposit');
-  const [range, setRange] = useState<(typeof RANGES)[number]>('today');
+  const [range, setRange] = useState<Range>('inAMonth');
+  const [event, setEvent] = useState<Event>('numberGame');
+  const [query, setQuery] = useState('');
+  const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'at', dir: 'desc' });
 
-  const visible = rows.filter((row) => row.kind === KIND_ROW[kind]);
-  const totalRequirement = rollover.reduce((sum, item) => sum + Number(item.requirement.replace(/[^\d.]/g, '')), 0);
+  const money = (minor: number) => (minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 });
+
+  /** The demo "now": the newest row in the fixture (its dates are fixed). */
+  const anchor = useMemo(
+    () => history.reduce((latest, row) => (row.at > latest ? row.at : latest), history[0]?.at ?? ''),
+    [history],
+  );
+
+  const columns = useMemo<Column[]>(() => {
+    const dateColumn: Column = {
+      key: 'at',
+      label: kind === 'deposit' || kind === 'withdrawal' ? t('history.col.deposit') : t('history.col.date'),
+      value: (row) => row.at,
+      render: (row) => dateShort(row.at),
+    };
+    const statusColumn: Column = {
+      key: 'status',
+      label: t('history.col.status'),
+      value: (row) => ('status' in row ? row.status : ''),
+      render: (row) => ('status' in row ? t(`status.${row.status}`) : ''),
+    };
+    if (kind === 'deposit' || kind === 'withdrawal') {
+      return [
+        dateColumn,
+        {
+          key: 'amount',
+          label: t('history.col.amount'),
+          value: (row) => ('amountMinor' in row ? row.amountMinor : 0),
+          render: (row) => ('amountMinor' in row ? `${currency} ${money(row.amountMinor)}` : ''),
+        },
+        {
+          key: 'method',
+          label: t('history.col.type'),
+          value: (row) => ('method' in row ? row.method : ''),
+          render: (row) => ('method' in row ? row.method : ''),
+        },
+        statusColumn,
+        {
+          key: 'reason',
+          label: t('history.col.reason'),
+          value: (row) => ('reason' in row ? row.reason : ''),
+          render: (row) => ('reason' in row ? row.reason : ''),
+        },
+      ];
+    }
+    if (kind === 'transfer') {
+      return [
+        dateColumn,
+        {
+          key: 'from',
+          label: t('history.col.from'),
+          value: (row) => ('from' in row ? row.from : ''),
+          render: (row) => ('from' in row ? row.from : ''),
+        },
+        {
+          key: 'to',
+          label: t('history.col.to'),
+          value: (row) => ('to' in row ? row.to : ''),
+          render: (row) => ('to' in row ? row.to : ''),
+        },
+        {
+          key: 'amount',
+          label: t('history.col.amount'),
+          value: (row) => ('amountMinor' in row ? row.amountMinor : 0),
+          render: (row) => ('amountMinor' in row ? `${currency} ${money(row.amountMinor)}` : ''),
+        },
+        statusColumn,
+      ];
+    }
+    if (kind === 'promo') {
+      return [
+        dateColumn,
+        {
+          key: 'clock',
+          label: t('history.col.clock'),
+          value: (row) => timeOf(row.at),
+          render: (row) => timeOf(row.at),
+        },
+        {
+          key: 'amount',
+          label: t('history.col.amount'),
+          value: (row) => ('amountMinor' in row ? row.amountMinor : 0),
+          render: (row) => ('amountMinor' in row ? `${currency} ${money(row.amountMinor)}` : ''),
+        },
+        {
+          key: 'promoType',
+          label: t('history.col.type'),
+          value: (row) => ('promoType' in row ? row.promoType : ''),
+          render: (row) => ('promoType' in row ? row.promoType : ''),
+        },
+        statusColumn,
+        {
+          key: 'reason',
+          label: t('history.col.reason'),
+          value: (row) => ('reason' in row ? row.reason : ''),
+          render: (row) => ('reason' in row ? row.reason : ''),
+        },
+      ];
+    }
+    return [
+      dateColumn,
+      {
+        key: 'transactions',
+        label: t('history.col.transactionCount'),
+        value: (row) => ('transactions' in row ? row.transactions : 0),
+        render: (row) => ('transactions' in row ? row.transactions : ''),
+        numeric: true,
+      },
+      {
+        key: 'turnover',
+        label: t('history.col.turnover'),
+        value: (row) => ('turnoverMinor' in row ? row.turnoverMinor : 0),
+        render: (row) => ('turnoverMinor' in row ? `${currency} ${money(row.turnoverMinor)}` : ''),
+      },
+      {
+        key: 'winLose',
+        label: t('history.col.winLose'),
+        value: (row) => ('winLoseMinor' in row ? row.winLoseMinor : 0),
+        render: (row) => ('winLoseMinor' in row ? `${currency} ${money(row.winLoseMinor)}` : ''),
+      },
+      {
+        key: 'realBet',
+        label: t('history.col.realBet'),
+        value: (row) => ('realBetMinor' in row ? row.realBetMinor : 0),
+        render: (row) => ('realBetMinor' in row ? `${currency} ${money(row.realBetMinor)}` : ''),
+      },
+    ];
+  }, [kind, currency, t]);
+
+  const filtered = useMemo(() => {
+    const windowStart = anchor ? anchor.slice(0, 10) : '';
+    const from = windowStart
+      ? new Date(`${windowStart}T00:00:00Z`).getTime() - (RANGE_DAYS[range] - 1) * 86_400_000
+      : 0;
+    const to = windowStart ? new Date(`${windowStart}T23:59:59Z`).getTime() : 0;
+    const needle = query.trim().toLowerCase();
+    return history.filter((row) => {
+      if (row.kind !== kind) return false;
+      if (row.kind === 'bet' && row.event !== event) return false;
+      const at = new Date(row.at).getTime();
+      if (at < from || at > to) return false;
+      if (!needle) return true;
+      return columns.some((column) => String(column.value(row)).toLowerCase().includes(needle));
+    });
+  }, [history, kind, event, range, query, anchor, columns]);
+
+  const sorted = useMemo(() => {
+    const column = columns.find((item) => item.key === sort.key) ?? columns[0];
+    const direction = sort.dir === 'asc' ? 1 : -1;
+    return [...filtered].sort((a, b) => {
+      const av = column.value(a);
+      const bv = column.value(b);
+      if (typeof av === 'number' && typeof bv === 'number') return (av - bv) * direction;
+      return String(av).localeCompare(String(bv)) * direction;
+    });
+  }, [filtered, columns, sort]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / pageSize));
+  const current = Math.min(page, totalPages);
+  const pageRows = sorted.slice((current - 1) * pageSize, current * pageSize);
+  const start = sorted.length === 0 ? 0 : (current - 1) * pageSize + 1;
+  const end = Math.min(current * pageSize, sorted.length);
+
+  const resetPage = <T,>(setter: (value: T) => void) => (value: T) => {
+    setter(value);
+    setPage(1);
+  };
+
+  /** simple_numbers: first, last and a window around the current page. */
+  const pageNumbers = useMemo(() => {
+    const numbers: (number | '…')[] = [];
+    for (let index = 1; index <= totalPages; index += 1) {
+      if (index === 1 || index === totalPages || Math.abs(index - current) <= 2) numbers.push(index);
+      else if (numbers[numbers.length - 1] !== '…') numbers.push('…');
+    }
+    return numbers;
+  }, [totalPages, current]);
+
+  const newestDeposit = [...history]
+    .filter((row) => row.kind === 'deposit')
+    .sort((a, b) => (a.at < b.at ? 1 : -1))[0];
+  const latestDeposit =
+    newestDeposit && 'amountMinor' in newestDeposit ? newestDeposit.amountMinor : 0;
+  const promotionTurnover = rollover.reduce((sum, item) => sum + item.requirementMinor, 0);
+  const totalTurnover = promotionTurnover + latestDeposit;
+  const currentTurnover = rollover.reduce((sum, item) => sum + item.progressMinor, 0);
 
   return (
     <>
-      <h1 className="form-title mb-5 large">
+      <h1 className="form-title mb-20 large has-space">
         <Icon name="history" size={28} className="page-icon" />
         {t('history.title')}
       </h1>
 
-      <form className="has-space" onSubmit={(event) => event.preventDefault()}>
+      <form id="historyForm" className="has-space" onSubmit={(submitEvent) => submitEvent.preventDefault()}>
         <div className="width-medium">
           <div className="form-group">
-            <label htmlFor="historyType">{t('history.searching')}</label>
+            <label htmlFor="tsType" className="desktop">
+              {t('history.searching')}
+            </label>
             <div className="relative">
               <select
-                id="historyType"
+                id="tsType"
                 className="form-control form-control-select"
                 value={kind}
-                onChange={(event) => setKind(event.target.value as Kind)}
+                onChange={(changeEvent) => resetPage(setKind)(changeEvent.target.value as Kind)}
               >
                 {KINDS.map((option) => (
                   <option key={option} value={option}>
@@ -67,24 +283,61 @@ export function HistoryPanel({
                   </option>
                 ))}
               </select>
-              <span className="form-control-dropdown icon-dropdown">
-                <Icon name="chevronDown" size={16} className="text-muted" />
+              <span className="form-control-dropdown icon-dropdown" aria-hidden="true">
+                <span className="icon-triangle" />
               </span>
             </div>
           </div>
 
+          {kind === 'bet' ? (
+            <div className="form-group" id="ticket-history">
+              <label htmlFor="gamecode" className="gamecode">
+                {t('history.eventLabel')}
+              </label>
+              <div className="relative">
+                <select
+                  id="gamecode"
+                  className="form-control form-control-select"
+                  value={event}
+                  onChange={(changeEvent) => resetPage(setEvent)(changeEvent.target.value as Event)}
+                >
+                  {EVENTS.map((option) => (
+                    <option key={option} value={option}>
+                      {t(`history.event.${option}`)}
+                    </option>
+                  ))}
+                </select>
+                <span className="form-control-dropdown icon-dropdown" aria-hidden="true">
+                  <span className="icon-triangle" />
+                </span>
+              </div>
+            </div>
+          ) : null}
+
           <div className="form-group">
-            <label htmlFor="historyDate">{t('history.dateRange')}</label>
-            <div className="relative">
+            <label htmlFor="transactionDate" className="desktop">
+              {t('history.dateRange')}
+            </label>
+            <div className="relative" id="dateTimePickerWrapper">
               <input
-                id="historyDate"
+                id="transactionDate"
                 className="form-control form-control-select"
                 readOnly
-                value={range ? t(`history.range.${range}`) : ''}
-                placeholder={t('history.dateRange')}
+                value={
+                  anchor
+                    ? `${dateShort(anchor)} - ${dateShort(
+                        new Date(
+                          new Date(`${anchor.slice(0, 10)}T00:00:00Z`).getTime() -
+                            (RANGE_DAYS[range] - 1) * 86_400_000,
+                        )
+                          .toISOString()
+                          .slice(0, 10),
+                      )}`
+                    : ''
+                }
               />
-              <span className="form-control__icon-wrapper pe-none">
-                <Icon name="history" size={16} />
+              <span className="form-control__icon-wrapper pe-none" aria-hidden="true">
+                <Icon name="calendar" size={16} />
               </span>
             </div>
           </div>
@@ -98,15 +351,15 @@ export function HistoryPanel({
               tabIndex={0}
               aria-pressed={range === option}
               className={`dateRangeBtn nav-pill${range === option ? ' active' : ''}`}
-              onClick={() => setRange(option)}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  setRange(option);
+              onClick={() => resetPage(setRange)(option)}
+              onKeyDown={(keyEvent) => {
+                if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+                  keyEvent.preventDefault();
+                  resetPage(setRange)(option);
                 }
               }}
             >
-              <span aria-hidden>{t(`history.range.${option}`)}</span>
+              <span>{t(`history.range.${option}`)}</span>
             </p>
           ))}
         </div>
@@ -114,41 +367,131 @@ export function HistoryPanel({
 
       <div className="tableWrapper history-table__wrapper">
         <div className="history-table">
-          <table className="table-theme">
+          <div className="history-toolbar">
+            <label className="history-length">
+              <select
+                aria-label={t('history.lengthLabel')}
+                value={pageSize}
+                onChange={(changeEvent) => resetPage(setPageSize)(Number(changeEvent.target.value))}
+              >
+                {PAGE_SIZES.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+              {t('history.entries')}
+            </label>
+            <label className="history-search">
+              {t('history.search')}
+              <input
+                type="search"
+                value={query}
+                onChange={(changeEvent) => resetPage(setQuery)(changeEvent.target.value)}
+              />
+            </label>
+          </div>
+
+          {/* The reference's templates say `table-theme table-theme-light w-100`
+              for deposits and `no-border w-100` for the rest; its bare
+              `table {}` rule gives every table the same skin, so ours carries
+              `table-theme` on all of them (the local skin is class-scoped). */}
+          <table
+            className={
+              kind === 'deposit' || kind === 'withdrawal'
+                ? 'table-theme table-theme-light w-100'
+                : 'table-theme no-border w-100'
+            }
+          >
             <thead>
               <tr>
-                <th>{t('history.col.deposit')}</th>
-                <th>{t('history.col.amount')}</th>
-                <th>{t('history.col.type')}</th>
-                <th>{t('history.col.status')}</th>
-                <th>{t('history.col.reason')}</th>
+                {columns.map((column) => (
+                  <th key={column.key}>
+                    <button
+                      type="button"
+                      className="history-sort"
+                      aria-label={t('history.sortBy', { column: column.label })}
+                      onClick={() =>
+                        setSort((previous) =>
+                          previous.key === column.key
+                            ? { key: column.key, dir: previous.dir === 'asc' ? 'desc' : 'asc' }
+                            : { key: column.key, dir: 'asc' },
+                        )
+                      }
+                    >
+                      {column.label}
+                      {sort.key === column.key ? (
+                        <span aria-hidden>{sort.dir === 'asc' ? '▲' : '▼'}</span>
+                      ) : null}
+                    </button>
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
-              {visible.length > 0 ? (
-                visible.map((row) => (
+              {pageRows.length > 0 ? (
+                pageRows.map((row) => (
                   <tr key={row.id}>
-                    <td>{row.date}</td>
-                    <td>
-                      {currency} {row.amount}
-                    </td>
-                    <td>{row.type}</td>
-                    <td>{row.status}</td>
-                    <td>{row.reason}</td>
+                    {columns.map((column) => (
+                      <td key={column.key}>{column.render(row)}</td>
+                    ))}
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5}>{t('history.noRows')}</td>
+                  <td className="history-empty" colSpan={columns.length}>
+                    {t('history.noData')}
+                  </td>
                 </tr>
               )}
             </tbody>
           </table>
+
+          <div className="history-footer">
+            <div className="history-info">
+              {t('history.info', { start, end, total: sorted.length })}
+            </div>
+            <nav className="history-pagination" aria-label={t('history.pagination')}>
+              <button
+                type="button"
+                className="history-page"
+                disabled={current === 1}
+                onClick={() => setPage(current - 1)}
+              >
+                {t('history.previous')}
+              </button>
+              {pageNumbers.map((number, index) =>
+                number === '…' ? (
+                  <span key={`gap-${index}`} className="history-page is-gap">
+                    …
+                  </span>
+                ) : (
+                  <button
+                    key={number}
+                    type="button"
+                    className={`history-page${number === current ? ' is-current' : ''}`}
+                    aria-current={number === current ? 'page' : undefined}
+                    onClick={() => setPage(number)}
+                  >
+                    {number}
+                  </button>
+                ),
+              )}
+              <button
+                type="button"
+                className="history-page"
+                disabled={current === totalPages}
+                onClick={() => setPage(current + 1)}
+              >
+                {t('history.next')}
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
 
       <div className="has-space">
-        <div className="turnover-wrapper active">
+        <div className="turnover-wrapper">
           <h1 className="turnover-title">{t('history.rolloverTitle')}</h1>
           <table className="table-theme table-theme-light turnover-table">
             <thead>
@@ -156,38 +499,19 @@ export function HistoryPanel({
                 <th className="turnover-table-td-1">{t('history.turnoverRequirement')}</th>
                 <th className="turnover-table-td-2">
                   <span className="currency">{currency}</span>
-                  <span>{totalRequirement.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</span>
+                  <span>{money(totalTurnover)}</span>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {rollover.map((item) => (
-                <tr key={item.id}>
-                  <td className="turnover-table-td-1">{item.title}</td>
-                  <td className="turnover-table-td-2">
-                    <span className="currency">{currency}</span>
-                    <span>
-                      {item.progress} / {item.requirement}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-              <tr>
-                <td className="turnover-table-td-1">{t('history.totalTurnover')}</td>
-                <td className="turnover-table-td-2">
-                  <span className="currency">{currency}</span>
-                  <span>{totalRequirement.toLocaleString('en-MY', { minimumFractionDigits: 2 })}</span>
-                </td>
-              </tr>
-              <tr>
+              <RolloverRow label={t('history.turnoverPromotion')} amount={money(promotionTurnover)} currency={currency} />
+              <RolloverRow label={t('history.turnoverLatestDeposit')} amount={money(latestDeposit)} currency={currency} />
+              <RolloverRow label={t('history.totalTurnover')} amount={money(totalTurnover)} currency={currency} />
+              <tr className="turnover-header-footer">
                 <td className="turnover-table-td-1">{t('history.currentTurnover')}</td>
                 <td className="turnover-table-td-2">
                   <span className="currency">{currency}</span>
-                  <span>
-                    {rollover
-                      .reduce((sum, item) => sum + Number(item.progress.replace(/[^\d.]/g, '')), 0)
-                      .toLocaleString('en-MY', { minimumFractionDigits: 2 })}
-                  </span>
+                  <span>{money(currentTurnover)}</span>
                 </td>
               </tr>
             </tbody>

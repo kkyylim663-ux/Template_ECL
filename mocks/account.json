@@ -1,474 +1,3696 @@
 {
-  "status": "0",
-  "msg": "Done",
-  "d": {
-    "profile": {
-      "username": "demo_player",
-      "nickname": "Demo Player",
-      "fullName": "Demo Player",
-      "email": "demo.player@brand.example",
-      "mobileMasked": "+60 12-*** 8899",
-      "vipTier": "silver",
-      "kycStatus": "pending",
-      "joinedAt": "2026-03-08T10:12:00+08:00"
-    },
-    "autoTransfer": true,
-    "wallets": [
-      {
-        "code": "main",
-        "name": "Main wallet",
-        "kind": "main",
-        "amountMinor": 123450,
-        "tone": 42,
-        "available": true
-      },
-      {
-        "code": "pragmatic",
-        "name": "Pragmatic",
-        "kind": "game",
-        "amountMinor": 25000,
-        "tone": 152,
-        "available": true
-      },
-      {
-        "code": "pt",
-        "name": "PT",
-        "kind": "game",
-        "amountMinor": 0,
-        "tone": 205,
-        "available": true
-      },
-      {
-        "code": "jili",
-        "name": "Jili",
-        "kind": "game",
-        "amountMinor": 8800,
-        "tone": 12,
-        "available": false
-      }
-    ],
-    "bankAccounts": [
-      {
-        "id": "ba-1",
-        "bankId": "maybank",
-        "accountName": "Demo Player",
-        "accountNumberMasked": "**** 4471",
-        "verified": true,
-        "addedAt": "2026-04-02T11:00:00+08:00"
-      },
-      {
-        "id": "ba-2",
-        "bankId": "cimb",
-        "accountName": "Demo Player",
-        "accountNumberMasked": "**** 8890",
-        "verified": false,
-        "addedAt": "2026-09-19T15:30:00+08:00"
-      }
-    ],
-    "banks": [
-      {
-        "id": "maybank",
-        "name": "Maybank",
-        "accountName": "BRAND ENTERTAINMENT",
-        "accountNumber": "5142 8890 4471",
-        "tone": 42
-      },
-      {
-        "id": "cimb",
-        "name": "CIMB Bank",
-        "accountName": "BRAND ENTERTAINMENT",
-        "accountNumber": "7021 3348 9912",
-        "tone": 12
-      },
-      {
-        "id": "rhb",
-        "name": "RHB Bank",
-        "accountName": "BRAND ENTERTAINMENT",
-        "accountNumber": "2140 5567 8801",
-        "tone": 205
-      },
-      {
-        "id": "public",
-        "name": "Public Bank",
-        "accountName": "BRAND ENTERTAINMENT",
-        "accountNumber": "3188 9024 6633",
-        "tone": 280
-      }
-    ],
-    "channels": [
-      {
-        "id": "tng",
-        "name": "Touch n Go",
-        "kind": "ewallet",
-        "minAmountMinor": 5000,
-        "maxAmountMinor": 1000000,
-        "feePct": 0,
-        "tone": 152
-      },
-      {
-        "id": "grabpay",
-        "name": "GrabPay",
-        "kind": "ewallet",
-        "minAmountMinor": 5000,
-        "maxAmountMinor": 800000,
-        "feePct": 1,
-        "tone": 100
-      },
-      {
-        "id": "fpx",
-        "name": "FPX online banking",
-        "kind": "online-banking",
-        "minAmountMinor": 5000,
-        "maxAmountMinor": 2000000,
-        "feePct": 0,
-        "tone": 205
-      },
-      {
-        "id": "duitnow",
-        "name": "DuitNow QR",
-        "kind": "qr",
-        "minAmountMinor": 5000,
-        "maxAmountMinor": 500000,
-        "feePct": 0,
-        "tone": 320
-      }
-    ],
-    "transactions": [
-      {
-        "id": "tx-1",
-        "reference": "DP-260214-8841",
-        "kind": "deposit",
-        "status": "approved",
-        "amountMinor": 50000,
-        "methodLabel": "Maybank transfer",
-        "createdAt": "2026-10-13T21:04:00+08:00"
-      },
-      {
-        "id": "tx-2",
-        "reference": "WD-260214-1190",
-        "kind": "withdrawal",
-        "status": "processing",
-        "amountMinor": 30000,
-        "methodLabel": "Maybank **** 4471",
-        "createdAt": "2026-10-13T18:22:00+08:00"
-      },
-      {
-        "id": "tx-3",
-        "reference": "TR-260214-0031",
-        "kind": "transfer",
-        "status": "approved",
-        "amountMinor": 12000,
-        "methodLabel": "Main to Pragmatic",
-        "createdAt": "2026-10-13T17:40:00+08:00"
-      },
-      {
-        "id": "tx-4",
-        "reference": "RB-260214-0007",
-        "kind": "rebate",
-        "status": "approved",
-        "amountMinor": 1840,
-        "methodLabel": "Slots rebate",
-        "createdAt": "2026-10-13T06:00:00+08:00"
-      },
-      {
-        "id": "tx-5",
-        "reference": "DP-260212-7712",
-        "kind": "deposit",
-        "status": "pending",
-        "amountMinor": 20000,
-        "methodLabel": "DuitNow QR",
-        "createdAt": "2026-10-12T20:15:00+08:00",
-        "note": "Receipt unreadable"
-      },
-      {
-        "id": "tx-6",
-        "reference": "BN-260211-0002",
-        "kind": "bonus",
-        "status": "approved",
-        "amountMinor": 8800,
-        "methodLabel": "Daily reload 18%",
-        "createdAt": "2026-10-11T12:00:00+08:00"
-      },
-      {
-        "id": "tx-7",
-        "reference": "WD-260210-4408",
-        "kind": "withdrawal",
-        "status": "rejected",
-        "amountMinor": 90000,
-        "methodLabel": "CIMB **** 8890",
-        "createdAt": "2026-10-10T09:30:00+08:00",
-        "note": "Bank account not verified"
-      },
-      {
-        "id": "tx-8",
-        "reference": "DP-260209-3320",
-        "kind": "deposit",
-        "status": "approved",
-        "amountMinor": 15000,
-        "methodLabel": "Touch n Go",
-        "createdAt": "2026-10-09T13:11:00+08:00"
-      }
-    ],
-    "inbox": [
-      {
-        "id": "msg-1",
-        "kind": "important",
-        "subject": "Your withdrawal is being reviewed",
-        "body": "WD-260214-1190 is with our payments team; most requests clear within 15 minutes.",
-        "read": false,
-        "receivedAt": "2026-10-13T18:25:00+08:00"
-      },
-      {
-        "id": "msg-2",
-        "kind": "important",
-        "subject": "Verify a bank account to withdraw",
-        "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
-        "read": false,
-        "receivedAt": "2026-10-13T09:02:00+08:00"
-      },
-      {
-        "id": "msg-3",
-        "kind": "others",
-        "subject": "Voucher: RELOAD18",
-        "body": "Redeem this code for an 18% reload bonus before Sunday.",
-        "read": true,
-        "receivedAt": "2026-10-12T10:00:00+08:00"
-      },
-      {
-        "id": "msg-4",
-        "kind": "others",
-        "subject": "Weekly turnover race started",
-        "body": "The top 100 entries share the pool. Check the ranking board for your place.",
-        "read": true,
-        "receivedAt": "2026-10-11T08:00:00+08:00"
-      }
-    ],
-    "rebates": [
-      {
-        "id": "rb-1",
-        "period": "2026-10-13",
-        "product": "Slots",
-        "turnoverMinor": 418000,
-        "ratePct": 0.8,
-        "amountMinor": 3344,
-        "status": "claimable",
-        "claimableAt": "2026-10-14T06:00:00+08:00"
-      },
-      {
-        "id": "rb-2",
-        "period": "2026-10-12",
-        "product": "Live casino",
-        "turnoverMinor": 960000,
-        "ratePct": 0.2,
-        "amountMinor": 1920,
-        "status": "claimable",
-        "claimableAt": "2026-10-13T06:00:00+08:00"
-      },
-      {
-        "id": "rb-3",
-        "period": "2026-10-11",
-        "product": "Slots",
-        "turnoverMinor": 302000,
-        "ratePct": 0.8,
-        "amountMinor": 2416,
-        "status": "claimed",
-        "claimableAt": "2026-10-12T06:00:00+08:00"
-      },
-      {
-        "id": "rb-4",
-        "period": "2026-10-14",
-        "product": "Sports",
-        "turnoverMinor": 88000,
-        "ratePct": 0.1,
-        "amountMinor": 88,
-        "status": "pending",
-        "claimableAt": "2026-10-15T06:00:00+08:00"
-      }
-    ],
-    "achievements": [
-      {
-        "id": "ac-1",
-        "gameType": "livecasino",
-        "title": "Table starter",
-        "requirementMinor": 3000,
-        "progressMinor": 150000,
-        "rewardMinor": 500,
-        "status": "claimed"
-      },
-      {
-        "id": "ac-2",
-        "gameType": "livecasino",
-        "title": "Table regular",
-        "requirementMinor": 10000,
-        "progressMinor": 10000,
-        "rewardMinor": 1000,
-        "status": "claimable"
-      },
-      {
-        "id": "ac-3",
-        "gameType": "livecasino",
-        "title": "High roller",
-        "requirementMinor": 45000,
-        "progressMinor": 18900,
-        "rewardMinor": 3000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-4",
-        "gameType": "livecasino",
-        "title": "Whale watch",
-        "requirementMinor": 90000,
-        "progressMinor": 37800,
-        "rewardMinor": 6000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-5",
-        "gameType": "livecasino",
-        "title": "Live legend",
-        "requirementMinor": 150000,
-        "progressMinor": 63000,
-        "rewardMinor": 12000,
-        "status": "locked"
-      },
-      {
-        "id": "ac-6",
-        "gameType": "sports",
-        "title": "First goal",
-        "requirementMinor": 3000,
-        "progressMinor": 150000,
-        "rewardMinor": 500,
-        "status": "claimed"
-      },
-      {
-        "id": "ac-7",
-        "gameType": "sports",
-        "title": "Match day",
-        "requirementMinor": 10000,
-        "progressMinor": 10000,
-        "rewardMinor": 1000,
-        "status": "claimable"
-      },
-      {
-        "id": "ac-8",
-        "gameType": "sports",
-        "title": "Parlay builder",
-        "requirementMinor": 45000,
-        "progressMinor": 18900,
-        "rewardMinor": 3000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-9",
-        "gameType": "sports",
-        "title": "Derby week",
-        "requirementMinor": 90000,
-        "progressMinor": 37800,
-        "rewardMinor": 6000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-10",
-        "gameType": "sports",
-        "title": "Season champion",
-        "requirementMinor": 150000,
-        "progressMinor": 63000,
-        "rewardMinor": 12000,
-        "status": "locked"
-      },
-      {
-        "id": "ac-11",
-        "gameType": "slots",
-        "title": "Slot explorer",
-        "requirementMinor": 3000,
-        "progressMinor": 150000,
-        "rewardMinor": 500,
-        "status": "claimed"
-      },
-      {
-        "id": "ac-12",
-        "gameType": "slots",
-        "title": "Spinner",
-        "requirementMinor": 10000,
-        "progressMinor": 10000,
-        "rewardMinor": 1000,
-        "status": "claimable"
-      },
-      {
-        "id": "ac-13",
-        "gameType": "slots",
-        "title": "Bonus hunter",
-        "requirementMinor": 45000,
-        "progressMinor": 18900,
-        "rewardMinor": 3000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-14",
-        "gameType": "slots",
-        "title": "Jackpot chaser",
-        "requirementMinor": 90000,
-        "progressMinor": 37800,
-        "rewardMinor": 6000,
-        "status": "in-progress"
-      },
-      {
-        "id": "ac-15",
-        "gameType": "slots",
-        "title": "Slot master",
-        "requirementMinor": 150000,
-        "progressMinor": 63000,
-        "rewardMinor": 12000,
-        "status": "locked"
-      }
-    ],
-    "tickets": [
-      {
-        "id": "tk-1",
-        "name": "Euro Mini Winner draw",
-        "description": "Use one ticket to enter this week’s draw.",
-        "opensAt": "2026-10-12T00:00:00+08:00",
-        "closesAt": "2026-10-18T23:59:00+08:00",
-        "ticketsHeld": 3,
-        "ticketsRequired": 1,
-        "status": "open"
-      },
-      {
-        "id": "tk-2",
-        "name": "VIP exclusive table",
-        "description": "Two tickets hold a seat at the Sunday live table.",
-        "opensAt": "2026-10-19T00:00:00+08:00",
-        "closesAt": "2026-10-25T23:59:00+08:00",
-        "ticketsHeld": 1,
-        "ticketsRequired": 2,
-        "status": "upcoming"
-      },
-      {
-        "id": "tk-3",
-        "name": "4D bonus draw",
-        "description": "Closed: three tickets were needed to enter.",
-        "opensAt": "2026-10-01T00:00:00+08:00",
-        "closesAt": "2026-10-08T23:59:00+08:00",
-        "ticketsHeld": 0,
-        "ticketsRequired": 3,
-        "status": "closed"
-      }
-    ],
-    "promotionRollover": [
-      {
-        "id": "ro-1",
-        "title": "Welcome bonus 188%",
-        "requirementMinor": 150400,
-        "progressMinor": 96400,
-        "expiresAt": "2026-11-12T23:59:00+08:00"
-      },
-      {
-        "id": "ro-2",
-        "title": "Daily reload 18%",
-        "requirementMinor": 44000,
-        "progressMinor": 44000,
-        "expiresAt": "2026-10-18T23:59:00+08:00"
-      }
-    ]
-  }
+ "status": "0",
+ "msg": "Done",
+ "d": {
+  "profile": {
+   "username": "demo_player",
+   "nickname": "Demo Player",
+   "fullName": "Demo Player",
+   "email": "demo.player@brand.example",
+   "mobileMasked": "+60 12-*** 8899",
+   "vipTier": "silver",
+   "kycStatus": "pending",
+   "joinedAt": "2026-03-08T10:12:00+08:00"
+  },
+  "autoTransfer": true,
+  "wallets": [
+   {
+    "code": "main",
+    "name": "Main wallet",
+    "kind": "main",
+    "amountMinor": 123450,
+    "tone": 42,
+    "available": true
+   },
+   {
+    "code": "pragmatic",
+    "name": "Pragmatic",
+    "kind": "game",
+    "amountMinor": 25000,
+    "tone": 152,
+    "available": true
+   },
+   {
+    "code": "pt",
+    "name": "PT",
+    "kind": "game",
+    "amountMinor": 0,
+    "tone": 205,
+    "available": true
+   },
+   {
+    "code": "jili",
+    "name": "Jili",
+    "kind": "game",
+    "amountMinor": 8800,
+    "tone": 12,
+    "available": false
+   }
+  ],
+  "bankAccounts": [
+   {
+    "id": "ba-1",
+    "bankId": "maybank",
+    "accountName": "Demo Player",
+    "accountNumberMasked": "**** 4471",
+    "verified": true,
+    "addedAt": "2026-04-02T11:00:00+08:00"
+   },
+   {
+    "id": "ba-2",
+    "bankId": "cimb",
+    "accountName": "Demo Player",
+    "accountNumberMasked": "**** 8890",
+    "verified": false,
+    "addedAt": "2026-09-19T15:30:00+08:00"
+   }
+  ],
+  "banks": [
+   {
+    "id": "maybank",
+    "name": "Maybank",
+    "accountName": "BRAND ENTERTAINMENT",
+    "accountNumber": "5142 8890 4471",
+    "tone": 42
+   },
+   {
+    "id": "cimb",
+    "name": "CIMB Bank",
+    "accountName": "BRAND ENTERTAINMENT",
+    "accountNumber": "7021 3348 9912",
+    "tone": 12
+   },
+   {
+    "id": "rhb",
+    "name": "RHB Bank",
+    "accountName": "BRAND ENTERTAINMENT",
+    "accountNumber": "2140 5567 8801",
+    "tone": 205
+   },
+   {
+    "id": "public",
+    "name": "Public Bank",
+    "accountName": "BRAND ENTERTAINMENT",
+    "accountNumber": "3188 9024 6633",
+    "tone": 280
+   }
+  ],
+  "channels": [
+   {
+    "id": "tng",
+    "name": "Touch n Go",
+    "kind": "ewallet",
+    "minAmountMinor": 5000,
+    "maxAmountMinor": 1000000,
+    "feePct": 0,
+    "tone": 152
+   },
+   {
+    "id": "grabpay",
+    "name": "GrabPay",
+    "kind": "ewallet",
+    "minAmountMinor": 5000,
+    "maxAmountMinor": 800000,
+    "feePct": 1,
+    "tone": 100
+   },
+   {
+    "id": "fpx",
+    "name": "FPX online banking",
+    "kind": "online-banking",
+    "minAmountMinor": 5000,
+    "maxAmountMinor": 2000000,
+    "feePct": 0,
+    "tone": 205
+   },
+   {
+    "id": "duitnow",
+    "name": "DuitNow QR",
+    "kind": "qr",
+    "minAmountMinor": 5000,
+    "maxAmountMinor": 500000,
+    "feePct": 0,
+    "tone": 320
+   }
+  ],
+  "transactions": [
+   {
+    "id": "tx-1",
+    "reference": "DP-260214-8841",
+    "kind": "deposit",
+    "status": "approved",
+    "amountMinor": 50000,
+    "methodLabel": "Maybank transfer",
+    "createdAt": "2026-10-13T21:04:00+08:00"
+   },
+   {
+    "id": "tx-2",
+    "reference": "WD-260214-1190",
+    "kind": "withdrawal",
+    "status": "processing",
+    "amountMinor": 30000,
+    "methodLabel": "Maybank **** 4471",
+    "createdAt": "2026-10-13T18:22:00+08:00"
+   },
+   {
+    "id": "tx-3",
+    "reference": "TR-260214-0031",
+    "kind": "transfer",
+    "status": "approved",
+    "amountMinor": 12000,
+    "methodLabel": "Main to Pragmatic",
+    "createdAt": "2026-10-13T17:40:00+08:00"
+   },
+   {
+    "id": "tx-4",
+    "reference": "RB-260214-0007",
+    "kind": "rebate",
+    "status": "approved",
+    "amountMinor": 1840,
+    "methodLabel": "Slots rebate",
+    "createdAt": "2026-10-13T06:00:00+08:00"
+   },
+   {
+    "id": "tx-5",
+    "reference": "DP-260212-7712",
+    "kind": "deposit",
+    "status": "pending",
+    "amountMinor": 20000,
+    "methodLabel": "DuitNow QR",
+    "createdAt": "2026-10-12T20:15:00+08:00",
+    "note": "Receipt unreadable"
+   },
+   {
+    "id": "tx-6",
+    "reference": "BN-260211-0002",
+    "kind": "bonus",
+    "status": "approved",
+    "amountMinor": 8800,
+    "methodLabel": "Daily reload 18%",
+    "createdAt": "2026-10-11T12:00:00+08:00"
+   },
+   {
+    "id": "tx-7",
+    "reference": "WD-260210-4408",
+    "kind": "withdrawal",
+    "status": "rejected",
+    "amountMinor": 90000,
+    "methodLabel": "CIMB **** 8890",
+    "createdAt": "2026-10-10T09:30:00+08:00",
+    "note": "Bank account not verified"
+   },
+   {
+    "id": "tx-8",
+    "reference": "DP-260209-3320",
+    "kind": "deposit",
+    "status": "approved",
+    "amountMinor": 15000,
+    "methodLabel": "Touch n Go",
+    "createdAt": "2026-10-09T13:11:00+08:00"
+   }
+  ],
+  "inbox": [
+   {
+    "id": "msg-1",
+    "kind": "important",
+    "subject": "Your withdrawal is being reviewed",
+    "body": "WD-260214-1190 is with our payments team; most requests clear within 15 minutes.",
+    "read": false,
+    "receivedAt": "2026-10-13T18:25:00+08:00"
+   },
+   {
+    "id": "msg-2",
+    "kind": "important",
+    "subject": "Verify a bank account to withdraw",
+    "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
+    "read": false,
+    "receivedAt": "2026-10-13T09:02:00+08:00"
+   },
+   {
+    "id": "msg-3",
+    "kind": "others",
+    "subject": "Voucher: RELOAD18",
+    "body": "Redeem this code for an 18% reload bonus before Sunday.",
+    "read": true,
+    "receivedAt": "2026-10-12T10:00:00+08:00"
+   },
+   {
+    "id": "msg-4",
+    "kind": "others",
+    "subject": "Weekly turnover race started",
+    "body": "The top 100 entries share the pool. Check the ranking board for your place.",
+    "read": true,
+    "receivedAt": "2026-10-11T08:00:00+08:00"
+   }
+  ],
+  "rebates": [
+   {
+    "id": "rb-1",
+    "period": "2026-10-13",
+    "product": "Slots",
+    "turnoverMinor": 418000,
+    "ratePct": 0.8,
+    "amountMinor": 3344,
+    "status": "claimable",
+    "claimableAt": "2026-10-14T06:00:00+08:00"
+   },
+   {
+    "id": "rb-2",
+    "period": "2026-10-12",
+    "product": "Live casino",
+    "turnoverMinor": 960000,
+    "ratePct": 0.2,
+    "amountMinor": 1920,
+    "status": "claimable",
+    "claimableAt": "2026-10-13T06:00:00+08:00"
+   },
+   {
+    "id": "rb-3",
+    "period": "2026-10-11",
+    "product": "Slots",
+    "turnoverMinor": 302000,
+    "ratePct": 0.8,
+    "amountMinor": 2416,
+    "status": "claimed",
+    "claimableAt": "2026-10-12T06:00:00+08:00"
+   },
+   {
+    "id": "rb-4",
+    "period": "2026-10-14",
+    "product": "Sports",
+    "turnoverMinor": 88000,
+    "ratePct": 0.1,
+    "amountMinor": 88,
+    "status": "pending",
+    "claimableAt": "2026-10-15T06:00:00+08:00"
+   }
+  ],
+  "achievements": [
+   {
+    "id": "ac-1",
+    "gameType": "livecasino",
+    "title": "Table starter",
+    "requirementMinor": 3000,
+    "progressMinor": 150000,
+    "rewardMinor": 500,
+    "status": "claimed"
+   },
+   {
+    "id": "ac-2",
+    "gameType": "livecasino",
+    "title": "Table regular",
+    "requirementMinor": 10000,
+    "progressMinor": 10000,
+    "rewardMinor": 1000,
+    "status": "claimable"
+   },
+   {
+    "id": "ac-3",
+    "gameType": "livecasino",
+    "title": "High roller",
+    "requirementMinor": 45000,
+    "progressMinor": 18900,
+    "rewardMinor": 3000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-4",
+    "gameType": "livecasino",
+    "title": "Whale watch",
+    "requirementMinor": 90000,
+    "progressMinor": 37800,
+    "rewardMinor": 6000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-5",
+    "gameType": "livecasino",
+    "title": "Live legend",
+    "requirementMinor": 150000,
+    "progressMinor": 63000,
+    "rewardMinor": 12000,
+    "status": "locked"
+   },
+   {
+    "id": "ac-6",
+    "gameType": "sports",
+    "title": "First goal",
+    "requirementMinor": 3000,
+    "progressMinor": 150000,
+    "rewardMinor": 500,
+    "status": "claimed"
+   },
+   {
+    "id": "ac-7",
+    "gameType": "sports",
+    "title": "Match day",
+    "requirementMinor": 10000,
+    "progressMinor": 10000,
+    "rewardMinor": 1000,
+    "status": "claimable"
+   },
+   {
+    "id": "ac-8",
+    "gameType": "sports",
+    "title": "Parlay builder",
+    "requirementMinor": 45000,
+    "progressMinor": 18900,
+    "rewardMinor": 3000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-9",
+    "gameType": "sports",
+    "title": "Derby week",
+    "requirementMinor": 90000,
+    "progressMinor": 37800,
+    "rewardMinor": 6000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-10",
+    "gameType": "sports",
+    "title": "Season champion",
+    "requirementMinor": 150000,
+    "progressMinor": 63000,
+    "rewardMinor": 12000,
+    "status": "locked"
+   },
+   {
+    "id": "ac-11",
+    "gameType": "slots",
+    "title": "Slot explorer",
+    "requirementMinor": 3000,
+    "progressMinor": 150000,
+    "rewardMinor": 500,
+    "status": "claimed"
+   },
+   {
+    "id": "ac-12",
+    "gameType": "slots",
+    "title": "Spinner",
+    "requirementMinor": 10000,
+    "progressMinor": 10000,
+    "rewardMinor": 1000,
+    "status": "claimable"
+   },
+   {
+    "id": "ac-13",
+    "gameType": "slots",
+    "title": "Bonus hunter",
+    "requirementMinor": 45000,
+    "progressMinor": 18900,
+    "rewardMinor": 3000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-14",
+    "gameType": "slots",
+    "title": "Jackpot chaser",
+    "requirementMinor": 90000,
+    "progressMinor": 37800,
+    "rewardMinor": 6000,
+    "status": "in-progress"
+   },
+   {
+    "id": "ac-15",
+    "gameType": "slots",
+    "title": "Slot master",
+    "requirementMinor": 150000,
+    "progressMinor": 63000,
+    "rewardMinor": 12000,
+    "status": "locked"
+   }
+  ],
+  "tickets": [
+   {
+    "id": "tk-1",
+    "name": "Euro Mini Winner draw",
+    "description": "Use one ticket to enter this week’s draw.",
+    "opensAt": "2026-10-12T00:00:00+08:00",
+    "closesAt": "2026-10-18T23:59:00+08:00",
+    "ticketsHeld": 3,
+    "ticketsRequired": 1,
+    "status": "open"
+   },
+   {
+    "id": "tk-2",
+    "name": "VIP exclusive table",
+    "description": "Two tickets hold a seat at the Sunday live table.",
+    "opensAt": "2026-10-19T00:00:00+08:00",
+    "closesAt": "2026-10-25T23:59:00+08:00",
+    "ticketsHeld": 1,
+    "ticketsRequired": 2,
+    "status": "upcoming"
+   },
+   {
+    "id": "tk-3",
+    "name": "4D bonus draw",
+    "description": "Closed: three tickets were needed to enter.",
+    "opensAt": "2026-10-01T00:00:00+08:00",
+    "closesAt": "2026-10-08T23:59:00+08:00",
+    "ticketsHeld": 0,
+    "ticketsRequired": 3,
+    "status": "closed"
+   }
+  ],
+  "promotionRollover": [
+   {
+    "id": "ro-1",
+    "title": "Welcome bonus 188%",
+    "requirementMinor": 150400,
+    "progressMinor": 96400,
+    "expiresAt": "2026-11-12T23:59:00+08:00"
+   },
+   {
+    "id": "ro-2",
+    "title": "Daily reload 18%",
+    "requirementMinor": 44000,
+    "progressMinor": 44000,
+    "expiresAt": "2026-10-18T23:59:00+08:00"
+   }
+  ],
+  "history": [
+   {
+    "id": "hb-1160",
+    "kind": "bet",
+    "at": "2026-10-16T23:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 49,
+    "turnoverMinor": 1117816,
+    "winLoseMinor": 9952,
+    "realBetMinor": 912855
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-16T21:33:00+08:00",
+    "amountMinor": 10000,
+    "method": "DuitNow QR",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-26"
+   },
+   {
+    "id": "hb-1034",
+    "kind": "bet",
+    "at": "2026-10-16T15:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 15,
+    "turnoverMinor": 667473,
+    "winLoseMinor": -3795,
+    "realBetMinor": 198592
+   },
+   {
+    "id": "hb-1084",
+    "kind": "bet",
+    "at": "2026-10-16T14:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 105,
+    "turnoverMinor": 1386221,
+    "winLoseMinor": 166567,
+    "realBetMinor": 754213
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-16T12:26:00+08:00",
+    "amountMinor": 30000,
+    "method": "DuitNow QR",
+    "status": "cancelled",
+    "reason": "Duplicate request",
+    "id": "h-28"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-16T12:05:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Weekly cashback 5%",
+    "status": "approved",
+    "reason": "Expired",
+    "id": "h-167"
+   },
+   {
+    "id": "hb-1022",
+    "kind": "bet",
+    "at": "2026-10-16T08:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 25,
+    "turnoverMinor": 984700,
+    "winLoseMinor": 217761,
+    "realBetMinor": 1158676
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-15T18:20:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Weekly cashback 5%",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-158"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-15T17:33:00+08:00",
+    "amountMinor": 30000,
+    "method": "CIMB transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-11"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-15T16:48:00+08:00",
+    "amountMinor": 5000,
+    "method": "CIMB transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-15"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-15T15:11:00+08:00",
+    "amountMinor": 50000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-65"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-15T13:48:00+08:00",
+    "amountMinor": 3000,
+    "method": "Public Bank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-57"
+   },
+   {
+    "id": "hb-1070",
+    "kind": "bet",
+    "at": "2026-10-15T11:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 35,
+    "turnoverMinor": 1006791,
+    "winLoseMinor": 185365,
+    "realBetMinor": 585528
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-15T10:48:00+08:00",
+    "amountMinor": 3000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-2"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-15T09:11:00+08:00",
+    "amountMinor": 50000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-92"
+   },
+   {
+    "id": "hb-1091",
+    "kind": "bet",
+    "at": "2026-10-14T23:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 17,
+    "turnoverMinor": 1624793,
+    "winLoseMinor": 217471,
+    "realBetMinor": 186130
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-14T20:20:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Weekly cashback 5%",
+    "status": "pending",
+    "reason": "Turnover not met",
+    "id": "h-155"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-14T20:19:00+08:00",
+    "amountMinor": 80000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-24"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-14T18:26:00+08:00",
+    "amountMinor": 20000,
+    "method": "CIMB transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-39"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-14T17:48:00+08:00",
+    "amountMinor": 10000,
+    "method": "Public Bank transfer",
+    "status": "rejected",
+    "reason": "Duplicate request",
+    "id": "h-40"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-14T15:44:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "processing",
+    "reason": "–",
+    "id": "h-91"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-14T13:33:00+08:00",
+    "amountMinor": 30000,
+    "method": "Public Bank transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-5"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-13T23:45:00+08:00",
+    "amountMinor": 1000,
+    "from": "Main wallet",
+    "to": "Spade",
+    "status": "approved",
+    "id": "h-142"
+   },
+   {
+    "id": "hb-1121",
+    "kind": "bet",
+    "at": "2026-10-13T23:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 66,
+    "turnoverMinor": 857017,
+    "winLoseMinor": -138416,
+    "realBetMinor": 499842
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-13T16:23:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-79"
+   },
+   {
+    "id": "hb-1057",
+    "kind": "bet",
+    "at": "2026-10-13T15:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 47,
+    "turnoverMinor": 949917,
+    "winLoseMinor": -84220,
+    "realBetMinor": 1233349
+   },
+   {
+    "id": "hb-1046",
+    "kind": "bet",
+    "at": "2026-10-13T13:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 80,
+    "turnoverMinor": 212863,
+    "winLoseMinor": 136075,
+    "realBetMinor": 87390
+   },
+   {
+    "id": "hb-1068",
+    "kind": "bet",
+    "at": "2026-10-13T12:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 121,
+    "turnoverMinor": 590888,
+    "winLoseMinor": -61636,
+    "realBetMinor": 1047386
+   },
+   {
+    "id": "hb-1075",
+    "kind": "bet",
+    "at": "2026-10-13T10:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 139,
+    "turnoverMinor": 1687240,
+    "winLoseMinor": 141994,
+    "realBetMinor": 1013382
+   },
+   {
+    "id": "hb-1003",
+    "kind": "bet",
+    "at": "2026-10-13T08:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 78,
+    "turnoverMinor": 2233625,
+    "winLoseMinor": -7166,
+    "realBetMinor": 1510826
+   },
+   {
+    "id": "hb-1005",
+    "kind": "bet",
+    "at": "2026-10-12T22:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 113,
+    "turnoverMinor": 969418,
+    "winLoseMinor": -3511,
+    "realBetMinor": 1077359
+   },
+   {
+    "id": "hb-1110",
+    "kind": "bet",
+    "at": "2026-10-12T22:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 75,
+    "turnoverMinor": 1360376,
+    "winLoseMinor": -158866,
+    "realBetMinor": 1391933
+   },
+   {
+    "id": "hb-1013",
+    "kind": "bet",
+    "at": "2026-10-12T20:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 48,
+    "turnoverMinor": 589422,
+    "winLoseMinor": 218626,
+    "realBetMinor": 814168
+   },
+   {
+    "id": "hb-1001",
+    "kind": "bet",
+    "at": "2026-10-12T20:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 61,
+    "turnoverMinor": 2183075,
+    "winLoseMinor": -100326,
+    "realBetMinor": 1239171
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-12T19:45:00+08:00",
+    "amountMinor": 25000,
+    "from": "Joker",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-101"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-12T17:25:00+08:00",
+    "amountMinor": 5000,
+    "from": "Spade",
+    "to": "Pragmatic",
+    "status": "pending",
+    "id": "h-128"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-12T11:02:00+08:00",
+    "amountMinor": 50000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-72"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-12T10:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "Touch n Go eWallet",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-16"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-11T22:41:00+08:00",
+    "amountMinor": 30000,
+    "method": "Touch n Go eWallet",
+    "status": "pending",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-17"
+   },
+   {
+    "id": "hb-1004",
+    "kind": "bet",
+    "at": "2026-10-11T20:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 95,
+    "turnoverMinor": 674777,
+    "winLoseMinor": 66794,
+    "realBetMinor": 991451
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-11T19:26:00+08:00",
+    "amountMinor": 50000,
+    "method": "Touch n Go eWallet",
+    "status": "rejected",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-22"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-11T19:15:00+08:00",
+    "amountMinor": 2500,
+    "from": "Pragmatic",
+    "to": "Spade",
+    "status": "approved",
+    "id": "h-143"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-11T18:20:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Referral reward MYR 30",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-163"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-11T17:50:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-160"
+   },
+   {
+    "id": "hb-1158",
+    "kind": "bet",
+    "at": "2026-10-11T14:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 110,
+    "turnoverMinor": 269706,
+    "winLoseMinor": 164317,
+    "realBetMinor": 807535
+   },
+   {
+    "id": "hb-1109",
+    "kind": "bet",
+    "at": "2026-10-11T14:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 122,
+    "turnoverMinor": 1365634,
+    "winLoseMinor": 211234,
+    "realBetMinor": 1455361
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-11T10:15:00+08:00",
+    "amountMinor": 10000,
+    "from": "Joker",
+    "to": "Pragmatic",
+    "status": "pending",
+    "id": "h-115"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-10T23:35:00+08:00",
+    "amountMinor": 2500,
+    "from": "Spade",
+    "to": "CQ9",
+    "status": "pending",
+    "id": "h-145"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-10T21:07:00+08:00",
+    "amountMinor": 3000,
+    "method": "Public Bank transfer",
+    "status": "approved",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-6"
+   },
+   {
+    "id": "hb-1039",
+    "kind": "bet",
+    "at": "2026-10-10T18:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 21,
+    "turnoverMinor": 1030289,
+    "winLoseMinor": 41173,
+    "realBetMinor": 367452
+   },
+   {
+    "id": "hb-1085",
+    "kind": "bet",
+    "at": "2026-10-10T14:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 71,
+    "turnoverMinor": 267400,
+    "winLoseMinor": 51930,
+    "realBetMinor": 87648
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-10T12:25:00+08:00",
+    "amountMinor": 1000,
+    "from": "Main wallet",
+    "to": "Joker",
+    "status": "pending",
+    "id": "h-132"
+   },
+   {
+    "id": "hb-1099",
+    "kind": "bet",
+    "at": "2026-10-10T11:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 57,
+    "turnoverMinor": 1590379,
+    "winLoseMinor": 65379,
+    "realBetMinor": 1147312
+   },
+   {
+    "id": "hb-1040",
+    "kind": "bet",
+    "at": "2026-10-10T10:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 58,
+    "turnoverMinor": 156051,
+    "winLoseMinor": 215742,
+    "realBetMinor": 1416241
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-10T09:55:00+08:00",
+    "amountMinor": 2500,
+    "from": "Pragmatic",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-131"
+   },
+   {
+    "id": "hb-1059",
+    "kind": "bet",
+    "at": "2026-10-09T23:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 104,
+    "turnoverMinor": 763062,
+    "winLoseMinor": 120208,
+    "realBetMinor": 919043
+   },
+   {
+    "id": "hb-1067",
+    "kind": "bet",
+    "at": "2026-10-09T19:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 78,
+    "turnoverMinor": 2292741,
+    "winLoseMinor": -48303,
+    "realBetMinor": 877229
+   },
+   {
+    "id": "hb-1009",
+    "kind": "bet",
+    "at": "2026-10-09T19:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 96,
+    "turnoverMinor": 2242154,
+    "winLoseMinor": 213857,
+    "realBetMinor": 1403437
+   },
+   {
+    "id": "hb-1023",
+    "kind": "bet",
+    "at": "2026-10-09T19:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 107,
+    "turnoverMinor": 637502,
+    "winLoseMinor": -67830,
+    "realBetMinor": 134936
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-09T14:03:00+08:00",
+    "amountMinor": 10000,
+    "from": "Spade",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-125"
+   },
+   {
+    "id": "hb-1071",
+    "kind": "bet",
+    "at": "2026-10-09T11:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 44,
+    "turnoverMinor": 168497,
+    "winLoseMinor": 143779,
+    "realBetMinor": 100665
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-09T10:03:00+08:00",
+    "amountMinor": 25000,
+    "from": "CQ9",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-130"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-08T22:03:00+08:00",
+    "amountMinor": 10000,
+    "from": "Main wallet",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-111"
+   },
+   {
+    "id": "hb-1042",
+    "kind": "bet",
+    "at": "2026-10-08T18:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 101,
+    "turnoverMinor": 101998,
+    "winLoseMinor": -160597,
+    "realBetMinor": 1543192
+   },
+   {
+    "id": "hb-1154",
+    "kind": "bet",
+    "at": "2026-10-08T18:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 58,
+    "turnoverMinor": 2364123,
+    "winLoseMinor": -83325,
+    "realBetMinor": 1418603
+   },
+   {
+    "id": "hb-1035",
+    "kind": "bet",
+    "at": "2026-10-08T17:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 118,
+    "turnoverMinor": 1009102,
+    "winLoseMinor": -168717,
+    "realBetMinor": 340818
+   },
+   {
+    "id": "hb-1056",
+    "kind": "bet",
+    "at": "2026-10-08T15:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 124,
+    "turnoverMinor": 2406820,
+    "winLoseMinor": 85756,
+    "realBetMinor": 898474
+   },
+   {
+    "id": "hb-1100",
+    "kind": "bet",
+    "at": "2026-10-08T15:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 49,
+    "turnoverMinor": 858667,
+    "winLoseMinor": 11369,
+    "realBetMinor": 41913
+   },
+   {
+    "id": "hb-1031",
+    "kind": "bet",
+    "at": "2026-10-08T14:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 97,
+    "turnoverMinor": 2068256,
+    "winLoseMinor": -31892,
+    "realBetMinor": 1318021
+   },
+   {
+    "id": "hb-1150",
+    "kind": "bet",
+    "at": "2026-10-08T13:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 5,
+    "turnoverMinor": 2016902,
+    "winLoseMinor": -7619,
+    "realBetMinor": 1082744
+   },
+   {
+    "id": "hb-1104",
+    "kind": "bet",
+    "at": "2026-10-08T11:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 103,
+    "turnoverMinor": 142189,
+    "winLoseMinor": -107804,
+    "realBetMinor": 1732397
+   },
+   {
+    "id": "hb-1029",
+    "kind": "bet",
+    "at": "2026-10-08T10:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 14,
+    "turnoverMinor": 1367752,
+    "winLoseMinor": 133996,
+    "realBetMinor": 1770411
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-08T10:44:00+08:00",
+    "amountMinor": 50000,
+    "method": "Visa **** 3341",
+    "status": "processing",
+    "reason": "–",
+    "id": "h-70"
+   },
+   {
+    "id": "hb-1131",
+    "kind": "bet",
+    "at": "2026-10-08T09:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 49,
+    "turnoverMinor": 192010,
+    "winLoseMinor": -102100,
+    "realBetMinor": 1065427
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-07T23:07:00+08:00",
+    "amountMinor": 30000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-44"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-07T22:48:00+08:00",
+    "amountMinor": 80000,
+    "method": "GrabPay",
+    "status": "rejected",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-43"
+   },
+   {
+    "id": "hb-1051",
+    "kind": "bet",
+    "at": "2026-10-07T19:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 140,
+    "turnoverMinor": 2334100,
+    "winLoseMinor": 65989,
+    "realBetMinor": 1591002
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-07T14:15:00+08:00",
+    "amountMinor": 25000,
+    "from": "Joker",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-113"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-07T13:20:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Welcome bonus 188%",
+    "status": "approved",
+    "reason": "Turnover not met",
+    "id": "h-172"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-07T12:02:00+08:00",
+    "amountMinor": 50000,
+    "method": "Visa **** 3341",
+    "status": "processing",
+    "reason": "–",
+    "id": "h-97"
+   },
+   {
+    "id": "hb-1106",
+    "kind": "bet",
+    "at": "2026-10-07T09:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 25,
+    "turnoverMinor": 476526,
+    "winLoseMinor": 131465,
+    "realBetMinor": 1358028
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-07T08:19:00+08:00",
+    "amountMinor": 100000,
+    "method": "DuitNow QR",
+    "status": "rejected",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-8"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-06T23:25:00+08:00",
+    "amountMinor": 10000,
+    "from": "PT",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-140"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-06T20:40:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Weekly cashback 5%",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-179"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-06T20:05:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Welcome bonus 188%",
+    "status": "approved",
+    "reason": "Turnover not met",
+    "id": "h-168"
+   },
+   {
+    "id": "hb-1143",
+    "kind": "bet",
+    "at": "2026-10-06T19:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 80,
+    "turnoverMinor": 2016852,
+    "winLoseMinor": 98250,
+    "realBetMinor": 1169950
+   },
+   {
+    "id": "hb-1119",
+    "kind": "bet",
+    "at": "2026-10-06T16:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 109,
+    "turnoverMinor": 1001289,
+    "winLoseMinor": 211316,
+    "realBetMinor": 263126
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-06T15:58:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-100"
+   },
+   {
+    "id": "hb-1155",
+    "kind": "bet",
+    "at": "2026-10-06T14:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 100,
+    "turnoverMinor": 1734457,
+    "winLoseMinor": 143171,
+    "realBetMinor": 348777
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-06T14:15:00+08:00",
+    "amountMinor": 1000,
+    "from": "Pragmatic",
+    "to": "Main wallet",
+    "status": "pending",
+    "id": "h-104"
+   },
+   {
+    "id": "hb-1123",
+    "kind": "bet",
+    "at": "2026-10-06T10:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 30,
+    "turnoverMinor": 1463742,
+    "winLoseMinor": 34219,
+    "realBetMinor": 806223
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-06T08:07:00+08:00",
+    "amountMinor": 50000,
+    "method": "GrabPay",
+    "status": "cancelled",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-18"
+   },
+   {
+    "id": "hb-1064",
+    "kind": "bet",
+    "at": "2026-10-05T23:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 12,
+    "turnoverMinor": 695462,
+    "winLoseMinor": 65845,
+    "realBetMinor": 892666
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-05T20:03:00+08:00",
+    "amountMinor": 5000,
+    "from": "Joker",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-106"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-05T19:35:00+08:00",
+    "amountMinor": 25000,
+    "from": "Pragmatic",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-120"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-05T14:40:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Weekly cashback 5%",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-159"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-05T14:25:00+08:00",
+    "amountMinor": 5000,
+    "from": "Spade",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-102"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-05T08:35:00+08:00",
+    "amountMinor": 1000,
+    "from": "Spade",
+    "to": "Pragmatic",
+    "status": "pending",
+    "id": "h-133"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-04T21:03:00+08:00",
+    "amountMinor": 25000,
+    "from": "Pragmatic",
+    "to": "PT",
+    "status": "pending",
+    "id": "h-124"
+   },
+   {
+    "id": "hb-1105",
+    "kind": "bet",
+    "at": "2026-10-04T20:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 88,
+    "turnoverMinor": 1335050,
+    "winLoseMinor": -41486,
+    "realBetMinor": 1011816
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-04T20:05:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Referral reward MYR 30",
+    "status": "rejected",
+    "reason": "Expired",
+    "id": "h-151"
+   },
+   {
+    "id": "hb-1076",
+    "kind": "bet",
+    "at": "2026-10-04T19:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 95,
+    "turnoverMinor": 908535,
+    "winLoseMinor": -165506,
+    "realBetMinor": 290267
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-04T18:41:00+08:00",
+    "amountMinor": 20000,
+    "method": "Public Bank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-51"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-04T14:45:00+08:00",
+    "amountMinor": 10000,
+    "from": "PT",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-109"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-04T14:05:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Weekly cashback 5%",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-176"
+   },
+   {
+    "id": "hb-1016",
+    "kind": "bet",
+    "at": "2026-10-04T11:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 84,
+    "turnoverMinor": 1182029,
+    "winLoseMinor": 164036,
+    "realBetMinor": 1302453
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-03T21:07:00+08:00",
+    "amountMinor": 80000,
+    "method": "CIMB transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-4"
+   },
+   {
+    "id": "hb-1107",
+    "kind": "bet",
+    "at": "2026-10-03T20:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 68,
+    "turnoverMinor": 596174,
+    "winLoseMinor": -170260,
+    "realBetMinor": 678613
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-03T15:58:00+08:00",
+    "amountMinor": 30000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-99"
+   },
+   {
+    "id": "hb-1156",
+    "kind": "bet",
+    "at": "2026-10-03T15:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 12,
+    "turnoverMinor": 1663851,
+    "winLoseMinor": -21415,
+    "realBetMinor": 211871
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-03T15:03:00+08:00",
+    "amountMinor": 2500,
+    "from": "Main wallet",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-105"
+   },
+   {
+    "id": "hb-1008",
+    "kind": "bet",
+    "at": "2026-10-03T11:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 83,
+    "turnoverMinor": 290907,
+    "winLoseMinor": 216478,
+    "realBetMinor": 610453
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-03T09:58:00+08:00",
+    "amountMinor": 50000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-81"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-10-02T21:45:00+08:00",
+    "amountMinor": 10000,
+    "from": "Pragmatic",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-139"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-02T21:44:00+08:00",
+    "amountMinor": 30000,
+    "method": "USDT (TRC20)",
+    "status": "processing",
+    "reason": "Bank details mismatch",
+    "id": "h-78"
+   },
+   {
+    "id": "hb-1128",
+    "kind": "bet",
+    "at": "2026-10-02T19:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 102,
+    "turnoverMinor": 1742714,
+    "winLoseMinor": 142468,
+    "realBetMinor": 958154
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-02T18:33:00+08:00",
+    "amountMinor": 100000,
+    "method": "GrabPay",
+    "status": "approved",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-19"
+   },
+   {
+    "id": "hb-1134",
+    "kind": "bet",
+    "at": "2026-10-02T16:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 16,
+    "turnoverMinor": 1919763,
+    "winLoseMinor": 30436,
+    "realBetMinor": 1598762
+   },
+   {
+    "id": "hb-1140",
+    "kind": "bet",
+    "at": "2026-10-02T16:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 125,
+    "turnoverMinor": 2068109,
+    "winLoseMinor": 186305,
+    "realBetMinor": 1328156
+   },
+   {
+    "id": "hb-1118",
+    "kind": "bet",
+    "at": "2026-10-02T14:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 102,
+    "turnoverMinor": 734464,
+    "winLoseMinor": 161329,
+    "realBetMinor": 876664
+   },
+   {
+    "id": "hb-1036",
+    "kind": "bet",
+    "at": "2026-10-02T13:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 56,
+    "turnoverMinor": 1543556,
+    "winLoseMinor": -117147,
+    "realBetMinor": 19987
+   },
+   {
+    "id": "hb-1141",
+    "kind": "bet",
+    "at": "2026-10-02T11:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 116,
+    "turnoverMinor": 1470897,
+    "winLoseMinor": -163420,
+    "realBetMinor": 182654
+   },
+   {
+    "id": "hb-1074",
+    "kind": "bet",
+    "at": "2026-10-02T11:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 123,
+    "turnoverMinor": 94826,
+    "winLoseMinor": -53471,
+    "realBetMinor": 1678114
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-10-02T09:23:00+08:00",
+    "amountMinor": 30000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-93"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-10-02T08:19:00+08:00",
+    "amountMinor": 5000,
+    "method": "Maybank transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-30"
+   },
+   {
+    "id": "hb-1098",
+    "kind": "bet",
+    "at": "2026-10-01T22:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 107,
+    "turnoverMinor": 408571,
+    "winLoseMinor": -79245,
+    "realBetMinor": 679352
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-01T21:05:00+08:00",
+    "amountMinor": 30000,
+    "promoType": "Weekly cashback 5%",
+    "status": "approved",
+    "reason": "Expired",
+    "id": "h-170"
+   },
+   {
+    "id": "hb-1097",
+    "kind": "bet",
+    "at": "2026-10-01T20:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 18,
+    "turnoverMinor": 1465500,
+    "winLoseMinor": 99329,
+    "realBetMinor": 689432
+   },
+   {
+    "id": "hb-1037",
+    "kind": "bet",
+    "at": "2026-10-01T18:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 67,
+    "turnoverMinor": 807049,
+    "winLoseMinor": 206278,
+    "realBetMinor": 1766336
+   },
+   {
+    "id": "hb-1095",
+    "kind": "bet",
+    "at": "2026-10-01T18:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 49,
+    "turnoverMinor": 1239195,
+    "winLoseMinor": -156014,
+    "realBetMinor": 842044
+   },
+   {
+    "id": "hb-1125",
+    "kind": "bet",
+    "at": "2026-10-01T17:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 131,
+    "turnoverMinor": 37639,
+    "winLoseMinor": -177090,
+    "realBetMinor": 727290
+   },
+   {
+    "kind": "promo",
+    "at": "2026-10-01T13:20:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Referral reward MYR 30",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-164"
+   },
+   {
+    "id": "hb-1053",
+    "kind": "bet",
+    "at": "2026-10-01T09:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 128,
+    "turnoverMinor": 1531268,
+    "winLoseMinor": 28969,
+    "realBetMinor": 1187664
+   },
+   {
+    "id": "hb-1090",
+    "kind": "bet",
+    "at": "2026-09-30T23:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 53,
+    "turnoverMinor": 1376806,
+    "winLoseMinor": 70552,
+    "realBetMinor": 275956
+   },
+   {
+    "id": "hb-1120",
+    "kind": "bet",
+    "at": "2026-09-30T19:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 138,
+    "turnoverMinor": 2005617,
+    "winLoseMinor": 48740,
+    "realBetMinor": 1338544
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-30T17:33:00+08:00",
+    "amountMinor": 3000,
+    "method": "Touch n Go eWallet",
+    "status": "cancelled",
+    "reason": "Duplicate request",
+    "id": "h-56"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-30T16:26:00+08:00",
+    "amountMinor": 3000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-32"
+   },
+   {
+    "id": "hb-1079",
+    "kind": "bet",
+    "at": "2026-09-30T14:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 107,
+    "turnoverMinor": 756859,
+    "winLoseMinor": 77506,
+    "realBetMinor": 1387089
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-30T14:23:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-69"
+   },
+   {
+    "id": "hb-1081",
+    "kind": "bet",
+    "at": "2026-09-30T14:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 109,
+    "turnoverMinor": 720292,
+    "winLoseMinor": -107910,
+    "realBetMinor": 246851
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-30T13:11:00+08:00",
+    "amountMinor": 10000,
+    "method": "Visa **** 3341",
+    "status": "processing",
+    "reason": "Bank details mismatch",
+    "id": "h-90"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-30T08:33:00+08:00",
+    "amountMinor": 3000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-37"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-29T22:11:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-68"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-29T21:48:00+08:00",
+    "amountMinor": 30000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-1"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-29T15:55:00+08:00",
+    "amountMinor": 20000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-14"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-29T15:15:00+08:00",
+    "amountMinor": 10000,
+    "from": "Pragmatic",
+    "to": "Main wallet",
+    "status": "pending",
+    "id": "h-147"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-29T14:45:00+08:00",
+    "amountMinor": 5000,
+    "from": "Joker",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-121"
+   },
+   {
+    "id": "hb-1060",
+    "kind": "bet",
+    "at": "2026-09-29T14:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 85,
+    "turnoverMinor": 427348,
+    "winLoseMinor": -62170,
+    "realBetMinor": 614356
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-29T11:50:00+08:00",
+    "amountMinor": 30000,
+    "promoType": "Weekly cashback 5%",
+    "status": "pending",
+    "reason": "Expired",
+    "id": "h-173"
+   },
+   {
+    "id": "hb-1054",
+    "kind": "bet",
+    "at": "2026-09-29T11:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 125,
+    "turnoverMinor": 400405,
+    "winLoseMinor": 128986,
+    "realBetMinor": 963940
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-29T11:05:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Referral reward MYR 30",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-171"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-28T21:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "CIMB transfer",
+    "status": "approved",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-41"
+   },
+   {
+    "id": "hb-1041",
+    "kind": "bet",
+    "at": "2026-09-28T19:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 94,
+    "turnoverMinor": 1212333,
+    "winLoseMinor": -146696,
+    "realBetMinor": 138128
+   },
+   {
+    "id": "hb-1026",
+    "kind": "bet",
+    "at": "2026-09-28T18:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 24,
+    "turnoverMinor": 2076394,
+    "winLoseMinor": 140458,
+    "realBetMinor": 1011719
+   },
+   {
+    "id": "hb-1146",
+    "kind": "bet",
+    "at": "2026-09-28T18:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 78,
+    "turnoverMinor": 1157349,
+    "winLoseMinor": -93832,
+    "realBetMinor": 315763
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-28T16:40:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Welcome bonus 188%",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-154"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-28T14:41:00+08:00",
+    "amountMinor": 80000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-9"
+   },
+   {
+    "id": "hb-1078",
+    "kind": "bet",
+    "at": "2026-09-28T12:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 137,
+    "turnoverMinor": 751138,
+    "winLoseMinor": 19568,
+    "realBetMinor": 1070331
+   },
+   {
+    "id": "hb-1025",
+    "kind": "bet",
+    "at": "2026-09-28T11:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 87,
+    "turnoverMinor": 995796,
+    "winLoseMinor": -24227,
+    "realBetMinor": 1621266
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-28T10:35:00+08:00",
+    "amountMinor": 1000,
+    "from": "Pragmatic",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-138"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-28T08:25:00+08:00",
+    "amountMinor": 25000,
+    "from": "Main wallet",
+    "to": "PT",
+    "status": "pending",
+    "id": "h-150"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-27T23:25:00+08:00",
+    "amountMinor": 1000,
+    "from": "CQ9",
+    "to": "PT",
+    "status": "pending",
+    "id": "h-134"
+   },
+   {
+    "id": "hb-1015",
+    "kind": "bet",
+    "at": "2026-09-27T20:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 100,
+    "turnoverMinor": 191978,
+    "winLoseMinor": -122888,
+    "realBetMinor": 125819
+   },
+   {
+    "id": "hb-1159",
+    "kind": "bet",
+    "at": "2026-09-27T18:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 108,
+    "turnoverMinor": 600121,
+    "winLoseMinor": 98791,
+    "realBetMinor": 1197892
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-27T16:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "Maybank transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-45"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-27T16:03:00+08:00",
+    "amountMinor": 2500,
+    "from": "Pragmatic",
+    "to": "Spade",
+    "status": "pending",
+    "id": "h-119"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-27T14:41:00+08:00",
+    "amountMinor": 100000,
+    "method": "Touch n Go eWallet",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-49"
+   },
+   {
+    "id": "hb-1142",
+    "kind": "bet",
+    "at": "2026-09-27T14:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 88,
+    "turnoverMinor": 908592,
+    "winLoseMinor": 9406,
+    "realBetMinor": 549527
+   },
+   {
+    "id": "hb-1065",
+    "kind": "bet",
+    "at": "2026-09-27T10:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 130,
+    "turnoverMinor": 771637,
+    "winLoseMinor": -77637,
+    "realBetMinor": 70624
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-27T10:20:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Welcome bonus 188%",
+    "status": "approved",
+    "reason": "Turnover not met",
+    "id": "h-180"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-27T09:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "Public Bank transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-3"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-26T21:44:00+08:00",
+    "amountMinor": 30000,
+    "method": "Visa **** 3341",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-75"
+   },
+   {
+    "id": "hb-1033",
+    "kind": "bet",
+    "at": "2026-09-26T18:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 55,
+    "turnoverMinor": 727808,
+    "winLoseMinor": 3293,
+    "realBetMinor": 1378320
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-26T17:02:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-85"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-26T14:58:00+08:00",
+    "amountMinor": 30000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-80"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-26T12:45:00+08:00",
+    "amountMinor": 1000,
+    "from": "Joker",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-117"
+   },
+   {
+    "id": "hb-1007",
+    "kind": "bet",
+    "at": "2026-09-25T22:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 50,
+    "turnoverMinor": 1630030,
+    "winLoseMinor": -21805,
+    "realBetMinor": 762912
+   },
+   {
+    "id": "hb-1019",
+    "kind": "bet",
+    "at": "2026-09-25T20:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 17,
+    "turnoverMinor": 2222268,
+    "winLoseMinor": 76778,
+    "realBetMinor": 143269
+   },
+   {
+    "id": "hb-1116",
+    "kind": "bet",
+    "at": "2026-09-25T20:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 24,
+    "turnoverMinor": 2384863,
+    "winLoseMinor": -3442,
+    "realBetMinor": 973903
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-25T19:44:00+08:00",
+    "amountMinor": 50000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-87"
+   },
+   {
+    "id": "hb-1020",
+    "kind": "bet",
+    "at": "2026-09-25T17:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 6,
+    "turnoverMinor": 333571,
+    "winLoseMinor": -104131,
+    "realBetMinor": 1383594
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-25T17:40:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Welcome bonus 188%",
+    "status": "approved",
+    "reason": "Expired",
+    "id": "h-166"
+   },
+   {
+    "id": "hb-1050",
+    "kind": "bet",
+    "at": "2026-09-25T13:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 107,
+    "turnoverMinor": 757221,
+    "winLoseMinor": -100099,
+    "realBetMinor": 690199
+   },
+   {
+    "id": "hb-1011",
+    "kind": "bet",
+    "at": "2026-09-25T13:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 50,
+    "turnoverMinor": 1281826,
+    "winLoseMinor": 31899,
+    "realBetMinor": 1220113
+   },
+   {
+    "id": "hb-1024",
+    "kind": "bet",
+    "at": "2026-09-25T12:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 68,
+    "turnoverMinor": 1655743,
+    "winLoseMinor": 148348,
+    "realBetMinor": 344028
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-25T12:15:00+08:00",
+    "amountMinor": 2500,
+    "from": "Spade",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-137"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-25T11:44:00+08:00",
+    "amountMinor": 30000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-76"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-25T09:44:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-82"
+   },
+   {
+    "id": "hb-1055",
+    "kind": "bet",
+    "at": "2026-09-24T21:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 109,
+    "turnoverMinor": 2008703,
+    "winLoseMinor": -116480,
+    "realBetMinor": 1206511
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-24T20:37:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-67"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-24T19:40:00+08:00",
+    "amountMinor": 30000,
+    "promoType": "Weekly cashback 5%",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-165"
+   },
+   {
+    "id": "hb-1094",
+    "kind": "bet",
+    "at": "2026-09-24T16:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 78,
+    "turnoverMinor": 2339429,
+    "winLoseMinor": 197910,
+    "realBetMinor": 831337
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-24T14:55:00+08:00",
+    "amountMinor": 50000,
+    "method": "CIMB transfer",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-35"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-24T14:55:00+08:00",
+    "amountMinor": 10000,
+    "from": "CQ9",
+    "to": "PT",
+    "status": "approved",
+    "id": "h-126"
+   },
+   {
+    "id": "hb-1093",
+    "kind": "bet",
+    "at": "2026-09-24T12:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 62,
+    "turnoverMinor": 1088156,
+    "winLoseMinor": -98313,
+    "realBetMinor": 1228367
+   },
+   {
+    "id": "hb-1124",
+    "kind": "bet",
+    "at": "2026-09-24T12:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 120,
+    "turnoverMinor": 1392816,
+    "winLoseMinor": -118349,
+    "realBetMinor": 1242038
+   },
+   {
+    "id": "hb-1086",
+    "kind": "bet",
+    "at": "2026-09-24T09:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 133,
+    "turnoverMinor": 1330266,
+    "winLoseMinor": -14498,
+    "realBetMinor": 1395168
+   },
+   {
+    "id": "hb-1063",
+    "kind": "bet",
+    "at": "2026-09-24T08:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 53,
+    "turnoverMinor": 270339,
+    "winLoseMinor": -112580,
+    "realBetMinor": 1718751
+   },
+   {
+    "id": "hb-1047",
+    "kind": "bet",
+    "at": "2026-09-23T21:10:00+08:00",
+    "event": "nba2024",
+    "transactions": 12,
+    "turnoverMinor": 1345928,
+    "winLoseMinor": 175416,
+    "realBetMinor": 693781
+   },
+   {
+    "id": "hb-1080",
+    "kind": "bet",
+    "at": "2026-09-23T20:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 93,
+    "turnoverMinor": 797645,
+    "winLoseMinor": 26271,
+    "realBetMinor": 1395276
+   },
+   {
+    "id": "hb-1129",
+    "kind": "bet",
+    "at": "2026-09-23T19:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 131,
+    "turnoverMinor": 1607400,
+    "winLoseMinor": -68978,
+    "realBetMinor": 1516064
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-23T18:48:00+08:00",
+    "amountMinor": 30000,
+    "method": "CIMB transfer",
+    "status": "approved",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-54"
+   },
+   {
+    "id": "hb-1058",
+    "kind": "bet",
+    "at": "2026-09-23T14:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 54,
+    "turnoverMinor": 1249108,
+    "winLoseMinor": -95832,
+    "realBetMinor": 956295
+   },
+   {
+    "id": "hb-1048",
+    "kind": "bet",
+    "at": "2026-09-23T12:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 95,
+    "turnoverMinor": 1723337,
+    "winLoseMinor": -87696,
+    "realBetMinor": 1223453
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-22T16:26:00+08:00",
+    "amountMinor": 5000,
+    "method": "CIMB transfer",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-42"
+   },
+   {
+    "id": "hb-1045",
+    "kind": "bet",
+    "at": "2026-09-22T16:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 29,
+    "turnoverMinor": 647515,
+    "winLoseMinor": -11654,
+    "realBetMinor": 1751593
+   },
+   {
+    "id": "hb-1135",
+    "kind": "bet",
+    "at": "2026-09-22T15:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 14,
+    "turnoverMinor": 46408,
+    "winLoseMinor": -104059,
+    "realBetMinor": 513741
+   },
+   {
+    "id": "hb-1101",
+    "kind": "bet",
+    "at": "2026-09-22T12:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 100,
+    "turnoverMinor": 2395918,
+    "winLoseMinor": 194436,
+    "realBetMinor": 523025
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-21T21:58:00+08:00",
+    "amountMinor": 60000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-73"
+   },
+   {
+    "id": "hb-1115",
+    "kind": "bet",
+    "at": "2026-09-21T21:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 122,
+    "turnoverMinor": 1269957,
+    "winLoseMinor": 113628,
+    "realBetMinor": 551006
+   },
+   {
+    "id": "hb-1044",
+    "kind": "bet",
+    "at": "2026-09-21T21:30:00+08:00",
+    "event": "nba2024",
+    "transactions": 126,
+    "turnoverMinor": 1218001,
+    "winLoseMinor": -48509,
+    "realBetMinor": 98654
+   },
+   {
+    "id": "hb-1138",
+    "kind": "bet",
+    "at": "2026-09-21T16:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 51,
+    "turnoverMinor": 1072336,
+    "winLoseMinor": 172602,
+    "realBetMinor": 716856
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-21T15:05:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Referral reward MYR 30",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-177"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-21T14:25:00+08:00",
+    "amountMinor": 2500,
+    "from": "PT",
+    "to": "Main wallet",
+    "status": "pending",
+    "id": "h-110"
+   },
+   {
+    "id": "hb-1137",
+    "kind": "bet",
+    "at": "2026-09-21T13:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 119,
+    "turnoverMinor": 2091775,
+    "winLoseMinor": 82643,
+    "realBetMinor": 1067644
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-21T13:25:00+08:00",
+    "amountMinor": 10000,
+    "from": "Joker",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-148"
+   },
+   {
+    "id": "hb-1066",
+    "kind": "bet",
+    "at": "2026-09-21T11:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 27,
+    "turnoverMinor": 1537656,
+    "winLoseMinor": -35161,
+    "realBetMinor": 1700316
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-21T11:11:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-94"
+   },
+   {
+    "id": "hb-1112",
+    "kind": "bet",
+    "at": "2026-09-20T20:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 123,
+    "turnoverMinor": 1988413,
+    "winLoseMinor": -98915,
+    "realBetMinor": 571191
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-20T19:58:00+08:00",
+    "amountMinor": 10000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-84"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-20T19:11:00+08:00",
+    "amountMinor": 30000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-64"
+   },
+   {
+    "id": "hb-1082",
+    "kind": "bet",
+    "at": "2026-09-20T17:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 135,
+    "turnoverMinor": 352265,
+    "winLoseMinor": -32930,
+    "realBetMinor": 1415926
+   },
+   {
+    "id": "hb-1149",
+    "kind": "bet",
+    "at": "2026-09-20T14:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 113,
+    "turnoverMinor": 1363823,
+    "winLoseMinor": 61906,
+    "realBetMinor": 156337
+   },
+   {
+    "id": "hb-1127",
+    "kind": "bet",
+    "at": "2026-09-20T13:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 137,
+    "turnoverMinor": 2150110,
+    "winLoseMinor": -11054,
+    "realBetMinor": 294856
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-19T23:15:00+08:00",
+    "amountMinor": 1000,
+    "from": "Joker",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-114"
+   },
+   {
+    "id": "hb-1032",
+    "kind": "bet",
+    "at": "2026-09-19T22:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 59,
+    "turnoverMinor": 1407318,
+    "winLoseMinor": -22685,
+    "realBetMinor": 893502
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-19T19:25:00+08:00",
+    "amountMinor": 2500,
+    "from": "Spade",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-112"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-19T15:48:00+08:00",
+    "amountMinor": 80000,
+    "method": "CIMB transfer",
+    "status": "rejected",
+    "reason": "Duplicate request",
+    "id": "h-47"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-19T12:37:00+08:00",
+    "amountMinor": 30000,
+    "method": "USDT (TRC20)",
+    "status": "rejected",
+    "reason": "Bank details mismatch",
+    "id": "h-62"
+   },
+   {
+    "id": "hb-1077",
+    "kind": "bet",
+    "at": "2026-09-19T12:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 3,
+    "turnoverMinor": 1262766,
+    "winLoseMinor": 191323,
+    "realBetMinor": 99800
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-19T08:55:00+08:00",
+    "amountMinor": 25000,
+    "from": "Joker",
+    "to": "Spade",
+    "status": "pending",
+    "id": "h-135"
+   },
+   {
+    "id": "hb-1113",
+    "kind": "bet",
+    "at": "2026-09-19T08:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 103,
+    "turnoverMinor": 1975531,
+    "winLoseMinor": -139467,
+    "realBetMinor": 1347547
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-18T20:11:00+08:00",
+    "amountMinor": 60000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-89"
+   },
+   {
+    "id": "hb-1088",
+    "kind": "bet",
+    "at": "2026-09-18T18:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 101,
+    "turnoverMinor": 1425830,
+    "winLoseMinor": 187340,
+    "realBetMinor": 240658
+   },
+   {
+    "id": "hb-1006",
+    "kind": "bet",
+    "at": "2026-09-18T16:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 30,
+    "turnoverMinor": 1507880,
+    "winLoseMinor": -143808,
+    "realBetMinor": 1292451
+   },
+   {
+    "id": "hb-1103",
+    "kind": "bet",
+    "at": "2026-09-18T13:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 101,
+    "turnoverMinor": 2222841,
+    "winLoseMinor": -109329,
+    "realBetMinor": 617922
+   },
+   {
+    "id": "hb-1147",
+    "kind": "bet",
+    "at": "2026-09-17T23:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 4,
+    "turnoverMinor": 2119192,
+    "winLoseMinor": -62317,
+    "realBetMinor": 366293
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-17T22:07:00+08:00",
+    "amountMinor": 5000,
+    "method": "GrabPay",
+    "status": "rejected",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-34"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-17T15:26:00+08:00",
+    "amountMinor": 10000,
+    "method": "CIMB transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-59"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-17T14:20:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-175"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-17T12:44:00+08:00",
+    "amountMinor": 20000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-86"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-17T10:55:00+08:00",
+    "amountMinor": 80000,
+    "method": "Maybank transfer",
+    "status": "rejected",
+    "reason": "Duplicate request",
+    "id": "h-10"
+   },
+   {
+    "id": "hb-1114",
+    "kind": "bet",
+    "at": "2026-09-16T22:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 127,
+    "turnoverMinor": 1749862,
+    "winLoseMinor": 87704,
+    "realBetMinor": 1282062
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-16T19:26:00+08:00",
+    "amountMinor": 5000,
+    "method": "Maybank transfer",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-53"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-16T17:19:00+08:00",
+    "amountMinor": 5000,
+    "method": "CIMB transfer",
+    "status": "cancelled",
+    "reason": "Duplicate request",
+    "id": "h-33"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-16T16:50:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Welcome bonus 188%",
+    "status": "approved",
+    "reason": "Turnover not met",
+    "id": "h-161"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-16T16:37:00+08:00",
+    "amountMinor": 50000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-61"
+   },
+   {
+    "id": "hb-1117",
+    "kind": "bet",
+    "at": "2026-09-16T15:45:00+08:00",
+    "event": "uefaMini",
+    "transactions": 36,
+    "turnoverMinor": 447228,
+    "winLoseMinor": -129768,
+    "realBetMinor": 860406
+   },
+   {
+    "id": "hb-1145",
+    "kind": "bet",
+    "at": "2026-09-15T23:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 104,
+    "turnoverMinor": 540005,
+    "winLoseMinor": 74638,
+    "realBetMinor": 44916
+   },
+   {
+    "id": "hb-1089",
+    "kind": "bet",
+    "at": "2026-09-15T21:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 84,
+    "turnoverMinor": 1966664,
+    "winLoseMinor": -50375,
+    "realBetMinor": 973507
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-15T17:44:00+08:00",
+    "amountMinor": 60000,
+    "method": "USDT (TRC20)",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-77"
+   },
+   {
+    "id": "hb-1018",
+    "kind": "bet",
+    "at": "2026-09-15T17:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 14,
+    "turnoverMinor": 1031948,
+    "winLoseMinor": -178372,
+    "realBetMinor": 1309095
+   },
+   {
+    "id": "hb-1144",
+    "kind": "bet",
+    "at": "2026-09-15T16:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 101,
+    "turnoverMinor": 584445,
+    "winLoseMinor": 182158,
+    "realBetMinor": 621685
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-15T10:15:00+08:00",
+    "amountMinor": 1000,
+    "from": "CQ9",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-136"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-15T09:41:00+08:00",
+    "amountMinor": 50000,
+    "method": "Public Bank transfer",
+    "status": "pending",
+    "reason": "Duplicate request",
+    "id": "h-31"
+   },
+   {
+    "id": "hb-1062",
+    "kind": "bet",
+    "at": "2026-09-15T08:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 84,
+    "turnoverMinor": 148277,
+    "winLoseMinor": 174150,
+    "realBetMinor": 886236
+   },
+   {
+    "id": "hb-1052",
+    "kind": "bet",
+    "at": "2026-09-14T21:10:00+08:00",
+    "event": "nba2024",
+    "transactions": 139,
+    "turnoverMinor": 2119227,
+    "winLoseMinor": 178935,
+    "realBetMinor": 311238
+   },
+   {
+    "id": "hb-1017",
+    "kind": "bet",
+    "at": "2026-09-14T18:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 106,
+    "turnoverMinor": 1057383,
+    "winLoseMinor": -37260,
+    "realBetMinor": 831216
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-14T16:07:00+08:00",
+    "amountMinor": 20000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-58"
+   },
+   {
+    "id": "hb-1061",
+    "kind": "bet",
+    "at": "2026-09-14T15:10:00+08:00",
+    "event": "nba2024",
+    "transactions": 42,
+    "turnoverMinor": 2112422,
+    "winLoseMinor": 75167,
+    "realBetMinor": 439457
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-14T14:45:00+08:00",
+    "amountMinor": 5000,
+    "from": "Main wallet",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-116"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-13T23:12:00+08:00",
+    "amountMinor": 80000,
+    "method": "CIMB transfer",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-36"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-13T21:40:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Daily reload 18%",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-174"
+   },
+   {
+    "id": "hb-1028",
+    "kind": "bet",
+    "at": "2026-09-13T21:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 25,
+    "turnoverMinor": 1012740,
+    "winLoseMinor": 46544,
+    "realBetMinor": 340788
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-13T09:03:00+08:00",
+    "amountMinor": 5000,
+    "from": "Main wallet",
+    "to": "Spade",
+    "status": "approved",
+    "id": "h-103"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-13T08:41:00+08:00",
+    "amountMinor": 3000,
+    "method": "DuitNow QR",
+    "status": "pending",
+    "reason": "Duplicate request",
+    "id": "h-20"
+   },
+   {
+    "id": "hb-1108",
+    "kind": "bet",
+    "at": "2026-09-12T23:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 8,
+    "turnoverMinor": 415275,
+    "winLoseMinor": -92112,
+    "realBetMinor": 78774
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-12T18:58:00+08:00",
+    "amountMinor": 20000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-71"
+   },
+   {
+    "id": "hb-1014",
+    "kind": "bet",
+    "at": "2026-09-12T16:45:00+08:00",
+    "event": "numberGame",
+    "transactions": 99,
+    "turnoverMinor": 644746,
+    "winLoseMinor": 21014,
+    "realBetMinor": 1395081
+   },
+   {
+    "id": "hb-1027",
+    "kind": "bet",
+    "at": "2026-09-12T16:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 109,
+    "turnoverMinor": 2037573,
+    "winLoseMinor": 162986,
+    "realBetMinor": 907039
+   },
+   {
+    "id": "hb-1096",
+    "kind": "bet",
+    "at": "2026-09-12T12:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 5,
+    "turnoverMinor": 825705,
+    "winLoseMinor": -61129,
+    "realBetMinor": 1088728
+   },
+   {
+    "id": "hb-1002",
+    "kind": "bet",
+    "at": "2026-09-12T09:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 20,
+    "turnoverMinor": 1362530,
+    "winLoseMinor": 151434,
+    "realBetMinor": 1745343
+   },
+   {
+    "id": "hb-1153",
+    "kind": "bet",
+    "at": "2026-09-11T22:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 53,
+    "turnoverMinor": 1891561,
+    "winLoseMinor": 218832,
+    "realBetMinor": 1441929
+   },
+   {
+    "id": "hb-1049",
+    "kind": "bet",
+    "at": "2026-09-11T19:10:00+08:00",
+    "event": "nba2024",
+    "transactions": 64,
+    "turnoverMinor": 470055,
+    "winLoseMinor": -6802,
+    "realBetMinor": 1681528
+   },
+   {
+    "id": "hb-1069",
+    "kind": "bet",
+    "at": "2026-09-11T14:45:00+08:00",
+    "event": "nba2024",
+    "transactions": 137,
+    "turnoverMinor": 1746527,
+    "winLoseMinor": 13805,
+    "realBetMinor": 1089942
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-10T22:02:00+08:00",
+    "amountMinor": 50000,
+    "method": "USDT (TRC20)",
+    "status": "processing",
+    "reason": "–",
+    "id": "h-96"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-10T19:26:00+08:00",
+    "amountMinor": 100000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-13"
+   },
+   {
+    "id": "hb-1152",
+    "kind": "bet",
+    "at": "2026-09-10T18:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 45,
+    "turnoverMinor": 1236878,
+    "winLoseMinor": 5457,
+    "realBetMinor": 1457032
+   },
+   {
+    "id": "hb-1087",
+    "kind": "bet",
+    "at": "2026-09-10T16:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 57,
+    "turnoverMinor": 636145,
+    "winLoseMinor": -11266,
+    "realBetMinor": 1444792
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-10T15:41:00+08:00",
+    "amountMinor": 20000,
+    "method": "CIMB transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-55"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-10T14:05:00+08:00",
+    "amountMinor": 50000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "rejected",
+    "reason": "Turnover not met",
+    "id": "h-156"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-10T13:48:00+08:00",
+    "amountMinor": 10000,
+    "method": "CIMB transfer",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-60"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-10T13:40:00+08:00",
+    "amountMinor": 8800,
+    "promoType": "Welcome bonus 188%",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-157"
+   },
+   {
+    "id": "hb-1010",
+    "kind": "bet",
+    "at": "2026-09-10T13:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 19,
+    "turnoverMinor": 1673827,
+    "winLoseMinor": -127211,
+    "realBetMinor": 1569909
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-10T12:02:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-98"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-10T11:11:00+08:00",
+    "amountMinor": 30000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-95"
+   },
+   {
+    "id": "hb-1038",
+    "kind": "bet",
+    "at": "2026-09-09T20:30:00+08:00",
+    "event": "numberGame",
+    "transactions": 104,
+    "turnoverMinor": 2478690,
+    "winLoseMinor": 12728,
+    "realBetMinor": 695988
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-09T16:03:00+08:00",
+    "amountMinor": 1000,
+    "from": "CQ9",
+    "to": "Joker",
+    "status": "approved",
+    "id": "h-146"
+   },
+   {
+    "id": "hb-1092",
+    "kind": "bet",
+    "at": "2026-09-09T12:10:00+08:00",
+    "event": "uefaMini",
+    "transactions": 132,
+    "turnoverMinor": 1119169,
+    "winLoseMinor": 159779,
+    "realBetMinor": 824634
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-09T09:41:00+08:00",
+    "amountMinor": 100000,
+    "method": "DuitNow QR",
+    "status": "pending",
+    "reason": "Duplicate request",
+    "id": "h-23"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-08T19:58:00+08:00",
+    "amountMinor": 50000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "Bank details mismatch",
+    "id": "h-74"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-08T17:35:00+08:00",
+    "amountMinor": 25000,
+    "from": "Spade",
+    "to": "Main wallet",
+    "status": "pending",
+    "id": "h-127"
+   },
+   {
+    "id": "hb-1021",
+    "kind": "bet",
+    "at": "2026-09-08T14:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 98,
+    "turnoverMinor": 1259171,
+    "winLoseMinor": -91543,
+    "realBetMinor": 1431356
+   },
+   {
+    "id": "hb-1122",
+    "kind": "bet",
+    "at": "2026-09-08T13:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 44,
+    "turnoverMinor": 476955,
+    "winLoseMinor": 11145,
+    "realBetMinor": 1747551
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-08T13:05:00+08:00",
+    "amountMinor": 30000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-169"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-08T11:45:00+08:00",
+    "amountMinor": 1000,
+    "from": "Joker",
+    "to": "Spade",
+    "status": "pending",
+    "id": "h-108"
+   },
+   {
+    "id": "hb-1151",
+    "kind": "bet",
+    "at": "2026-09-08T10:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 133,
+    "turnoverMinor": 1104093,
+    "winLoseMinor": -61244,
+    "realBetMinor": 1487970
+   },
+   {
+    "id": "hb-1126",
+    "kind": "bet",
+    "at": "2026-09-07T22:45:00+08:00",
+    "event": "uefaMain",
+    "transactions": 5,
+    "turnoverMinor": 2040329,
+    "winLoseMinor": -95931,
+    "realBetMinor": 1350204
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-07T21:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "DuitNow QR",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-27"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-07T20:50:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Weekly cashback 5%",
+    "status": "rejected",
+    "reason": "Expired",
+    "id": "h-152"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-07T20:02:00+08:00",
+    "amountMinor": 20000,
+    "method": "USDT (TRC20)",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-83"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-07T16:33:00+08:00",
+    "amountMinor": 100000,
+    "method": "DuitNow QR",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-48"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-07T16:00:00+08:00",
+    "amountMinor": 80000,
+    "method": "Maybank transfer",
+    "status": "approved",
+    "reason": "Duplicate request",
+    "id": "h-12"
+   },
+   {
+    "id": "hb-1133",
+    "kind": "bet",
+    "at": "2026-09-07T15:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 77,
+    "turnoverMinor": 2173376,
+    "winLoseMinor": 134530,
+    "realBetMinor": 606779
+   },
+   {
+    "id": "hb-1130",
+    "kind": "bet",
+    "at": "2026-09-07T11:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 108,
+    "turnoverMinor": 2105033,
+    "winLoseMinor": -25731,
+    "realBetMinor": 338379
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-07T10:55:00+08:00",
+    "amountMinor": 2500,
+    "from": "Pragmatic",
+    "to": "Joker",
+    "status": "approved",
+    "id": "h-123"
+   },
+   {
+    "id": "hb-1102",
+    "kind": "bet",
+    "at": "2026-09-07T09:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 40,
+    "turnoverMinor": 457605,
+    "winLoseMinor": 50508,
+    "realBetMinor": 1728555
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-07T08:25:00+08:00",
+    "amountMinor": 5000,
+    "from": "PT",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-122"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-06T17:00:00+08:00",
+    "amountMinor": 3000,
+    "method": "Maybank transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-46"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-06T16:55:00+08:00",
+    "amountMinor": 5000,
+    "from": "Joker",
+    "to": "Pragmatic",
+    "status": "approved",
+    "id": "h-149"
+   },
+   {
+    "id": "hb-1157",
+    "kind": "bet",
+    "at": "2026-09-06T15:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 16,
+    "turnoverMinor": 479234,
+    "winLoseMinor": -158068,
+    "realBetMinor": 135352
+   },
+   {
+    "id": "hb-1073",
+    "kind": "bet",
+    "at": "2026-09-06T14:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 84,
+    "turnoverMinor": 987856,
+    "winLoseMinor": 31825,
+    "realBetMinor": 1749451
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-06T12:33:00+08:00",
+    "amountMinor": 80000,
+    "method": "GrabPay",
+    "status": "approved",
+    "reason": "Bonus rejected: turnover not met",
+    "id": "h-29"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-06T10:25:00+08:00",
+    "amountMinor": 1000,
+    "from": "Pragmatic",
+    "to": "Joker",
+    "status": "approved",
+    "id": "h-118"
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-06T09:37:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-63"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-06T08:45:00+08:00",
+    "amountMinor": 1000,
+    "from": "Spade",
+    "to": "CQ9",
+    "status": "approved",
+    "id": "h-144"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-05T23:55:00+08:00",
+    "amountMinor": 100000,
+    "method": "Public Bank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-38"
+   },
+   {
+    "id": "hb-1072",
+    "kind": "bet",
+    "at": "2026-09-05T21:00:00+08:00",
+    "event": "nba2024",
+    "transactions": 116,
+    "turnoverMinor": 2134384,
+    "winLoseMinor": 40173,
+    "realBetMinor": 1096110
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-05T18:05:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "approved",
+    "reason": "Turnover not met",
+    "id": "h-162"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-05T13:48:00+08:00",
+    "amountMinor": 50000,
+    "method": "Public Bank transfer",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-50"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-05T12:00:00+08:00",
+    "amountMinor": 10000,
+    "method": "Touch n Go eWallet",
+    "status": "cancelled",
+    "reason": "–",
+    "id": "h-52"
+   },
+   {
+    "id": "hb-1083",
+    "kind": "bet",
+    "at": "2026-09-04T21:30:00+08:00",
+    "event": "uefaMini",
+    "transactions": 38,
+    "turnoverMinor": 240406,
+    "winLoseMinor": -77258,
+    "realBetMinor": 1378231
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-04T18:20:00+08:00",
+    "amountMinor": 18000,
+    "promoType": "Birthday bonus MYR 88",
+    "status": "pending",
+    "reason": "–",
+    "id": "h-178"
+   },
+   {
+    "kind": "promo",
+    "at": "2026-09-04T15:20:00+08:00",
+    "amountMinor": 18800,
+    "promoType": "Daily reload 18%",
+    "status": "rejected",
+    "reason": "–",
+    "id": "h-153"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-04T14:45:00+08:00",
+    "amountMinor": 5000,
+    "from": "Main wallet",
+    "to": "Joker",
+    "status": "pending",
+    "id": "h-129"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-04T13:25:00+08:00",
+    "amountMinor": 25000,
+    "from": "PT",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-107"
+   },
+   {
+    "id": "hb-1030",
+    "kind": "bet",
+    "at": "2026-09-04T10:10:00+08:00",
+    "event": "numberGame",
+    "transactions": 86,
+    "turnoverMinor": 466188,
+    "winLoseMinor": 91858,
+    "realBetMinor": 98272
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-04T09:19:00+08:00",
+    "amountMinor": 20000,
+    "method": "CIMB transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-21"
+   },
+   {
+    "id": "hb-1012",
+    "kind": "bet",
+    "at": "2026-09-04T08:00:00+08:00",
+    "event": "numberGame",
+    "transactions": 53,
+    "turnoverMinor": 1004172,
+    "winLoseMinor": 11671,
+    "realBetMinor": 194919
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-03T16:44:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "rejected",
+    "reason": "Bank details mismatch",
+    "id": "h-88"
+   },
+   {
+    "id": "hb-1111",
+    "kind": "bet",
+    "at": "2026-09-03T16:00:00+08:00",
+    "event": "uefaMini",
+    "transactions": 58,
+    "turnoverMinor": 1309754,
+    "winLoseMinor": 86220,
+    "realBetMinor": 1293163
+   },
+   {
+    "id": "hb-1148",
+    "kind": "bet",
+    "at": "2026-09-03T15:10:00+08:00",
+    "event": "uefaMain",
+    "transactions": 100,
+    "turnoverMinor": 277916,
+    "winLoseMinor": -171472,
+    "realBetMinor": 1709488
+   },
+   {
+    "id": "hb-1139",
+    "kind": "bet",
+    "at": "2026-09-03T12:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 40,
+    "turnoverMinor": 2373359,
+    "winLoseMinor": -118784,
+    "realBetMinor": 433807
+   },
+   {
+    "kind": "withdrawal",
+    "at": "2026-09-02T22:44:00+08:00",
+    "amountMinor": 20000,
+    "method": "Visa **** 3341",
+    "status": "cancelled",
+    "reason": "Bank details mismatch",
+    "id": "h-66"
+   },
+   {
+    "id": "hb-1043",
+    "kind": "bet",
+    "at": "2026-09-02T20:10:00+08:00",
+    "event": "nba2024",
+    "transactions": 67,
+    "turnoverMinor": 2167548,
+    "winLoseMinor": 17320,
+    "realBetMinor": 1486532
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-02T16:07:00+08:00",
+    "amountMinor": 10000,
+    "method": "Touch n Go eWallet",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-25"
+   },
+   {
+    "kind": "deposit",
+    "at": "2026-09-02T16:00:00+08:00",
+    "amountMinor": 100000,
+    "method": "Public Bank transfer",
+    "status": "approved",
+    "reason": "–",
+    "id": "h-7"
+   },
+   {
+    "kind": "transfer",
+    "at": "2026-09-02T13:03:00+08:00",
+    "amountMinor": 2500,
+    "from": "Pragmatic",
+    "to": "Main wallet",
+    "status": "approved",
+    "id": "h-141"
+   },
+   {
+    "id": "hb-1132",
+    "kind": "bet",
+    "at": "2026-09-02T12:30:00+08:00",
+    "event": "uefaMain",
+    "transactions": 27,
+    "turnoverMinor": 812164,
+    "winLoseMinor": -3228,
+    "realBetMinor": 756932
+   },
+   {
+    "id": "hb-1136",
+    "kind": "bet",
+    "at": "2026-09-02T08:00:00+08:00",
+    "event": "uefaMain",
+    "transactions": 127,
+    "turnoverMinor": 1494052,
+    "winLoseMinor": -58939,
+    "realBetMinor": 984341
+   }
+  ]
+ }
 }
