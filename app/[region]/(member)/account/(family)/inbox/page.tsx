@@ -1,6 +1,5 @@
 import { getAccountPayload } from '@/lib/api';
 import { getT } from '@/lib/i18n/server';
-import { formatTimestamp } from '@/lib/format';
 import { InboxPanel } from '@/components/account/InboxPanel';
 
 import type { Metadata } from 'next';
@@ -17,8 +16,9 @@ export default async function InboxPage() {
     id: message.id,
     kind: message.kind,
     subject: message.subject,
-    date: formatTimestamp(message.receivedAt),
+    body: message.body,
     read: message.read,
+    receivedAt: message.receivedAt,
   }));
 
   return (

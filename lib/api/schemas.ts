@@ -532,7 +532,8 @@ export type HistoryRow = z.infer<typeof historyRowSchema>;
 
 export const inboxMessageSchema = z.object({
   id: z.string(),
-  kind: z.enum(['important', 'others']),
+  /* The reference's three tabs: important / others / fasttrack (Promotions). */
+  kind: z.enum(['important', 'others', 'promotions']),
   subject: z.string(),
   body: z.string(),
   read: z.boolean(),

@@ -5669,6 +5669,11 @@ details.accordionItem[open] .accordion-icon {
   padding: 0;
 }
 
+/* The reference's tab strip shrink-wraps its pills. */
+.inboxTabWrapper {
+  width: max-content;
+}
+
 .inbox-option__wrapper {
   display: flex;
   align-items: center;
@@ -5699,6 +5704,38 @@ details.accordionItem[open] .accordion-icon {
 
 .inbox-table-datetime {
   width: 232px;
+}
+
+/* The reference's delete icon is 12px wide (`.deleteMail`); the button keeps a
+   comfortable tap target around it. */
+.inbox-delete {
+  display: flex;
+  align-items: center;
+  height: 17px;
+  padding: 0;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.inbox-delete:disabled,
+.inbox-mark-read:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* Unread subjects are bold and open the message. */
+.inbox-subject {
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.inbox-subject.is-unread {
+  font-weight: 700;
+}
+
+.inbox-table tbody tr:hover {
+  background-color: var(--color-line-deepest);
 }
 
 /* Pending: the transaction table plus the Follow Us / websites boxes.
@@ -6663,6 +6700,16 @@ details.accordionItem[open] .accordion-icon {
     display: none;
   }
 
+  /* The reference's global phone pill sizing; strips with their own rules (the
+     history ranges below, the promotion categories, the lottery tabs) override
+     it as they do in the reference. */
+  .nav-pill {
+    justify-content: center;
+    margin-right: 6px;
+    padding: 7px 18px;
+    font-size: var(--text-xs);
+  }
+
   /* The reference's phone ranges (measured): 12px/500 pills, `flex: 1`, 11px
      padding, transparent over the #353537 capsule, 6px apart. */
   .selectDateRangeWrapper .nav-pill {
@@ -6692,8 +6739,38 @@ details.accordionItem[open] .accordion-icon {
     padding-right: 25px !important;
   }
 
+  /* The reference's phone inbox: the h1 and tabs drop 16px, the tabs become
+     110px pills, and the DataTables head turns 12px with its own padding. */
+  .inbox-tabs,
+  .inbox-title {
+    margin-top: 16px;
+  }
+
   .inbox-tabs {
-    padding: 0;
+    padding: 0 16px;
+  }
+
+  .inboxTabWrapper {
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
+
+  .inboxTab {
+    width: 136px;
+  }
+
+  .has-3-tabs .inboxTab {
+    width: 110px;
+  }
+
+  .inbox-table-datetime {
+    width: 143px;
+  }
+
+  .inbox-table thead th,
+  .history-table table thead th {
+    padding: 12px 0 12px 25px;
+    font-size: var(--text-xs);
   }
 
   .inbox-mark-read {

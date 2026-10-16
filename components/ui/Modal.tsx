@@ -143,7 +143,7 @@ export function Modal({
             <p className="text-muted text-11 tracking-widest uppercase">{t(`modal.${variant}`)}</p>
             <h2 className="text-ink mt-1 text-base font-semibold">{title}</h2>
             {children ? (
-              <div className="text-muted mt-2 max-h-[45vh] overflow-y-auto text-sm leading-relaxed">
+              <div className="text-muted mt-2 max-h-[45vh] overflow-y-auto text-sm leading-relaxed whitespace-pre-line">
                 {children}
               </div>
             ) : null}

@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { brand } from '@/config/brand';
 import { regionPath } from '@/config/nav';
 import { formatMinor } from '@/lib/format';
+import { useUnreadCount } from '@/lib/api/inbox';
 import { signOutRequest, useSession } from '@/lib/session/useSession';
 
 /** First two letters of the brand name — the avatar placeholder. */
@@ -29,6 +30,8 @@ export function AccountSlot({ region }: { region: string }) {
   const tNav = useTranslations('nav');
   const router = useRouter();
   const { member: isMember, username, balanceMinor, currency, unread } = useSession();
+  // The inbox page's local read/delete state adjusts the server's count.
+  const unreadCount = useUnreadCount(unread);
 
   if (!isMember) {
     return (
@@ -78,7 +81,7 @@ export function AccountSlot({ region }: { region: string }) {
           </div>
           <div className="flex justify-between">
             <dt className="text-muted">{t('header.unread')}</dt>
-            <dd className="text-ink">{unread}</dd>
+            <dd className="text-ink">{unreadCount}</dd>
           </div>
         </dl>
         <ul className="border-line mt-3 space-y-1 border-t pt-2 text-xs">
@@ -89,9 +92,9 @@ export function AccountSlot({ region }: { region: string }) {
                 className="text-ink hover:text-accent flex justify-between py-1"
               >
                 {tNav(`items.${item.key}`)}
-                {item.key === 'inbox' && unread > 0 ? (
+                {item.key === 'inbox' && unreadCount > 0 ? (
                   <span className="bg-danger rounded-full px-1.5 text-10 leading-4 text-white">
-                    {unread}
+                    {unreadCount}
                   </span>
                 ) : null}
               </Link>

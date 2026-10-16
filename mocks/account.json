@@ -247,36 +247,220 @@
   ],
   "inbox": [
    {
-    "id": "msg-1",
+    "id": "msg-important-1",
     "kind": "important",
     "subject": "Your withdrawal is being reviewed",
-    "body": "WD-260214-1190 is with our payments team; most requests clear within 15 minutes.",
+    "body": "WD-2603019981 is with our payments team; most requests clear within 15 minutes.",
     "read": false,
-    "receivedAt": "2026-10-13T18:25:00+08:00"
+    "receivedAt": "2026-10-16T09:27:00+08:00"
    },
    {
-    "id": "msg-2",
+    "id": "msg-important-2",
     "kind": "important",
     "subject": "Verify a bank account to withdraw",
     "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
     "read": false,
-    "receivedAt": "2026-10-13T09:02:00+08:00"
+    "receivedAt": "2026-10-15T10:52:00+08:00"
    },
    {
-    "id": "msg-3",
+    "id": "msg-important-3",
+    "kind": "important",
+    "subject": "Deposit received",
+    "body": "DP-2603039761 was credited to your main wallet.",
+    "read": true,
+    "receivedAt": "2026-10-14T11:27:00+08:00"
+   },
+   {
+    "id": "msg-important-4",
+    "kind": "important",
+    "subject": "KYC reminder",
+    "body": "Please upload a clear photo of your ID to finish verification.",
+    "read": true,
+    "receivedAt": "2026-10-13T12:18:00+08:00"
+   },
+   {
+    "id": "msg-important-5",
+    "kind": "important",
+    "subject": "Withdrawal completed",
+    "body": "WD-2603058141 has been paid out to your bank account.",
+    "read": true,
+    "receivedAt": "2026-10-12T13:18:00+08:00"
+   },
+   {
+    "id": "msg-important-6",
+    "kind": "important",
+    "subject": "Security check",
+    "body": "A sign-in from a new device was recorded on your account.",
+    "read": true,
+    "receivedAt": "2026-10-11T14:05:00+08:00"
+   },
+   {
+    "id": "msg-important-7",
+    "kind": "important",
+    "subject": "Your withdrawal is being reviewed",
+    "body": "WD-2603079078 is with our payments team; most requests clear within 15 minutes.",
+    "read": true,
+    "receivedAt": "2026-10-10T15:18:00+08:00"
+   },
+   {
+    "id": "msg-important-8",
+    "kind": "important",
+    "subject": "Verify a bank account to withdraw",
+    "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
+    "read": true,
+    "receivedAt": "2026-10-09T16:52:00+08:00"
+   },
+   {
+    "id": "msg-important-9",
+    "kind": "important",
+    "subject": "Deposit received",
+    "body": "DP-2603099332 was credited to your main wallet.",
+    "read": true,
+    "receivedAt": "2026-10-08T17:18:00+08:00"
+   },
+   {
+    "id": "msg-important-10",
+    "kind": "important",
+    "subject": "KYC reminder",
+    "body": "Please upload a clear photo of your ID to finish verification.",
+    "read": true,
+    "receivedAt": "2026-10-07T18:18:00+08:00"
+   },
+   {
+    "id": "msg-important-11",
+    "kind": "important",
+    "subject": "Withdrawal completed",
+    "body": "WD-2603111457 has been paid out to your bank account.",
+    "read": true,
+    "receivedAt": "2026-10-06T09:05:00+08:00"
+   },
+   {
+    "id": "msg-important-12",
+    "kind": "important",
+    "subject": "Security check",
+    "body": "A sign-in from a new device was recorded on your account.",
+    "read": true,
+    "receivedAt": "2026-10-05T10:05:00+08:00"
+   },
+   {
+    "id": "msg-important-13",
+    "kind": "important",
+    "subject": "Your withdrawal is being reviewed",
+    "body": "WD-2603133170 is with our payments team; most requests clear within 15 minutes.",
+    "read": true,
+    "receivedAt": "2026-10-04T11:41:00+08:00"
+   },
+   {
+    "id": "msg-important-14",
+    "kind": "important",
+    "subject": "Verify a bank account to withdraw",
+    "body": "CIMB **** 8890 still needs a document check before it can receive a payout.",
+    "read": true,
+    "receivedAt": "2026-10-03T12:18:00+08:00"
+   },
+   {
+    "id": "msg-others-1",
     "kind": "others",
     "subject": "Voucher: RELOAD18",
     "body": "Redeem this code for an 18% reload bonus before Sunday.",
-    "read": true,
-    "receivedAt": "2026-10-12T10:00:00+08:00"
+    "read": false,
+    "receivedAt": "2026-10-14T09:52:00+08:00"
    },
    {
-    "id": "msg-4",
+    "id": "msg-others-2",
     "kind": "others",
     "subject": "Weekly turnover race started",
     "body": "The top 100 entries share the pool. Check the ranking board for your place.",
     "read": true,
-    "receivedAt": "2026-10-11T08:00:00+08:00"
+    "receivedAt": "2026-10-13T10:27:00+08:00"
+   },
+   {
+    "id": "msg-others-3",
+    "kind": "others",
+    "subject": "Live chat hours",
+    "body": "Support is online 12pm - 10pm daily, and 24/7 by email.",
+    "read": true,
+    "receivedAt": "2026-10-12T11:05:00+08:00"
+   },
+   {
+    "id": "msg-others-4",
+    "kind": "others",
+    "subject": "Maintenance window",
+    "body": "Provider wallets pause for maintenance every Tuesday 04:00-05:00.",
+    "read": true,
+    "receivedAt": "2026-10-11T12:27:00+08:00"
+   },
+   {
+    "id": "msg-others-5",
+    "kind": "others",
+    "subject": "Referral reward",
+    "body": "Invite a friend and both of you receive MYR 30 after their first deposit.",
+    "read": true,
+    "receivedAt": "2026-10-10T13:05:00+08:00"
+   },
+   {
+    "id": "msg-others-6",
+    "kind": "others",
+    "subject": "Voucher: RELOAD18",
+    "body": "Redeem this code for an 18% reload bonus before Sunday.",
+    "read": true,
+    "receivedAt": "2026-10-09T14:18:00+08:00"
+   },
+   {
+    "id": "msg-others-7",
+    "kind": "others",
+    "subject": "Weekly turnover race started",
+    "body": "The top 100 entries share the pool. Check the ranking board for your place.",
+    "read": true,
+    "receivedAt": "2026-10-08T15:41:00+08:00"
+   },
+   {
+    "id": "msg-others-8",
+    "kind": "others",
+    "subject": "Live chat hours",
+    "body": "Support is online 12pm - 10pm daily, and 24/7 by email.",
+    "read": true,
+    "receivedAt": "2026-10-07T16:18:00+08:00"
+   },
+   {
+    "id": "msg-promotions-1",
+    "kind": "promotions",
+    "subject": "Daily reload 18%",
+    "body": "Reload today and receive an 18% bonus, capped at MYR 188.",
+    "read": true,
+    "receivedAt": "2026-10-12T09:52:00+08:00"
+   },
+   {
+    "id": "msg-promotions-2",
+    "kind": "promotions",
+    "subject": "Free spins weekend",
+    "body": "Opt in before Friday to receive 50 free spins on selected slots.",
+    "read": true,
+    "receivedAt": "2026-10-11T10:05:00+08:00"
+   },
+   {
+    "id": "msg-promotions-3",
+    "kind": "promotions",
+    "subject": "Birthday bonus",
+    "body": "A MYR 88 birthday bonus is waiting in your rebates page.",
+    "read": true,
+    "receivedAt": "2026-10-10T11:05:00+08:00"
+   },
+   {
+    "id": "msg-promotions-4",
+    "kind": "promotions",
+    "subject": "Cashback 5%",
+    "body": "Weekly cashback on live casino tables, credited every Monday.",
+    "read": true,
+    "receivedAt": "2026-10-09T12:52:00+08:00"
+   },
+   {
+    "id": "msg-promotions-5",
+    "kind": "promotions",
+    "subject": "4D lucky draw",
+    "body": "Every MYR 50 stake on 4D enters the monthly lucky draw.",
+    "read": true,
+    "receivedAt": "2026-10-08T13:52:00+08:00"
    }
   ],
   "rebates": [
