@@ -22,6 +22,14 @@ export function formatMinor(
   }
 }
 
+/** "1,234.50" — the number without a currency symbol, for places that print the code separately. */
+export function formatMinorPlain(amountMinor: number, intlTag = 'en-MY'): string {
+  return (amountMinor / 100).toLocaleString(intlTag, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 /**
  * Parses a typed amount ("1,234.5") into integer minor units without float math.
  * Returns null for anything that is not a plain amount with at most two decimals.

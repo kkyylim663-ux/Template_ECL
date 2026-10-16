@@ -18,7 +18,7 @@ test.describe('header session state', () => {
     await page.goto('/my');
     await expect(page.getByRole('button', { name: 'Account summary' })).toBeVisible();
     await expect(page.getByText('demo_player').first()).toBeVisible();
-    await expect(page.getByText('RM 1,234.50').first()).toBeVisible();
+    await expect(page.getByText('RM 1,622.50').first()).toBeVisible();
     await expect(page.locator('header').getByRole('link', { name: 'Login' })).toHaveCount(0);
   });
 

@@ -1,3 +1,4 @@
+import walletSeed from '@/mocks/wallet.json';
 import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
 import { accountPayloadSchema, type AccountPayload } from './schemas';
@@ -9,7 +10,19 @@ import { accountPayloadSchema, type AccountPayload } from './schemas';
  */
 export async function getAccountPayload(): Promise<AccountPayload> {
   const { d } = await callApi(ENDPOINTS.account);
-  return accountPayloadSchema.parse(d);
+  const payload = accountPayloadSchema.parse(d);
+  // MOCK-ONLY: wallets come from the one seed the wallet service uses, so the
+  // server fallback (session route, first paint) can never disagree with the
+  // client-side balances. A real backend returns the wallets itself.
+  const tones = new Map(payload.wallets.map((wallet) => [wallet.code, wallet.tone]));
+  return {
+    ...payload,
+    wallets: walletSeed.wallets.map((wallet) => ({
+      ...wallet,
+      kind: wallet.kind as 'main' | 'game',
+      tone: tones.get(wallet.code) ?? 200,
+    })),
+  };
 }
 
 export function totalBalanceMinor(payload: AccountPayload): number {

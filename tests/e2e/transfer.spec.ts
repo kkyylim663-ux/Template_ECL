@@ -19,7 +19,9 @@ test.describe('transfer page', () => {
     await page.getByLabel(/Amount/).fill('10');
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await expect(page.getByText('Transfer complete')).toBeVisible();
-    await expect(page.locator('header').getByText('RM 1,224.50').first()).toBeVisible();
+    // A transfer only moves money between wallets, so the headline total (main + games) stays put.
+    await expect(page.locator('header').getByText('RM 1,622.50').first()).toBeVisible();
+    await expect(page.getByTestId('wallet-total')).toHaveText('RM 1,622.50');
   });
 
   test('rejects an amount above the available balance', async ({ page }) => {
@@ -42,7 +44,11 @@ test.describe('transfer page', () => {
     await page.getByLabel(/Amount/).fill('10');
     await page.getByRole('button', { name: 'Submit', exact: true }).dblclick();
     await expect(page.getByText('Transfer complete')).toBeVisible();
-    await expect(page.locator('header').getByText('RM 1,224.50').first()).toBeVisible();
+    // Moved once: total assets unchanged, main wallet down by exactly 10.00.
+    await expect(page.locator('header').getByText('RM 1,622.50').first()).toBeVisible();
+    await expect(
+      page.locator('.transfer-credit__row').filter({ hasText: 'Main wallet' }).locator('.transfer-credit__balance'),
+    ).toHaveText('RM 1,224.50');
   });
 
   test('transfer all sends every available provider balance back to main', async ({ page }) => {
@@ -57,6 +63,7 @@ test.describe('transfer page', () => {
     await expect(rows.filter({ hasText: 'Main wallet' }).locator('.transfer-credit__balance')).toHaveText('RM 1,534.50');
     await expect(rows.filter({ hasText: 'Pragmatic' }).locator('.transfer-credit__balance')).toHaveText('RM 0.00');
     await expect(rows.filter({ hasText: 'Joker' }).locator('.transfer-credit__balance')).toHaveText('RM 0.00');
-    await expect(page.locator('header').getByText('RM 1,534.50').first()).toBeVisible();
+    // Total assets never change when money only moves between wallets.
+    await expect(page.locator('header').getByText('RM 1,622.50').first()).toBeVisible();
   });
 });

@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getAccountPayload, mainWallet, totalBalanceMinor } from '@/lib/api';
+import { getAccountPayload } from '@/lib/api';
+import { LiveBalance } from './LiveBalance';
 import { formatDate } from '@/lib/format';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { regionPath } from '@/config/nav';
@@ -27,12 +28,6 @@ export async function AccountShell({
 }) {
   const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
   const currency = regionConfig(region as RegionCode).currency;
-  const wallet = mainWallet(payload);
-  const balanceMinor = wallet ? wallet.amountMinor : totalBalanceMinor(payload);
-  const balance = (balanceMinor / 100).toLocaleString('en-MY', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  });
   const zero = (0).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
@@ -49,9 +44,12 @@ export async function AccountShell({
                 <div className="account-menu__profile-balance__wrapper">
                   <div className="account-menu__profile-balance">
                     <span className="account-menu__profile-balance-currency">{currency}</span>
-                    <span className="account-menu__profile-balance-amount">{balance}</span>
+                    <span className="account-menu__profile-balance-amount">
+                      <LiveBalance field="total" />
+                    </span>
                   </div>
                 </div>
+                <p className="account-menu__profile-hint">{t('transfer.total')}</p>
                 <Link href={regionPath(region, '/account/transfer')} className="account-menu__profile-wallet">
                   {t('viewWallet')}
                 </Link>

@@ -6033,6 +6033,21 @@ details.accordionItem[open] .accordion-icon {
   border-bottom: 0;
 }
 
+.transfer-credit__tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-line);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+.transfer-credit__total {
+  border-top: 1px solid var(--color-line);
+  font-weight: 700;
+}
+
+
 .transfer-credit__balance {
   margin-left: auto;
   color: var(--color-muted);
@@ -7430,4 +7445,10 @@ details.accordionItem[open] .accordion-icon {
   .ticket-center .btn-group {
     flex-direction: column;
   }
+}
+
+.account-menu__profile-hint {
+  margin: 2px 0 4px;
+  color: var(--color-muted);
+  font-size: var(--text-xs);
 }

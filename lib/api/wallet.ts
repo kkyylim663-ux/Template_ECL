@@ -84,6 +84,14 @@ export interface WalletService {
   withdraw(amountMinor: number, idempotencyKey?: string): Promise<LedgerEntry>;
   /** Newest first. */
   ledger(): LedgerEntry[];
+  /** main + every game wallet, in minor units. The one number "total assets" shows. */
+  totalMinor(): number;
+  /** Wallets `transferAll(to)` will leave behind because they are under maintenance. */
+  skippedByMaintenance(to: string): Wallet[];
+  /** Mock-mode switch for a wallet's maintenance state (the dev page uses it). */
+  setAvailable(code: string, available: boolean): void;
+  /** Calls `listener` after every change to balances, availability or the ledger. */
+  subscribe(listener: () => void): () => void;
   /** The seeded total, the invariant's baseline. */
   seedTotalMinor(): number;
   reset(): void;
@@ -123,7 +131,10 @@ function loadWallets(storage: WalletServiceOptions['storage']): Map<string, Wall
     if (Array.isArray(saved)) {
       for (const item of saved) {
         if (isWallet(item) && wallets.has(item.code)) {
-          wallets.get(item.code)!.amountMinor = item.amountMinor;
+          const target = wallets.get(item.code)!;
+          target.amountMinor = item.amountMinor;
+          const saved = item as unknown as { available?: unknown };
+          if (typeof saved.available === 'boolean') target.available = saved.available;
         }
       }
     }
@@ -171,8 +182,15 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
   const completedOps = new Map<string, LedgerEntry>();
   const inFlightOps = new Map<string, Promise<LedgerEntry>>();
 
+  const listeners = new Set<() => void>();
+
+  function notify() {
+    for (const listener of [...listeners]) listener();
+  }
+
   function persist() {
     storage?.setItem(STORAGE_KEY, JSON.stringify([...wallets.values()]));
+    notify();
   }
 
   function record(entry: Omit<LedgerEntry, 'id' | 'at'>): LedgerEntry {
@@ -314,6 +332,30 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
       return ledger.map((entry) => ({ ...entry }));
     },
 
+    totalMinor() {
+      return [...wallets.values()].reduce((sum, wallet) => sum + wallet.amountMinor, 0);
+    },
+
+    skippedByMaintenance(to) {
+      return [...wallets.values()]
+        .filter((w) => w.code !== to && !w.available && w.amountMinor > 0)
+        .map((w) => ({ ...w }));
+    },
+
+    setAvailable(code, available) {
+      const wallet = wallets.get(code);
+      if (!wallet) throw new WalletError('unknown_wallet');
+      wallet.available = available;
+      persist();
+    },
+
+    subscribe(listener) {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+
     seedTotalMinor() {
       return seedWallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
     },
@@ -327,6 +369,7 @@ export function createWalletService(options: WalletServiceOptions = {}): WalletS
       inFlightOps.clear();
       storage?.removeItem(STORAGE_KEY);
       storage?.removeItem(LEDGER_KEY);
+      notify();
     },
   };
 }

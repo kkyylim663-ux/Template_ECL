@@ -37,7 +37,10 @@
     "promoNone": "No bonus",
     "submit": "Submit deposit request",
     "pendingNotice": "Requests are reviewed by a human in the demo build too — nothing is credited.",
-    "firstTime": "First deposit?"
+    "firstTime": "First deposit?",
+    "successTitle": "Deposit recorded",
+    "successBody": "{amount} was added to your main wallet.",
+    "failedTitle": "Deposit failed"
   },
   "withdrawal": {
     "intro": "The first withdrawal each month carries no fee; later ones do.",
@@ -57,7 +60,10 @@
     "amount": "Amount",
     "submit": "Request withdrawal",
     "limits": "Minimum {min}, maximum {max}",
-    "feeNotice": "First withdrawal each month is free; later ones carry a small fee."
+    "feeNotice": "First withdrawal each month is free; later ones carry a small fee.",
+    "successTitle": "Withdrawal recorded",
+    "successBody": "{amount} was taken from your main wallet.",
+    "failedTitle": "Withdrawal failed"
   },
   "transfer": {
     "intro": "Move money between the main wallet and a provider wallet before launching a title.",
@@ -74,7 +80,7 @@
     "sameWallet": "Choose two different wallets",
     "amountInvalid": "Enter an amount greater than 0",
     "insufficient": "Amount exceeds the available balance",
-    "unavailable": "This provider wallet is offline",
+    "unavailable": "This wallet is under maintenance. Its balance can't move until it reopens.",
     "lastMoved": "Last transfer: {when}",
     "loading": "Loading wallets…",
     "empty": "There are no wallets to transfer between.",
@@ -94,7 +100,10 @@
     "available": "Available",
     "autoCredit": "Automatic Credit To Game:",
     "amountWithCurrency": "Transfer Amount*({currency})",
-    "submitLabel": "Submit"
+    "submitLabel": "Submit",
+    "maintenanceTag": "Under maintenance",
+    "total": "Total assets",
+    "allPartialBody": "Moved {count} wallet balance(s) into {to}. Not moved (under maintenance): {skipped}."
   },
   "profile": {
     "demoTitle": "Demo profile update",
@@ -402,7 +411,13 @@
         "transfer": "Transfer"
       },
       "empty": "No movements yet.",
-      "reset": "Reset to seed"
+      "reset": "Reset to seed",
+      "maintenance": "under maintenance"
     }
+  },
+  "wallet": {
+    "amountInvalid": "Enter an amount greater than zero, with at most two decimals.",
+    "insufficient": "Amount exceeds your main wallet balance.",
+    "network": "Something went wrong. Nothing was changed — please try again."
   }
 }
