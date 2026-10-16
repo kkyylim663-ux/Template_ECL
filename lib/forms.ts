@@ -23,7 +23,10 @@ const mobile = z
   .min(6, 'validation.mobileInvalid')
   .regex(/^[0-9+\s-]{6,20}$/, 'validation.mobileInvalid');
 
-const otpCode = z.string().trim().regex(/^\d{6}$/, 'validation.otpInvalid');
+const otpCode = z
+  .string()
+  .trim()
+  .regex(/^\d{6}$/, 'validation.otpInvalid');
 
 /** On the profile a blank field means "leave it as it is", so '' passes. */
 const optionalMobile = z.union([mobile, z.literal('')]).optional();
@@ -47,7 +50,10 @@ export const registerSchema = z
   .object({
     email,
     emailOtp: otpCode,
-    username: z.string().trim().regex(/^[A-Za-z0-9]{4,20}$/, 'validation.usernameFormat'),
+    username: z
+      .string()
+      .trim()
+      .regex(/^[A-Za-z0-9]{4,20}$/, 'validation.usernameFormat'),
     password: z.string().min(8, 'validation.passwordShort'),
     password2: z.string().min(1, 'validation.passwordRepeat'),
     fullName: z.string().trim().min(2, 'validation.fullNameRequired'),
@@ -110,11 +116,39 @@ export function bankDepositSchema({ minMinor, maxMinor }: { minMinor: number; ma
   });
 }
 
+/**
+ * The payment-gateway deposit form (T54): the same amount rules and the same
+ * 52/53 failure wording as the bank rail, minus the bank pick — the gateway
+ * method has none.
+ */
+export function gatewayDepositSchema({
+  minMinor,
+  maxMinor,
+}: {
+  minMinor: number;
+  maxMinor: number;
+}) {
+  return z.object({
+    amount: z
+      .string()
+      .trim()
+      .min(1, 'validation.amountDeposit')
+      .refine((value) => parseAmountMinor(value) !== null, {
+        message: 'validation.amountFormat',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? 0) >= minMinor, {
+        message: 'validation.amountBelowMin',
+      })
+      .refine((value) => (parseAmountMinor(value) ?? Infinity) <= maxMinor, {
+        message: 'validation.amountAboveMax',
+      }),
+    terms: z.boolean().refine((accepted) => accepted, { message: 'validation.terms' }),
+  });
+}
+
 export const withdrawalSchema = z.object({
   bankAccountId: z.string().min(1, 'validation.bankRequired'),
-  amount: z
-    .number({ message: 'validation.amountWithdraw' })
-    .positive('validation.amountPositive'),
+  amount: z.number({ message: 'validation.amountWithdraw' }).positive('validation.amountPositive'),
 });
 
 export const transferSchema = z

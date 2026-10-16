@@ -79,6 +79,14 @@ export function formatTimestamp(value: string): string {
   return value.slice(0, 16).replace('T', ' ');
 }
 
+/** The mock gateway's session clock: "14:59" (mm:ss, floored, never negative). */
+export function formatCountdown(ms: number): string {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const minutes = Math.floor(total / 60);
+  const seconds = total % 60;
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
 /** "2026-10-14T09:00:00+08:00" -> "14 Oct 2026, 09:00". */
 export function formatDate(value: string): string {
   const date = new Date(value);

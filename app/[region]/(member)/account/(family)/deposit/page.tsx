@@ -36,7 +36,11 @@ export default async function DepositPage({
         <Icon name="wallet" size={28} className="page-icon" />
         {t('deposit.title')}
       </h1>
-      <DepositPanel initialMethod={resolveMethodId(query.method)} currency={currency} />
+      <DepositPanel
+        initialMethod={resolveMethodId(query.method)}
+        currency={currency}
+        region={region}
+      />
     </div>
   );
 }

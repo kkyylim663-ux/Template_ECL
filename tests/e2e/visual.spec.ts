@@ -52,6 +52,13 @@ const MEMBER_ROUTES = [
   '/my/account/achievement',
   '/my/account/tickets',
   '/my/account/profile',
+  // T54: the deposit sub-pages — the gateway window's empty state and the four
+  // result layouts (the no-order variants are deterministic).
+  '/my/account/deposit/gateway?order=PG-MISSING',
+  '/my/account/deposit/result?status=success',
+  '/my/account/deposit/result?status=failed',
+  '/my/account/deposit/result?status=processing',
+  '/my/account/deposit/result?status=bogus',
 ];
 
 const VIEWPORTS = [
@@ -60,7 +67,12 @@ const VIEWPORTS = [
 ] as const;
 
 function slug(route: string) {
-  return route.replace(/^\/my\/?/, '').replace(/[/?&=]+/g, '-').replace(/^-|-$/g, '') || 'home';
+  return (
+    route
+      .replace(/^\/my\/?/, '')
+      .replace(/[/?&=]+/g, '-')
+      .replace(/^-|-$/g, '') || 'home'
+  );
 }
 
 for (const viewport of VIEWPORTS) {

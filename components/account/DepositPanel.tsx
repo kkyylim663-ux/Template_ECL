@@ -9,6 +9,7 @@ import { PrimaryButton } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
 import { formatMinor } from '@/lib/format';
 import { DepositBankForm } from './DepositBankForm';
+import { DepositGatewayForm } from './DepositGatewayForm';
 import {
   DEPOSIT_METHOD_IDS,
   depositCatalogSchema,
@@ -49,9 +50,11 @@ const METHOD_ICON: Record<DepositMethodId, 'transfer' | 'globe' | 'wallet'> = {
 export function DepositPanel({
   initialMethod,
   currency,
+  region,
 }: {
   initialMethod: DepositMethodId;
   currency: string;
+  region: string;
 }) {
   const t = useTranslations('account');
   const tc = useTranslations('common');
@@ -99,7 +102,12 @@ export function DepositPanel({
 
   if (state === 'loading') {
     return (
-      <div className="deposit-panel" data-state="loading" data-testid="deposit-state" aria-busy="true">
+      <div
+        className="deposit-panel"
+        data-state="loading"
+        data-testid="deposit-state"
+        aria-busy="true"
+      >
         <div className="deposit-tab__wrapper" aria-hidden="true">
           {DEPOSIT_METHOD_IDS.map((id) => (
             <span key={id} className="deposit-tab deposit-tab-skeleton" />
@@ -217,6 +225,10 @@ export function DepositPanel({
           <DepositBankForm banks={catalog.banks} method={active} currency={currency} />
         ) : null}
 
+        {active.id === 'gateway' ? (
+          <DepositGatewayForm method={active} currency={currency} region={region} />
+        ) : null}
+
         <aside className="deposit-rule">
           <p className="deposit-rule__title">{t('deposit.ruleTitle')}</p>
           <p className="deposit-rule__line">{t('deposit.ruleApproval')}</p>
@@ -272,7 +284,11 @@ function DepositSection({ title, children }: { title: string; children: ReactNod
         onClick={() => setOpen((value) => !value)}
       >
         <span>{title}</span>
-        <Icon name={open ? 'chevronUp' : 'chevronDown'} size={16} className="deposit-collapse__icon" />
+        <Icon
+          name={open ? 'chevronUp' : 'chevronDown'}
+          size={16}
+          className="deposit-collapse__icon"
+        />
       </button>
       {open ? <div className="deposit-collapse__content">{children}</div> : null}
     </section>

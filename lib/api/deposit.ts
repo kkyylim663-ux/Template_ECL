@@ -1,7 +1,12 @@
 // MOCK-ONLY: 充值目录（方式限额/手续费 + 收款行 + 渠道）由 mock 提供（deposit-methods.json 与 account 的 banks/channels）。接后台后换成 getDepositMethods + getBanks(btype 0/1)，调用点不变。
 import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
-import { depositCatalogSchema, isDepositMethodId, type DepositCatalog, type DepositMethodId } from './schemas';
+import {
+  depositCatalogSchema,
+  isDepositMethodId,
+  type DepositCatalog,
+  type DepositMethodId,
+} from './schemas';
 import { getAccountPayload } from './account';
 
 /**

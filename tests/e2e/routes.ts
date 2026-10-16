@@ -1,7 +1,14 @@
 /** Every route the P0 build is expected to answer, grouped by kind. */
 export const REGIONS = ['my', 'sg'] as const;
 
-export const GAME_CATEGORIES = ['slots', 'livecasino', 'sports', 'esports', 'fast-game', '4d'] as const;
+export const GAME_CATEGORIES = [
+  'slots',
+  'livecasino',
+  'sports',
+  'esports',
+  'fast-game',
+  '4d',
+] as const;
 
 export const PUBLIC_STATIC = [
   'promotion',
@@ -41,6 +48,9 @@ export const ACCOUNT_PAGES = [
   'achievement',
   'tickets',
   'profile',
+  /** T54's deposit sub-pages. */
+  'deposit/gateway',
+  'deposit/result',
 ] as const;
 
 /** Routes that must answer 200 without a session. */
