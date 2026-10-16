@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { parseAmountMinor } from '@/lib/format';
 import { walletService, WalletError, type LedgerEntry, type Wallet } from '@/lib/api/wallet';
+import { useSession } from '@/lib/session/useSession';
 
 const CURRENCY = 'MYR';
 
@@ -19,6 +20,11 @@ const money = (minor: number) => `${CURRENCY} ${(minor / 100).toLocaleString('en
  */
 export function DevWalletPanel() {
   const t = useTranslations('account');
+  // Follow the signed-in account: `useSession` binds the wallet service to that
+  // account's mirror (T42b), so a deposit here moves the same balances the
+  // member pages and the header show. Signed out, both fall back to the
+  // default mirror and the numbers are the guests'.
+  const { ready } = useSession();
   const [wallets, setWallets] = useState<Wallet[]>([]);
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
   const [amount, setAmount] = useState('100');
@@ -34,8 +40,9 @@ export function DevWalletPanel() {
   }, []);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    // Wait for the session answer: it decides which mirror the service is on.
+    if (ready) void refresh();
+  }, [ready, refresh]);
 
   const total = wallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
   const deposits = ledger.filter((entry) => entry.kind === 'deposit').reduce((sum, entry) => sum + entry.amountMinor, 0);

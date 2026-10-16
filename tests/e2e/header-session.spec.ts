@@ -27,6 +27,9 @@ test.describe('header session state', () => {
     await page.goto('/my');
     await page.locator('header').getByRole('button', { name: 'Account summary' }).hover();
     await page.locator('header').getByRole('button', { name: 'Log out' }).click();
+    // The guest header appears only after the logout POST has cleared the
+    // cookie; waiting for it keeps the next navigation from racing that POST.
+    await expect(page.locator('header').getByRole('link', { name: 'Login' }).first()).toBeVisible();
     await expect(page).toHaveURL(/\/my\/?$/);
     await page.goto('/my/account/deposit');
     await expect(page).toHaveURL(/\/my\/login\?next=/);

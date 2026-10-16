@@ -36,8 +36,12 @@ for (const { label, viewport } of VIEWPORTS) {
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await expect(page.getByText('Transfer complete')).toBeVisible();
     if (label === 'desktop') {
-      // The header follows the main wallet through the session event.
-      await expect(page.locator('header').getByText('RM 1,224.50').first()).toBeVisible();
+      // The headline is total assets (the wallet single-source branch made the
+      // header total, not main); a neutral transfer leaves it unchanged, while
+      // the wallet list's main row carries the new main figure. (T51: the
+      // pre-branch assertion read the header itself as the main wallet.)
+      await expect(page.locator('header').getByText('RM 1,622.50').first()).toBeVisible();
+      await expect(page.locator('.transfer-credit__row').first()).toContainText('RM 1,224.50');
     }
     await shot('2-transfer');
     await page.getByRole('button', { name: 'OK', exact: true }).click();
