@@ -6,6 +6,7 @@
     "hot": "Hot",
     "rtp": "RTP {value}%",
     "needLogin": "Sign in to launch this game",
+    "underMaintenance": "Under Maintenance",
     "showActions": "Show actions for {name}"
   },
   "launch": {
@@ -13,6 +14,7 @@
     "loginBody": "Please login first to play game. If you don't have account, please register for an account.",
     "lowTitle": "Insufficient balance",
     "lowBody": "Currently your account have zero credit. Would you like to make a deposit?",
+    "maintenanceBody": "Product is under maintenance. Please try again later. Thank you.",
     "soonTitle": "Coming Soon",
     "soonBody": "This game will be available soon, please stay with us."
   },

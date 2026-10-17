@@ -58,13 +58,19 @@ export function SlotBrowser({
   const [failed, setFailed] = useState<string | null>(null);
 
   // T61: the launch notice is decided from the session, so a click that beats
-  // the session route waits here for its answer instead of guessing.
-  const [pending, setPending] = useState<{ mode: LaunchMode; here: string } | null>(null);
+  // the session route waits here for its answer instead of guessing. T62: the
+  // click's own studio rides along, because the provider registry answers first.
+  const [pending, setPending] = useState<{
+    mode: LaunchMode;
+    provider: string;
+    here: string;
+  } | null>(null);
   const [notice, setNotice] = useState<{ gate: LaunchGate; here: string } | null>(null);
 
   useEffect(() => {
     if (!pending || !session.ready) return;
     const gate = launchGate({
+      provider: pending.provider,
       mode: pending.mode,
       ready: session.ready,
       member: session.member,
@@ -79,9 +85,16 @@ export function SlotBrowser({
    * the page keeps the address the member is looking at so signing in from the
    * notice comes back to the same filters.
    */
-  const onLaunch = useCallback((mode: LaunchMode) => {
-    setPending({ mode, here: `${window.location.pathname}${window.location.search}` });
-  }, []);
+  const onLaunch = useCallback(
+    (mode: LaunchMode) => {
+      setPending({
+        mode,
+        provider,
+        here: `${window.location.pathname}${window.location.search}`,
+      });
+    },
+    [provider],
+  );
 
   // Skips the debounce on the very first render: those items are already there.
   const firstRun = useRef(true);

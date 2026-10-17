@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
-import { getLaunchHref, type LaunchMode } from '@/lib/game/launch';
+import { getLaunchHref, LAUNCH_HREF, type LaunchMode } from '@/lib/game/launch';
 
 const VARIANTS = {
   primary: 'bg-accent text-[#1b1b1b] font-semibold',
@@ -36,7 +36,9 @@ export function LaunchButton({
   className?: string;
 }) {
   const t = useTranslations('games');
-  const href = getLaunchHref({ provider, gameId, mode });
+  // A studio-level control (numbergame's Play Next) names no game: the studio
+  // alone is the target, and `gameId` rides along only when a caller has one.
+  const { href } = getLaunchHref({ provider, gameId: gameId ?? '', mode });
 
   return (
     <a
@@ -46,7 +48,7 @@ export function LaunchButton({
       data-game-id={gameId}
       data-mode={mode}
       onClick={(event) => {
-        if (href === '#') event.preventDefault();
+        if (href === LAUNCH_HREF) event.preventDefault();
         onActivate?.();
       }}
       className={`inline-flex items-center justify-center rounded-[8px] px-3 py-1.5 text-xs ${VARIANTS[variant]} ${className ?? ''}`}

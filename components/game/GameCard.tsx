@@ -3,7 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { GameCard as GameCardData } from '@/lib/api/slots';
-import { getLaunchHref, type LaunchMode } from '@/lib/game/launch';
+import { providerConfig } from '@/config/providers';
+import { getLaunchHref, LAUNCH_HREF, type LaunchMode } from '@/lib/game/launch';
 import { toneFromString } from '@/lib/game/tone';
 
 /**
@@ -18,6 +19,11 @@ import { toneFromString } from '@/lib/game/tone';
  * The click itself is answered by the grid through `onLaunch` (T61): Play Now
  * and Demo both resolve to the reference's pre-launch notice, which needs the
  * session and therefore lives one level up, next to the dialog it opens.
+ *
+ * T62 reads the studio's flags off the provider registry: a studio under
+ * maintenance wears the corner tag (`.game-card__label.slots`, the reference's
+ * label at its slot-card size) and one without a Demo action does not render
+ * Demo at all — the reference's `tpl-if="${d.demoPlay != false}"`.
  */
 export function GameCard({
   game,
@@ -28,9 +34,11 @@ export function GameCard({
 }) {
   const t = useTranslations('games');
   const [revealed, setRevealed] = useState(false);
-  const href = getLaunchHref({ provider: game.provider, gameId: game.id, mode: 'real' });
+  const config = providerConfig(game.provider);
+  const play = getLaunchHref({ provider: game.provider, gameId: game.id, mode: 'real' });
+  const demo = getLaunchHref({ provider: game.provider, gameId: game.id, mode: 'demo' });
   const activate = (mode: LaunchMode) => (event: React.MouseEvent) => {
-    if (href === '#') event.preventDefault();
+    if ((mode === 'real' ? play : demo).href === LAUNCH_HREF) event.preventDefault();
     onLaunch?.(mode);
   };
 
@@ -47,9 +55,12 @@ export function GameCard({
         className="lobby-card__img game-placeholder"
         style={{ '--tone': String(toneFromString(game.id)) } as React.CSSProperties}
       />
+      {config.underMaintenance ? (
+        <span className="game-card__label slots">{t('card.underMaintenance')}</span>
+      ) : null}
       <div className="lobby-card__cover">
         <a
-          href={href}
+          href={play.href}
           data-game-id={game.id}
           data-provider={game.provider}
           data-mode="real"
@@ -58,16 +69,18 @@ export function GameCard({
         >
           {t('card.playNow')}
         </a>
-        <a
-          href={href}
-          data-game-id={game.id}
-          data-provider={game.provider}
-          data-mode="demo"
-          onClick={activate('demo')}
-          className="lobby-card__btn lobby-card__btn--demo mt-2.5"
-        >
-          {t('card.demo')}
-        </a>
+        {config.supportsDemo ? (
+          <a
+            href={demo.href}
+            data-game-id={game.id}
+            data-provider={game.provider}
+            data-mode="demo"
+            onClick={activate('demo')}
+            className="lobby-card__btn lobby-card__btn--demo mt-2.5"
+          >
+            {t('card.demo')}
+          </a>
+        ) : null}
       </div>
       <h3 className="lobby-card__title text-sm leading-[normal] font-medium">{game.name}</h3>
     </article>

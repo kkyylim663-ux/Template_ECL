@@ -8,13 +8,24 @@ import type { LaunchGate } from '@/lib/game/launch-gate';
 
 /**
  * The reference's launch dictionary, one message per gate: `login_first`,
- * `credit_msg` and `coming_soon_game` (`crawl/js/sdk.js`). The panel itself is
- * the shared modal shell, so Escape, the close icon and the backdrop all
- * dismiss it — the reference only ever shows these as a dialog, never a page.
+ * `credit_msg`, `coming_soon_game` and — for a studio the provider registry
+ * marks (T62) — `under_maintenance` over `maintenance_msg` (`crawl/js/sdk.js`).
+ * The panel itself is the shared modal shell, so Escape, the close icon and the
+ * backdrop all dismiss it — the reference only ever shows these as a dialog,
+ * never a page.
  */
 const COPY: Record<LaunchGate, { variant: ModalVariant; titleKey: string; bodyKey: string }> = {
   login: { variant: 'alert', titleKey: 'launch.loginTitle', bodyKey: 'launch.loginBody' },
   insufficient: { variant: 'alert', titleKey: 'launch.lowTitle', bodyKey: 'launch.lowBody' },
+  maintenance: {
+    variant: 'alert',
+    titleKey: 'card.underMaintenance',
+    bodyKey: 'launch.maintenanceBody',
+  },
+  // The reference has no string for a studio without a Demo action — it simply
+  // never renders that action (`tpl-if`), and neither do we; this guard borrows
+  // the coming-soon notice for a demo click that arrives from anywhere else.
+  'demo-unavailable': { variant: 'status', titleKey: 'launch.soonTitle', bodyKey: 'launch.soonBody' },
   'coming-soon': { variant: 'status', titleKey: 'launch.soonTitle', bodyKey: 'launch.soonBody' },
 };
 
@@ -31,14 +42,19 @@ export function LaunchGateModal({
 }: {
   gate: LaunchGate;
   region: string;
-  /** Where the member was, query string included, so signing in comes back to it. */
-  here: string;
+  /**
+   * Where the member was, query string included, so signing in comes back to
+   * it. Only the login gate reads it — a studio's own notice (maintenance)
+   * needs no session and no address.
+   */
+  here?: string;
   onClose: () => void;
 }) {
   const t = useTranslations('games');
   const tCommon = useTranslations('common');
   const copy = COPY[gate];
-  const loginHref = `${regionPath(region, '/login')}?next=${encodeURIComponent(here)}`;
+  const loginPath = regionPath(region, '/login');
+  const loginHref = here ? `${loginPath}?next=${encodeURIComponent(here)}` : loginPath;
 
   return (
     <Modal

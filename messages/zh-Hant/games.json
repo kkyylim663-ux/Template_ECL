@@ -6,6 +6,7 @@
     "hot": "熱門",
     "rtp": "RTP {value}%",
     "needLogin": "登入後即可進入遊戲",
+    "underMaintenance": "系統維護",
     "showActions": "顯示 {name} 的操作"
   },
   "launch": {
@@ -13,6 +14,7 @@
     "loginBody": "請登入帳號以開始遊戲。若您還未註冊，請先註冊一個帳號",
     "lowTitle": "餘額不足",
     "lowBody": "您的帳戶即時餘額為 0。您想要存款嗎?",
+    "maintenanceBody": "產品正在維護中。請稍後再試。謝謝。",
     "soonTitle": "即將上線",
     "soonBody": "此遊戲很快就會上線，請與我們保持聯繫!"
   },

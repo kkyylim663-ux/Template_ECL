@@ -56,7 +56,13 @@ export async function CategoryLobby({
 
       <h2 className="section-title banner-top has-space">{tHome('section.providers')}</h2>
 
-      <ProviderCardGrid providers={providers} category={category} vpnNotice={vpnNotice} vpnDemo={vpnDemo} />
+      <ProviderCardGrid
+        providers={providers}
+        category={category}
+        region={region}
+        vpnNotice={vpnNotice}
+        vpnDemo={vpnDemo}
+      />
 
       <BettingTransaction betting={betting} region={region} />
     </div>

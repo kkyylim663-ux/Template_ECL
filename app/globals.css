@@ -125,6 +125,7 @@
      app/layout.tsx = 1 / measured font scale), so the rendered size is the
      measured one regardless of the phone's system font-size setting. Spacing,
      radii and line-heights are untouched (T32.5). */
+  --text-9: calc(9px * var(--fs-fix, 1)); /* .game-card__label.slots (T62) */
   --text-10: calc(10px * var(--fs-fix, 1));
   --text-11: calc(11px * var(--fs-fix, 1));
   --text-13: calc(13px * var(--fs-fix, 1));
@@ -1342,6 +1343,31 @@ html {
   color: #fff;
   font-size: var(--text-11);
   line-height: normal;
+}
+
+/*
+ * The base corner tag (`.game-card__label`, #289d82 — the reference's non-New
+ * tint) and its slot-card size (`.game-card__label.slots`: 9px, flush with the
+ * corner). T62 puts a studio's "Under Maintenance" tag in it, on the studio card
+ * and on that studio's game tiles alike.
+ */
+.game-card__label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+  padding: 0.3rem;
+  background: var(--color-success);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: var(--text-11);
+  line-height: normal;
+}
+
+.game-card__label.slots {
+  top: 0;
+  right: 3px;
+  font-size: var(--text-9);
 }
 
 @media (max-width: 768px) {

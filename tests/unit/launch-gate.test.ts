@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { launchGate, type LaunchGateInput } from '@/lib/game/launch-gate';
 
-/** A signed-in member with money in the main wallet. */
+/** A signed-in member with money in the main wallet, at an unmarked studio. */
 const member: LaunchGateInput = {
+  provider: 'pragmatic',
   mode: 'real',
   ready: true,
   member: true,
@@ -36,5 +37,17 @@ describe('launchGate', () => {
   it('tells a member who could play that the build does not launch games', () => {
     expect(launchGate(member)).toBe('coming-soon');
     expect(launchGate({ ...member, mode: 'demo' })).toBe('coming-soon');
+  });
+
+  it('lets the studio answer first — a guest at a studio under maintenance', () => {
+    // The studio's notice is owed to everyone, so it beats both the login gate
+    // and the session not having answered yet.
+    expect(launchGate({ ...guest, provider: 'nextspin' })).toBe('maintenance');
+    expect(launchGate({ ...guest, provider: 'nextspin', ready: false })).toBe('maintenance');
+    expect(launchGate({ ...member, provider: 'nextspin' })).toBe('maintenance');
+  });
+
+  it('guards a Demo click at a studio that has no Demo action', () => {
+    expect(launchGate({ ...guest, provider: 'aviatrix', mode: 'demo' })).toBe('demo-unavailable');
   });
 });

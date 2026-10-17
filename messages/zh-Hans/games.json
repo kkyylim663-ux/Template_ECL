@@ -6,6 +6,7 @@
     "hot": "热门",
     "rtp": "RTP {value}%",
     "needLogin": "登录后即可进入游戏",
+    "underMaintenance": "系统维护",
     "showActions": "显示 {name} 的操作"
   },
   "launch": {
@@ -13,6 +14,7 @@
     "loginBody": "请登录帐号以开始游戏。若您还未注册，请先注册一个帐号",
     "lowTitle": "余额不足",
     "lowBody": "您的账户即时余额为0。您想要存款吗?",
+    "maintenanceBody": "产品正在维护中。请稍后再试。谢谢。",
     "soonTitle": "即将上线",
     "soonBody": "此游戏很快就会上线，请与我们保持联系!"
   },

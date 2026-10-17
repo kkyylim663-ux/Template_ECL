@@ -6,6 +6,7 @@
     "hot": "Hot",
     "rtp": "RTP {value}%",
     "needLogin": "Đăng nhập để vào game",
+    "underMaintenance": "Đang Bảo trì",
     "showActions": "Hiện thao tác cho {name}"
   },
   "launch": {
@@ -13,6 +14,7 @@
     "loginBody": "Vui lòng đăng nhập để tham gia cược. Nếu quý khách chưa có tài khoản, hãy đăng kí tài khoản.",
     "lowTitle": "Số dư không đủ",
     "lowBody": "Tài khoản hiện tại không đủ. Qúy khách có muốn gửi thêm tiền để tiếp tục?",
+    "maintenanceBody": "Sản phẩm đang bảo trì. Xin vui lòng thử lại sau.",
     "soonTitle": "Sắp ra mắt",
     "soonBody": "Trò chơi này sẽ có ngay, vui lòng ở lại với chúng tôi"
   },
