@@ -159,7 +159,10 @@
     "errorBody": "Không tải được thông tin rút tiền.",
     "title": "Rút tiền",
     "addBank": "Thêm tài khoản ngân hàng",
-    "verified": "Đã xác minh"
+    "verified": "Đã xác minh",
+    "settledSubject": "Cập nhật rút tiền",
+    "settledSuccessBody": "Khoản rút {amount} (mã {reference}) đã được chuyển.",
+    "settledFailedBody": "Khoản rút {amount} (mã {reference}) chưa hoàn tất. Số tiền đã được hoàn về ví chính."
   },
   "transfer": {
     "intro": "Chuyển tiền giữa ví chính và ví nhà phát hành trước khi chơi.",
@@ -536,7 +539,16 @@
       },
       "empty": "Chưa có giao dịch.",
       "reset": "Đặt lại về ban đầu",
-      "maintenance": "đang bảo trì"
+      "maintenance": "đang bảo trì",
+      "settleTitle": "Yêu cầu rút tiền (back office mock)",
+      "settleIntro": "Duyệt hoặc từ chối yêu cầu đã gửi. Trang tài khoản kế tiếp của thành viên sẽ quyết toán: từ chối hoàn tiền về ví chính, cả hai kết quả đều vào lịch sử và hộp thư.",
+      "settleEmpty": "Chưa có yêu cầu rút tiền.",
+      "settleActions": "Thao tác",
+      "settleApprove": "Duyệt",
+      "settleReject": "Từ chối",
+      "settleDone": "Đã đẩy",
+      "settleLoadFailed": "Không tải được danh sách yêu cầu rút tiền.",
+      "settleFailed": "Không cập nhật được yêu cầu."
     }
   },
   "wallet": {

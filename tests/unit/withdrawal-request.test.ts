@@ -117,6 +117,42 @@ describe('withdrawal request store', () => {
   });
 });
 
+/** T59B: only the back office moves a pending request, and only to a final state. */
+describe('withdrawal request settlement', () => {
+  async function pending() {
+    const store = createWithdrawalRequestStore({ file: null });
+    const created = await store.create(draft(), context());
+    if (!created.ok) throw new Error('seed request failed');
+    return { store, id: created.request.id };
+  }
+
+  it('moves a pending request to a final state once', async () => {
+    const { store, id } = await pending();
+    const settled = await store.settle(id, 'failed');
+    expect(settled).toMatchObject({ ok: true, changed: true });
+    expect((await store.list())[0].status).toBe('failed');
+  });
+
+  it('answers the same final state without changing anything', async () => {
+    const { store, id } = await pending();
+    await store.settle(id, 'success');
+    expect(await store.settle(id, 'success')).toMatchObject({ ok: true, changed: false });
+    expect((await store.list())[0].status).toBe('success');
+  });
+
+  it('never lets a settled request change its mind', async () => {
+    const { store, id } = await pending();
+    await store.settle(id, 'success');
+    expect(await store.settle(id, 'failed')).toEqual({ ok: false, code: 'already_final' });
+    expect((await store.list())[0].status).toBe('success');
+  });
+
+  it('reports an unknown request', async () => {
+    const { store } = await pending();
+    expect(await store.settle('wd_missing', 'success')).toEqual({ ok: false, code: 'not_found' });
+  });
+});
+
 describe('withdrawalRequestSchema', () => {
   const schema = withdrawalRequestSchema({ minMinor: 20_000, maxMinor: 5_000_000 });
   const errorOf = (amount: string) => {

@@ -7,10 +7,14 @@ import { useTranslations } from 'next-intl';
 import { parseAmountMinor } from '@/lib/format';
 import { walletService, WalletError, type LedgerEntry, type Wallet } from '@/lib/api/wallet';
 import { useSession } from '@/lib/session/useSession';
+import type { SettleableRequest } from '@/lib/withdrawal-settle';
 
 const CURRENCY = 'MYR';
 
 const money = (minor: number) => `${CURRENCY} ${(minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 })}`;
+
+/** A mock request says success/failed; the table reuses the reference's status labels. */
+const STATUS_KEY = { pending: 'pending', success: 'approved', failed: 'rejected' } as const;
 
 /**
  * The mock-only wallet simulator (T45 supplement). It drives the same
@@ -32,6 +36,7 @@ export function DevWalletPanel() {
   const [to, setTo] = useState('pragmatic');
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [requests, setRequests] = useState<SettleableRequest[]>([]);
 
   const refresh = useCallback(async () => {
     const list = await walletService.getWallets();
@@ -39,10 +44,49 @@ export function DevWalletPanel() {
     setLedger(walletService.ledger());
   }, []);
 
+  /** The member's own request list, read the way the account shell's settler reads it. */
+  const loadRequests = useCallback(async () => {
+    try {
+      const response = await fetch('/api/withdrawal/requests', { cache: 'no-store' });
+      const payload = (await response.json()) as { d?: SettleableRequest[] };
+      setRequests(payload.d ?? []);
+    } catch {
+      setError(t('dev.wallet.settleLoadFailed'));
+    }
+  }, [t]);
+
   useEffect(() => {
     // Wait for the session answer: it decides which mirror the service is on.
     if (ready) void refresh();
   }, [ready, refresh]);
+
+  useEffect(() => {
+    if (ready) void loadRequests();
+  }, [ready, loadRequests]);
+
+  /**
+   * The mock back office's step: only the status moves. The member's next
+   * account page settles it — a rejection refunds the amount to the main
+   * wallet, and either outcome writes the history row and the inbox notice.
+   */
+  async function settle(id: string, status: 'success' | 'failed') {
+    if (busy) return;
+    setBusy(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/dev/withdrawal/status', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ id, status }),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      await loadRequests();
+    } catch {
+      setError(t('dev.wallet.settleFailed'));
+    } finally {
+      setBusy(false);
+    }
+  }
 
   const total = wallets.reduce((sum, wallet) => sum + wallet.amountMinor, 0);
   const deposits = ledger.filter((entry) => entry.kind === 'deposit').reduce((sum, entry) => sum + entry.amountMinor, 0);
@@ -248,6 +292,67 @@ export function DevWalletPanel() {
                   <td>{entry.from ?? '–'}</td>
                   <td>{entry.to ?? '–'}</td>
                   <td>{entry.at.slice(11, 19)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      <section className="dev-wallet-settlements">
+        <h2 className="text-ink text-sm font-semibold">{t('dev.wallet.settleTitle')}</h2>
+        <p className="text-muted text-xs">{t('dev.wallet.settleIntro')}</p>
+        {requests.length === 0 ? (
+          <p className="text-muted text-xs">{t('dev.wallet.settleEmpty')}</p>
+        ) : (
+          <table className="table-theme">
+            <thead>
+              <tr>
+                <th>{t('history.col.type')}</th>
+                <th>{t('dev.wallet.amount')}</th>
+                <th>{t('history.col.status')}</th>
+                <th>{t('history.col.date')}</th>
+                <th>{t('dev.wallet.settleActions')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requests.map((request) => (
+                <tr
+                  key={request.id}
+                  className="dev-settle-row"
+                  data-withdrawal={request.id}
+                  data-status={request.status}
+                >
+                  <td>
+                    {request.methodLabel} · {request.reference}
+                  </td>
+                  <td>{money(request.amountMinor)}</td>
+                  <td>{t(`status.${STATUS_KEY[request.status]}`)}</td>
+                  <td>{request.createdAt.slice(0, 16).replace('T', ' ')}</td>
+                  <td>
+                    {request.status === 'pending' ? (
+                      <span className="inline-flex gap-2">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          disabled={busy}
+                          onClick={() => void settle(request.id, 'success')}
+                        >
+                          {t('dev.wallet.settleApprove')}
+                        </button>
+                        <button
+                          type="button"
+                          className="btn"
+                          disabled={busy}
+                          onClick={() => void settle(request.id, 'failed')}
+                        >
+                          {t('dev.wallet.settleReject')}
+                        </button>
+                      </span>
+                    ) : (
+                      <span className="text-muted text-xs">{t('dev.wallet.settleDone')}</span>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

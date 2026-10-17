@@ -556,6 +556,7 @@ export const historyRowSchema = z.discriminatedUnion('kind', [
   }),
 ]);
 export type HistoryRow = z.infer<typeof historyRowSchema>;
+export type InboxMessageRow = z.infer<typeof inboxMessageSchema>;
 
 export const inboxMessageSchema = z.object({
   id: z.string(),

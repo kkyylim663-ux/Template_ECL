@@ -45,7 +45,13 @@ export type CreateResult =
 export interface WithdrawalRequestStore {
   list(): Promise<WithdrawalRequest[]>;
   create(draft: RequestDraft, context: RequestContext): Promise<CreateResult>;
+  /** Moves a pending request to a final state; finals never change again. */
+  settle(id: string, status: Exclude<WithdrawalStatus, 'pending'>): Promise<SettleResult>;
 }
+
+export type SettleResult =
+  | { ok: true; request: WithdrawalRequest; changed: boolean }
+  | { ok: false; code: 'not_found' | 'already_final' };
 
 /** Calendar day in Malaysia time, so the daily cap resets at local midnight. */
 export function malaysiaDay(date: Date): string {
@@ -110,6 +116,20 @@ export function createWithdrawalRequestStore({ file }: { file: string | null }):
       list.unshift(request);
       await save(list.slice(0, 500));
       return { ok: true, request, replayed: false };
+    },
+
+    async settle(id, status) {
+      const list = await load();
+      const entry = list.find((item) => item.id === id);
+      if (!entry) return { ok: false, code: 'not_found' };
+      if (entry.status !== 'pending') {
+        return entry.status === status
+          ? { ok: true, request: entry, changed: false }
+          : { ok: false, code: 'already_final' };
+      }
+      entry.status = status;
+      await save(list);
+      return { ok: true, request: entry, changed: true };
     },
   };
 }

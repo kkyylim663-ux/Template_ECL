@@ -159,7 +159,10 @@
     "errorBody": "無法載入提現資訊。",
     "title": "提現",
     "addBank": "新增銀行帳戶",
-    "verified": "已驗證"
+    "verified": "已驗證",
+    "settledSubject": "提款更新",
+    "settledSuccessBody": "您的提款 {amount}（參考號 {reference}）已轉出。",
+    "settledFailedBody": "您的提款 {amount}（參考號 {reference}）未完成，金額已退回主錢包。"
   },
   "transfer": {
     "intro": "在進入遊戲前,在主錢包與廠商錢包之間轉帳。",
@@ -536,7 +539,16 @@
       },
       "empty": "暫無流水。",
       "reset": "重置為初始值",
-      "maintenance": "維護中"
+      "maintenance": "維護中",
+      "settleTitle": "提現單(模擬後台)",
+      "settleIntro": "通過或拒絕已提交的提現單。會員下次開啟帳戶頁時結算:拒絕會把金額退回主錢包,兩種結果都會寫入歷史與收件箱。",
+      "settleEmpty": "暫無提現單。",
+      "settleActions": "後台操作",
+      "settleApprove": "通過",
+      "settleReject": "拒絕",
+      "settleDone": "已推送",
+      "settleLoadFailed": "無法載入提現單。",
+      "settleFailed": "無法更新該提現單。"
     }
   },
   "wallet": {

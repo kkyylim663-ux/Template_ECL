@@ -11,6 +11,9 @@ import {
   useInboxState,
   type InboxState,
 } from '@/lib/api/inbox';
+import { readDepositRecords } from '@/lib/deposit-credit';
+import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
+import { RECORDS_EVENT } from '@/lib/mock-records';
 
 export interface InboxMessage {
   id: string;
@@ -37,10 +40,23 @@ const dayTime = (at: string) => at.slice(0, 16).replace('T', ' ');
  * the message itself. Unread rows are bold — opening one reads it, and the
  * header badge follows through the local inbox store.
  */
-export function InboxPanel({ messages }: { messages: InboxMessage[] }) {
+export function InboxPanel({ messages: served }: { messages: InboxMessage[] }) {
   const t = useTranslations('account');
   const modal = useModal();
   const store = useInboxState();
+  const [deposits, setDeposits] = useState<InboxMessage[]>([]);
+  useEffect(() => {
+    const load = () =>
+      setDeposits([
+        ...readDepositRecords().map((record) => record.notice),
+        ...readWithdrawalRecords().map((record) => record.notice),
+      ]);
+    load();
+    // A notice that arrives while this page is open must show without a refresh.
+    window.addEventListener(RECORDS_EVENT, load);
+    return () => window.removeEventListener(RECORDS_EVENT, load);
+  }, []);
+  const messages = useMemo(() => [...deposits, ...served], [deposits, served]);
   const [tab, setTab] = useState<Tab>('important');
   const [selected, setSelected] = useState<string[]>([]);
   const [query, setQuery] = useState('');

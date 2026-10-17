@@ -4,6 +4,9 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { readCancelledTransactions } from '@/lib/api/pending';
+import { readDepositRecords } from '@/lib/deposit-credit';
+import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
+import { RECORDS_EVENT } from '@/lib/mock-records';
 import type { HistoryRow } from '@/lib/api/schemas';
 
 type Kind = HistoryRow['kind'];
@@ -74,40 +77,61 @@ export function HistoryPanel({
   /** Pending requests cancelled on /account/pending arrive here as history rows. */
   const [cancelledRows, setCancelledRows] = useState<HistoryRow[]>([]);
   useEffect(() => {
-    setCancelledRows(
-      readCancelledTransactions().map((entry): HistoryRow =>
-        entry.kind === 'transfer'
-          ? {
-              id: entry.id,
-              kind: 'transfer',
-              at: entry.at,
-              amountMinor: entry.amountMinor,
-              from: entry.from ?? entry.method,
-              to: entry.to ?? '–',
-              status: 'cancelled',
-            }
-          : {
-              id: entry.id,
-              kind: entry.kind,
-              at: entry.at,
-              amountMinor: entry.amountMinor,
-              method: entry.method,
-              status: 'cancelled',
-              reason: t('pending.cancelReason'),
-            },
-      ),
-    );
+    const load = () =>
+      setCancelledRows([
+        ...readDepositRecords().map((record) => record.row),
+        ...readWithdrawalRecords().map((record) => record.row),
+        ...readCancelledTransactions().map((entry): HistoryRow =>
+          entry.kind === 'transfer'
+            ? {
+                id: entry.id,
+                kind: 'transfer',
+                at: entry.at,
+                amountMinor: entry.amountMinor,
+                from: entry.from ?? entry.method,
+                to: entry.to ?? '–',
+                status: 'cancelled',
+              }
+            : {
+                id: entry.id,
+                kind: entry.kind,
+                at: entry.at,
+                amountMinor: entry.amountMinor,
+                method: entry.method,
+                status: 'cancelled',
+                reason: t('pending.cancelReason'),
+              },
+        ),
+      ]);
+    load();
+    // A result that lands while this page is open (the settler runs in the shell)
+    // must show without a refresh.
+    window.addEventListener(RECORDS_EVENT, load);
+    return () => window.removeEventListener(RECORDS_EVENT, load);
   }, [t]);
 
   const all = useMemo(() => [...history, ...cancelledRows], [history, cancelledRows]);
 
   const money = (minor: number) => (minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 });
 
-  /** The demo "now": the newest row in the fixture (its dates are fixed). */
-  const anchor = useMemo(
-    () => history.reduce((latest, row) => (row.at > latest ? row.at : latest), history[0]?.at ?? ''),
-    [history],
-  );
+  /**
+   * The demo "now": the newest row on show. The fixture's dates are fixed, so
+   * with no fresh result this is the fixture's own newest row; a deposit or a
+   * withdrawal settled just now becomes the anchor — which is what puts it
+   * inside the default window. Compared as instants: `at` mixes `+08:00` and `Z`.
+   */
+  const anchor = useMemo(() => {
+    let newest = '';
+    let newestAt = -Infinity;
+    for (const row of all) {
+      const at = Date.parse(row.at);
+      if (Number.isFinite(at) && at > newestAt) {
+        newestAt = at;
+        newest = row.at;
+      }
+    }
+    return newest;
+  }, [all]);
 
   const columns = useMemo<Column[]>(() => {
     const dateColumn: Column = {

@@ -143,7 +143,8 @@ test.describe('withdrawal request', () => {
     await clearTurnover(page);
     let posts = 0;
     await page.route('**/api/withdrawal/requests', (route) => {
-      posts += 1;
+      // The account shell's settler reads this path too (GET); only submits count here.
+      if (route.request().method() !== 'GET') posts += 1;
       return route.continue();
     });
     await page.goto('/my/account/withdrawal');
@@ -166,7 +167,7 @@ test.describe('withdrawal request', () => {
     await clearTurnover(page);
     let posts = 0;
     await page.route('**/api/withdrawal/requests', (route) => {
-      posts += 1;
+      if (route.request().method() !== 'GET') posts += 1;
       return route.continue();
     });
     await page.goto('/my/account/withdrawal');
@@ -181,6 +182,10 @@ test.describe('withdrawal request', () => {
     await clearTurnover(page);
     let posts = 0;
     await page.route('**/api/withdrawal/requests', async (route) => {
+      if (route.request().method() === 'GET') {
+        await route.continue();
+        return;
+      }
       posts += 1;
       await route.fulfill({
         json: {

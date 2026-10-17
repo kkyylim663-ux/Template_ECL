@@ -159,7 +159,10 @@
     "errorBody": "无法加载提现信息。",
     "title": "提现",
     "addBank": "新增银行账户",
-    "verified": "已验证"
+    "verified": "已验证",
+    "settledSubject": "提款更新",
+    "settledSuccessBody": "您的提款 {amount}（参考号 {reference}）已转出。",
+    "settledFailedBody": "您的提款 {amount}（参考号 {reference}）未完成，金额已退回主钱包。"
   },
   "transfer": {
     "intro": "在进入游戏前,在主钱包与厂商钱包之间转账。",
@@ -536,7 +539,16 @@
       },
       "empty": "暂无流水。",
       "reset": "重置为初始值",
-      "maintenance": "维护中"
+      "maintenance": "维护中",
+      "settleTitle": "提现单(模拟后台)",
+      "settleIntro": "通过或拒绝已提交的提现单。会员下一次打开账户页时结算:拒绝会把金额退回主钱包,两种结果都会写入历史与收件箱。",
+      "settleEmpty": "暂无提现单。",
+      "settleActions": "后台操作",
+      "settleApprove": "通过",
+      "settleReject": "拒绝",
+      "settleDone": "已推送",
+      "settleLoadFailed": "无法加载提现单。",
+      "settleFailed": "无法更新该提现单。"
     }
   },
   "wallet": {

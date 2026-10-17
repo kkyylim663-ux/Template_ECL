@@ -10,6 +10,24 @@ import { MAX_WITHDRAWALS_PER_DAY, withdrawalRequestStore } from '@/lib/mock-with
  * request, turnover and the daily cap. `idempotencyKey` makes a retried or
  * double-submitted request create one row.
  */
+
+/**
+ * Read-only list for the client's settlement step (T59B). Only the fields the
+ * history and inbox need: the idempotency key and bank id stay on the server.
+ */
+export async function GET() {
+  const list = await withdrawalRequestStore.list();
+  const d = list.map((request) => ({
+    id: request.id,
+    reference: request.reference,
+    amountMinor: request.amountMinor,
+    methodLabel: request.methodLabel,
+    status: request.status,
+    createdAt: request.createdAt,
+  }));
+  return NextResponse.json({ status: '0', msg: 'Done', d });
+}
+
 export async function POST(request: Request) {
   let body: { bankAccountId?: unknown; amountMinor?: unknown; idempotencyKey?: unknown };
   try {

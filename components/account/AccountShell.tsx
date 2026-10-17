@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAccountPayload } from '@/lib/api';
 import { LiveBalance } from './LiveBalance';
+import { WithdrawalSettler } from './WithdrawalSettler';
 import { formatDate } from '@/lib/format';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { regionPath } from '@/config/nav';
@@ -32,6 +33,7 @@ export async function AccountShell({
 
   return (
     <div className="account-wrapper">
+      <WithdrawalSettler currency={currency} />
       <div className="account-content__wrapper">
         <div className="account-header">
           <div className="account-menu__profile">

@@ -159,7 +159,10 @@
     "errorBody": "Could not load the withdrawal details.",
     "title": "Withdrawal",
     "addBank": "Add Bank Account",
-    "verified": "Verified"
+    "verified": "Verified",
+    "settledSubject": "Withdrawal update",
+    "settledSuccessBody": "Your withdrawal of {amount} (ref. {reference}) has been paid out.",
+    "settledFailedBody": "Your withdrawal of {amount} (ref. {reference}) was not completed. The amount has been returned to your main wallet."
   },
   "transfer": {
     "intro": "Move money between the main wallet and a provider wallet before launching a title.",
@@ -536,7 +539,16 @@
       },
       "empty": "No movements yet.",
       "reset": "Reset to seed",
-      "maintenance": "under maintenance"
+      "maintenance": "under maintenance",
+      "settleTitle": "Withdrawal requests (mock back office)",
+      "settleIntro": "Approve or reject a submitted request. The member's next account page settles the result: a rejection returns the amount to the main wallet, and either outcome lands in history and the inbox.",
+      "settleEmpty": "No withdrawal requests.",
+      "settleActions": "Back office",
+      "settleApprove": "Approve",
+      "settleReject": "Reject",
+      "settleDone": "Pushed",
+      "settleLoadFailed": "Could not load the withdrawal requests.",
+      "settleFailed": "Could not update the request."
     }
   },
   "wallet": {

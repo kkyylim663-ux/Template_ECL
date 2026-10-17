@@ -24,5 +24,8 @@ export default defineConfig({
     url: 'http://127.0.0.1:3000',
     reuseExistingServer: true,
     timeout: 120_000,
+    // The settle route is mock-mode only (like /dev/wallet); this keeps a run
+    // able to drive it even if someone builds with NEXT_PUBLIC_USE_MOCK=0.
+    env: { ENABLE_MOCK_SETTLE: '1' },
   },
 });

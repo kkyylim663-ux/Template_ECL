@@ -6,8 +6,11 @@ import { useTranslations } from 'next-intl';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { PrimaryButton } from '@/components/ui/Field';
 import { formatMinor } from '@/lib/format';
+import { creditDeposit, isCreditable } from '@/lib/deposit-credit';
 import type { DepositResultStatus } from '@/lib/deposit-flow';
 import type { GatewayOrder } from '@/lib/mock-deposit/orders';
+import { walletService } from '@/lib/api/wallet';
+import { useSession } from '@/lib/session/useSession';
 
 type DetailsState = 'none' | 'loading' | 'error' | 'empty' | 'ready';
 
@@ -87,6 +90,23 @@ export function DepositResult({
   useEffect(() => {
     void loadDetails();
   }, [loadDetails]);
+
+  // The wallet is bound to the signed-in account only once the session is ready;
+  // crediting earlier would be refused as a foreign account (T42b isolation).
+  const { ready: sessionReady } = useSession();
+  useEffect(() => {
+    if (!sessionReady || !isCreditable(order)) return;
+    creditDeposit(order, {
+      at: new Date().toISOString(),
+      currency,
+      labels: {
+        method: t('deposit.gatewayTitle'),
+        subject: t('deposit.successTitle'),
+        body: (amount) => t('deposit.successBody', { amount }),
+      },
+      credit: (amountMinor, idempotencyKey) => walletService.deposit(amountMinor, idempotencyKey),
+    }).catch(() => undefined);
+  }, [sessionReady, order, currency, t]);
 
   const variant = VARIANT[status];
   const text = ruledText(status, t);
