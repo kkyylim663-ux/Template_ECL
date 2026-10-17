@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { brand, REGION_CODES } from '@/config/brand';
 import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
@@ -32,6 +32,8 @@ export function MobileChrome({ region }: { region: string }) {
   const t = useTranslations('nav');
   const tCommon = useTranslations('common');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
   // Visible in the server HTML (a first-time visitor sees it at once); only a
   // visitor who dismissed it hides it, right after hydration. Starting hidden
   // would make the banner pop in and shift the page on every first load.
@@ -59,6 +61,20 @@ export function MobileChrome({ region }: { region: string }) {
     return () => {
       document.body.style.overflow = '';
     };
+  }, [drawerOpen]);
+
+  // T76: the drawer is keyboard-closable like every other overlay — Esc closes
+  // it, focus moves into the panel on open and lands back on the burger after.
+  useEffect(() => {
+    if (!drawerOpen) return;
+    drawerRef.current?.focus();
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== 'Escape') return;
+      setDrawerOpen(false);
+      burgerRef.current?.focus();
+    }
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
   }, [drawerOpen]);
 
   // The top stack is fixed, so the page needs to clear it: 56px of header, plus
@@ -129,6 +145,7 @@ export function MobileChrome({ region }: { region: string }) {
 
         <div className="flex h-14 w-16 shrink-0 items-center justify-center">
           <button
+            ref={burgerRef}
             type="button"
             onClick={() => setDrawerOpen((current) => !current)}
             aria-label={drawerOpen ? t('ui.closeMenu') : t('ui.openMenu')}
@@ -146,10 +163,15 @@ export function MobileChrome({ region }: { region: string }) {
 
         <Link
           href={isMember ? regionPath(region, '/account/profile') : regionPath(region, '/login')}
-          aria-label={isMember ? t('primary.function') : t('ui.signIn')}
+          aria-label={isMember ? `${t('primary.function')} ${brandInitials}` : t('ui.signIn')}
           className="border-line bg-panel-soft text-accent ms-auto grid h-14 w-[50px] shrink-0 place-items-center text-10 font-semibold"
         >
-          {isMember ? brandInitials : <Icon name="user" size={22} className="text-muted" />}
+          {isMember ? (
+            // T76: the label carries the initials the link shows.
+            <span aria-hidden="true">{brandInitials}</span>
+          ) : (
+            <Icon name="user" size={22} className="text-muted" />
+          )}
         </Link>
       </header>
 
@@ -163,6 +185,8 @@ export function MobileChrome({ region }: { region: string }) {
       />
 
       <aside
+        ref={drawerRef}
+        tabIndex={-1}
         aria-label={t('ui.mobileNav')}
         aria-hidden={!drawerOpen}
         inert={!drawerOpen}
@@ -170,145 +194,154 @@ export function MobileChrome({ region }: { region: string }) {
           drawerOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <nav className="flex-1 overflow-y-auto overflow-x-hidden">
-          {PRIMARY_MENU.map((section) => {
-            const open = openSection === section.id;
-            return (
-              <div key={section.id}>
+        {/* T76: the closed drawer renders no content — `aria-hidden` with a
+            focusable subtree inside is an axe failure, and `inert` alone did not
+            clear it. The panel is off-screen when closed, so nothing changes. */}
+        {drawerOpen ? (
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden">
+            {PRIMARY_MENU.map((section) => {
+              const open = openSection === section.id;
+              return (
+                <div key={section.id}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenSection(open ? null : section.id)}
+                    aria-expanded={open}
+                    className="text-muted flex h-14 w-full items-center justify-between px-5"
+                  >
+                    <span className="flex items-center">
+                      <Icon
+                        name={section.items[0]?.icon ?? 'home'}
+                        size={30}
+                        className="me-5 h-[46px] w-10 shrink-0"
+                      />
+                      <span>{t(section.labelKey)}</span>
+                    </span>
+                    <Icon
+                      name="chevronDown"
+                      size={16}
+                      className={`text-muted transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+
+                  {open ? (
+                    <ul className="pb-2">
+                      {section.items.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={regionPath(region, item.href)}
+                            onClick={() => setDrawerOpen(false)}
+                            className="drawer-row active:bg-panel-soft"
+                          >
+                            <Icon
+                              name={item.icon ?? 'home'}
+                              size={20}
+                              className="text-accent me-[30px] shrink-0"
+                            />
+                            {t(item.labelKey)}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
+              );
+            })}
+
+            <div className="drawer-divider" />
+
+            {/* Voucher (Promo Code) — the same dialog the header opens. */}
+            <div className="px-[35px]">
+              <VoucherEntry region={region} variant="drawer" />
+            </div>
+
+            <div className="drawer-divider" />
+
+            {/* Region switch */}
+            <div className="px-[35px]">
+              <p className="text-muted mb-4 text-xs">{t('sidebar.region')}</p>
+              <ul className="flex flex-wrap gap-2">
+                {REGION_CODES.map((code) => {
+                  const active = code === region;
+                  return (
+                    <li key={code}>
+                      <Link
+                        href={`/${code}`}
+                        className={`block rounded-[var(--radius-tag)] border px-3 py-1.5 text-xs ${
+                          active ? 'border-accent text-accent' : 'border-line text-muted'
+                        }`}
+                      >
+                        {t(`region.${code}`)}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+
+            <div className="drawer-divider" />
+
+            {/* Language switch — writes the brand_lang cookie and refreshes. */}
+            <div className="px-[35px]">
+              <p className="text-muted mb-4 text-xs">{t('ui.language')}</p>
+              <LanguageSwitcher variant="inline" />
+            </div>
+
+            <div className="drawer-divider" />
+
+            {/* Support channels */}
+            <div className="px-[35px]">
+              <ul className="space-y-3">
+                {CONTACT_CHANNELS.map((channel) => (
+                  <li key={channel.id}>
+                    <a href={channel.href} className="text-muted flex items-center">
+                      <Icon
+                        name={channel.icon}
+                        size={20}
+                        className="text-accent me-[30px] shrink-0"
+                      />
+                      <span className="min-w-0">
+                        <span className="block">{t(channel.labelKey)}</span>
+                        <span className="text-muted block truncate text-10">
+                          {channel.valueKey ? t(channel.valueKey) : channel.value}
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {isMember ? (
+              <div className="px-[35px]">
                 <button
                   type="button"
-                  onClick={() => setOpenSection(open ? null : section.id)}
-                  aria-expanded={open}
-                  className="text-muted flex h-14 w-full items-center justify-between px-5"
+                  onClick={onSignOut}
+                  className="text-muted flex h-14 w-full items-center"
                 >
-                  <span className="flex items-center">
-                    <Icon
-                      name={section.items[0]?.icon ?? 'home'}
-                      size={30}
-                      className="me-5 h-[46px] w-10 shrink-0"
-                    />
-                    <span>{t(section.labelKey)}</span>
-                  </span>
-                  <Icon
-                    name="chevronDown"
-                    size={16}
-                    className={`text-muted transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-                  />
+                  {tCommon('action.logout')}
                 </button>
-
-                {open ? (
-                  <ul className="pb-2">
-                    {section.items.map((item) => (
-                      <li key={item.href}>
-                        <Link
-                          href={regionPath(region, item.href)}
-                          onClick={() => setDrawerOpen(false)}
-                          className="drawer-row active:bg-panel-soft"
-                        >
-                          <Icon
-                            name={item.icon ?? 'home'}
-                            size={20}
-                            className="text-accent me-[30px] shrink-0"
-                          />
-                          {t(item.labelKey)}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
               </div>
-            );
-          })}
+            ) : null}
 
-          <div className="drawer-divider" />
-
-          {/* Voucher (Promo Code) — the same dialog the header opens. */}
-          <div className="px-[35px]">
-            <VoucherEntry region={region} variant="drawer" />
-          </div>
-
-          <div className="drawer-divider" />
-
-          {/* Region switch */}
-          <div className="px-[35px]">
-            <p className="text-muted mb-4 text-xs">{t('sidebar.region')}</p>
-            <ul className="flex flex-wrap gap-2">
-              {REGION_CODES.map((code) => {
-                const active = code === region;
-                return (
-                  <li key={code}>
-                    <Link
-                      href={`/${code}`}
-                      className={`block rounded-[var(--radius-tag)] border px-3 py-1.5 text-xs ${
-                        active ? 'border-accent text-accent' : 'border-line text-muted'
-                      }`}
+            {/* Social: 30x30 icons, the row indented 31px. */}
+            <div className="mt-6 pl-[31px]">
+              <ul className="flex items-center gap-5">
+                {SOCIAL_LINKS.map((social) => (
+                  <li key={social.id}>
+                    <a
+                      href={social.href}
+                      aria-label={social.label}
+                      className="grid size-[30px] place-items-center"
                     >
-                      {t(`region.${code}`)}
-                    </Link>
+                      <Icon name={social.id} size={30} className="text-muted" />
+                    </a>
                   </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="drawer-divider" />
-
-          {/* Language switch — writes the brand_lang cookie and refreshes. */}
-          <div className="px-[35px]">
-            <p className="text-muted mb-4 text-xs">{t('ui.language')}</p>
-            <LanguageSwitcher variant="inline" />
-          </div>
-
-          <div className="drawer-divider" />
-
-          {/* Support channels */}
-          <div className="px-[35px]">
-            <ul className="space-y-3">
-              {CONTACT_CHANNELS.map((channel) => (
-                <li key={channel.id}>
-                  <a href={channel.href} className="text-muted flex items-center">
-                    <Icon
-                      name={channel.icon}
-                      size={20}
-                      className="text-accent me-[30px] shrink-0"
-                    />
-                    <span className="min-w-0">
-                      <span className="block">{t(channel.labelKey)}</span>
-                      <span className="text-muted block truncate text-10">
-                        {channel.valueKey ? t(channel.valueKey) : channel.value}
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {isMember ? (
-            <div className="px-[35px]">
-              <button
-                type="button"
-                onClick={onSignOut}
-                className="text-muted flex h-14 w-full items-center"
-              >
-                {tCommon('action.logout')}
-              </button>
+                ))}
+              </ul>
             </div>
-          ) : null}
-
-          {/* Social: 30x30 icons, the row indented 31px. */}
-          <div className="mt-6 pl-[31px]">
-            <ul className="flex items-center gap-5">
-              {SOCIAL_LINKS.map((social) => (
-                <li key={social.id}>
-                  <a href={social.href} aria-label={social.label} className="grid size-[30px] place-items-center">
-                    <Icon name={social.id} size={30} className="text-muted" />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
+          </nav>
+        ) : null}
       </aside>
     </div>
   );

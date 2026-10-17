@@ -138,7 +138,6 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
           type="button"
           className="select-pill"
           aria-expanded={pickerOpen}
-          aria-haspopup="listbox"
           onClick={() => setPickerOpen((open) => !open)}
         >
           <span className="select-pill__left">
@@ -147,7 +146,9 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
           </span>
           <Icon name="chevronDown" size={9} />
         </button>
-        <div className="select-dropdown" role="listbox" aria-label={t('login.loginMode')}>
+        {/* T76: a plain disclosure card — role=listbox forbids the header's close
+            button as a child, so the options are pressed-buttons instead. */}
+        <div className="select-dropdown">
           <div className="select-dropdown__header">
             <span>{t('login.loginMode')}</span>
             <button
@@ -164,8 +165,7 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
               <button
                 key={tab.id}
                 type="button"
-                role="option"
-                aria-selected={method === tab.id}
+                aria-pressed={method === tab.id}
                 className={`select-drown__list${method === tab.id ? ' selected' : ''}`}
                 onClick={() => {
                   pick(tab.id);

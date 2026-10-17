@@ -67,7 +67,6 @@ export function HeaderMenu({ region }: { region: string }) {
             <div
               data-open={open ? 'true' : 'false'}
               className="menu-panel absolute top-[79px] left-0 z-[var(--z-dropdown)] mt-2.5"
-              role="menu"
             >
               <div className="bg-modal-inset relative px-[30px] pt-5 pb-[30px]">
                 <h2 className="mb-5 text-xl leading-6 font-medium text-white">{t(group.labelKey)}</h2>

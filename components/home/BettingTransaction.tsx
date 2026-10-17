@@ -72,11 +72,14 @@ export function BettingTransaction({
           </Link>
         </div>
 
-        {/* The original keeps its 1000px/800px table and scrolls it sideways. */}
+        {/* The original keeps its 1000px/800px table and scrolls it sideways.
+            T76: a scroll region needs keyboard access — the panel itself is the
+            tab stop, which is also the recommended tabpanel behaviour. */}
         <div
           role="tabpanel"
           id={panelId}
           aria-labelledby={`home-betting-tab-${tab}`}
+          tabIndex={0}
           className="overflow-x-auto"
         >
           {tab === 'allBets' ? (

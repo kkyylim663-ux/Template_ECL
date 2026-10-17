@@ -98,7 +98,7 @@ export default async function UpdateDetailPage({
           <Link
             href={regionPath(region, `/update/${older.id}`)}
             rel="next"
-            aria-label={t('update.next')}
+            aria-label={`${t('update.next')}: ${older.title}`}
             className="update-detail__back page-title"
           >
             {older.title}

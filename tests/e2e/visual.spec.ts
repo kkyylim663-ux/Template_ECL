@@ -102,7 +102,16 @@ for (const viewport of VIEWPORTS) {
           await signIn(context);
         }
         await page.goto(route);
-        await page.waitForLoadState('networkidle');
+        if (route.startsWith('/my/account/deposit/gateway')) {
+          // The gateway page is short, so every shell/footer link enters the
+          // viewport and Next prefetches all of them (40+ RSC requests). That
+          // tail can starve `networkidle` past the timeout, so this route waits
+          // for its own settled state instead — the capture is the same.
+          await page.waitForLoadState('domcontentloaded');
+          await expect(page.locator('main')).toBeVisible();
+        } else {
+          await page.waitForLoadState('networkidle');
+        }
         await expect(page).toHaveScreenshot(`${viewport.name}-${slug(route)}.png`, {
           fullPage: true,
           animations: 'disabled',

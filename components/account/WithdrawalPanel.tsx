@@ -144,7 +144,8 @@ function AccountRow({
 }) {
   const t = useTranslations('account');
   const accounts = verifiedBankAccounts(info);
-  const bankName = (bankId: string) => info.banks.find((bank) => bank.id === bankId)?.name ?? bankId;
+  const bankName = (bankId: string) =>
+    info.banks.find((bank) => bank.id === bankId)?.name ?? bankId;
 
   return (
     <div className="widthdraw-dropdown-select">
@@ -154,6 +155,7 @@ function AccountRow({
             control markup was never captured. */}
         <select
           id="bankAccountId"
+          aria-label={t('withdrawal.method')}
           className="border-line bg-panel text-ink focus:border-accent min-h-11 w-full rounded-[var(--radius-tag)] border px-3 py-2 text-sm outline-none"
           value={value}
           onChange={(event) => onChange(event.target.value)}

@@ -159,8 +159,8 @@ for (const { label, viewport } of VIEWPORTS) {
     await page.goto('/my/prediction');
     await expect.poll(() => money(page, '.pd-slip__credit')).toBeGreaterThan(0);
     const pdCredit = await money(page, '.pd-slip__credit');
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
-    await page.locator('[data-fixture="fx-fifa-1"]').getByRole('button', { name: /: Draw$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
+    await page.locator('[data-fixture="fx-fifa-1"]').getByRole('button', { name: /: Draw/ }).click();
     await page.locator('#pd-stake').fill('2.00');
     await expect(page.getByTestId('prediction-slip').locator('.pd-slip__figures')).toContainText(
       'Total: RM 4.00',

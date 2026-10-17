@@ -19,10 +19,11 @@ export function CaptchaBox() {
         aria-label={t('login.captcha')}
         placeholder={t('login.captcha')}
       />
+      {/* T76: the code itself is the visible text, so the name has to carry it. */}
       <button
         type="button"
         className="shrink-0 rounded-[8px] bg-[var(--color-tile-soft)] px-3 py-2 font-bold tracking-[0.2em]"
-        aria-label={t('login.captchaRefresh')}
+        aria-label={`${t('login.captchaRefresh')} ${CODES[index]}`}
         title={t('login.captchaRefresh')}
         onClick={() => setIndex((current) => (current + 1) % CODES.length)}
       >

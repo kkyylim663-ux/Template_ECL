@@ -60,7 +60,11 @@ export function AccountSlot({ region }: { region: string }) {
 
   return (
     <div className="group relative">
-      <button type="button" className="flex items-center gap-2.5" aria-label={t('header.summary')}>
+      {/* T76: the name comes from the content (a screen-reader prefix names the
+          control) — an explicit label drifted from the rendered balance and
+          tripped the label-in-name rule. */}
+      <button type="button" className="flex items-center gap-2.5">
+        <span className="sr-only">{t('header.summary')}</span>
         <span className="bg-panel-soft text-accent border-line grid size-9 place-items-center rounded-full border text-xs font-semibold">
           {brandInitials}
         </span>

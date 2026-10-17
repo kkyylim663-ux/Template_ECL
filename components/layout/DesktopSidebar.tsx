@@ -68,6 +68,7 @@ export function DesktopSidebar({ region }: { region: string }) {
       <aside
         aria-label={t('ui.sideNav')}
         aria-hidden={!open}
+        inert={!open}
         className={`bg-panel-soft text-muted fixed top-0 bottom-0 left-0 z-[var(--z-sidebar-panel)] hidden w-[var(--sidebar-width)] flex-col transition-transform duration-300 ease-out desktop:flex ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}

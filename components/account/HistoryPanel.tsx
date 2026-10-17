@@ -361,6 +361,7 @@ export function HistoryPanel({
             <div className="relative">
               <select
                 id="tsType"
+                aria-label={t('history.searching')}
                 className="form-control form-control-select"
                 value={kind}
                 onChange={(changeEvent) => resetPage(setKind)(changeEvent.target.value as Kind)}
@@ -409,6 +410,7 @@ export function HistoryPanel({
             <div className="relative" id="dateTimePickerWrapper">
               <input
                 id="transactionDate"
+                aria-label={t('history.dateRange')}
                 className="form-control form-control-select"
                 readOnly
                 value={

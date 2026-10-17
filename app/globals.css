@@ -44,6 +44,8 @@
   --color-success-bright: #2cbd9c;
   --color-danger: #cc3633; /* new tag, errors */
   --color-danger-bright: #e0413b;
+  /* T76: red text on dark fills — no existing red clears AA against them. */
+  --color-danger-text: #ff6d66;
   --color-warn: #ffa469;
   --color-gold: #f9d235; /* VIP */
   --color-disabled-fill: #585858; /* reference .btn-disable background */
@@ -174,8 +176,7 @@
   /* Shadows; literals on purpose, so these never depend on another theme var
      being emitted. Measured values, see docs/FIDELITY_TOKENS.md §4. */
   --shadow-inset-soft: inset 0 1px 1px rgb(0 0 0 / 8%);
-  --shadow-frame:
-    1px 0 0 #363537, -1px 0 0 #363537, 0 1px 0 #363537, 0 -1px 0 #363537;
+  --shadow-frame: 1px 0 0 #363537, -1px 0 0 #363537, 0 1px 0 #363537, 0 -1px 0 #363537;
   --shadow-accent-edge: -5px 0 0 #856b33, 5px 0 0 #856b33;
   --shadow-photo: -10px 0 0 #b5b8bd;
   --shadow-success-ring: 0 0 1px #289d82;
@@ -553,7 +554,11 @@ html {
 }
 
 .entry-card--number {
-  background-image: linear-gradient(91.55deg, var(--color-success) 14.12%, var(--color-quest-to) 138.72%);
+  background-image: linear-gradient(
+    91.55deg,
+    var(--color-success) 14.12%,
+    var(--color-quest-to) 138.72%
+  );
 }
 
 .entry-card--ranking {
@@ -565,7 +570,11 @@ html {
 }
 
 .entry-card--achievement {
-  background-image: linear-gradient(90.21deg, var(--color-violet) 0.04%, var(--color-indigo) 97.87%);
+  background-image: linear-gradient(
+    90.21deg,
+    var(--color-violet) 0.04%,
+    var(--color-indigo) 97.87%
+  );
 }
 
 .hover-grow {
@@ -1478,7 +1487,8 @@ html {
   padding: 2px 10px;
   border-radius: var(--radius-panel);
   background-color: var(--color-success);
-  color: var(--color-ink);
+  /* T76: white on the brand green reads 3.36:1 at 10-12px; dark ink is AA. */
+  color: var(--color-ink-on-accent);
   font-size: var(--text-xs);
 }
 
@@ -1987,7 +1997,8 @@ html {
 }
 
 .ng-contest__prize-pool-prize.TRC20_JACKPOT {
-  color: var(--color-success);
+  /* T76: #289d82 on this fill is 4.43:1 — the bright green clears AA. */
+  color: var(--color-success-bright);
 }
 
 .ng-contest__prize-pool-prize.BEP20_JACKPOT {
@@ -2091,7 +2102,8 @@ html {
 .ng-betslip__figures span,
 .ng-spin__available-ticket span,
 .ng-spin__current-credit span {
-  color: var(--color-success);
+  /* T76: #289d82 on the #313131 panel is 3.86:1 — the bright green clears AA. */
+  color: var(--color-success-bright);
 }
 
 .ng-bets {
@@ -2865,7 +2877,8 @@ html {
   padding: 2px 11px;
   border-radius: var(--radius-12);
   background: var(--color-success);
-  color: var(--color-ink);
+  /* T76: white on the brand green reads 3.36:1 at 10px; dark ink is AA. */
+  color: var(--color-ink-on-accent);
   font-size: var(--text-10);
   font-weight: 400;
   line-height: 1;
@@ -3047,7 +3060,9 @@ html {
  * the rank column until the next refresh.
  */
 .rb-table tbody tr {
-  transition: transform 450ms ease, background-color 450ms ease;
+  transition:
+    transform 450ms ease,
+    background-color 450ms ease;
 }
 
 .rb-table tbody tr.rb-row--moved {
@@ -4798,11 +4813,21 @@ details.accordionItem[open] .accordion-icon {
 }
 
 /* Tier badge tints: the reference ships one SVG per tier. */
-.vip-level--vip-1 { color: var(--color-muted); }
-.vip-level--vip-2 { color: var(--color-vip-bronze); }
-.vip-level--vip-3 { color: var(--color-vip-silver); }
-.vip-level--vip-4 { color: var(--color-accent); }
-.vip-level--vip-5 { color: var(--color-vip-platinum); }
+.vip-level--vip-1 {
+  color: var(--color-muted);
+}
+.vip-level--vip-2 {
+  color: var(--color-vip-bronze);
+}
+.vip-level--vip-3 {
+  color: var(--color-vip-silver);
+}
+.vip-level--vip-4 {
+  color: var(--color-accent);
+}
+.vip-level--vip-5 {
+  color: var(--color-vip-platinum);
+}
 
 .vip-green {
   color: var(--color-success);
@@ -5373,7 +5398,8 @@ details.accordionItem[open] .accordion-icon {
   position: absolute;
   top: 11px;
   right: 11.26px;
-  color: #289d82;
+  /* T76: the reference's green is 2.68:1 on the input fill; accent is AA. */
+  color: var(--color-accent);
   font-size: 14px;
 }
 
@@ -5388,7 +5414,8 @@ details.accordionItem[open] .accordion-icon {
   position: absolute;
   top: 11px;
   right: 11.26px;
-  color: #289d82;
+  /* T76: same AA swap as the SMS toggle above. */
+  color: var(--color-accent);
   font-size: 14px;
   cursor: pointer;
 }
@@ -6124,7 +6151,8 @@ details.accordionItem[open] .accordion-icon {
   width: 100%;
   height: 57px;
   padding: 20px;
-  color: var(--color-muted);
+  /* T76: the reference pairs grey text with this #47494b fill at 4.26:1. */
+  color: var(--color-ink);
   background-color: var(--color-line-muted);
   border-radius: var(--radius-panel);
   box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%);
@@ -6168,7 +6196,8 @@ details.accordionItem[open] .accordion-icon {
   top: 19px;
   display: flex;
   align-items: center;
-  color: var(--color-success);
+  /* T76: green on the input fill is 2.68:1; accent is AA and this is a control. */
+  color: var(--color-accent);
   font-size: var(--text-sm);
   cursor: pointer;
 }
@@ -6182,8 +6211,9 @@ details.accordionItem[open] .accordion-icon {
   flex-direction: column;
   justify-content: end;
   margin-left: 10px;
-  /* The reference writes the CSS keyword `grey` (#808080), like .update-card. */
-  color: var(--color-divider);
+  /* The reference writes the CSS keyword `grey` (#808080), which reads 3.78:1 on
+     this fill; T76 uses the palette's muted grey instead. */
+  color: var(--color-muted);
   font-size: var(--text-xs);
 }
 
@@ -6218,9 +6248,11 @@ details.accordionItem[open] .accordion-icon {
   border-radius: var(--radius-panel);
 }
 
+/* T76: the reference's active range is #47494b with white text (`.dateRangeBtn.active`);
+   this build had used the accent fill, which also failed AA on phones. */
 .dateRangeBtn.active {
-  background: var(--color-accent);
-  color: #000;
+  background: var(--color-line-muted);
+  color: var(--color-ink);
 }
 
 .history-table {
@@ -6482,7 +6514,6 @@ details.accordionItem[open] .accordion-icon {
   font-weight: 700;
 }
 
-
 .transfer-credit__balance {
   margin-left: auto;
   color: var(--color-muted);
@@ -6583,6 +6614,8 @@ details.accordionItem[open] .accordion-icon {
 
 .pending-status--processing {
   background: var(--color-success);
+  /* T76: white on the brand green reads 3.36:1; dark ink is AA. */
+  color: var(--color-ink-on-accent);
 }
 
 .pending-cancel {
@@ -6590,7 +6623,8 @@ details.accordionItem[open] .accordion-icon {
   border: 1px solid var(--color-line-deepest);
   border-radius: 11px;
   background: var(--color-line-deepest);
-  color: var(--color-accent);
+  /* T76: accent on this chip is 3.81:1; the measured fill stays, the label is white. */
+  color: var(--color-ink);
   font-size: var(--text-10);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -6609,7 +6643,8 @@ details.accordionItem[open] .accordion-icon {
 }
 
 .pending-countdown[data-open='false'] {
-  color: var(--color-danger);
+  /* T76: the reference red reads 2.94:1 on the row fills. */
+  color: var(--color-danger-text);
 }
 
 .pending-footer {
@@ -6805,7 +6840,7 @@ details.accordionItem[open] .accordion-icon {
 .account-promotion__tips {
   margin-bottom: 17px;
   padding-left: 29px;
-  color: var(--color-success);
+  color: var(--color-success-bright);
 }
 
 /* ── Rebates page (T63) ─────────────────────────────────────────────────────
@@ -6849,7 +6884,8 @@ details.accordionItem[open] .accordion-icon {
 
 .rebates-min-note {
   margin-top: 6px;
-  color: var(--color-muted-dim);
+  /* T76: muted-dim is 3.15:1 on the panel fill. */
+  color: var(--color-muted);
   font-size: var(--text-xs);
 }
 
@@ -7320,7 +7356,8 @@ details.accordionItem[open] .accordion-icon {
 .notice {
   margin-top: auto;
   padding-right: 30px;
-  color: var(--color-danger);
+  /* T76: the reference red reads 3.47:1 on the dark page,below AA. */
+  color: var(--color-danger-text);
 }
 
 .ticket-center .btn-group {
@@ -7403,13 +7440,14 @@ details.accordionItem[open] .accordion-icon {
 }
 
 .ticket-center .btn-green-top {
-  color: var(--color-ink);
+  /* T76: the reference's white on green is 3.36:1 at this size; dark ink is AA. */
+  color: var(--color-ink-on-accent);
   font-size: var(--text-base);
 }
 
 .ticket-center .btn-green-bottom {
   padding-top: 3px;
-  color: var(--color-ink);
+  color: var(--color-ink-on-accent);
   font-size: var(--text-xs);
 }
 
@@ -7478,7 +7516,6 @@ details.accordionItem[open] .accordion-icon {
   font-size: var(--text-sm);
   text-align: center;
 }
-
 
 @media (min-width: 769px) {
   .card-wrapper {
@@ -7692,6 +7729,13 @@ details.accordionItem[open] .accordion-icon {
     padding: 11px;
     background: transparent;
     font-size: var(--text-xs);
+  }
+
+  /* T76: keep the reference's active fill on phones too — the transparent rule
+     above would otherwise leave black text on the #353537 capsule (1.71:1). */
+  .selectDateRangeWrapper .nav-pill.active {
+    background: var(--color-line-muted);
+    color: var(--color-ink);
   }
 
   .turnover-table {
@@ -8246,9 +8290,9 @@ details.accordionItem[open] .accordion-icon {
   line-height: 1.6;
 }
 
-/* Reference `.deposit-tnc`: red, 14px. */
+/* Reference `.deposit-tnc`: red, 14px (T76: their red reads 2.71:1 here). */
 .deposit-tnc {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
   font-size: var(--text-sm);
   line-height: 1.6;
 }
@@ -9099,15 +9143,18 @@ details.accordionItem[open] .accordion-icon {
 }
 
 .withdraw-verify__verified {
-  color: var(--color-success);
+  /* T76: bright green, same AA swap as the rest of this table's greens. */
+  color: var(--color-success-bright);
 }
 
 .withdraw-verify__unverified {
-  color: var(--color-danger);
+  /* T76: 2.68:1 with the reference red on this fill. */
+  color: var(--color-danger-text);
 }
 
 .withdraw-verify-now {
-  color: var(--color-success);
+  /* T76: bright green, same AA swap as the rest of this table's greens. */
+  color: var(--color-success-bright);
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: 500;
@@ -9141,7 +9188,8 @@ details.accordionItem[open] .accordion-icon {
 /* Reference sets the margin only; the colour is the verified green. */
 .withdraw-verified {
   margin-right: 10px;
-  color: var(--color-success);
+  /* T76: #289d82 on this fill is 4.43:1 — the bright green clears AA. */
+  color: var(--color-success-bright);
 }
 
 /* Ours: the reference's row has no spacing of its own; the capture's neighbours
@@ -9316,10 +9364,11 @@ details.accordionItem[open] .accordion-icon {
   width: 320px;
 }
 
-/* Reference `.my-bank__verfied{color:primary-green;margin-right:13px}`. */
+/* Reference `.my-bank__verfied{color:primary-green;margin-right:13px}`.
+   T76: #289d82 on the row fill is 4.43:1 — the bright green clears AA. */
 .my-bank__verfied {
   margin-right: 13px;
-  color: var(--color-success);
+  color: var(--color-success-bright);
 }
 
 .my-bank-pending {
@@ -9340,7 +9389,7 @@ details.accordionItem[open] .accordion-icon {
 /* The reference's `.mybank-verify-now` green link, worn by the row actions. */
 .my-bank-action__button,
 .mybank-verify-now {
-  color: var(--color-success);
+  color: var(--color-success-bright);
   cursor: pointer;
   font-size: var(--text-sm);
   font-weight: 500;
@@ -9351,11 +9400,12 @@ details.accordionItem[open] .accordion-icon {
 }
 
 .my-bank-action__danger {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 .my-bank-default {
-  color: var(--color-success);
+  /* T76: same fill and green as `.my-bank__verfied` — same AA swap. */
+  color: var(--color-success-bright);
 }
 
 .mybank-state__text {
@@ -9513,11 +9563,11 @@ details.accordionItem[open] .accordion-icon {
 }
 
 .ticket-status--available {
-  color: var(--color-success);
+  color: var(--color-success-bright);
 }
 
 .ticket-status--used {
-  color: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 .ticket-status--expired {

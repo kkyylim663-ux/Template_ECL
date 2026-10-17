@@ -49,7 +49,8 @@ export async function Header({ region }: { region: string }) {
             >
               <span className="me-[15px] text-sm font-bold text-white">{t('ui.quest')}</span>
               <Icon name="trophy" size={20} className="absolute right-4 text-white" />
-              <span className="bg-success absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-10 leading-none text-white">
+              {/* T76: 10px white on the brand green reads 3.37:1; the dark ink is the AA pairing. */}
+              <span className="bg-success text-ink-on-accent absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-10 leading-none">
                 {t('ui.live')}
               </span>
             </a>

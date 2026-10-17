@@ -304,7 +304,6 @@ export function TransferPanel({ currency }: { currency: string }) {
                 {formError ? t(`transfer.${formError}`) : null}
               </div>
             </div>
-
           </div>
           <button
             className="btn btn-primary transfer-submit__btn width-medium"
@@ -330,6 +329,7 @@ export function TransferPanel({ currency }: { currency: string }) {
           <label className="switch">
             <input
               type="checkbox"
+              aria-label={t('transfer.autoCredit')}
               checked={autoCredit}
               onChange={(event) => setAutoCredit(event.target.checked)}
             />

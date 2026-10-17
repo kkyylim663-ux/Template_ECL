@@ -74,7 +74,15 @@ export default async function VipPage({ params }: { params: Promise<{ region: st
           </ol>
         </div>
 
-        <div className="vip-table__wrapper" data-vip-table>
+        {/* T76: the tier matrix scrolls sideways (like `.vip-tier-track` above),
+            so it needs a keyboard-reachable scroll region of its own. */}
+        <div
+          className="vip-table__wrapper"
+          data-vip-table
+          role="region"
+          aria-label={t('vip.privilegesTitle')}
+          tabIndex={0}
+        >
           <h2 className="section-title section-title__vip">{t('vip.privilegesTitle')}</h2>
           <div className="vip-table">
             <div className="vip-row vip-row__borderless">

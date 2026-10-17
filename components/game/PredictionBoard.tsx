@@ -95,7 +95,10 @@ export function PredictionBoard({
     setTickets(null);
     try {
       const response = await fetch('/api/prediction/bets');
-      const body = (await response.json()) as { status: string; d: { bets: PlacedPredictionBet[] } };
+      const body = (await response.json()) as {
+        status: string;
+        d: { bets: PlacedPredictionBet[] };
+      };
       if (body.status !== '0') throw new Error(body.status);
       setTickets(body.d.bets);
     } catch {
@@ -197,9 +200,7 @@ export function PredictionBoard({
       await session.refresh();
       void loadTickets();
     } catch (error) {
-      setBodyKey(
-        error instanceof PredictionError ? ERROR_KEYS[error.code] : ERROR_KEYS.network,
-      );
+      setBodyKey(error instanceof PredictionError ? ERROR_KEYS[error.code] : ERROR_KEYS.network);
       setOutcome({ variant: 'error', titleKey: 'prediction.failedTitle' });
     } finally {
       setSubmitting(false);
@@ -213,10 +214,7 @@ export function PredictionBoard({
           const ended = fixture.status === 'ended';
           return (
             <li key={fixture.id}>
-              <article
-                data-fixture={fixture.id}
-                className={`pd-card ${CARD_MOD[fixture.status]}`}
-              >
+              <article data-fixture={fixture.id} className={`pd-card ${CARD_MOD[fixture.status]}`}>
                 <div className="pd-card__head">
                   <span aria-hidden className="pd-card__avatar pd-card__league">
                     {fixture.league}
@@ -258,11 +256,11 @@ export function PredictionBoard({
                       type="button"
                       className={`pd-card__odd${isPicked(picks, fixture.id, option.id) ? ' selected' : ''}`}
                       aria-pressed={isPicked(picks, fixture.id, option.id)}
-                      aria-label={t('prediction.optionAria', {
+                      aria-label={`${t('prediction.optionAria', {
                         home: fixture.home,
                         away: fixture.away,
                         option: option.label,
-                      })}
+                      })}${option.odds.toFixed(2)}`}
                       disabled={ended}
                       onClick={() => choose(fixture.id, option.id)}
                     >
@@ -377,11 +375,7 @@ export function PredictionBoard({
         </button>
       </section>
 
-      <section
-        className="pd-tickets"
-        data-testid="prediction-tickets"
-        data-state={ticketsState}
-      >
+      <section className="pd-tickets" data-testid="prediction-tickets" data-state={ticketsState}>
         <h2 className="pd-tickets__title">{t('prediction.tickets')}</h2>
         {ticketsState === 'loading' ? (
           <p className="pd-tickets__note">{tCommon('state.loading')}</p>
@@ -417,7 +411,11 @@ export function PredictionBoard({
                       .map((pick) => `${pick.home} ${t('prediction.vs')} ${pick.away}`)
                       .join(' · ')}
                   </td>
-                  <td>{ticket.picks.map((pick) => `${pick.label} ${pick.odds.toFixed(2)}`).join(' · ')}</td>
+                  <td>
+                    {ticket.picks
+                      .map((pick) => `${pick.label} ${pick.odds.toFixed(2)}`)
+                      .join(' · ')}
+                  </td>
                   <td>{ticket.placedAt.slice(0, 16).replace('T', ' ')}</td>
                   <td>{money(ticket.totalMinor)}</td>
                 </tr>
@@ -450,7 +448,11 @@ export function PredictionBoard({
               {dialog.home} {t('prediction.vs')} {dialog.away} · {dialog.league}
             </p>
             <p className="pd-drag-select">{t('prediction.pickHint')}</p>
-            <div className="pd-select__container" role="group" aria-label={t('prediction.pickTitle')}>
+            <div
+              className="pd-select__container"
+              role="group"
+              aria-label={t('prediction.pickTitle')}
+            >
               {dialog.options.map((option) => (
                 <button
                   key={option.id}

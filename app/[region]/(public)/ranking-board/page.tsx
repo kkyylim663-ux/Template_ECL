@@ -114,7 +114,7 @@ export default async function RankingBoardPage({
               <Link
                 key={option.kind}
                 href={`${base}?board=${option.kind}`}
-                aria-pressed={option.kind === selectedIn(GROUPS[0])}
+                aria-current={option.kind === selectedIn(GROUPS[0]) ? 'true' : undefined}
                 className={`${GROUPS[0].itemClass}${option.kind === selectedIn(GROUPS[0]) ? ' is-selected' : ''}`}
               >
                 {t(option.labelKey)}
@@ -132,7 +132,7 @@ export default async function RankingBoardPage({
                       <Link
                         key={option.kind}
                         href={`${base}?board=${option.kind}`}
-                        aria-pressed={option.kind === selected}
+                        aria-current={option.kind === selected ? 'true' : undefined}
                         className={`${group.itemClass}${option.kind === selected ? ' is-selected' : ''}`}
                       >
                         {t(option.labelKey)}

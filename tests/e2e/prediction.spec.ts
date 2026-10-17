@@ -79,9 +79,10 @@ test.describe('prediction', () => {
   test('the slip holds one pick per fixture and refuses a fourth fixture', async ({ page }) => {
     await page.goto('/my/prediction');
     const pick = async (fixture: string, option: string) => {
+      // T76: the accessible name now carries the odds too, so no `$` anchor.
       await page
         .locator(`[data-fixture="${fixture}"]`)
-        .getByRole('button', { name: new RegExp(`: ${option}$`) })
+        .getByRole('button', { name: new RegExp(`: ${option}`) })
         .click();
     };
 
@@ -109,7 +110,7 @@ test.describe('prediction', () => {
       if (request.method() === 'POST' && request.url().includes('/api/prediction/bets')) posts += 1;
     });
 
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
     await page.locator('#pd-stake').fill('0.50');
     await page.getByRole('button', { name: 'SUBMIT' }).click();
     await expect(page.getByText('The bet amount is below the minimum.')).toBeVisible();
@@ -117,7 +118,7 @@ test.describe('prediction', () => {
 
     // An empty slip is refused too, before any request.
     await page.locator('#pd-stake').fill('2.00');
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
     await page.getByRole('button', { name: 'SUBMIT' }).click();
     await expect(page.getByRole('heading', { name: 'Ticket not placed' })).toBeVisible();
     expect(posts).toBe(0);
@@ -129,8 +130,8 @@ test.describe('prediction', () => {
     await page.goto('/my/prediction');
     await expect(page.locator('.pd-slip__credit')).toContainText('RM 1,622.50');
 
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
-    await page.locator('[data-fixture="fx-fifa-1"]').getByRole('button', { name: /: Draw$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
+    await page.locator('[data-fixture="fx-fifa-1"]').getByRole('button', { name: /: Draw/ }).click();
     await page.locator('#pd-stake').fill('2.00');
     await expect(page.getByTestId('prediction-slip').locator('.pd-slip__figures')).toContainText(
       'Total: RM 4.00',
@@ -158,7 +159,7 @@ test.describe('prediction', () => {
 
   test('a reload neither re-books the ticket nor charges the stake twice', async ({ page }) => {
     await page.goto('/my/prediction');
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
     await page.locator('#pd-stake').fill('3.00');
     await page.getByRole('button', { name: 'SUBMIT' }).click();
     await expect(page.getByRole('heading', { name: 'Ticket placed' })).toBeVisible();
@@ -180,7 +181,7 @@ test.describe('prediction', () => {
   test('375: the cards, the slip and the tickets table fit the viewport', async ({ page }) => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/my/prediction');
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
 
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -193,7 +194,7 @@ test.describe('prediction for a guest', () => {
   test('SUBMIT asks for a login first', async ({ page }) => {
     await page.goto('/my/prediction');
     await expect(page.locator('.pd-slip__credit')).toContainText('RM 0.00');
-    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home$/ }).click();
+    await page.locator('[data-fixture="fx-nba-1"]').getByRole('button', { name: /: Home/ }).click();
     await page.getByRole('button', { name: 'SUBMIT' }).click();
     await expect(page.getByRole('heading', { name: 'Please login first' })).toBeVisible();
   });
