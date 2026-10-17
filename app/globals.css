@@ -1943,7 +1943,7 @@ html {
 }
 
 .ng-contest__card-1 {
-  width: 202px;
+  flex: 1;
   padding: 3px;
   border-radius: var(--radius-panel);
   background: var(--color-panel-quiet);
@@ -2006,7 +2006,9 @@ html {
   gap: 10px;
 }
 
-/* Two manual slots, one row, as in the reference's auto-wrapper. */
+/* Two manual line slots (T67): one row of the reference's 136px cells; a filled
+   slot is `.ng-spin__manual-pill` (its own values: #47494b, grey text, radius 15,
+   padding 20), matched to the add cell's height. */
 .ng-spin__manual-add {
   width: 136px;
   height: 63px;
@@ -2014,8 +2016,96 @@ html {
   background: var(--color-panel-alt);
 }
 
-.ng-spin__manual-add:nth-child(n + 3) {
-  display: none;
+.ng-spin__manual-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 136px;
+  min-height: 63px;
+  padding: 20px;
+  border-radius: var(--radius-panel);
+  background: #47494b;
+  color: var(--color-muted);
+}
+
+/* T67: the six-of-49 dial. The reference's own ≤768 rule
+   (`.ng-spin__body .nav-pill__wrapper` — a grid of `calc(33% - 2.5px)` columns
+   with 5px gaps, pills at `padding:12px 0`) is the basis; ten columns of the same
+   cell at desktop widths keeps all 49 numbers on one screen. */
+.ng-spin__body .nav-pill__wrapper {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 5px;
+  overflow: visible;
+}
+
+.ng-spin__body .nav-pill {
+  margin-right: 0;
+  padding: 12px 0;
+}
+
+/* The reference's own selected pill (`.ng-spin__wrapper .nav-pill.selected`). */
+.ng-spin__body .nav-pill[aria-pressed='true'] {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.ng-spin__pick-hint,
+.ng-betslip__label,
+.ng-betslip__hint,
+.ng-betslip__figures,
+.ng-bets__note,
+.ng-rules__text {
+  color: var(--color-muted);
+  font-size: var(--text-base);
+}
+
+.ng-spin__pick-hint,
+.ng-betslip__hint,
+.ng-betslip__figures {
+  margin-top: 10px;
+}
+
+.ng-betslip {
+  margin-top: 20px;
+}
+
+.ng-betslip__label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ng-betslip__figures span,
+.ng-spin__available-ticket span,
+.ng-spin__current-credit span {
+  color: var(--color-success);
+}
+
+.ng-bets {
+  margin-top: 20px;
+}
+
+.ng-bets__title {
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.ng-bets__table {
+  margin-top: 10px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .ng-spin__body .nav-pill__wrapper {
+    grid-template-columns: repeat(3, calc(33% - 2.5px));
+  }
+
+  /* The reference's own ≤768 rule for the prize-pool row; with `flex:1` cards
+     (its `.ng-contest__card-1`) the three of them fit the phone. */
+  .ng-contest__section-prize-pool {
+    gap: 4px;
+  }
 }
 
 /* Number game tab pills: 40px tall on desktop, the reference's `.nav-pill` box. */

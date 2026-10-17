@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getDisplayPayload } from '@/lib/api';
-import { LaunchButton } from '@/components/game/LaunchButton';
+import { NumberGameActions } from '@/components/game/NumberGameActions';
+import { NumberGamePanel } from '@/components/game/NumberGamePanel';
 import { InertLink } from '@/components/ui/InertLink';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { regionPath } from '@/config/nav';
+import { regionConfig, type RegionCode } from '@/config/brand';
 import { pageMetadata } from '@/lib/seo';
 
 /** The four tabs the reference puts in its `.nav-pill__outsider` slab. */
@@ -56,6 +58,7 @@ export default async function NumberGamePage({
   const requested = typeof query.tab === 'string' ? query.tab : '';
   const tab = TABS.find((option) => option.id === requested)?.id ?? 'current';
   const base = regionPath(region, '/numbergame');
+  const { symbol } = regionConfig(region as RegionCode);
 
   const history = (
     <table className="table-theme number-game__latest-prediction__table">
@@ -145,31 +148,9 @@ export default async function NumberGamePage({
                   ))}
                 </div>
 
-                <div className="ng-contest__actions">
-                  <LaunchButton provider="numbergame" label={t('numberGame.playNext')} />
-                  <InertLink className="btn btn-secondary">{t('numberGame.rulesButton')}</InertLink>
-                </div>
+                <NumberGameActions region={region} />
 
-                <div className="ng-spin__wrapper">
-                  <div className="ng-spin__header">
-                    <span className="nav-pill selected">{t('numberGame.manual')}</span>
-                    <span className="nav-pill">{t('numberGame.auto')}</span>
-                  </div>
-                  <div className="ng-spin__body">
-                    <div className="ng-spin__manual-grid">
-                      {Array.from({ length: 6 }, (_, index) => (
-                        <div key={index} className="ng-spin__manual-add" />
-                      ))}
-                    </div>
-                    <div className="ng-spin__actions">
-                      <InertLink className="btn btn-primary mr-7">{t('numberGame.random')}</InertLink>
-                      <InertLink className="btn btn-normal">{t('numberGame.reset')}</InertLink>
-                    </div>
-                    <InertLink className="btn btn-primary ng-spin__submit">
-                      {t('numberGame.submit')}
-                    </InertLink>
-                  </div>
-                </div>
+                <NumberGamePanel symbol={symbol} />
               </div>
 
               <div className="section-card latest-prediction-wrapper">

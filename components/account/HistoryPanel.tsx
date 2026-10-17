@@ -8,6 +8,7 @@ import { readAchievementRecords } from '@/lib/achievement-claim';
 import { readDepositRecords } from '@/lib/deposit-credit';
 import { readRebateRecords } from '@/lib/rebate-claim';
 import { readVoucherRecords } from '@/lib/voucher-claim';
+import { readNumberGameRecords } from '@/lib/numbergame-bet';
 import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
 import { RECORDS_EVENT } from '@/lib/mock-records';
 import type { HistoryRow } from '@/lib/api/schemas';
@@ -98,6 +99,7 @@ export function HistoryPanel({
         ...readRebateRecords().map((record) => record.row),
         ...readAchievementRecords().map((record) => record.row),
         ...readVoucherRecords().map((record) => record.row),
+        ...readNumberGameRecords().map((record) => record.row),
         ...readCancelledTransactions().map((entry): HistoryRow =>
           entry.kind === 'transfer'
             ? {
