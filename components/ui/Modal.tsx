@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { Icon, type IconName } from './Icon';
 
 /**
@@ -42,6 +43,14 @@ export type ModalProps = {
   actions?: ReactNode;
   /** Loading has no close affordance by design. */
   dismissible?: boolean;
+  /**
+   * Renders the overlay on `document.body` instead of in place. A dialog opened
+   * from inside a transformed container (the mobile drawer slides with a
+   * transform) would otherwise lay out inside that container: `position: fixed`
+   * resolves against the nearest transformed ancestor, so the overlay would be
+   * drawer-sized rather than viewport-sized.
+   */
+  portal?: boolean;
 };
 
 export function Modal({
@@ -52,6 +61,7 @@ export function Modal({
   children,
   actions,
   dismissible,
+  portal = false,
 }: ModalProps) {
   const t = useTranslations('common');
   const panelRef = useRef<HTMLDivElement>(null);
@@ -113,7 +123,7 @@ export function Modal({
 
   if (!open) return null;
 
-  return (
+  const overlay = (
     <div
       role="presentation"
       onMouseDown={(event) => {
@@ -167,4 +177,10 @@ export function Modal({
       </div>
     </div>
   );
+
+  if (portal) {
+    // The dialog only exists after a click, so this never runs during SSR.
+    return typeof document === 'undefined' ? null : createPortal(overlay, document.body);
+  }
+  return overlay;
 }

@@ -9246,3 +9246,143 @@ details.accordionItem[open] .accordion-icon {
     min-width: 560px;
   }
 }
+
+/* ── Voucher (Promo Code) dialog (T66) ──────────────────────────────────────
+   The dialog the header and the mobile drawer open (T19) is the reference's
+   #voucherRedempModal. Its captured values: `.account-voucher__modal`
+   (padding-bottom 2rem), `.voucher-modal__tip-wrapper` (margin-top 1rem,
+   padding-left 1rem), the numbered `.info-content` list (decimal, 10px between
+   items) and `.account-voucher__modal-btn` (centred, padding-top 20px). The
+   field skin follows the account forms' own values, and the result lines plus
+   the redeemed-voucher list (`.voucher-wallet*`) are ours — the reference's
+   dialog holds only the input, the two tips and Submit. */
+
+.account-voucher__modal {
+  padding-bottom: 2rem;
+}
+
+.voucher-modal__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.voucher-modal__input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: var(--color-panel-alt);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.voucher-modal__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.voucher-modal__error {
+  margin-top: 6px;
+  color: var(--color-danger);
+  font-size: var(--text-13);
+}
+
+.voucher-modal__tip-wrapper {
+  margin-top: 1rem;
+  padding-left: 1rem;
+}
+
+.info-content {
+  list-style-type: decimal;
+  padding-left: 10px;
+}
+
+.info-content li {
+  margin-bottom: 10px;
+}
+
+.voucher-modal__result {
+  margin-top: 10px;
+  font-size: var(--text-13);
+}
+
+.voucher-modal__result--notice {
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-tag);
+  padding: 8px 12px;
+  color: var(--color-accent);
+}
+
+.voucher-modal__result--success {
+  color: var(--color-success);
+}
+
+.voucher-modal__result--error {
+  color: var(--color-danger);
+}
+
+.voucher-modal__hint {
+  margin-top: 12px;
+  color: var(--color-muted);
+  font-size: var(--text-13);
+}
+
+.account-voucher__modal-btn {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+/* The redeemed-voucher list: this build's only addition to the dialog. */
+.voucher-wallet {
+  border-top: 1px solid var(--color-line);
+  margin-top: 20px;
+  padding-top: 12px;
+}
+
+.voucher-wallet__title {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.voucher-wallet__note {
+  color: var(--color-muted);
+  font-size: var(--text-11);
+  font-weight: 400;
+}
+
+.voucher-wallet__state {
+  margin-top: 8px;
+  color: var(--color-muted);
+  font-size: var(--text-13);
+}
+
+.voucher-wallet__retry {
+  margin-top: 8px;
+  padding: 4px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: none;
+  color: var(--color-ink);
+  font: inherit;
+  font-size: var(--text-13);
+  cursor: pointer;
+}
+
+/* The list scrolls sideways when four columns need more than 375. */
+.voucher-wallet__table-wrapper {
+  margin-top: 8px;
+  overflow-x: auto;
+}
+
+.voucher-wallet__table {
+  min-width: 100%;
+}

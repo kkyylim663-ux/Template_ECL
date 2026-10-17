@@ -7,6 +7,7 @@ import { readCancelledTransactions } from '@/lib/api/pending';
 import { readAchievementRecords } from '@/lib/achievement-claim';
 import { readDepositRecords } from '@/lib/deposit-credit';
 import { readRebateRecords } from '@/lib/rebate-claim';
+import { readVoucherRecords } from '@/lib/voucher-claim';
 import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
 import { RECORDS_EVENT } from '@/lib/mock-records';
 import type { HistoryRow } from '@/lib/api/schemas';
@@ -37,7 +38,15 @@ const timeOf = (at: string) => at.slice(11, 16);
 /** "2026-10-16T21:33:00+08:00" -> "16/10/2026" (the reference's moment format). */
 const dateShort = (at: string) => `${at.slice(8, 10)}/${at.slice(5, 7)}/${at.slice(0, 4)}`;
 
-function RolloverRow({ label, amount, currency }: { label: string; amount: string; currency: string }) {
+function RolloverRow({
+  label,
+  amount,
+  currency,
+}: {
+  label: string;
+  amount: string;
+  currency: string;
+}) {
   return (
     <tr>
       <td className="turnover-table-td-1">{label}</td>
@@ -74,7 +83,10 @@ export function HistoryPanel({
   const [query, setQuery] = useState('');
   const [pageSize, setPageSize] = useState<number>(PAGE_SIZES[0]);
   const [page, setPage] = useState(1);
-  const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({ key: 'at', dir: 'desc' });
+  const [sort, setSort] = useState<{ key: string; dir: 'asc' | 'desc' }>({
+    key: 'at',
+    dir: 'desc',
+  });
 
   /** Pending requests cancelled on /account/pending arrive here as history rows. */
   const [cancelledRows, setCancelledRows] = useState<HistoryRow[]>([]);
@@ -85,6 +97,7 @@ export function HistoryPanel({
         ...readWithdrawalRecords().map((record) => record.row),
         ...readRebateRecords().map((record) => record.row),
         ...readAchievementRecords().map((record) => record.row),
+        ...readVoucherRecords().map((record) => record.row),
         ...readCancelledTransactions().map((entry): HistoryRow =>
           entry.kind === 'transfer'
             ? {
@@ -116,7 +129,8 @@ export function HistoryPanel({
 
   const all = useMemo(() => [...history, ...cancelledRows], [history, cancelledRows]);
 
-  const money = (minor: number) => (minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 });
+  const money = (minor: number) =>
+    (minor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 });
 
   /**
    * The demo "now": the newest row on show. The fixture's dates are fixed, so
@@ -140,7 +154,10 @@ export function HistoryPanel({
   const columns = useMemo<Column[]>(() => {
     const dateColumn: Column = {
       key: 'at',
-      label: kind === 'deposit' || kind === 'withdrawal' ? t('history.col.deposit') : t('history.col.date'),
+      label:
+        kind === 'deposit' || kind === 'withdrawal'
+          ? t('history.col.deposit')
+          : t('history.col.date'),
       value: (row) => row.at,
       render: (row) => dateShort(row.at),
     };
@@ -292,16 +309,19 @@ export function HistoryPanel({
   const start = sorted.length === 0 ? 0 : (current - 1) * pageSize + 1;
   const end = Math.min(current * pageSize, sorted.length);
 
-  const resetPage = <T,>(setter: (value: T) => void) => (value: T) => {
-    setter(value);
-    setPage(1);
-  };
+  const resetPage =
+    <T,>(setter: (value: T) => void) =>
+    (value: T) => {
+      setter(value);
+      setPage(1);
+    };
 
   /** simple_numbers: first, last and a window around the current page. */
   const pageNumbers = useMemo(() => {
     const numbers: (number | '…')[] = [];
     for (let index = 1; index <= totalPages; index += 1) {
-      if (index === 1 || index === totalPages || Math.abs(index - current) <= 2) numbers.push(index);
+      if (index === 1 || index === totalPages || Math.abs(index - current) <= 2)
+        numbers.push(index);
       else if (numbers[numbers.length - 1] !== '…') numbers.push('…');
     }
     return numbers;
@@ -323,7 +343,11 @@ export function HistoryPanel({
         {t('history.title')}
       </h1>
 
-      <form id="historyForm" className="has-space" onSubmit={(submitEvent) => submitEvent.preventDefault()}>
+      <form
+        id="historyForm"
+        className="has-space"
+        onSubmit={(submitEvent) => submitEvent.preventDefault()}
+      >
         <div className="width-medium">
           <div className="form-group">
             <label htmlFor="tsType" className="desktop">
@@ -563,9 +587,21 @@ export function HistoryPanel({
               </tr>
             </thead>
             <tbody>
-              <RolloverRow label={t('history.turnoverPromotion')} amount={money(promotionTurnover)} currency={currency} />
-              <RolloverRow label={t('history.turnoverLatestDeposit')} amount={money(latestDeposit)} currency={currency} />
-              <RolloverRow label={t('history.totalTurnover')} amount={money(totalTurnover)} currency={currency} />
+              <RolloverRow
+                label={t('history.turnoverPromotion')}
+                amount={money(promotionTurnover)}
+                currency={currency}
+              />
+              <RolloverRow
+                label={t('history.turnoverLatestDeposit')}
+                amount={money(latestDeposit)}
+                currency={currency}
+              />
+              <RolloverRow
+                label={t('history.totalTurnover')}
+                amount={money(totalTurnover)}
+                currency={currency}
+              />
               <tr className="turnover-header-footer">
                 <td className="turnover-table-td-1">{t('history.currentTurnover')}</td>
                 <td className="turnover-table-td-2">

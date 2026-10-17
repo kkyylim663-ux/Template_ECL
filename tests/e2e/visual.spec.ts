@@ -17,6 +17,7 @@ test.beforeAll(async () => {
   await rm(join(process.cwd(), '.mock-data', 'rebate-claims.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'achievement-claims.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'ticket-store.json'), { force: true });
+  await rm(join(process.cwd(), '.mock-data', 'voucher-store.json'), { force: true });
 });
 const ROUTES = [
   '/my',
@@ -110,5 +111,33 @@ for (const viewport of VIEWPORTS) {
         });
       });
     }
+  });
+}
+
+// T66: the Voucher (Promo Code) dialog is not a route — it opens from the header
+// (and from the drawer on phones). Captured as the panel itself, with the store
+// reset above so the redeemed-voucher list is in its empty state.
+for (const viewport of VIEWPORTS) {
+  test.describe(`voucher dialog ${viewport.name}`, () => {
+    test.use({ viewport: { width: viewport.width, height: viewport.height } });
+
+    test('voucher dialog', async ({ page, context }) => {
+      await signIn(context);
+      await page.goto('/my');
+      if (viewport.name === 'mobile') {
+        await page.getByLabel('Open menu').click();
+        await page.locator('[data-voucher="drawer"]').click();
+      } else {
+        await page.locator('[data-voucher="header"]').click();
+      }
+
+      const dialog = page.getByRole('dialog');
+      await expect(dialog).toBeVisible();
+      await expect(page.getByTestId('voucher-wallet')).toHaveAttribute('data-state', 'ready');
+      await expect(dialog).toHaveScreenshot(`${viewport.name}-voucher-dialog.png`, {
+        animations: 'disabled',
+        maxDiffPixelRatio: 0.001,
+      });
+    });
   });
 }

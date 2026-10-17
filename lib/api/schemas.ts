@@ -751,3 +751,17 @@ export const ticketsInfoSchema = z.object({ tickets: z.array(ticketRowSchema) })
 
 export type TicketInfoRow = z.infer<typeof ticketRowSchema>;
 export type TicketsInfo = z.infer<typeof ticketsInfoSchema>;
+
+export const voucherRowSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  amountMinor: z.number().int(),
+  redeemedAt: z.string(),
+  expiresAt: z.string(),
+  status: z.enum(['active', 'expired']),
+});
+
+export const vouchersInfoSchema = z.object({ vouchers: z.array(voucherRowSchema) });
+
+export type VoucherInfoRow = z.infer<typeof voucherRowSchema>;
+export type VouchersInfo = z.infer<typeof vouchersInfoSchema>;

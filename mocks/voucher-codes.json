@@ -1,0 +1,37 @@
+[
+  {
+    "code": "WELCOME188",
+    "amountMinor": 18800,
+    "startsAt": "2026-01-01T00:00:00+08:00",
+    "expiresAt": "2026-12-31T23:59:00+08:00",
+    "left": 500
+  },
+  {
+    "code": "VOUCHER50",
+    "amountMinor": 5000,
+    "startsAt": "2026-01-01T00:00:00+08:00",
+    "expiresAt": "2026-12-31T23:59:00+08:00",
+    "left": 200
+  },
+  {
+    "code": "SOONCODE",
+    "amountMinor": 10000,
+    "startsAt": "2027-01-01T00:00:00+08:00",
+    "expiresAt": "2027-06-30T23:59:00+08:00",
+    "left": 100
+  },
+  {
+    "code": "EXPIREDVOUCHER",
+    "amountMinor": 8800,
+    "startsAt": "2026-01-01T00:00:00+08:00",
+    "expiresAt": "2026-09-30T23:59:00+08:00",
+    "left": 100
+  },
+  {
+    "code": "SOLDOUTCODE",
+    "amountMinor": 3000,
+    "startsAt": "2026-01-01T00:00:00+08:00",
+    "expiresAt": "2026-12-31T23:59:00+08:00",
+    "left": 0
+  }
+]

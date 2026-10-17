@@ -40,10 +40,9 @@ test.describe('promotion list (T18)', () => {
   test('cards link to their detail page', async ({ page }) => {
     await page.goto('/my/promotion');
     // The card itself is the link (`.promotion-card`), as in the reference.
-    await expect(page.locator('article[data-promotion="pr-welcome-188"] a.promotion-card')).toHaveAttribute(
-      'href',
-      '/my/promotion/pr-welcome-188',
-    );
+    await expect(
+      page.locator('article[data-promotion="pr-welcome-188"] a.promotion-card'),
+    ).toHaveAttribute('href', '/my/promotion/pr-welcome-188');
   });
 
   test('375px lays the grid out in one column', async ({ page }) => {
@@ -117,15 +116,16 @@ test.describe('promotion detail and the voucher dialog (T19)', () => {
     await expect(page.getByRole('dialog')).toBeVisible();
   });
 
-  test('a signed-in visitor gets the demo result instead', async ({ page, context }) => {
+  test('a signed-in visitor gets a real answer instead', async ({ page, context }) => {
     await signIn(context);
     await page.goto('/my/promotion');
 
     await page.locator('[data-voucher="header"]').click();
-    await page.locator('[data-voucher-form] input').fill('WELCOME188');
+    await page.locator('[data-voucher-form] input').fill('NOPE');
     await page.locator('[data-voucher-form] button[type="submit"]').click();
 
-    await expect(page.getByText(/looks well-formed/)).toBeVisible();
+    // T66: the redeem is real now — the mock catalogue does not know this code.
+    await expect(page.getByTestId('voucher-result')).toHaveAttribute('data-outcome', 'invalid');
     await expect(page.getByText('Sign in to redeem a voucher.')).toHaveCount(0);
   });
 });
@@ -136,7 +136,10 @@ test.describe('update list and detail (T20)', () => {
 
     await expect(page.locator('article[data-update]')).toHaveCount(6);
     // The newest record leads, and the band carries the count.
-    await expect(page.locator('article[data-update]').first()).toHaveAttribute('data-update', 'up-061');
+    await expect(page.locator('article[data-update]').first()).toHaveAttribute(
+      'data-update',
+      'up-061',
+    );
     await expect(page.getByText('6 updates')).toBeVisible();
   });
 
@@ -149,7 +152,9 @@ test.describe('update list and detail (T20)', () => {
       'Withdrawal cut-off extended to 23:00',
     );
     await expect(page.getByRole('heading', { name: 'Later cut-off' })).toBeVisible();
-    await expect(page.getByText('Weekend requests are processed the next business day.')).toBeVisible();
+    await expect(
+      page.getByText('Weekend requests are processed the next business day.'),
+    ).toBeVisible();
   });
 
   test('paging walks the published order', async ({ page }) => {
@@ -181,7 +186,10 @@ test.describe('FAQ (T21)', () => {
     await page.goto('/my/faq/gettingstart');
 
     await expect(page.locator('[data-topic]')).toHaveCount(8);
-    await expect(page.locator('[data-topic="gettingstart"]')).toHaveAttribute('aria-current', 'true');
+    await expect(page.locator('[data-topic="gettingstart"]')).toHaveAttribute(
+      'aria-current',
+      'true',
+    );
     await expect(page.locator('[data-faq-topic="gettingstart"]')).toBeVisible();
   });
 
