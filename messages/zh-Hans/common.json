@@ -27,11 +27,14 @@
     "empty": "暂无内容",
     "emptyHint": "请稍后再来查看。",
     "error": "出错了",
+    "errorHint": "页面加载失败，请重试。",
+    "errorDigest": "参考编号：{digest}",
     "errorCode": "错误 404",
     "notFound": "页面不存在",
     "notFoundHint": "链接可能已失效或输入有误。",
     "backHome": "返回首页",
-    "offline": "网络似乎已断开"
+    "offline": "网络似乎已断开",
+    "offlineHint": "请检查网络连接后重试。"
   },
   "header": {
     "summary": "账户摘要",

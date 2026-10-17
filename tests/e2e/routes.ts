@@ -11,6 +11,8 @@ export const GAME_CATEGORIES = [
 ] as const;
 
 export const PUBLIC_STATIC = [
+  /** T74's offline fallback page. */
+  'offline',
   'promotion',
   'update',
   'ranking-board',
