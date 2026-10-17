@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import { CACHE_RULES } from './lib/cache-policy';
 
 /**
  * next-intl resolves its request config through this plugin at build time.
@@ -19,6 +20,15 @@ const nextConfig: NextConfig = {
   images: {
     // Artwork host comes from NEXT_PUBLIC_IMG_BASE. P0 loads no external images.
     remotePatterns: [],
+  },
+  /**
+   * Cache policy, defined once in `lib/cache-policy.ts` and unit-tested there.
+   * Every route renders per request (the shell reads the `brand_lang` cookie), so
+   * these rules only cover the build output, the JSON API and the per-visitor
+   * surfaces — see `docs/CACHING.md`.
+   */
+  async headers() {
+    return CACHE_RULES;
   },
   /**
    * The reference build kept each help topic at its own top-level path
