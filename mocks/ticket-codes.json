@@ -1,0 +1,17 @@
+[
+  {
+    "code": "TICKET2026",
+    "tickets": 1,
+    "expiresAt": "2026-12-31T23:59:00+08:00"
+  },
+  {
+    "code": "FIVETICKETS",
+    "tickets": 5,
+    "expiresAt": "2026-11-30T23:59:00+08:00"
+  },
+  {
+    "code": "EXPIREDCODE",
+    "tickets": 1,
+    "expiresAt": "2026-09-30T23:59:00+08:00"
+  }
+]

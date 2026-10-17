@@ -728,3 +728,26 @@ export const accountPayloadSchema = z.object({
   promotionRollover: z.array(rolloverSchema),
 });
 export type AccountPayload = z.infer<typeof accountPayloadSchema>;
+
+// T65: the ticket centre's rows. One row per ticket the page shows; `status` is
+// resolved server-side (lib/ticket-rules.ts) and re-resolved in the browser as
+// the countdown runs, so a ticket can flip to `expired` while the page is open.
+export const ticketRowSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  source: z.enum(['event', 'code']),
+  name: z.string(),
+  description: z.string(),
+  eventId: z.string().nullable(),
+  ticketsRequired: z.number().int().nullable(),
+  issuedAt: z.string(),
+  expiresAt: z.string(),
+  status: z.enum(['available', 'used', 'expired']),
+  usedAt: z.string().nullable(),
+  usedEvent: z.string().nullable(),
+});
+
+export const ticketsInfoSchema = z.object({ tickets: z.array(ticketRowSchema) });
+
+export type TicketInfoRow = z.infer<typeof ticketRowSchema>;
+export type TicketsInfo = z.infer<typeof ticketsInfoSchema>;

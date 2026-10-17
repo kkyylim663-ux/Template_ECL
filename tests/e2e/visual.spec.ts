@@ -12,9 +12,11 @@ test.beforeAll(async () => {
   // The rebates page (T63) draws a records table backed by a writable store, and
   // a claim is final — so the captures pin the seeded state by dropping the
   // runtime file (the store falls back to mocks/rebate-claims.json). The
-  // achievement page (T64) has the same shape of store.
+  // achievement page (T64) and the ticket centre (T65) have the same shape of
+  // store.
   await rm(join(process.cwd(), '.mock-data', 'rebate-claims.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'achievement-claims.json'), { force: true });
+  await rm(join(process.cwd(), '.mock-data', 'ticket-store.json'), { force: true });
 });
 const ROUTES = [
   '/my',
@@ -102,6 +104,9 @@ for (const viewport of VIEWPORTS) {
           fullPage: true,
           animations: 'disabled',
           maxDiffPixelRatio: 0.001,
+          // The ticket centre (T65) ticks a live countdown per ticket, so that
+          // column is masked instead of pinning a particular second.
+          mask: route === '/my/account/tickets' ? [page.locator('.ticket-countdown')] : undefined,
         });
       });
     }

@@ -7020,7 +7020,8 @@ details.accordionItem[open] .accordion-icon {
   width: 100%;
 }
 
-.ticket-history .nav-pill2 {
+.ticket-history .nav-pill2,
+.ticket-list .nav-pill2 {
   margin-right: 1rem;
   padding: 10px 35px;
   background: var(--color-line-deepest);
@@ -7033,11 +7034,13 @@ details.accordionItem[open] .accordion-icon {
   cursor: pointer;
 }
 
-.ticket-history .nav-pill2:last-child {
+.ticket-history .nav-pill2:last-child,
+.ticket-list .nav-pill2:last-child {
   margin-right: 0;
 }
 
-.ticket-history .nav-pill2.selected {
+.ticket-history .nav-pill2.selected,
+.ticket-list .nav-pill2.selected {
   background: var(--color-accent);
   color: #000;
 }
@@ -7550,6 +7553,15 @@ details.accordionItem[open] .accordion-icon {
 
   .ticket-center .btn-group {
     flex-direction: column;
+  }
+
+  /* Stacked, the row basis (`flex: 1 1 0` + `width: 0`) would leave every button
+     zero wide — width has to go back to auto so the column stretches them. */
+  .ticket-center .btn-yellow,
+  .ticket-center .btn-dark-gray,
+  .ticket-center .btn-green {
+    flex: none;
+    width: auto;
   }
 }
 
@@ -9022,5 +9034,215 @@ details.accordionItem[open] .accordion-icon {
 
   .mybank-form {
     max-width: none;
+  }
+}
+
+/* T65 ticket centre: the per-ticket list (the history section's chrome: the
+   .nav-pill2 tab row + the .bank-table skin), the countdown cell and the two new
+   dialogs. The event picker carries the reference's own class names and its
+   captured values (.modal-event-grid gap 18 / margin-top 20, .modal-event-item
+   column gap 8, the selected ring on .modal-event-card) — the reference paints
+   that ring #fa0, this build uses its accent-warm token instead of a new colour. */
+.ticket-list {
+  width: 100%;
+  padding-top: 30px;
+}
+
+.ticket-list__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ticket-list__head .betting-transaction__tab {
+  flex: 1;
+}
+
+.ticket-list__redeem {
+  flex: none;
+  min-height: 33px;
+  padding: 4px 16px;
+  background: var(--color-accent-warm);
+  border: 0;
+  border-radius: var(--radius-12);
+  color: var(--color-ink-on-accent);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ticket-list__table {
+  margin-top: 4px;
+}
+
+.ticket-row__open {
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ticket-row__open:hover,
+.ticket-row__open:focus-visible {
+  text-decoration: underline;
+}
+
+.ticket-countdown {
+  color: var(--color-muted);
+  font-size: var(--text-13);
+  font-variant-numeric: tabular-nums;
+}
+
+.ticket-status {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-8);
+  font-size: var(--text-11);
+  font-weight: 500;
+}
+
+.ticket-status--available {
+  color: var(--color-success);
+}
+
+.ticket-status--used {
+  color: var(--color-danger);
+}
+
+.ticket-status--expired {
+  color: var(--color-muted);
+}
+
+.ticket-redeem__label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.ticket-redeem__error {
+  margin-top: 6px;
+  color: var(--color-danger);
+  font-size: var(--text-13);
+}
+
+.ticket-redeem__hint {
+  margin-top: 12px;
+  color: var(--color-muted);
+  font-size: var(--text-13);
+}
+
+.ticket-pick__hint {
+  margin-bottom: 4px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.modal-event-grid {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.modal-event-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--color-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.modal-event-item .game-placeholder {
+  width: 132px;
+  height: 92px;
+  border-radius: var(--radius-12);
+}
+
+.modal-event-item.selected .game-placeholder {
+  box-shadow: 0 0 0 2px var(--color-accent-warm);
+}
+
+.selected-badge {
+  display: none;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  padding: 2px 8px;
+  background: var(--color-accent-warm);
+  border-radius: var(--radius-pill);
+  color: var(--color-ink-on-accent);
+  font-size: var(--text-11);
+}
+
+.modal-event-item.selected .selected-badge {
+  display: block;
+}
+
+.modal-event-item__label {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.ticket-detail {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.ticket-detail > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ticket-detail dt {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.ticket-detail dd {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  text-align: right;
+}
+
+.ticket-list__table-wrapper {
+  width: 100%;
+}
+
+/* The head row carries the tab strip and the redeem button side by side; at 375
+   the three pills plus the button do not fit, so the row stacks and the pill
+   wrapper (overflow-x: auto) scrolls inside its own line. The five list columns
+   need more than 375 as well, so the table scrolls inside its wrapper the way
+   the reference's own ticket-history table container does. */
+@media (max-width: 768px) {
+  .ticket-list__head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ticket-list__head .betting-transaction__tab {
+    min-width: 0;
+  }
+
+  .ticket-list__table-wrapper {
+    overflow-x: auto;
+  }
+
+  .ticket-list__table {
+    min-width: 560px;
   }
 }
