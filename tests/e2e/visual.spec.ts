@@ -12,13 +12,14 @@ test.beforeAll(async () => {
   // The rebates page (T63) draws a records table backed by a writable store, and
   // a claim is final — so the captures pin the seeded state by dropping the
   // runtime file (the store falls back to mocks/rebate-claims.json). The
-  // achievement page (T64), the ticket centre (T65) and the number game's slip
-  // (T67) have the same shape of store.
+  // The achievement page (T64), the ticket centre (T65), the number game's slip
+  // (T67) and the prediction board (T68) have the same shape of store.
   await rm(join(process.cwd(), '.mock-data', 'rebate-claims.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'achievement-claims.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'ticket-store.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'voucher-store.json'), { force: true });
   await rm(join(process.cwd(), '.mock-data', 'numbergame-bets.json'), { force: true });
+  await rm(join(process.cwd(), '.mock-data', 'prediction-bets.json'), { force: true });
 });
 const ROUTES = [
   '/my',

@@ -49,3 +49,25 @@ export function launchGate({
   if (mode === 'real' && balanceMinor <= 0) return 'insufficient';
   return 'coming-soon';
 }
+
+/**
+ * The session half of the gate on its own: `login` for a visitor who is not
+ * signed in, `insufficient` for a member with nothing to stake, `null` once a
+ * member can pay. A member action that books something instead of launching a
+ * game (T68's prediction SUBMIT) answers with this one — the studio block and
+ * the coming-soon notice belong to a launch, not to a slip.
+ */
+export function sessionGate({
+  ready,
+  member,
+  balanceMinor,
+}: {
+  ready: boolean;
+  member: boolean;
+  balanceMinor: number;
+}): LaunchGate | null {
+  if (!ready) return null;
+  if (!member) return 'login';
+  if (balanceMinor <= 0) return 'insufficient';
+  return null;
+}

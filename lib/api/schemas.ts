@@ -513,8 +513,14 @@ export type AccountTransaction = z.infer<typeof accountTransactionSchema>;
  * `depositHistory` / `walletHistory` / `promoHistory` / `betHistory` textarea
  * templates (there is no separate withdrawal template), so each kind carries
  * exactly the fields its template's columns need.
+ *
+ * `prediction` is this build's fifth event (T68): the reference's own `#gamecode`
+ * select lists `ebMyNumberGameWeekly` / `ebMyNba2024` / `ebMyPreEuro2024` /
+ * `ebMyEuro2024` ("Number Game" / "Nba2024" / "UEFA Mini" / "UEFA Main",
+ * `crawl/pages/my_myhistory.html`) and none of the four names covers a FIFA pick,
+ * so a prediction ticket gets its own event row (MOCK_INVENTORY "T68").
  */
-export const HISTORY_EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain'] as const;
+export const HISTORY_EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain', 'prediction'] as const;
 
 export const historyRowSchema = z.discriminatedUnion('kind', [
   z.object({

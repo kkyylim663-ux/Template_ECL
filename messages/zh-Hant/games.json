@@ -164,7 +164,47 @@
       "upcoming": "即將開始",
       "ended": "已結束"
     },
-    "tabs": "預測篩選"
+    "tabs": "預測篩選",
+    "betNow": "立即投注",
+    "slipTitle": "投注單",
+    "slipEmpty": "還沒有選擇。請在卡片上選擇結果。",
+    "pickTitle": "選擇結果",
+    "pickHint": "選擇一個結果,把這場比賽加入投注單。",
+    "oddsNote": "賠率以提交時卡片顯示的價格為準。",
+    "stake": "投注金額",
+    "currentCredit": "當前餘額",
+    "min": "最低",
+    "max": "最高",
+    "maxPicks": "每單最多 {count} 項",
+    "picksCount": "項數",
+    "total": "總額",
+    "potential": "潛在獎金",
+    "submit": "提交",
+    "remove": "移除",
+    "removeAria": "移除 {home} 對 {away} 的 {option}",
+    "tickets": "預測票",
+    "noTickets": "還沒有預測票。",
+    "placedTitle": "投注成功",
+    "placedBody": "已記錄你的選擇,本金已從主錢包扣除。",
+    "failedTitle": "投注失敗",
+    "col": {
+      "fixture": "賽事",
+      "pick": "選擇",
+      "placedAt": "投注時間",
+      "total": "總額"
+    },
+    "errors": {
+      "amountRequired": "請輸入投注金額。",
+      "amountMin": "投注金額低於最低限額。",
+      "amountMax": "投注金額高於最高限額。",
+      "noPicks": "提交前請至少選擇一個結果。",
+      "tooManyPicks": "一份投注單最多三項。",
+      "unknownFixture": "該賽事已下架。",
+      "closed": "該賽事已結束。",
+      "unknownOption": "該賽事沒有這個結果。",
+      "credit": "主錢包餘額不足。",
+      "network": "出錯了,沒有任何改動,請重試。"
+    }
   },
   "ranking": {
     "title": "排行榜",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { launchGate, type LaunchGateInput } from '@/lib/game/launch-gate';
+import { launchGate, sessionGate, type LaunchGateInput } from '@/lib/game/launch-gate';
 
 /** A signed-in member with money in the main wallet, at an unmarked studio. */
 const member: LaunchGateInput = {
@@ -49,5 +49,23 @@ describe('launchGate', () => {
 
   it('guards a Demo click at a studio that has no Demo action', () => {
     expect(launchGate({ ...guest, provider: 'aviatrix', mode: 'demo' })).toBe('demo-unavailable');
+  });
+});
+
+describe('sessionGate (a booking action, not a launch)', () => {
+  it('answers nothing until the session is known', () => {
+    expect(sessionGate({ ready: false, member: true, balanceMinor: 500 })).toBeNull();
+  });
+
+  it('asks a guest to sign in', () => {
+    expect(sessionGate({ ready: true, member: false, balanceMinor: 0 })).toBe('login');
+  });
+
+  it('points a member with zero credit at the deposit page', () => {
+    expect(sessionGate({ ready: true, member: true, balanceMinor: 0 })).toBe('insufficient');
+  });
+
+  it('lets a funded member through — no studio notice, no coming-soon', () => {
+    expect(sessionGate({ ready: true, member: true, balanceMinor: 122450 })).toBeNull();
   });
 });

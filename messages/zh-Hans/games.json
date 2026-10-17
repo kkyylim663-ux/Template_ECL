@@ -164,7 +164,47 @@
       "upcoming": "即将开始",
       "ended": "已结束"
     },
-    "tabs": "预测筛选"
+    "tabs": "预测筛选",
+    "betNow": "立即投注",
+    "slipTitle": "投注单",
+    "slipEmpty": "还没有选择。请在卡片上选择结果。",
+    "pickTitle": "选择结果",
+    "pickHint": "选择一个结果,把这场比赛加入投注单。",
+    "oddsNote": "赔率以提交时卡片显示的价格为准。",
+    "stake": "投注金额",
+    "currentCredit": "当前余额",
+    "min": "最低",
+    "max": "最高",
+    "maxPicks": "每单最多 {count} 项",
+    "picksCount": "项数",
+    "total": "总额",
+    "potential": "潜在奖金",
+    "submit": "提交",
+    "remove": "移除",
+    "removeAria": "移除 {home} 对 {away} 的 {option}",
+    "tickets": "预测票",
+    "noTickets": "还没有预测票。",
+    "placedTitle": "投注成功",
+    "placedBody": "已记录你的选择,本金已从主钱包扣除。",
+    "failedTitle": "投注失败",
+    "col": {
+      "fixture": "赛事",
+      "pick": "选择",
+      "placedAt": "投注时间",
+      "total": "总额"
+    },
+    "errors": {
+      "amountRequired": "请输入投注金额。",
+      "amountMin": "投注金额低于最低限额。",
+      "amountMax": "投注金额高于最高限额。",
+      "noPicks": "提交前请至少选择一个结果。",
+      "tooManyPicks": "一份投注单最多三项。",
+      "unknownFixture": "该赛事已下架。",
+      "closed": "该赛事已结束。",
+      "unknownOption": "该赛事没有这个结果。",
+      "credit": "主钱包余额不足。",
+      "network": "出错了,没有任何改动,请重试。"
+    }
   },
   "ranking": {
     "title": "排行榜",

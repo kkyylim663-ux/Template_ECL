@@ -164,7 +164,47 @@
       "upcoming": "Upcoming",
       "ended": "Ended"
     },
-    "tabs": "Prediction filters"
+    "tabs": "Prediction filters",
+    "betNow": "Bet Now",
+    "slipTitle": "Bet slip",
+    "slipEmpty": "No picks yet. Choose an outcome on a card.",
+    "pickTitle": "Pick an outcome",
+    "pickHint": "Pick one outcome to add this fixture to your slip.",
+    "oddsNote": "Odds are locked at the price the card shows when you submit.",
+    "stake": "Bet Amount",
+    "currentCredit": "Current Credit",
+    "min": "Min.",
+    "max": "Max.",
+    "maxPicks": "{count} picks per slip",
+    "picksCount": "Picks",
+    "total": "Total",
+    "potential": "Potential payout",
+    "submit": "SUBMIT",
+    "remove": "Remove",
+    "removeAria": "Remove {option} on {home} vs {away}",
+    "tickets": "Prediction Tickets",
+    "noTickets": "No prediction tickets yet.",
+    "placedTitle": "Ticket placed",
+    "placedBody": "Your picks are in. The stake has left your main wallet.",
+    "failedTitle": "Ticket not placed",
+    "col": {
+      "fixture": "Fixture",
+      "pick": "Pick",
+      "placedAt": "Placed at",
+      "total": "Total"
+    },
+    "errors": {
+      "amountRequired": "Please enter the bet amount.",
+      "amountMin": "The bet amount is below the minimum.",
+      "amountMax": "The bet amount is above the maximum.",
+      "noPicks": "Pick at least one outcome before you submit.",
+      "tooManyPicks": "One slip holds at most three picks.",
+      "unknownFixture": "That fixture is no longer listed.",
+      "closed": "That fixture has ended.",
+      "unknownOption": "That outcome is not on this fixture.",
+      "credit": "Not enough credit in your main wallet.",
+      "network": "Something went wrong. Nothing was changed — please try again."
+    }
   },
   "ranking": {
     "title": "Ranking board",

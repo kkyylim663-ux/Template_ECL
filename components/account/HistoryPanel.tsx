@@ -9,6 +9,7 @@ import { readDepositRecords } from '@/lib/deposit-credit';
 import { readRebateRecords } from '@/lib/rebate-claim';
 import { readVoucherRecords } from '@/lib/voucher-claim';
 import { readNumberGameRecords } from '@/lib/numbergame-bet';
+import { readPredictionRecords } from '@/lib/prediction-bet';
 import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
 import { RECORDS_EVENT } from '@/lib/mock-records';
 import type { HistoryRow } from '@/lib/api/schemas';
@@ -24,7 +25,8 @@ const RANGE_DAYS: Record<Range, number> = { today: 1, in3days: 3, inAWeek: 7, in
 /** DataTables' own page lengths; the reference initialises with 10. */
 const PAGE_SIZES = [10, 25, 50, 100] as const;
 
-const EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain'] as const;
+/** The reference's four events plus this build's `prediction` (T68 — the reference has no event for a FIFA pick). */
+const EVENTS = ['numberGame', 'nba2024', 'uefaMini', 'uefaMain', 'prediction'] as const;
 type Event = (typeof EVENTS)[number];
 
 type Column = {
@@ -100,6 +102,7 @@ export function HistoryPanel({
         ...readAchievementRecords().map((record) => record.row),
         ...readVoucherRecords().map((record) => record.row),
         ...readNumberGameRecords().map((record) => record.row),
+        ...readPredictionRecords().map((record) => record.row),
         ...readCancelledTransactions().map((entry): HistoryRow =>
           entry.kind === 'transfer'
             ? {

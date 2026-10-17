@@ -1,12 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getDisplayPayload } from '@/lib/api';
-import { InertLink } from '@/components/ui/InertLink';
-import { RulesButton } from '@/components/ui/RulesButton';
+import { PredictionBoard } from '@/components/game/PredictionBoard';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { regionPath } from '@/config/nav';
-import { formatMinor } from '@/lib/format';
+import { regionConfig, type RegionCode } from '@/config/brand';
 import { pageMetadata } from '@/lib/seo';
 
 /** The five tabs the reference shows above `.pd-card-list`. */
@@ -40,9 +39,11 @@ export async function generateMetadata({
 /**
  * Prediction, in the reference build's order (`crawl/pages/my_prediction.html`):
  * banner, five `.nav-pill` tabs in a `.banner-top.section-bottom` row, then the
- * `.pd-card-list` three-column grid. The reference hydrates the cards, so their
- * skin follows `.pd-card` from the stylesheet; `?status=` keeps the tab state in
- * the URL and the page server-rendered.
+ * `.pd-card-list` three-column grid. The reference hydrates the cards and its own
+ * slip chunk was never captured, so the page server-renders the fixtures — the
+ * tab state stays in `?status=`, which keeps the tab switch a plain link — and
+ * hands them to `PredictionBoard`, which owns the pick dialog, the slip below the
+ * list and the member's own tickets.
  */
 export default async function PredictionPage({
   params,
@@ -54,6 +55,7 @@ export default async function PredictionPage({
   const { region } = await params;
   const query = await searchParams;
   const [{ t }, { prediction }] = await Promise.all([getT('games'), getDisplayPayload()]);
+  const { symbol } = regionConfig(region as RegionCode);
 
   const requested = typeof query.status === 'string' ? query.status : '';
   const tab = TABS.find((option) => option.id === requested)?.id ?? TABS[0].id;
@@ -87,73 +89,7 @@ export default async function PredictionPage({
           </div>
         </div>
 
-        <ul className="pd-card-list">
-          {fixtures.map((fixture) => (
-            <li key={fixture.id}>
-              <article data-fixture={fixture.id} className="pd-card">
-                <div className="pd-card__head">
-                  <span aria-hidden className="pd-card__avatar">
-                    {fixture.league.slice(0, 2)}
-                  </span>
-                  <div className="pd-card__meta">
-                    <p className="pd-card__title">
-                      {fixture.home}{' '}
-                      <span className="text-muted font-normal">{t('prediction.vs')}</span>{' '}
-                      {fixture.away}
-                    </p>
-                    <p className="pd-card__sub">
-                      {fixture.startsAt.slice(0, 16).replace('T', ' ')} (+08:00)
-                    </p>
-                  </div>
-                  <span className="pd-card__pill">
-                    {fixture.status === 'ended'
-                      ? t('prediction.ended')
-                      : t(`prediction.tab.${fixture.status}`)}
-                  </span>
-                </div>
-
-                <div className="pd-card__stats">
-                  <div className="pd-card__stat">
-                    {t('prediction.prizePool')}
-                    <strong className="pd-card__stat-value">
-                      {formatMinor(fixture.prizePoolMinor, 'USD', 'en-MY', { compact: true })}
-                    </strong>
-                  </div>
-                  <div className="pd-card__stat pd-card__stat--divided">
-                    {t('prediction.entry')}
-                    <strong className="pd-card__stat-value">{t('prediction.free')}</strong>
-                  </div>
-                </div>
-
-                <div className="pd-card__odds">
-                  {fixture.options.map((option) => (
-                    <InertLink
-                      key={option.id}
-                      ariaLabel={t('prediction.optionAria', {
-                        home: fixture.home,
-                        away: fixture.away,
-                        option: option.label,
-                      })}
-                      className="pd-card__odd"
-                    >
-                      <span>{option.label}</span>
-                      <span className="pd-card__odd-value">{option.odds.toFixed(2)}</span>
-                    </InertLink>
-                  ))}
-                </div>
-
-                <div className="pd-card__actions">
-                  <InertLink className="pd-card__btn">{t('prediction.enter')}</InertLink>
-                  <RulesButton
-                    className="pd-card__btn pd-card__btn--rules"
-                    title={t('prediction.rulesTitle')}
-                    body={t('prediction.rules')}
-                  />
-                </div>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <PredictionBoard fixtures={fixtures} region={region} symbol={symbol} />
       </div>
     </IntlScope>
   );

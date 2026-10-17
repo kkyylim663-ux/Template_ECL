@@ -92,6 +92,19 @@
   --color-panel-rank: #222222; /* .ranking-container__box */
   --color-deposit-logo: #ececec; /* .deposit-banklist-icon__container (T51) */
 
+  /* Prediction (T68): the card modifiers, their status pills and the primary
+     action, every value from `crawl/css` (.pd-card--in-progress / --upcoming /
+     --ended, their .pd-card__pill overrides, .pd-card__btn--primary / --disabled). */
+  --color-event-live: #2ed3a6; /* .pd-card--in-progress border-color */
+  --color-event-soon: #f0b21e; /* .pd-card--upcoming border-color */
+  --color-pill-live: #10473b; /* .pd-card--in-progress .pd-card__pill background */
+  --color-pill-soon: #f4b92e; /* .pd-card--upcoming .pd-card__pill background */
+  --color-pill-soon-line: #ffd372; /* …-pill border-color */
+  --color-pill-over: #9e2321; /* .pd-card--ended .pd-card__pill background */
+  --color-on-light: #000000; /* .pd-card__btn--primary / --disabled text */
+  --color-on-light-soft: #1b1b1b; /* .pd-card--upcoming .pd-card__pill text */
+  --gradient-pd-primary: linear-gradient(90deg, #ffd373, #ffbf2f); /* .pd-card__btn--primary */
+
   /* Content pages (T36). */
   --color-card-foot: #474747; /* .promotion-card__footer */
   --color-promo-banner: #cc7a33; /* .promotion-detail__banner */
@@ -2339,13 +2352,19 @@ html {
   font-size: var(--text-xs);
 }
 
+/*
+ * Reference `.pd-card__pill`: 13px at weight 600, 6px/16px padding and the pill
+ * radius, with a hairline border the three card modifiers below colour in.
+ */
 .pd-card__pill {
+  flex-shrink: 0;
   margin-left: auto;
-  padding: 2px 10px;
+  padding: 6px 16px;
+  border: 1px solid;
   border-radius: var(--radius-pill);
-  background: var(--color-success);
   color: var(--color-ink);
-  font-size: var(--text-11);
+  font-size: var(--text-13);
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -2457,6 +2476,279 @@ html {
   .pd-card-list {
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
+  }
+}
+
+/* ------------------------------------------------- prediction board (T68) */
+
+/*
+ * The card modifiers, the status pills, the buttons and the pick dialog. Every
+ * colour, size and radius below is the reference's own (`crawl/css`:
+ * `.pd-card--in-progress` / `--upcoming` / `--ended`, their `.pd-card__pill`
+ * overrides, `.pd-card__btn--primary` / `--disabled` / `:hover`,
+ * `.pd-select__container` / `.pd-select-team` / `.pd-select-info-msg` /
+ * `.pd-drag-select`, `.pd-mobile__btn-submit`). The reference renders the cards
+ * and its own slip from a chunk that was never captured, so its `.webp` card
+ * artwork is left out (no upstream assets) and the slip below the list is this
+ * build's arrangement of those classes (MOCK_INVENTORY "T68").
+ */
+.pd-card--in-progress {
+  border-color: var(--color-event-live);
+}
+
+.pd-card--upcoming {
+  border-color: var(--color-event-soon);
+}
+
+.pd-card--ended {
+  border-color: var(--color-danger-bright);
+}
+
+.pd-card--in-progress .pd-card__pill {
+  border-color: var(--color-event-live);
+  background: var(--color-pill-live);
+}
+
+.pd-card--upcoming .pd-card__pill {
+  border-color: var(--color-pill-soon-line);
+  background: var(--color-pill-soon);
+  color: var(--color-on-light-soft);
+}
+
+.pd-card--ended .pd-card__pill {
+  border-color: var(--color-danger-bright);
+  background: var(--color-pill-over);
+}
+
+/* The league badge keeps the avatar's circle; four letters need the smaller size. */
+.pd-card__league {
+  font-size: var(--text-11);
+  letter-spacing: 0;
+}
+
+/*
+ * A picked outcome. The reference has no captured rule for it, so the treatment
+ * is its own selected pill (`.nav-pill.selected`) said in card terms.
+ */
+.pd-card__odd.selected {
+  border-color: var(--color-accent);
+  background: var(--color-panel-soft);
+  color: var(--color-accent-bright);
+}
+
+.pd-card__odd:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* Reference `.pd-card__btn` transition, `.pd-card__btn--primary` gradient and
+   `.pd-card__btn--disabled` flat grey (the gradient must go with it). */
+.pd-card__btn {
+  transition: filter 0.3s;
+}
+
+.pd-card__btn:hover {
+  filter: brightness(1.1);
+}
+
+.pd-card__btn--primary {
+  background-image: var(--gradient-pd-primary);
+  color: var(--color-on-light);
+}
+
+.pd-card__btn--disabled {
+  background: var(--color-muted);
+  background-image: none;
+  color: var(--color-on-light);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* The slip and the member's tickets — this build's panels, reference palette. */
+.pd-slip,
+.pd-tickets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding: 20px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-panel);
+  background: var(--color-panel-alt);
+  color: var(--color-ink);
+}
+
+.pd-tickets {
+  margin-bottom: 60px;
+}
+
+.pd-slip__title,
+.pd-tickets__title {
+  font-size: var(--text-15);
+  font-weight: 600;
+}
+
+.pd-slip__note,
+.pd-tickets__note {
+  color: var(--color-muted);
+  font-size: var(--text-13);
+}
+
+.pd-slip__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pd-slip__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-10);
+  font-size: var(--text-13);
+}
+
+.pd-slip__fixture {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-slip__pick {
+  color: var(--color-accent-bright);
+  white-space: nowrap;
+}
+
+.pd-slip__remove {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+  text-decoration: underline;
+}
+
+.pd-slip__label,
+.pd-slip__hint,
+.pd-slip__figures,
+.pd-slip__credit {
+  color: var(--color-muted);
+  font-size: var(--text-13);
+}
+
+.pd-slip__submit {
+  align-self: stretch;
+}
+
+.pd-tickets__table {
+  font-size: var(--text-13);
+}
+
+/* Reference `.pd-select__container`: the outcomes centred in a row. */
+.pd-select__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--color-ink);
+}
+
+/* Reference `.pd-select-team`: 14px, one button per outcome. */
+.pd-select-team {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 96px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-10);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.pd-select-team.selected {
+  border-color: var(--color-accent);
+  background: var(--color-panel-soft);
+  color: var(--color-accent-bright);
+}
+
+.pd-select-team__odds {
+  color: var(--color-accent-bright);
+  font-weight: 700;
+}
+
+.pd-select-team.selected .pd-select-team__odds {
+  color: inherit;
+}
+
+/* Reference `.pd-drag-select`: an italic, muted hint line above the row. */
+.pd-drag-select {
+  margin-bottom: 16px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  font-style: italic;
+}
+
+/*
+ * The reference's info tooltip: `.pd-select__info-icon_wrapper` (a pointer, 5px
+ * from the row) with `.pd-select-info-msg` scaling in — #353537, 18px padding,
+ * 220px wide, 14px justified. Its own `left: 282px / top: 0` assumes the
+ * reference's wide container, so this build anchors the panel above the icon
+ * instead; that anchor is the one value here that is not the reference's.
+ */
+.pd-select__info-icon_wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
+  border: 1px solid var(--color-muted);
+  border-radius: 50%;
+  color: var(--color-muted);
+  cursor: pointer;
+  font-size: var(--text-xs);
+}
+
+.pd-select-info-msg {
+  position: absolute;
+  left: 0;
+  bottom: 24px;
+  z-index: 2;
+  width: 220px;
+  padding: 18px;
+  background: var(--color-line-soft);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  text-align: justify;
+  transform: scale(0);
+  transform-origin: 10px 10px;
+  transition: all 0.3s;
+}
+
+.pd-select__info-icon_wrapper:hover .pd-select-info-msg {
+  transform: scale(1);
+}
+
+@media (max-width: 768px) {
+  /* Reference ≤768 block: the outcomes stack, the dialog's submit halves. */
+  .pd-select__container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .pd-mobile__btn-submit {
+    margin: 0 auto;
+    width: 50%;
+  }
+
+  .pd-drag-select {
+    margin-bottom: 16px;
+    font-size: var(--text-xs);
+  }
+
+  .pd-slip__row {
+    flex-wrap: wrap;
   }
 }
 

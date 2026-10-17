@@ -164,7 +164,47 @@
       "upcoming": "Sắp tới",
       "ended": "Đã kết thúc"
     },
-    "tabs": "Bộ lọc dự đoán"
+    "tabs": "Bộ lọc dự đoán",
+    "betNow": "Đặt ngay",
+    "slipTitle": "Phiếu cược",
+    "slipEmpty": "Chưa chọn gì. Hãy chọn một kết quả trên thẻ.",
+    "pickTitle": "Chọn kết quả",
+    "pickHint": "Chọn một kết quả để thêm trận này vào phiếu.",
+    "oddsNote": "Tỷ lệ được chốt theo giá trên thẻ khi bạn gửi.",
+    "stake": "Số tiền cược",
+    "currentCredit": "Số dư hiện tại",
+    "min": "Tối thiểu",
+    "max": "Tối đa",
+    "maxPicks": "Tối đa {count} lựa chọn mỗi phiếu",
+    "picksCount": "Lựa chọn",
+    "total": "Tổng",
+    "potential": "Tiền thắng tiềm năng",
+    "submit": "GỬI",
+    "remove": "Xoá",
+    "removeAria": "Xoá {option} của {home} vs {away}",
+    "tickets": "Vé dự đoán",
+    "noTickets": "Chưa có vé dự đoán.",
+    "placedTitle": "Đã đặt vé",
+    "placedBody": "Đã ghi nhận lựa chọn. Tiền cược đã trừ khỏi ví chính.",
+    "failedTitle": "Chưa đặt được vé",
+    "col": {
+      "fixture": "Trận đấu",
+      "pick": "Lựa chọn",
+      "placedAt": "Thời gian",
+      "total": "Tổng"
+    },
+    "errors": {
+      "amountRequired": "Vui lòng nhập số tiền cược.",
+      "amountMin": "Số tiền cược thấp hơn mức tối thiểu.",
+      "amountMax": "Số tiền cược cao hơn mức tối đa.",
+      "noPicks": "Hãy chọn ít nhất một kết quả trước khi gửi.",
+      "tooManyPicks": "Một phiếu tối đa ba lựa chọn.",
+      "unknownFixture": "Trận này không còn trong danh sách.",
+      "closed": "Trận này đã kết thúc.",
+      "unknownOption": "Trận này không có kết quả đó.",
+      "credit": "Ví chính không đủ số dư.",
+      "network": "Đã xảy ra lỗi. Chưa có thay đổi nào — vui lòng thử lại."
+    }
   },
   "ranking": {
     "title": "Bảng xếp hạng",
