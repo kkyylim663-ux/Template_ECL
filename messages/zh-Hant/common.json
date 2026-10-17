@@ -27,11 +27,14 @@
     "empty": "暫無內容",
     "emptyHint": "請稍後再來查看。",
     "error": "發生錯誤",
+    "errorHint": "頁面載入失敗，請重試。",
+    "errorDigest": "參考編號：{digest}",
     "errorCode": "錯誤 404",
     "notFound": "頁面不存在",
     "notFoundHint": "連結可能已失效或輸入有誤。",
     "backHome": "返回首頁",
-    "offline": "網路似乎已中斷"
+    "offline": "網路似乎已中斷",
+    "offlineHint": "請檢查網路連線後重試。"
   },
   "header": {
     "summary": "帳戶摘要",

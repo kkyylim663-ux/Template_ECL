@@ -27,11 +27,14 @@
     "empty": "Chưa có nội dung",
     "emptyHint": "Vui lòng quay lại sau.",
     "error": "Đã xảy ra lỗi",
+    "errorHint": "Trang không tải được. Vui lòng thử lại.",
+    "errorDigest": "Mã tham chiếu: {digest}",
     "errorCode": "Lỗi 404",
     "notFound": "Không tìm thấy trang",
     "notFoundHint": "Liên kết có thể đã cũ hoặc sai.",
     "backHome": "Về trang chủ",
-    "offline": "Có vẻ bạn đang ngoại tuyến"
+    "offline": "Có vẻ bạn đang ngoại tuyến",
+    "offlineHint": "Kiểm tra kết nối của bạn và thử lại."
   },
   "header": {
     "summary": "Tóm tắt tài khoản",
