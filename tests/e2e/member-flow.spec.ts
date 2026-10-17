@@ -14,8 +14,16 @@ const VIEWPORTS = [
 for (const { label, viewport } of VIEWPORTS) {
   test(`the member journey works at ${label}`, async ({ page }) => {
     const errors: string[] = [];
+    /**
+     * One browser-initiated message is noise, not an app error: the favicon probe
+     * (icons are declared through metadata, there is no /favicon.ico file — the
+     * 404 text itself does not name the URL, the location does). Same filter as
+     * p4-flow.spec.ts; the probe fires intermittently, which is why the desktop
+     * journey needed it too (T70).
+     */
     page.on('console', (message) => {
-      if (message.type() === 'error') errors.push(message.text());
+      const url = message.location()?.url ?? '';
+      if (message.type() === 'error' && !url.includes('/favicon.ico')) errors.push(message.text());
     });
     page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
     await page.setViewportSize(viewport);

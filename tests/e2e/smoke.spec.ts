@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { accountRoutes, publicRoutes } from './routes';
 import { signIn } from './session';
 
@@ -8,7 +8,35 @@ import { signIn } from './session';
  * boundary cases behave (unknown region 404, "/" redirects, dev page exists).
  */
 
-const collectErrors = (page: import('@playwright/test').Page) => {
+/**
+ * T70: no route may link off this origin. Every Play Now / Demo action resolves
+ * through `getLaunchHref()` to `#`, so no real game address — the reference
+ * asked its own `launchinggame` seam for one — may appear in any `a[href]`; the
+ * `mailto:`/`tel:` links are the reference's own contact channels, and
+ * `localhost` / `127.0.0.1` are this build's two spellings of its own host
+ * (`lib/seo.ts`). A href with no scheme is relative by definition: same origin.
+ */
+const OWN_HOSTS = new Set(['localhost', '127.0.0.1', '::1']);
+const GAME_LAUNCH_HREF = /launchinggame|launch-game|\/launch\?/i;
+
+function foreignLinks(route: string, hrefs: string[]): string[] {
+  return hrefs.flatMap((href) => {
+    if (!href || href.startsWith('#') || href.startsWith('?') || href.startsWith('/')) return [];
+    if (/^(mailto|tel):/i.test(href)) return [];
+    if (GAME_LAUNCH_HREF.test(href)) return [`${route}: ${href} (a game-launch address)`];
+    try {
+      return OWN_HOSTS.has(new URL(href).hostname) ? [] : [`${route}: ${href}`];
+    } catch {
+      return [];
+    }
+  });
+}
+
+async function collectHrefs(page: Page): Promise<string[]> {
+  return page.$$eval('a[href]', (links) => links.map((link) => link.getAttribute('href') ?? ''));
+}
+
+const collectErrors = (page: Page) => {
   const errors: string[] = [];
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
@@ -26,6 +54,7 @@ test.describe('public routes', () => {
       expect(response?.status(), `${route} status`).toBe(200);
       await expect(page.locator('main')).toBeVisible();
       expect(errors, `console errors on ${route}`).toEqual([]);
+      expect(foreignLinks(route, await collectHrefs(page)), 'links leaving the origin').toEqual([]);
     });
   }
 });
@@ -84,6 +113,7 @@ test.describe('member area', () => {
       expect(response?.status(), route).toBe(200);
       await expect(page.locator('main')).toBeVisible();
       expect(errors, `console errors on ${route}`).toEqual([]);
+      expect(foreignLinks(route, await collectHrefs(page)), 'links leaving the origin').toEqual([]);
     }
   });
 });
