@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Noto_Sans, Roboto, Rubik } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
+import { fontPreloadHrefs } from '@/lib/font-preloads';
 import { siteUrl } from '@/lib/seo';
 import { getShell } from '@/lib/i18n/server';
 import { IconSprite } from '@/components/ui/IconSprite';
@@ -36,12 +37,19 @@ const noto = Noto_Sans({
 /**
  * The 4D result cards only (`crawl/css` pins Roboto on `.lottery-result__*`).
  * Loaded alongside Rubik so the six-digit grids keep the reference's digits.
+ *
+ * `preload: false`: those cards sit below the fold, and a preload per family
+ * would spend ~100 KB of the mobile first-load budget (Rubik + Noto + Roboto
+ * latin) competing with the render-blocking CSS. Next's own manifest would
+ * preload every family; T72 preloads only the two the first viewport uses —
+ * see `lib/font-preloads.ts` for why the tags are hand-built here.
  */
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '500'],
   variable: '--font-roboto',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -71,10 +79,16 @@ export const metadata: Metadata = {
  *
  * Both are re-measured on resize / visibilitychange.
  *
+ * The same script also sets `--mobile-content-top` (56px, or 112px while the app
+ * download strip is up) from the dismiss flag, so the phone's content offset is
+ * already final on the first paint. `MobileChrome` used to write it after
+ * hydration, which moved the whole page down 56px the moment React mounted — the
+ * 0.069 CLS Lighthouse charged the home page in T72.
+ *
  * The probe is marked `data-fs-probe` so tests can fake the measured factor
  * (Playwright cannot set the device font scale) by intercepting clientHeight.
  */
-const VIEWPORT_SCRIPT = `(function(){var d=document,r=d.documentElement;function m(){var e=d.createElement("div");e.setAttribute("data-fs-probe","");e.setAttribute("aria-hidden","true");e.style.cssText="position:absolute;top:0;left:-9999px;visibility:hidden;pointer-events:none;font-size:100px;line-height:1;height:auto;min-height:0;max-height:none;padding:0;margin:0;border:0";(d.body||r).appendChild(e);var f=(e.clientHeight||100)/100;e.remove();return f}function a(){var f=m();f=Math.max(.8,Math.min(2,f));if(Math.abs(f-1)<.01){r.style.removeProperty("--fs-fix")}else{r.style.setProperty("--fs-fix",String(1/f))}var w=r.clientWidth||375;r.style.setProperty("--m-scale",String(Math.min(Math.max(w/375,320/375),430/375)))}a();addEventListener("resize",a);addEventListener("orientationchange",a);d.addEventListener("visibilitychange",function(){if(!d.hidden)a()})})();`;
+const VIEWPORT_SCRIPT = `(function(){var d=document,r=d.documentElement;function m(){var e=d.createElement("div");e.setAttribute("data-fs-probe","");e.setAttribute("aria-hidden","true");e.style.cssText="position:absolute;top:0;left:-9999px;visibility:hidden;pointer-events:none;font-size:100px;line-height:1;height:auto;min-height:0;max-height:none;padding:0;margin:0;border:0";(d.body||r).appendChild(e);var f=(e.clientHeight||100)/100;e.remove();return f}function a(){var f=m();f=Math.max(.8,Math.min(2,f));if(Math.abs(f-1)<.01){r.style.removeProperty("--fs-fix")}else{r.style.setProperty("--fs-fix",String(1/f))}var w=r.clientWidth||375;r.style.setProperty("--m-scale",String(Math.min(Math.max(w/375,320/375),430/375)))}a();addEventListener("resize",a);addEventListener("orientationchange",a);d.addEventListener("visibilitychange",function(){if(!d.hidden)a()});try{r.style.setProperty("--mobile-content-top",localStorage.getItem("brand.appBannerDismissed")==="1"?"56px":"112px")}catch(e){r.style.setProperty("--mobile-content-top","112px")}})();`;
 
 export const viewport: Viewport = {
   themeColor: brand.themeColor,
@@ -93,6 +107,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { locale, messages } = await getShell();
+  const fontPreloads = fontPreloadHrefs();
 
   return (
     <html
@@ -102,6 +117,21 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-surface text-ink font-sans antialiased">
+        {/*
+          Font preloads (T72): React 19 hoists these into <head>, ahead of the
+          stylesheets, and de-dupes them. `crossOrigin` is required — font
+          fetches are always CORS-mode, and a preload without it downloads twice.
+        */}
+        {fontPreloads.map((href) => (
+          <link
+            key={href}
+            rel="preload"
+            href={href}
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+        ))}
         <script dangerouslySetInnerHTML={{ __html: VIEWPORT_SCRIPT }} />
         {/*
           `.m-root` is the T32.6 zoom root: the whole tree (shell, pages, and the

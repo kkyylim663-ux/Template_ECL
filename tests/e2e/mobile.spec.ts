@@ -290,3 +290,37 @@ test.describe('content pages, mobile and keyboard (T27)', () => {
     await expect(opener).toBeFocused();
   });
 });
+
+/**
+ * T72: the offset that clears the fixed top stack has to be right on the first
+ * paint. MobileChrome used to write --mobile-content-top after hydration, which
+ * moved the whole page down 56px the moment React mounted (0.069 CLS on the home
+ * page). The pre-paint script in app/layout.tsx reads the same dismiss flag now,
+ * so the offset must already hold with the app's JavaScript blocked, and a real
+ * dismiss must still shrink it back to the 56px header.
+ */
+test('the top-stack offset is final before hydration and follows a dismiss', async ({ page }) => {
+  await page.route('**/_next/static/chunks/**', (route) => route.abort());
+  await page.goto('/my');
+  await expect(page.locator('.mobile-bar')).toHaveCount(0);
+  const before = await page.evaluate(() => ({
+    variable: document.documentElement.style.getPropertyValue('--mobile-content-top'),
+    top: Math.round(document.querySelector('main .container-page')?.getBoundingClientRect().top ?? -1),
+  }));
+  expect(before.variable).toBe('112px');
+
+  await page.unroute('**/_next/static/chunks/**');
+  await page.goto('/my');
+  await expect(page.locator('.mobile-bar')).toBeVisible();
+  const after = await page.evaluate(() => ({
+    variable: document.documentElement.style.getPropertyValue('--mobile-content-top'),
+    top: Math.round(document.querySelector('main .container-page')?.getBoundingClientRect().top ?? -1),
+  }));
+  // Same place before and after hydration: nothing moved.
+  expect(after).toEqual(before);
+
+  await page.locator('.app-top-bar button').first().click();
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.style.getPropertyValue('--mobile-content-top')))
+    .toBe('56px');
+});

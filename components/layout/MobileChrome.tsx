@@ -42,8 +42,16 @@ export function MobileChrome({ region }: { region: string }) {
   const { member: isMember } = useSession();
 
   // Nothing else is read during render, so the server and the first client pass agree.
+  // The top offset is written in the same pass as the read: writing it from a
+  // second effect would flash the banner height in and out again for a visitor
+  // who dismissed the strip (56px → 112px → 56px) and shift the page.
   useEffect(() => {
-    if (window.localStorage.getItem(BANNER_KEY) === '1') setBannerDismissed(true);
+    const dismissed = window.localStorage.getItem(BANNER_KEY) === '1';
+    if (dismissed) setBannerDismissed(true);
+    document.documentElement.style.setProperty(
+      '--mobile-content-top',
+      dismissed ? '56px' : '112px',
+    );
   }, []);
 
   useEffect(() => {
@@ -54,7 +62,9 @@ export function MobileChrome({ region }: { region: string }) {
   }, [drawerOpen]);
 
   // The top stack is fixed, so the page needs to clear it: 56px of header, plus
-  // the 56px banner while it is up (the original's `has-header` / `has-app`).
+  // the 56px banner while it is up (the original's `has-header` / `has-app`). The
+  // first paint already has the value — the pre-paint script in app/layout.tsx
+  // reads the same dismiss flag — so this only has to follow a dismiss click.
   useEffect(() => {
     document.documentElement.style.setProperty(
       '--mobile-content-top',
