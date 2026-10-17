@@ -416,9 +416,7 @@
     "livecasino": "Casino trực tuyến",
     "sports": "Thể thao",
     "slots": "Slots",
-    "progress": "{progress} / {target}",
     "claim": "Nhận thưởng",
-    "locked": "Chưa mở",
     "claimed": "Đã nhận",
     "currentStatus": "Trạng thái hiện tại",
     "period": {
@@ -434,7 +432,21 @@
     "nextBonus": "Số tiền cần cho thưởng kế tiếp",
     "turnoverBonus": "Thưởng doanh số",
     "reward": "Thưởng {amount}",
-    "requirement": "{currency} {amount} trở lên"
+    "requirement": "{currency} {amount} trở lên",
+    "live": "LIVE",
+    "recordsTitle": "Lịch sử nhận thưởng",
+    "recordsEmpty": "Chưa nhận thưởng nào.",
+    "achievement": "Thành tích",
+    "rewardColumn": "Thưởng",
+    "claimedAt": "Thời gian nhận",
+    "reference": "Mã tham chiếu",
+    "promoType": "Thưởng thành tích · {title} (RM {tier})",
+    "claimSuccessTitle": "Đã nhận {title}",
+    "claimSuccessBody": "Đã cộng {amount} vào ví chính.",
+    "claimErrorTitle": "Chưa nhận thưởng",
+    "claimErrorBody": "Không thể nhận thưởng. Vui lòng thử lại.",
+    "errorBody": "Không tải được thành tích.",
+    "emptyBody": "Chưa có thành tích nào."
   },
   "tickets": {
     "intro": "Vé kiếm được khi chơi; mỗi sự kiện tốn số vé cố định.",

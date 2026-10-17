@@ -416,9 +416,7 @@
     "livecasino": "Live casino",
     "sports": "Sports",
     "slots": "Slots",
-    "progress": "{progress} of {target}",
     "claim": "Claim reward",
-    "locked": "Locked",
     "claimed": "Claimed",
     "currentStatus": "Current status",
     "period": {
@@ -434,7 +432,21 @@
     "nextBonus": "Amount Required for Next Bonus",
     "turnoverBonus": "Turnover Bonus",
     "reward": "Bonus {amount}",
-    "requirement": "{currency} {amount} or above"
+    "requirement": "{currency} {amount} or above",
+    "live": "LIVE",
+    "recordsTitle": "Reward records",
+    "recordsEmpty": "No reward claimed yet.",
+    "achievement": "Achievement",
+    "rewardColumn": "Reward",
+    "claimedAt": "Claimed at",
+    "reference": "Reference",
+    "promoType": "Achievement reward · {title} (RM {tier})",
+    "claimSuccessTitle": "{title} claimed",
+    "claimSuccessBody": "{amount} has been credited to your main wallet.",
+    "claimErrorTitle": "Reward not claimed",
+    "claimErrorBody": "The reward could not be claimed. Please try again.",
+    "errorBody": "The achievements could not be loaded.",
+    "emptyBody": "No achievement is running yet."
   },
   "tickets": {
     "intro": "Tickets are earned from play; each event spends a fixed number.",

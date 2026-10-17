@@ -416,9 +416,7 @@
     "livecasino": "真人赌场",
     "sports": "体育",
     "slots": "电子游戏",
-    "progress": "{progress} / {target}",
     "claim": "领取奖励",
-    "locked": "未解锁",
     "claimed": "已领取",
     "currentStatus": "当前状态",
     "period": {
@@ -434,7 +432,21 @@
     "nextBonus": "距下一档奖励所需金额",
     "turnoverBonus": "流水奖励",
     "reward": "奖励 {amount}",
-    "requirement": "{currency} {amount} 及以上"
+    "requirement": "{currency} {amount} 及以上",
+    "live": "进行中",
+    "recordsTitle": "领取记录",
+    "recordsEmpty": "还没有领取记录。",
+    "achievement": "成就",
+    "rewardColumn": "奖励",
+    "claimedAt": "领取时间",
+    "reference": "参考号",
+    "promoType": "成就奖励 · {title}（RM {tier}）",
+    "claimSuccessTitle": "{title} 已领取",
+    "claimSuccessBody": "已把 {amount} 记入主钱包。",
+    "claimErrorTitle": "奖励未领取",
+    "claimErrorBody": "奖励领取失败,请重试。",
+    "errorBody": "成就数据加载失败。",
+    "emptyBody": "还没有进行中的成就。"
   },
   "tickets": {
     "intro": "票券通过游戏获得,每项活动消耗固定数量。",

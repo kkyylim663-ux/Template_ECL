@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { readCancelledTransactions } from '@/lib/api/pending';
+import { readAchievementRecords } from '@/lib/achievement-claim';
 import { readDepositRecords } from '@/lib/deposit-credit';
 import { readRebateRecords } from '@/lib/rebate-claim';
 import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
@@ -83,6 +84,7 @@ export function HistoryPanel({
         ...readDepositRecords().map((record) => record.row),
         ...readWithdrawalRecords().map((record) => record.row),
         ...readRebateRecords().map((record) => record.row),
+        ...readAchievementRecords().map((record) => record.row),
         ...readCancelledTransactions().map((entry): HistoryRow =>
           entry.kind === 'transfer'
             ? {

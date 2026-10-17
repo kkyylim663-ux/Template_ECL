@@ -611,6 +611,31 @@ export const achievementSchema = z.object({
   status: z.enum(['locked', 'in-progress', 'claimable', 'claimed']),
 });
 
+/** An achievement reward the member has already claimed (T64). */
+export const achievementClaimSchema = z.object({
+  id: z.string(),
+  achievementId: z.string(),
+  gameType: z.string(),
+  title: z.string(),
+  requirementMinor: z.number().int(),
+  rewardMinor: z.number().int(),
+  reference: z.string(),
+  claimedAt: z.string(),
+});
+
+/**
+ * One round trip for the achievement page: the fixture rows with the status
+ * this build shows (a claim record wins over the fixture's own column), and the
+ * rewards already claimed.
+ */
+export const achievementsInfoSchema = z.object({
+  achievements: z.array(
+    achievementSchema.extend({ status: z.enum(['in-progress', 'claimable', 'claimed']) }),
+  ),
+  claims: z.array(achievementClaimSchema),
+});
+export type AchievementsInfo = z.infer<typeof achievementsInfoSchema>;
+
 export const ticketEventSchema = z.object({
   id: z.string(),
   name: z.string(),

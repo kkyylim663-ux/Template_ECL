@@ -416,9 +416,7 @@
     "livecasino": "真人賭場",
     "sports": "體育",
     "slots": "電子遊戲",
-    "progress": "{progress} / {target}",
     "claim": "領取獎勵",
-    "locked": "未解鎖",
     "claimed": "已領取",
     "currentStatus": "當前狀態",
     "period": {
@@ -434,7 +432,21 @@
     "nextBonus": "距下一檔獎勵所需金額",
     "turnoverBonus": "流水獎勵",
     "reward": "獎勵 {amount}",
-    "requirement": "{currency} {amount} 及以上"
+    "requirement": "{currency} {amount} 及以上",
+    "live": "進行中",
+    "recordsTitle": "領取記錄",
+    "recordsEmpty": "還沒有領取記錄。",
+    "achievement": "成就",
+    "rewardColumn": "獎勵",
+    "claimedAt": "領取時間",
+    "reference": "參考號",
+    "promoType": "成就獎勵 · {title}（RM {tier}）",
+    "claimSuccessTitle": "{title} 已領取",
+    "claimSuccessBody": "已把 {amount} 記入主錢包。",
+    "claimErrorTitle": "獎勵未領取",
+    "claimErrorBody": "獎勵領取失敗,請重試。",
+    "errorBody": "成就數據載入失敗。",
+    "emptyBody": "還沒有進行中的成就。"
   },
   "tickets": {
     "intro": "票券透過遊戲獲得,每項活動消耗固定數量。",
