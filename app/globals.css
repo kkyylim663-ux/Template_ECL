@@ -3040,6 +3040,30 @@ html {
   margin: 0;
 }
 
+/*
+ * T69: the Current LIVE board re-reads itself while the page is open. A rank
+ * swap must not read as a rebuild, so each row keeps its node (keyed by member)
+ * and moves with a transform; the members that traded places keep a red edge on
+ * the rank column until the next refresh.
+ */
+.rb-table tbody tr {
+  transition: transform 450ms ease, background-color 450ms ease;
+}
+
+.rb-table tbody tr.rb-row--moved {
+  background: var(--color-panel-th);
+}
+
+.rb-table tbody tr.rb-row--moved td:first-child {
+  box-shadow: inset 2px 0 0 var(--color-live-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rb-table tbody tr {
+    transition: none;
+  }
+}
+
 .rb-pagination {
   display: flex;
   gap: 4px;

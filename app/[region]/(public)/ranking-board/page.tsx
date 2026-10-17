@@ -5,12 +5,12 @@ import {
   getLeaderboards,
   getRankingContent,
   isBoardKind,
-  type Leaderboard,
   type LeaderboardKind,
   type RankingContent,
 } from '@/lib/api';
+import { RankingLiveBoard } from '@/components/content/RankingLiveBoard';
 import { regionPath } from '@/config/nav';
-import { formatMinor, formatTimestamp } from '@/lib/format';
+import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { pageMetadata } from '@/lib/seo';
 
@@ -57,8 +57,6 @@ const GROUPS = [
   },
 ] as const;
 
-const PAGE_SIZE = 10;
-
 export async function generateMetadata({
   params,
 }: {
@@ -73,7 +71,8 @@ export async function generateMetadata({
  * the one it ships (`crawl/pages/my_ranking-board.html`): the `.rb-board` panel
  * with its six buttons and Top 10 table, the two reward panels beside it and the
  * `.rb-event-rules` accordions underneath. `?board=` keeps the selection in the
- * URL and the page server-rendered.
+ * URL and the page server-rendered; the table itself is a client panel because
+ * the Current LIVE board re-reads itself (T69).
  */
 export default async function RankingBoardPage({
   params,
@@ -99,112 +98,94 @@ export default async function RankingBoardPage({
     group.options.some((option) => option.kind === kind) ? kind : group.fallback;
 
   return (
-    <div>
-      <section
-        data-part="banner-section"
-        aria-hidden
-        className="page-hero game-placeholder h-40 max-desktop:h-28"
-      />
+    <IntlScope namespaces={['games']}>
+      <div>
+        <section
+          data-part="banner-section"
+          aria-hidden
+          className="page-hero game-placeholder h-40 max-desktop:h-28"
+        />
 
-      <h1 className="sr-only">{t('ranking.title')}</h1>
+        <h1 className="sr-only">{t('ranking.title')}</h1>
 
-      <section className="rb-board">
-        <div className={GROUPS[0].className} role="group" aria-label={t(GROUPS[0].labelKey)}>
-          {GROUPS[0].options.map((option) => (
-            <Link
-              key={option.kind}
-              href={`${base}?board=${option.kind}`}
-              aria-pressed={option.kind === selectedIn(GROUPS[0])}
-              className={`${GROUPS[0].itemClass}${option.kind === selectedIn(GROUPS[0]) ? ' is-selected' : ''}`}
-            >
-              {t(option.labelKey)}
-            </Link>
-          ))}
-        </div>
-
-        <div className="rb-panel">
-          <div className="rb-filters">
-            {GROUPS.slice(1).map((group) => {
-              const selected = selectedIn(group);
-              return (
-                <div key={group.id} className={group.className} role="group" aria-label={t(group.labelKey)}>
-                  {group.options.map((option) => (
-                    <Link
-                      key={option.kind}
-                      href={`${base}?board=${option.kind}`}
-                      aria-pressed={option.kind === selected}
-                      className={`${group.itemClass}${option.kind === selected ? ' is-selected' : ''}`}
-                    >
-                      {t(option.labelKey)}
-                      {'live' in option && option.live ? (
-                        <span className="rb-live rb-live--tab">{t('ranking.live')}</span>
-                      ) : null}
-                    </Link>
-                  ))}
-                </div>
-              );
-            })}
+        <section className="rb-board">
+          <div className={GROUPS[0].className} role="group" aria-label={t(GROUPS[0].labelKey)}>
+            {GROUPS[0].options.map((option) => (
+              <Link
+                key={option.kind}
+                href={`${base}?board=${option.kind}`}
+                aria-pressed={option.kind === selectedIn(GROUPS[0])}
+                className={`${GROUPS[0].itemClass}${option.kind === selectedIn(GROUPS[0]) ? ' is-selected' : ''}`}
+              >
+                {t(option.labelKey)}
+              </Link>
+            ))}
           </div>
 
-          <div className="rb-columns">
-            <div className="rb-results">
-              <div className="rb-summary">
-                <div className="rb-stat rb-stat--rank">
-                  <span aria-hidden className="rb-trophy game-placeholder" />
-                  <div>
-                    <p>{t('ranking.myRanking')}</p>
-                    <strong className="rb-stat-value">—</strong>
+          <div className="rb-panel">
+            <div className="rb-filters">
+              {GROUPS.slice(1).map((group) => {
+                const selected = selectedIn(group);
+                return (
+                  <div key={group.id} className={group.className} role="group" aria-label={t(group.labelKey)}>
+                    {group.options.map((option) => (
+                      <Link
+                        key={option.kind}
+                        href={`${base}?board=${option.kind}`}
+                        aria-pressed={option.kind === selected}
+                        className={`${group.itemClass}${option.kind === selected ? ' is-selected' : ''}`}
+                      >
+                        {t(option.labelKey)}
+                        {'live' in option && option.live ? (
+                          <span className="rb-live rb-live--tab">{t('ranking.live')}</span>
+                        ) : null}
+                      </Link>
+                    ))}
                   </div>
-                </div>
-                <div className="rb-stat">
-                  <p>{t('ranking.turnoverWeekly', { period: t(periodKey(kind)) })}</p>
-                  <strong className="rb-stat-value">
-                    <span className="rb-currency">{board?.currency ?? 'USD'}</span> —</strong>
-                  <small>≈ MYR —</small>
-                </div>
-              </div>
-
-              <h2 className="rb-heading rb-leaderboard-heading">
-                {t('ranking.top10')}
-                <span className="rb-live">{t('ranking.live')}</span>
-              </h2>
-
-              <LeaderboardTable
-                board={board}
-                labels={{
-                  no: t('ranking.col.no'),
-                  nickname: t('ranking.col.nickname'),
-                  region: t('ranking.col.region'),
-                  turnover: t('ranking.col.turnoverUsd'),
-                  empty: t('ranking.empty'),
-                }}
-              />
-
-              <div className="rb-table-footer">
-                <div className="rb-update">
-                  <p>
-                    {t('ranking.latestUpdated', {
-                      time: board ? formatTimestamp(board.refreshedAt) : '—',
-                    })}
-                  </p>
-                  <p>{t('ranking.updateEvery', { minutes: content.refreshMinutes })}</p>
-                </div>
-              </div>
+                );
+              })}
             </div>
 
-            <aside className="rb-rewards">
-              <PrizePanel content={content} title={t('ranking.prizeStructure')} rankLabel={t('ranking.col.rankLabel')} prizeLabel={t('ranking.col.prizeUsd')} />
-              <PersonalPanel title={t('ranking.personalTitle')} />
-            </aside>
-          </div>
-        </div>
-      </section>
+            <div className="rb-columns">
+              <div className="rb-results">
+                <div className="rb-summary">
+                  <div className="rb-stat rb-stat--rank">
+                    <span aria-hidden className="rb-trophy game-placeholder" />
+                    <div>
+                      <p>{t('ranking.myRanking')}</p>
+                      <strong className="rb-stat-value">—</strong>
+                    </div>
+                  </div>
+                  <div className="rb-stat">
+                    <p>{t('ranking.turnoverWeekly', { period: t(periodKey(kind)) })}</p>
+                    <strong className="rb-stat-value">
+                      <span className="rb-currency">{board?.currency ?? 'USD'}</span> —</strong>
+                    <small>≈ MYR —</small>
+                  </div>
+                </div>
 
-      <section className="rb-event-rules">
-        <EventRule title={t('ranking.rule.introduction')} items={content.rules.intro} />
-        <EventRule title={t('ranking.rule.tnc')} items={content.rules.tnc} />
-      </section>
-    </div>
+                <h2 className="rb-heading rb-leaderboard-heading">
+                  {t('ranking.top10')}
+                  <span className="rb-live">{t('ranking.live')}</span>
+                </h2>
+
+                <RankingLiveBoard kind={kind} board={board} refreshMinutes={content.refreshMinutes} />
+              </div>
+
+              <aside className="rb-rewards">
+                <PrizePanel content={content} title={t('ranking.prizeStructure')} rankLabel={t('ranking.col.rankLabel')} prizeLabel={t('ranking.col.prizeUsd')} />
+                <PersonalPanel title={t('ranking.personalTitle')} />
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section className="rb-event-rules">
+          <EventRule title={t('ranking.rule.introduction')} items={content.rules.intro} />
+          <EventRule title={t('ranking.rule.tnc')} items={content.rules.tnc} />
+        </section>
+      </div>
+    </IntlScope>
   );
 }
 
@@ -212,51 +193,6 @@ export default async function RankingBoardPage({
 function periodKey(kind: LeaderboardKind): string {
   if (kind === 'monthly') return 'ranking.period.monthly';
   return 'ranking.period.weekly';
-}
-
-function LeaderboardTable({
-  board,
-  labels,
-}: {
-  board?: Leaderboard;
-  labels: { no: string; nickname: string; region: string; turnover: string; empty: string };
-}) {
-  const rows = board?.rows.slice(0, PAGE_SIZE) ?? [];
-
-  return (
-    <div className="rb-table-scroll">
-      <table className="rb-table">
-        <thead>
-          <tr>
-            <th scope="col">{labels.no}</th>
-            <th scope="col">{labels.nickname}</th>
-            <th scope="col">{labels.region}</th>
-            <th scope="col">{labels.turnover}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.length === 0 ? (
-            <tr>
-              <td colSpan={4} className="rb-empty">
-                <div className="no-info-box">{labels.empty}</div>
-              </td>
-            </tr>
-          ) : (
-            rows.map((row) => (
-              <tr key={row.rank}>
-                <td>{row.rank}</td>
-                <td>
-                  <span className="rb-nickname-text">{row.displayName}</span>
-                </td>
-                <td>{row.region}</td>
-                <td>{formatMinor(row.turnoverMinor, board?.currency ?? 'USD', 'en-MY')}</td>
-              </tr>
-            ))
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
 }
 
 function PrizePanel({
