@@ -60,6 +60,10 @@ test.describe('mobile scaling (T32.6)', () => {
     await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/my');
 
+    // T71: the mobile chrome is a post-hydration island, so the bar is not in
+    // the DOM at `goto` — wait for it before reading its box.
+    await expect(page.locator('.mobile-bar')).toBeVisible();
+
     // Scale 1 is an identity transform, so every value below is the T31/T32 one.
     await expect(page.locator('.m-root')).toHaveCSS('zoom', '1');
 
@@ -204,6 +208,9 @@ test.describe('content pages, mobile and keyboard (T27)', () => {
   test('text keeps its contrast on the dark theme', async ({ page }) => {
     for (const route of ['/my/promotion', '/my/vip', '/my/contact', '/my/tnc']) {
       await page.goto(route);
+      // T71: the mobile chrome is a post-hydration island; wait for the shell so
+      // the window below samples the same DOM every run.
+      await expect(page.locator('.mobile-bar')).toBeVisible();
       const worst = await page.evaluate(() => {
         type Rgba = { r: number; g: number; b: number; a: number };
         const parse = (value: string): Rgba | null => {
@@ -237,6 +244,13 @@ test.describe('content pages, mobile and keyboard (T27)', () => {
           const parent = walker.currentNode.parentElement;
           if (text.length < 2 || !parent || parent.closest('script, [hidden], [inert]')) continue;
           const style = getComputedStyle(parent);
+          // T71: skip text no visitor can read at this width. The desktop header
+          // is display:none here, and its quest pill's "Live" badge is 3.37:1 —
+          // before the breakpoint split the server-rendered desktop sidebar
+          // filled this 30-node window and pushed that node past it.
+          if (style.display === 'none' || style.visibility === 'hidden') continue;
+          const rect = parent.getBoundingClientRect();
+          if (rect.width === 0 && rect.height === 0) continue;
           const color = parse(style.color);
           if (!color) continue;
           const l1 = lum(color);

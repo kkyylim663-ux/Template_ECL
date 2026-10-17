@@ -11,6 +11,7 @@
     "test": "vitest run && playwright test",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
+    "test:budget": "node scripts/check-budget.mjs",
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

@@ -1,8 +1,6 @@
-import { DesktopSidebar } from './DesktopSidebar';
+import { DesktopSidebarGate, MobileChromeGate, MobileFooterBarGate } from './BreakpointChrome';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { MobileChrome } from './MobileChrome';
-import { MobileFooterBar } from './MobileFooterBar';
 
 /**
  * Site chrome. One responsive template: >=769px renders the header + left rail +
@@ -24,11 +22,11 @@ import { MobileFooterBar } from './MobileFooterBar';
 export function AppShell({ region, children }: { region: string; children: React.ReactNode }) {
   return (
     <>
-      <DesktopSidebar region={region} />
+      <DesktopSidebarGate region={region} />
 
       <div className="app-frame flex flex-col desktop:pt-[var(--header-height-desktop)]">
         <Header region={region} />
-        <MobileChrome region={region} />
+        <MobileChromeGate region={region} />
 
         {/*
           Mobile: the header stack is fixed, so the page clears it (56px, or
@@ -49,7 +47,7 @@ export function AppShell({ region, children }: { region: string; children: React
         <Footer region={region} />
       </div>
 
-      <MobileFooterBar region={region} />
+      <MobileFooterBarGate region={region} />
     </>
   );
 }

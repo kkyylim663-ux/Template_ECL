@@ -2,8 +2,7 @@ import Link from 'next/link';
 import { brand } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
 import { Icon } from '@/components/ui/Icon';
-import { AccountSlot } from './AccountSlot';
-import { HeaderMenu } from './HeaderMenu';
+import { AccountSlotGate, HeaderMenuGate } from './BreakpointChrome';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -30,7 +29,7 @@ export async function Header({ region }: { region: string }) {
             {brand.logo.text}
           </Link>
 
-          <HeaderMenu region={region} />
+          <HeaderMenuGate region={region} />
 
           {/*
             Cluster height is the original's 41px (`.btn` / `.quest-badge`);
@@ -59,7 +58,7 @@ export async function Header({ region }: { region: string }) {
               <VoucherEntry region={region} variant="header" />
               <LanguageSwitcher compact />
             </div>
-            <AccountSlot region={region} />
+            <AccountSlotGate region={region} />
           </div>
         </div>
       </div>
