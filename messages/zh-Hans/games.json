@@ -8,6 +8,14 @@
     "needLogin": "登录后即可进入游戏",
     "showActions": "显示 {name} 的操作"
   },
+  "launch": {
+    "loginTitle": "请先登录",
+    "loginBody": "请登录帐号以开始游戏。若您还未注册，请先注册一个帐号",
+    "lowTitle": "余额不足",
+    "lowBody": "您的账户即时余额为0。您想要存款吗?",
+    "soonTitle": "即将上线",
+    "soonBody": "此游戏很快就会上线，请与我们保持联系!"
+  },
   "category": {
     "slots": "电子游戏",
     "livecasino": "真人赌场",

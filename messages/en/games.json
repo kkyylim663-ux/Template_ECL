@@ -8,6 +8,14 @@
     "needLogin": "Sign in to launch this game",
     "showActions": "Show actions for {name}"
   },
+  "launch": {
+    "loginTitle": "Please login first",
+    "loginBody": "Please login first to play game. If you don't have account, please register for an account.",
+    "lowTitle": "Insufficient balance",
+    "lowBody": "Currently your account have zero credit. Would you like to make a deposit?",
+    "soonTitle": "Coming Soon",
+    "soonBody": "This game will be available soon, please stay with us."
+  },
   "category": {
     "slots": "Slots",
     "livecasino": "Live casino",

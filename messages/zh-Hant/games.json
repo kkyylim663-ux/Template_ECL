@@ -8,6 +8,14 @@
     "needLogin": "登入後即可進入遊戲",
     "showActions": "顯示 {name} 的操作"
   },
+  "launch": {
+    "loginTitle": "請先登入",
+    "loginBody": "請登入帳號以開始遊戲。若您還未註冊，請先註冊一個帳號",
+    "lowTitle": "餘額不足",
+    "lowBody": "您的帳戶即時餘額為 0。您想要存款嗎?",
+    "soonTitle": "即將上線",
+    "soonBody": "此遊戲很快就會上線，請與我們保持聯繫!"
+  },
   "category": {
     "slots": "電子遊戲",
     "livecasino": "真人賭場",

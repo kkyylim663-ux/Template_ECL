@@ -4,11 +4,15 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { GameCard as GameCardData, GamePage, ProviderSummary } from '@/lib/api/slots';
+import type { LaunchMode } from '@/lib/game/launch';
+import { launchGate, type LaunchGate } from '@/lib/game/launch-gate';
+import { useSession } from '@/lib/session/useSession';
 import { Icon } from '@/components/ui/Icon';
 import { IconSprite } from '@/components/ui/IconSprite';
 import { GameCardSkeleton } from '@/components/ui/Skeleton';
 import { Tabs, type TabItem } from '@/components/ui/Tabs';
 import { GameCard } from './GameCard';
+import { LaunchGateModal } from './LaunchGateModal';
 import { MobileLobbyFilters } from './MobileLobbyFilters';
 
 type PagePayload = GamePage;
@@ -42,6 +46,7 @@ export function SlotBrowser({
   const t = useTranslations('games');
   const tCommon = useTranslations('common');
   const pathname = usePathname();
+  const session = useSession();
 
   const [tab, setTab] = useState(initialTab);
   const [query, setQuery] = useState(initialQuery);
@@ -51,6 +56,32 @@ export function SlotBrowser({
   const [hasMore, setHasMore] = useState(initialPage.hasMore);
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState<string | null>(null);
+
+  // T61: the launch notice is decided from the session, so a click that beats
+  // the session route waits here for its answer instead of guessing.
+  const [pending, setPending] = useState<{ mode: LaunchMode; here: string } | null>(null);
+  const [notice, setNotice] = useState<{ gate: LaunchGate; here: string } | null>(null);
+
+  useEffect(() => {
+    if (!pending || !session.ready) return;
+    const gate = launchGate({
+      mode: pending.mode,
+      ready: session.ready,
+      member: session.member,
+      balanceMinor: session.balanceMinor,
+    });
+    setPending(null);
+    if (gate) setNotice({ gate, here: pending.here });
+  }, [pending, session]);
+
+  /**
+   * Every Play Now / Demo click ends here: the href is `#` (getLaunchHref), and
+   * the page keeps the address the member is looking at so signing in from the
+   * notice comes back to the same filters.
+   */
+  const onLaunch = useCallback((mode: LaunchMode) => {
+    setPending({ mode, here: `${window.location.pathname}${window.location.search}` });
+  }, []);
 
   // Skips the debounce on the very first render: those items are already there.
   const firstRun = useRef(true);
@@ -261,7 +292,7 @@ export function SlotBrowser({
 
       <div className="lobby-grid" data-game-grid>
         {items.map((game) => (
-          <GameCard key={`${game.provider}-${game.id}`} game={game} />
+          <GameCard key={`${game.provider}-${game.id}`} game={game} onLaunch={onLaunch} />
         ))}
         {busy
           ? Array.from({ length: 6 }, (_, index) => <GameCardSkeleton key={`skeleton-${index}`} />)
@@ -276,6 +307,15 @@ export function SlotBrowser({
           : t('browser.shown', { count: total })}
         {busy && items.length > 0 ? ` · ${t('browser.updating')}` : null}
       </p>
+
+      {notice ? (
+        <LaunchGateModal
+          gate={notice.gate}
+          region={region}
+          here={notice.here}
+          onClose={() => setNotice(null)}
+        />
+      ) : null}
     </section>
   );
 }

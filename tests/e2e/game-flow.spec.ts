@@ -28,12 +28,16 @@ test.describe('game browsing flow', () => {
     expect(results).toBeGreaterThan(0);
     expect(results).toBeLessThanOrEqual(24);
 
-    // The first card's Play Now swallows its own click.
+    // The first card's Play Now swallows its own click. Since T61 it answers
+    // with the sign-in notice, which has to be dismissed before the search box
+    // and the clear button below are reachable again.
     const before = page.url();
     await cards.first().locator('a[data-mode="real"]').click();
     await page.waitForTimeout(300);
     expect(page.url()).toBe(before);
     await expect(cards.first().locator('a[data-mode="real"]')).toHaveAttribute('href', '#');
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[role=dialog]')).toHaveCount(0);
 
     // An empty result set explains itself and can be cleared.
     await page.fill('input[aria-label="Search games"]', 'zzzzqq');

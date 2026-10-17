@@ -8,6 +8,14 @@
     "needLogin": "Đăng nhập để vào game",
     "showActions": "Hiện thao tác cho {name}"
   },
+  "launch": {
+    "loginTitle": "Vui lòng đăng nhập",
+    "loginBody": "Vui lòng đăng nhập để tham gia cược. Nếu quý khách chưa có tài khoản, hãy đăng kí tài khoản.",
+    "lowTitle": "Số dư không đủ",
+    "lowBody": "Tài khoản hiện tại không đủ. Qúy khách có muốn gửi thêm tiền để tiếp tục?",
+    "soonTitle": "Sắp ra mắt",
+    "soonBody": "Trò chơi này sẽ có ngay, vui lòng ở lại với chúng tôi"
+  },
   "category": {
     "slots": "Slots",
     "livecasino": "Casino trực tuyến",
