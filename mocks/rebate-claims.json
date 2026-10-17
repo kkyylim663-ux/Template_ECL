@@ -1,0 +1,14 @@
+[
+  {
+    "id": "rc_seed000001",
+    "rebateId": "rb-3",
+    "idempotencyKey": "rbt:rb-3",
+    "period": "2026-10-11",
+    "product": "Slots",
+    "turnoverMinor": 302000,
+    "ratePct": 0.8,
+    "amountMinor": 2416,
+    "reference": "RB-SEED0001",
+    "claimedAt": "2026-10-12T15:10:00+08:00"
+  }
+]

@@ -579,6 +579,28 @@ export const rebateSchema = z.object({
   claimableAt: z.string(),
 });
 
+/** A rebate the member has already claimed (T63). `rebateId` is the row it paid out. */
+export const rebateClaimSchema = z.object({
+  id: z.string(),
+  rebateId: z.string(),
+  period: z.string(),
+  product: z.string(),
+  turnoverMinor: z.number().int(),
+  ratePct: z.number(),
+  amountMinor: z.number().int(),
+  reference: z.string(),
+  claimedAt: z.string(),
+});
+
+export const rebatesInfoSchema = z.object({
+  /** The reference's minimum payout: smaller rebates stay pending. */
+  minPayoutMinor: z.number().int(),
+  periods: z.array(z.string()),
+  rows: z.array(rebateSchema),
+  claims: z.array(rebateClaimSchema),
+});
+export type RebatesInfo = z.infer<typeof rebatesInfoSchema>;
+
 export const achievementSchema = z.object({
   id: z.string(),
   gameType: z.enum(['livecasino', 'sports', 'slots']),

@@ -100,3 +100,15 @@ export function formatDate(value: string): string {
     timeZone: 'Asia/Singapore',
   }).format(date);
 }
+
+/** "2026-10-13" or a timestamp -> "13 Oct 2026" (no time — for a day period). */
+export function formatDay(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value.slice(0, 10);
+  return new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'Asia/Singapore',
+  }).format(date);
+}

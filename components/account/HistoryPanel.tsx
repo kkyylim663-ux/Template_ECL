@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { readCancelledTransactions } from '@/lib/api/pending';
 import { readDepositRecords } from '@/lib/deposit-credit';
+import { readRebateRecords } from '@/lib/rebate-claim';
 import { readWithdrawalRecords } from '@/lib/withdrawal-settle';
 import { RECORDS_EVENT } from '@/lib/mock-records';
 import type { HistoryRow } from '@/lib/api/schemas';
@@ -81,6 +82,7 @@ export function HistoryPanel({
       setCancelledRows([
         ...readDepositRecords().map((record) => record.row),
         ...readWithdrawalRecords().map((record) => record.row),
+        ...readRebateRecords().map((record) => record.row),
         ...readCancelledTransactions().map((entry): HistoryRow =>
           entry.kind === 'transfer'
             ? {

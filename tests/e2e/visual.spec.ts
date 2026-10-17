@@ -1,3 +1,5 @@
+import { rm } from 'node:fs/promises';
+import { join } from 'node:path';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -6,6 +8,12 @@ import { signIn } from './session';
  * Baselines live in tests/e2e/visual.spec.ts-snapshots/. Regenerate with
  * `pnpm playwright test visual --update-snapshots` only after a reviewed change.
  */
+test.beforeAll(async () => {
+  // The rebates page (T63) draws a records table backed by a writable store, and
+  // a claim is final — so the captures pin the seeded state by dropping the
+  // runtime file (the store falls back to mocks/rebate-claims.json).
+  await rm(join(process.cwd(), '.mock-data', 'rebate-claims.json'), { force: true });
+});
 const ROUTES = [
   '/my',
   '/my/slots?provider=pragmatic&tab=all',

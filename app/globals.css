@@ -46,6 +46,8 @@
   --color-danger-bright: #e0413b;
   --color-warn: #ffa469;
   --color-gold: #f9d235; /* VIP */
+  --color-disabled-fill: #585858; /* reference .btn-disable background */
+  --color-disabled-ink: #939393; /* reference .btn-disable text */
   --color-tile: #444447; /* dropdown tile (header-menu__child-card) */
   --color-quest-to: #2779d9; /* quest pill gradient end */
   /* Home entry-card gradients + table/banner fills (T32, measured from .home-popular__card) */
@@ -6398,6 +6400,83 @@ details.accordionItem[open] .accordion-icon {
   margin-bottom: 17px;
   padding-left: 29px;
   color: var(--color-success);
+}
+
+/* ── Rebates page (T63) ─────────────────────────────────────────────────────
+   The reference's rebates page (`/my/mypromotion`, "Rebates") is the accordion
+   list above — `.account-promotion__*` with a Claim button pinned right, and
+   the reference's `.btn-disable` (`.btn-disable{background-color:#585858;
+   color:#939393;pointer-events:none!important}`) for a block that cannot be
+   claimed. Its payout rules live in the Daily Cash Rebate copy on
+   `my_promotions.html`. The period selector, the claimable line, the state
+   chrome and the records table are ours: the reference's claim request sits in
+   a client chunk that was never captured, and it renders no rebate table. The
+   records table wears the banking skin (T57), which borrows the verify table's. */
+
+.rebates-period {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.rebates-period__chip {
+  padding: 7px 14px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-8);
+  background: var(--color-panel-alt);
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.rebates-period__chip.active {
+  border-color: var(--color-accent);
+  color: var(--color-ink);
+}
+
+.rebates-claimable {
+  margin-top: 14px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.rebates-min-note {
+  margin-top: 6px;
+  color: var(--color-muted-dim);
+  font-size: var(--text-xs);
+}
+
+.account-promotion__btn-wrapper .btn.disable:disabled {
+  background: var(--color-disabled-fill);
+  color: var(--color-disabled-ink);
+}
+
+.rebates-records {
+  margin-top: 30px;
+}
+
+.rebates-records__title {
+  margin-bottom: 14px;
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.rebates-records__empty {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 768px) {
+  .rebates-period {
+    gap: 6px;
+  }
+
+  .rebates-period__chip {
+    padding: 6px 10px;
+    font-size: var(--text-xs);
+  }
 }
 
 /* Achievement (standalone page: banner + date tabs + panel). */

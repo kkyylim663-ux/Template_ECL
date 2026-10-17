@@ -1,9 +1,7 @@
-import { getAccountPayload } from '@/lib/api';
-import { formatDate } from '@/lib/format';
+import { getT } from '@/lib/i18n/server';
 import { regionConfig, type RegionCode } from '@/config/brand';
 import { Icon } from '@/components/ui/Icon';
-import { getT } from '@/lib/i18n/server';
-import { RebateList } from '@/components/account/RebateList';
+import { RebatesPanel } from '@/components/account/RebatesPanel';
 
 import type { Metadata } from 'next';
 
@@ -12,20 +10,17 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t('items.rebates'), robots: { index: false, follow: false } };
 }
 
+/**
+ * The reference's rebates page is `/my/mypromotion` (the header menu's own
+ * "Rebates" entry, `icon-rebates.svg` with the page icon `rebates.png`), an
+ * accordion list of claimable blocks; its payout rules come from the Daily Cash
+ * Rebate copy on `my_promotions.html`. The panel owns that list plus this
+ * build's period selector and records table.
+ */
 export default async function RebatesPage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;
-  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
-  const currency = regionConfig(region as RegionCode).currency;
-
-  const items = payload.rebates.map((rebate) => ({
-    id: rebate.id,
-    title: `${rebate.product} · ${rebate.period}`,
-    turnover: `${currency} ${(rebate.turnoverMinor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 })}`,
-    rate: String(rebate.ratePct),
-    claimFrom: formatDate(rebate.claimableAt),
-    amount: `${currency} ${(rebate.amountMinor / 100).toLocaleString('en-MY', { minimumFractionDigits: 2 })}`,
-    claimable: rebate.status === 'claimable',
-  }));
+  const { t } = await getT('account');
+  const { symbol } = regionConfig(region as RegionCode);
 
   return (
     <div className="account-content__container">
@@ -33,7 +28,7 @@ export default async function RebatesPage({ params }: { params: Promise<{ region
         <Icon name="rebate" size={28} className="page-icon" />
         {t('rebates.title')}
       </h1>
-      <RebateList items={items} currency={currency} />
+      <RebatesPanel symbol={symbol} />
     </div>
   );
 }
