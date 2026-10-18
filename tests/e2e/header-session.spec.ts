@@ -47,4 +47,20 @@ test.describe('header session state', () => {
     await first.locator('header').getByRole('button', { name: 'Log out' }).click();
     await expect(second.getByRole('link', { name: 'Login' }).first()).toBeVisible({ timeout: 1000 });
   });
+
+  // The mobile header carries the mailbox entry for members only, as the live
+  // reference's right cell does (guest: account icon; member: envelope).
+  test('mobile header adds the mailbox entry once signed in', async ({ page, context }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto('/my');
+    await expect(page.getByTestId('header-mail')).toHaveCount(0);
+
+    await signIn(context);
+    await page.goto('/my');
+    const mail = page.getByTestId('header-mail');
+    await expect(mail).toBeVisible();
+    await expect(mail).toHaveAttribute('aria-label', 'Inbox');
+    await mail.click();
+    await expect(page).toHaveURL(/\/my\/account\/inbox/);
+  });
 });

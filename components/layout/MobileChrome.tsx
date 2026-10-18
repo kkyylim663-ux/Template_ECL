@@ -227,6 +227,21 @@ export function MobileChrome({ region }: { region: string }) {
             <Icon name="user" size={22} className="text-muted" />
           )}
         </Link>
+
+        {/* Member mailbox, right-most like the reference's envelope. The live
+            header's right cell swaps with the session — guests get the account
+            icon (ours matches), members get a chat + envelope pair; this build
+            carries the envelope only, since the dock already owns live chat. */}
+        {isMember ? (
+          <Link
+            href={regionPath(region, '/account/inbox')}
+            aria-label={t('items.inbox')}
+            data-testid="header-mail"
+            className="grid h-14 w-[50px] shrink-0 place-items-center"
+          >
+            <Icon name="mail" size={20} className="text-muted" />
+          </Link>
+        ) : null}
       </header>
 
       {/* Drawer + overlay */}
