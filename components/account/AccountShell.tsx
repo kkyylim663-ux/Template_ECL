@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { getAccountPayload } from '@/lib/api';
+import { getAccountPayload, getVipLevels } from '@/lib/api';
+import { avatarSrc } from '@/lib/avatar';
 import { LiveBalance } from './LiveBalance';
 import { WithdrawalSettler } from './WithdrawalSettler';
 import { formatDate } from '@/lib/format';
@@ -27,7 +28,12 @@ export async function AccountShell({
   region: string;
   children: React.ReactNode;
 }) {
-  const [{ t }, payload] = await Promise.all([getT('account'), getAccountPayload()]);
+  const [{ t }, payload, levels] = await Promise.all([getT('account'), getAccountPayload(), getVipLevels()]);
+  // The reference fills this card from JS: `icon-vip-level-<badge>.svg` above the
+  // badge text (crawl/js `account-summary__level-icon`), keyed by badge name.
+  const vipLevel = levels.find(
+    (level) => level.name.toLowerCase() === payload.profile.vipTier.toLowerCase(),
+  );
   const currency = regionConfig(region as RegionCode).currency;
   const zero = (0).toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -39,7 +45,7 @@ export async function AccountShell({
           <div className="account-menu__profile">
             <div className="account-menu__profile-body">
               <span className="account-menu__profile-avatar bg-panel-soft grid place-items-center" aria-hidden>
-                <Icon name="user" size={32} className="text-muted" />
+                <img src={avatarSrc(payload.profile.username)} alt="" className="h-full w-full object-cover" />
               </span>
               <div className="account-menu__profile-content">
                 <p>{t('hello')}</p>
@@ -82,6 +88,13 @@ export async function AccountShell({
 
           <div className="account-summary__wrapper">
             <div className="account-summary__card account-summary__card-center">
+              {vipLevel ? (
+                <img
+                  className="account-summary__level-icon"
+                  src={`/vip/level-${vipLevel.level}-${vipLevel.name.toLowerCase()}.webp`}
+                  alt=""
+                />
+              ) : null}
               <p className="account-summary__badge">{payload.profile.vipTier}</p>
             </div>
             <div className="account-summary__card">

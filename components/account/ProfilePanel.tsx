@@ -12,6 +12,7 @@ import { PasswordStrength } from '@/components/auth/PasswordStrength';
 import { useModal } from '@/components/ui/ModalProvider';
 import { LiveBalance } from './LiveBalance';
 import { changePassword, readProfileEdits, saveProfileEdits } from '@/lib/api/profile';
+import { avatarSrc } from '@/lib/avatar';
 import { notifySessionChange } from '@/lib/session/useSession';
 import { profileSchema, validate, type FieldErrors } from '@/lib/forms';
 
@@ -421,9 +422,7 @@ export function ProfilePanel({ profile, region }: { profile: ProfileView; region
         <div className="profile-hero__identity">
           <span className="profile-hero__avatar" aria-hidden>
             <img
-              src={`/avatar/avatar-${
-                (profile.username.split('').reduce((total, ch) => total + ch.charCodeAt(0), 0) % 8) + 1
-              }.webp`}
+              src={avatarSrc(profile.username)}
               alt=""
               className="h-full w-full rounded-full object-cover"
             />
