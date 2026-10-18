@@ -26,7 +26,15 @@ export async function AppDownload() {
               <Badge label={t('download.googlePlay')} />
             </div>
           </div>
-          <div className="game-placeholder flex-1" />
+          <div className="flex-1 overflow-hidden">
+            <img
+              className="h-full w-full object-cover"
+              src="/home/download-app.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         </div>
       </section>
 
