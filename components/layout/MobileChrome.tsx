@@ -436,9 +436,17 @@ export function MobileChrome({ region }: { region: string }) {
                     className="bg-download-card me-[10px] w-[183px] shrink-0 rounded-[var(--radius-panel)] p-[15px] pb-[25px]"
                   >
                     <InertLink className="bg-inset-dark mb-[10px] block rounded-[var(--radius-panel)] p-[10px]">
-                      <span className="game-placeholder block h-[44px] w-full rounded-[10px] text-center text-11 leading-[44px] text-white/70">
-                        {t(index === 0 ? 'sidebar.dlPlay' : 'sidebar.dlStore')}
-                      </span>
+                      <img
+                        className="block h-[44px] w-full rounded-[10px] object-contain"
+                        src={
+                          index === 0
+                            ? '/home/download-google-play.webp'
+                            : '/home/download-app-store.webp'
+                        }
+                        alt={t(index === 0 ? 'sidebar.dlPlay' : 'sidebar.dlStore')}
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </InertLink>
                     <p className="text-ink mb-1 text-sm font-medium">{t(key)}</p>
                     <p className="text-ink text-xs">{t('sidebar.dlSub')}</p>
