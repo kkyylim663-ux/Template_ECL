@@ -100,7 +100,7 @@ for (const { label, viewport } of VIEWPORTS) {
     // The credit lands after the wallet service's simulated latency, so poll the
     // header rather than reading it once. 33.44 is this claim's amount.
     if (label === 'desktop') {
-      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 33.44, 2);
+      await expect.poll(() => money(page, BALANCE), { timeout: 20_000 }).toBeCloseTo(balanceStart + 33.44, 2);
     }
     // The fixture's own record (RB-SEED0001) plus this claim.
     await expect(page.getByTestId('rebate-record')).toHaveCount(2);
@@ -114,7 +114,7 @@ for (const { label, viewport } of VIEWPORTS) {
     await expect(page.getByText('RM 10.00 has been credited to your main wallet.')).toBeVisible();
     await expect(page.getByTestId('achievement-card').nth(1)).toHaveAttribute('data-status', 'claimed');
     if (label === 'desktop') {
-      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 43.44, 2);
+      await expect.poll(() => money(page, BALANCE), { timeout: 20_000 }).toBeCloseTo(balanceStart + 43.44, 2);
     }
     await expect(page.getByTestId('achievement-record')).toHaveCount(1);
     await shot('4-achievement-claimed');
@@ -150,7 +150,7 @@ for (const { label, viewport } of VIEWPORTS) {
     await shot('6-voucher-redeemed');
     if (label === 'desktop') {
       // The two claims above (33.44 + 10.00) and WELCOME188's own 188.00.
-      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 231.44, 2);
+      await expect.poll(() => money(page, BALANCE), { timeout: 20_000 }).toBeCloseTo(balanceStart + 231.44, 2);
     }
 
     // 7 — T67: two lines at 1.50 leave the wallet once and reach the bet list

@@ -1,6 +1,6 @@
 import { rm } from 'node:fs/promises';
 import { mockDataFile } from './mock-data';
-import { expect, test } from '@playwright/test';
+import { expect, test, type BrowserContext, type Page } from '@playwright/test';
 import { signIn } from './session';
 
 /**
@@ -92,34 +92,62 @@ function slug(route: string) {
   );
 }
 
-for (const viewport of VIEWPORTS) {
-  test.describe(`visual ${viewport.name}`, () => {
-    test.use({ viewport: { width: viewport.width, height: viewport.height } });
+/** The home hero rotates on a JS interval — captured with reduced motion. */
+const CAROUSEL_ROUTES = new Set(['/my']);
 
-    for (const route of [...ROUTES, ...MEMBER_ROUTES]) {
+async function captureRoute(
+  page: Page,
+  context: BrowserContext,
+  viewport: (typeof VIEWPORTS)[number],
+  route: string,
+) {
+  if (MEMBER_ROUTES.includes(route)) {
+    await signIn(context);
+  }
+  await page.goto(route);
+  if (route.startsWith('/my/account/deposit/gateway')) {
+    // The gateway page is short, so every shell/footer link enters the
+    // viewport and Next prefetches all of them (40+ RSC requests). That
+    // tail can starve `networkidle` past the timeout, so this route waits
+    // for its own settled state instead — the capture is the same.
+    await page.waitForLoadState('domcontentloaded');
+    await expect(page.locator('main')).toBeVisible();
+  } else {
+    await page.waitForLoadState('networkidle');
+  }
+  await expect(page).toHaveScreenshot(`${viewport.name}-${slug(route)}.png`, {
+    fullPage: true,
+    animations: 'disabled',
+    maxDiffPixelRatio: 0.002,
+    // The ticket centre (T65) ticks a live countdown per ticket, so that
+    // column is masked instead of pinning a particular second.
+    mask: route === '/my/account/tickets' ? [page.locator('.ticket-countdown')] : undefined,
+  });
+}
+
+for (const viewport of VIEWPORTS) {
+  const viewportSize = { width: viewport.width, height: viewport.height };
+
+  test.describe(`visual ${viewport.name}`, () => {
+    test.use({ viewport: viewportSize });
+
+    for (const route of [...ROUTES, ...MEMBER_ROUTES].filter((r) => !CAROUSEL_ROUTES.has(r))) {
       test(`${route}`, async ({ page, context }) => {
-        if (MEMBER_ROUTES.includes(route)) {
-          await signIn(context);
-        }
-        await page.goto(route);
-        if (route.startsWith('/my/account/deposit/gateway')) {
-          // The gateway page is short, so every shell/footer link enters the
-          // viewport and Next prefetches all of them (40+ RSC requests). That
-          // tail can starve `networkidle` past the timeout, so this route waits
-          // for its own settled state instead — the capture is the same.
-          await page.waitForLoadState('domcontentloaded');
-          await expect(page.locator('main')).toBeVisible();
-        } else {
-          await page.waitForLoadState('networkidle');
-        }
-        await expect(page).toHaveScreenshot(`${viewport.name}-${slug(route)}.png`, {
-          fullPage: true,
-          animations: 'disabled',
-          maxDiffPixelRatio: 0.002,
-          // The ticket centre (T65) ticks a live countdown per ticket, so that
-          // column is masked instead of pinning a particular second.
-          mask: route === '/my/account/tickets' ? [page.locator('.ticket-countdown')] : undefined,
-        });
+        await captureRoute(page, context, viewport, route);
+      });
+    }
+  });
+
+  // `animations: 'disabled'` cannot freeze the hero — the carousel advances on
+  // a JS interval, not a CSS animation — so a capture could land on slide 2
+  // while the baseline holds slide 1. BannerCarousel keeps slide 1 under
+  // prefers-reduced-motion, so only this route runs with it.
+  test.describe(`visual ${viewport.name} carousel`, () => {
+    test.use({ viewport: viewportSize, reducedMotion: 'reduce' });
+
+    for (const route of CAROUSEL_ROUTES) {
+      test(`${route}`, async ({ page, context }) => {
+        await captureRoute(page, context, viewport, route);
       });
     }
   });

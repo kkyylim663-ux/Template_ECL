@@ -74,7 +74,10 @@ test.describe('page metadata (T24)', () => {
 });
 
 test.describe('sitemap, robots and structured data (T25)', () => {
-  test('the sitemap lists both markets and every listed URL answers 200', async ({ page }) => {
+  test('the sitemap lists both markets and every listed URL answers 200', async ({
+    page,
+    baseURL,
+  }) => {
     const response = await page.request.get('/sitemap.xml');
     expect(response.status()).toBe(200);
     const body = await response.text();
@@ -96,11 +99,21 @@ test.describe('sitemap, robots and structured data (T25)', () => {
 
     const locs = [...body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
     expect(locs.length).toBeGreaterThan(60);
-    // T28: every listed URL answers 200, not just a sample.
+    // T28: every listed URL answers 200, not just a sample. The sitemap is
+    // prerendered with the build-time site URL (`lib/seo`'s NEXT_PUBLIC_SITE_URL,
+    // else its :3000 dev fallback), so a localhost entry is re-pointed at this
+    // suite's own origin (T77 gives every suite its own port) before fetching.
+    const origin = new URL(baseURL ?? 'http://127.0.0.1:3000');
+    const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '::1']);
     const failed: string[] = [];
     for (const loc of locs) {
-      const entry = await page.request.get(loc);
-      if (entry.status() !== 200) failed.push(`${loc} -> ${entry.status()}`);
+      const url = new URL(loc);
+      if (LOCAL_HOSTS.has(url.hostname)) {
+        url.protocol = origin.protocol;
+        url.host = origin.host;
+      }
+      const entry = await page.request.get(url.toString());
+      if (entry.status() !== 200) failed.push(`${url} -> ${entry.status()}`);
     }
     expect(failed, 'sitemap entries that are not 200').toEqual([]);
   });

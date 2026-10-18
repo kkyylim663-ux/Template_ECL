@@ -53,6 +53,9 @@ const SUITES: Record<string, { port: number; specs: string[] }> = {
   member: {
     port: 3103,
     specs: [
+      // T77: the T76 sweep's member half (the public half stays in smoke), so
+      // the smoke suite stays shorter.
+      'a11y-member.spec.ts',
       'auth-interaction.spec.ts',
       'register-account.spec.ts',
       'header-session.spec.ts',

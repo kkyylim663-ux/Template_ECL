@@ -7,8 +7,13 @@
  *
  *   node scripts/run-e2e-suites.mjs                # every suite
  *   node scripts/run-e2e-suites.mjs smoke member   # a subset
+ *   node scripts/run-e2e-suites.mjs --jobs=2       # cap how many run at once
  *   node scripts/run-e2e-suites.mjs visual -- --update-snapshots
  *                                                  # extra args go to Playwright
+ *
+ * Five concurrent Next servers + browsers starve a small machine (worker
+ * crashes, 10–60 s timeouts), so a 6-core box wants `--jobs=2` or `3`; CI
+ * with more cores can leave it at the default (all suites at once).
  */
 import { spawn } from 'node:child_process';
 
@@ -20,12 +25,16 @@ const dashDash = argv.indexOf('--');
 const suiteArgs = dashDash === -1 ? argv : argv.slice(0, dashDash);
 const extraArgs = dashDash === -1 ? [] : argv.slice(dashDash + 1);
 
-const unknown = suiteArgs.filter((s) => !SUITES.includes(s));
+const jobsArg = suiteArgs.find((arg) => arg.startsWith('--jobs='));
+const jobs = jobsArg ? Math.max(1, Number(jobsArg.slice('--jobs='.length)) || 1) : Infinity;
+
+const chosen = suiteArgs.filter((arg) => !arg.startsWith('--jobs='));
+const unknown = chosen.filter((s) => !SUITES.includes(s));
 if (unknown.length) {
   console.error(`unknown suite(s): ${unknown.join(', ')} — expected ${SUITES.join(', ')}`);
   process.exit(2);
 }
-const suites = suiteArgs.length ? suiteArgs : SUITES;
+const suites = chosen.length ? chosen : SUITES;
 
 const startedAt = Date.now();
 const results = new Map();
@@ -39,11 +48,14 @@ function report() {
     console.log(`${suite.padEnd(width)}  ${r.code === 0 ? 'ok  ' : 'FAIL'}  ${r.secs}s`);
   }
   const total = ((Date.now() - startedAt) / 1000).toFixed(0);
-  console.log(`total wall ${total}s (${suites.length} suites in parallel, workers=1 each)`);
+  const concurrency = Number.isFinite(jobs) ? `${jobs} at a time` : 'in parallel';
+  console.log(`total wall ${total}s (${suites.length} suites ${concurrency}, workers=1 each)`);
   process.exitCode = failed ? 1 : 0;
 }
 
-for (const suite of suites) {
+const pending = [...suites];
+
+function startSuite(suite) {
   const start = Date.now();
   const child = spawn('pnpm exec playwright test', [...extraArgs], {
     shell: true,
@@ -72,8 +84,15 @@ for (const suite of suites) {
     children.delete(child);
     results.set(suite, { code: code ?? 1, secs: ((Date.now() - start) / 1000).toFixed(0) });
     if (results.size === suites.length) report();
+    else pump();
   });
 }
+
+function pump() {
+  while (pending.length && children.size < jobs) startSuite(pending.shift());
+}
+
+pump();
 
 for (const sig of ['SIGINT', 'SIGTERM']) {
   process.on(sig, () => {
