@@ -4994,6 +4994,14 @@ details.accordionItem[open] .accordion-icon {
   z-index: 2;
 }
 
+/* The tier's own badge (delivered artwork) above its name. */
+.vip-tier-track__badge {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+}
+
 .vip-tier-track__item p {
   margin: 0;
 }

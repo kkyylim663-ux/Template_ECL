@@ -33,12 +33,6 @@ const METHOD_HINT: Record<DepositMethodId, string> = {
   qr: 'deposit.methodQrHint',
 };
 
-const METHOD_ICON: Record<DepositMethodId, 'transfer' | 'globe' | 'wallet'> = {
-  bank: 'transfer',
-  gateway: 'globe',
-  qr: 'wallet',
-};
-
 /**
  * The deposit page body: the reference's method tabs (`.deposit-tab__wrapper`
  * — a green strip of #353537 pills whose selected one turns mustard), the
@@ -160,7 +154,13 @@ export function DepositPanel({
               onClick={() => select(entry.id)}
             >
               <span className="deposit-tab__container">
-                <Icon name={METHOD_ICON[entry.id]} size={20} className="deposit-tab__icon" />
+                <img
+                  src={`/deposit/method-${entry.id}.png`}
+                  alt=""
+                  width={20}
+                  height={20}
+                  className="deposit-tab__icon"
+                />
                 <span className="deposit-tab__name">{t(METHOD_LABEL[entry.id])}</span>
               </span>
             </button>

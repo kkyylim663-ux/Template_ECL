@@ -23,10 +23,10 @@ export const MODAL_VARIANTS = [
 export type ModalVariant = (typeof MODAL_VARIANTS)[number];
 
 /** Icon and tint per variant; the eyebrow label is `common.modal.<variant>`. */
-const VARIANT_STYLE: Record<ModalVariant, { icon: IconName; tint: string }> = {
-  success: { icon: 'success', tint: 'text-[var(--color-success)]' },
-  error: { icon: 'alert', tint: 'text-[var(--color-danger)]' },
-  alert: { icon: 'alert', tint: 'text-accent' },
+const VARIANT_STYLE: Record<ModalVariant, { icon: IconName; tint: string; art?: string }> = {
+  success: { icon: 'success', tint: 'text-[var(--color-success)]', art: '/modal/status-success.webp' },
+  error: { icon: 'alert', tint: 'text-[var(--color-danger)]', art: '/modal/status-reject.webp' },
+  alert: { icon: 'alert', tint: 'text-accent', art: '/modal/status-alert.webp' },
   status: { icon: 'info', tint: 'text-accent' },
   message: { icon: 'chat', tint: 'text-muted' },
   loading: { icon: 'spinner', tint: 'text-accent' },
@@ -151,11 +151,15 @@ export function Modal({
       >
         <div className="flex items-start gap-3 p-5">
           <span className={`mt-0.5 shrink-0 ${style.tint}`}>
-            <Icon
-              name={style.icon}
-              size={24}
-              className={variant === 'loading' ? 'animate-spin' : undefined}
-            />
+            {style.art ? (
+              <img src={style.art} alt="" width={48} height={48} />
+            ) : (
+              <Icon
+                name={style.icon}
+                size={24}
+                className={variant === 'loading' ? 'animate-spin' : undefined}
+              />
+            )}
           </span>
 
           <div className="min-w-0 flex-1">

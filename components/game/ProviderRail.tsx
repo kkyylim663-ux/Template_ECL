@@ -33,13 +33,13 @@ export function ProviderRail({
               className="lobby-rail__card"
             >
               {/* Artwork slot: the tile's inner box (10px/20px padding is on it). */}
-              <span
-                aria-hidden
-                className="lobby-rail__img game-placeholder text-11 leading-[normal] font-semibold tracking-wide text-white/85"
-                style={{ '--tone': String(provider.id.length % 36) } as React.CSSProperties}
-              >
-                {provider.id.toUpperCase()}
-              </span>
+              <img
+                src={`/providers/${provider.id}.webp`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="lobby-rail__img max-w-full"
+              />
               <span className="sr-only">
                 {provider.id} · {provider.totalGames.toLocaleString('en-MY')}
               </span>

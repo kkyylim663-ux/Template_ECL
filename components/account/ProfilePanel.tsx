@@ -420,7 +420,13 @@ export function ProfilePanel({ profile, region }: { profile: ProfileView; region
 
         <div className="profile-hero__identity">
           <span className="profile-hero__avatar" aria-hidden>
-            <Icon name="user" size={34} />
+            <img
+              src={`/avatar/avatar-${
+                (profile.username.split('').reduce((total, ch) => total + ch.charCodeAt(0), 0) % 8) + 1
+              }.webp`}
+              alt=""
+              className="h-full w-full rounded-full object-cover"
+            />
           </span>
           <Link href={regionPath(region, '/vip')} className="profile-hero__tier">
             <Icon name="trophy" size={15} />

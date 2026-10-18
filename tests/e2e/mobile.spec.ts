@@ -82,7 +82,7 @@ test.describe('mobile scaling (T32.6)', () => {
     });
 
     expect(boxes.content).toEqual([343, boxes.content[1], 16]);
-    expect(boxes.entry.slice(0, 2)).toEqual([343, 70]);
+    expect(boxes.entry.slice(0, 2)).toEqual([343, 95]);
     expect(boxes.hero.slice(0, 2)).toEqual([375, 263]);
     expect(boxes.bar.slice(0, 2)).toEqual([338, 59]);
   });

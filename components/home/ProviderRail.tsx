@@ -1,7 +1,5 @@
-import type { CSSProperties } from 'react';
 import type { ProviderSummary } from '@/lib/api/slots';
 import { getT } from '@/lib/i18n/server';
-import { toneFromString } from '@/lib/game/tone';
 
 /**
  * Provider rail (`section.home-section.has-space` + `.gamelist-home__wrapper`):
@@ -27,13 +25,14 @@ export async function ProviderRail({ providers }: { providers: ProviderSummary[]
             <ul key={copy} className="provider-rail flex shrink-0" aria-hidden={copy === 1}>
               {providers.map((provider) => (
                 <li key={provider.id} className="provider-tile">
-                  <span
-                    aria-hidden
-                    className="provider-tile__img game-placeholder text-11 leading-[normal] font-semibold tracking-wide text-white/85"
-                    style={{ '--tone': String(toneFromString(provider.id)) } as CSSProperties}
-                  >
-                    {provider.id.toUpperCase()}
-                  </span>
+                  <img
+                    src={`/providers/${provider.id}.webp`}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="provider-tile__img"
+                  />
+                  <span className="sr-only">{provider.id}</span>
                 </li>
               ))}
             </ul>

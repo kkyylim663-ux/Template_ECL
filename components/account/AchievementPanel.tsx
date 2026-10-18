@@ -233,7 +233,7 @@ export function AchievementPanel({
                     ))}
                   </div>
                   <div className="target-list">
-                    {tiers.map((tier) => (
+                    {tiers.map((tier, index) => (
                       <div
                         key={tier.id}
                         className="target-item"
@@ -243,7 +243,12 @@ export function AchievementPanel({
                       >
                         <div className="target-title">
                           <span className="coin-box" aria-hidden>
-                            <Icon name="trophy" size={40} className="text-accent" />
+                            <img
+                              src={`/achievement/coin-${(index % 5) + 1}.webp`}
+                              alt=""
+                              width={44}
+                              height={44}
+                            />
                           </span>
                           <span className="achievement-reward">
                             {t('achievement.reward', { amount: money(tier.rewardMinor) })}

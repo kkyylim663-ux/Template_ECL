@@ -25,7 +25,13 @@ export default async function RegisterPage({ params }: { params: Promise<{ regio
       <div className="signup-card">
         <RegisterForm region={region} />
         <div className="signup-bg" aria-hidden="true">
-          <span className="game-placeholder" />
+          <img
+            className="game-placeholder object-cover"
+            src="/auth/register-side.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </IntlScope>

@@ -214,7 +214,14 @@ function PrizePanel({
   prizeLabel: string;
 }) {
   return (
-    <div className="rb-prize-panel">
+    <div
+      className="rb-prize-panel"
+      style={{
+        backgroundImage: 'url(/ranking/bg-prize.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <div className="rb-fx rb-prize-fx" aria-hidden>
         {Array.from({ length: 7 }, (_, index) => (
           <i key={`spark-${index}`} className="rb-spark" />
@@ -267,7 +274,14 @@ function PrizePanel({
 
 function PersonalPanel({ title }: { title: string }) {
   return (
-    <div className="rb-personal">
+    <div
+      className="rb-personal"
+      style={{
+        backgroundImage: 'url(/ranking/bg-rank.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <p className="rb-personal-title">{title}</p>
       <div className="rb-personal-panel">
         <div className="rb-fx rb-personal-fx" aria-hidden>

@@ -164,7 +164,13 @@ export function MobileChrome({ region }: { region: string }) {
             className="flex h-14 min-w-0 flex-1 items-center gap-2.5 pr-2.5"
           >
             <span className="bg-panel-soft grid size-[50px] shrink-0 place-items-center rounded-[10px]">
-              <Icon name="download" size={22} className="text-accent" />
+              <img
+                src="/brand/app-icon.png"
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-[8px]"
+              />
             </span>
             <span className="min-w-0 flex-1">
               <span className="text-ink block truncate text-xs">
@@ -191,9 +197,9 @@ export function MobileChrome({ region }: { region: string }) {
           <Link
             href={regionPath(region, '')}
             aria-label={brand.logo.alt}
-            className="text-ink pointer-events-auto grid size-32 place-items-center text-xl font-bold tracking-wide"
+            className="text-ink pointer-events-auto grid size-32 place-items-center"
           >
-            {brand.logo.text}
+            <img src="/brand/logo-mark.png" alt="" width={64} height={64} className="size-16" />
           </Link>
         </div>
 

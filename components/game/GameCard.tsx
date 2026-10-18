@@ -50,10 +50,12 @@ export function GameCard({
       onClick={() => setRevealed(true)}
       className="lobby-card group"
     >
-      <span
-        aria-hidden
-        className="lobby-card__img game-placeholder"
-        style={{ '--tone': String(toneFromString(game.id)) } as React.CSSProperties}
+      <img
+        src={`/games/hot-${(toneFromString(game.id) % 8) + 1}.webp`}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="lobby-card__img object-cover"
       />
       {config.underMaintenance ? (
         <span className="game-card__label slots">{t('card.underMaintenance')}</span>

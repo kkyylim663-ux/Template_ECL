@@ -22,9 +22,15 @@ export async function Header({ region }: { region: string }) {
         <div className="container-page flex h-full items-center">
           <Link
             href={`/${region}`}
-            className="text-ink me-[59px] flex h-[19px] w-[145px] shrink-0 items-center text-xl leading-[19px] font-bold tracking-wide"
+            className="text-ink me-[59px] flex w-[145px] shrink-0 items-center"
           >
-            {brand.logo.text}
+            <img
+              src={brand.logo.src}
+              alt={brand.logo.alt}
+              width={145}
+              height={47}
+              className="h-auto w-[145px]"
+            />
           </Link>
 
           <HeaderMenuGate region={region} />

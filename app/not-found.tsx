@@ -11,6 +11,7 @@ export default async function NotFound() {
 
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-3xl flex-col justify-center px-4 py-16">
+      <img src="/illus/404.webp" alt="" width={160} height={160} className="mb-6" />
       <p className="text-muted text-xs font-medium tracking-[0.2em] uppercase">
         {t('state.errorCode')}
       </p>

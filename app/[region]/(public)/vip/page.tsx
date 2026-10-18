@@ -5,7 +5,7 @@ import { IntlScope } from '@/lib/i18n/scope';
 import { JsonLd } from '@/components/content/JsonLd';
 import { breadcrumbLd, pageMetadata } from '@/lib/seo';
 import { brand } from '@/config/brand';
-import { Icon, type IconName } from '@/components/ui/Icon';
+import { Icon } from '@/components/ui/Icon';
 import { InfoRuleToggle } from '@/components/content/InfoRuleToggle';
 import { Markdown } from '@/components/content/Markdown';
 
@@ -17,14 +17,6 @@ export async function generateMetadata({
   const { region } = await params;
   return pageMetadata('vip', { region, path: '/vip' });
 }
-
-/** The reference ships one SVG per privilege group; this set stands in for them. */
-const GROUP_ICONS: Record<string, IconName> = {
-  membership: 'crown',
-  rebate: 'rebate',
-  bonus: 'gift',
-  withdrawal: 'withdraw',
-};
 
 /** The reference tints the word "VIP" green at the front of the top-tier values. */
 function privilegeValue(value: string) {
@@ -65,6 +57,13 @@ export default async function VipPage({ params }: { params: Promise<{ region: st
             {levels.map((level) => (
               <li key={level.id} data-vip-tier={level.id} className="vip-tier-track__item">
                 <span className="vip-tier-track__marker" aria-hidden="true" />
+                <img
+                  className="vip-tier-track__badge"
+                  src={`/vip/level-${level.level}-${level.name.toLowerCase()}.webp`}
+                  alt=""
+                  width={64}
+                  height={64}
+                />
                 <p className="vip-tier-track__level">{level.name}</p>
                 <p className="vip-tier-track__desc">{level.desc}</p>
                 <p className="vip-tier-track__amount">{level.amount}</p>
@@ -96,7 +95,13 @@ export default async function VipPage({ params }: { params: Promise<{ region: st
                       index % 2 === 0 ? ' vip-col__highlighted' : ''
                     } vip-col__highlighted-top`}
                   >
-                    <Icon name="crown" size={40} className="vip-level-icon" />
+                    <img
+                      className="vip-level-icon"
+                      src={`/vip/level-${level.level}-${level.name.toLowerCase()}.webp`}
+                      alt=""
+                      width={40}
+                      height={40}
+                    />
                   </div>
                 ))}
               </div>
@@ -124,7 +129,13 @@ export default async function VipPage({ params }: { params: Promise<{ region: st
                     <div className="vip-col vip-col-1">
                       {rowIndex === 0 ? (
                         <>
-                          <Icon name={GROUP_ICONS[group.id] ?? 'crown'} size={24} className="vip-col-1__icon" />
+                          <img
+                            className="vip-col-1__icon"
+                            src={`/vip/priv-${group.id}.png`}
+                            alt=""
+                            width={24}
+                            height={24}
+                          />
                           <p>{group.label}</p>
                         </>
                       ) : null}

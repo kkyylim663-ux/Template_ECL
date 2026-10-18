@@ -35,6 +35,7 @@ export default async function OfflinePage({
     >
       {/* MOCK-ONLY: `?boom=1` mounts the one-shot thrower so the (public) boundary can be exercised in a real browser; without mock mode the hook is dead. */}
       {MOCK_MODE && query.boom === '1' ? <Boom /> : null}
+      <img src="/illus/maintenance.webp" alt="" width={168} height={168} className="mb-6" />
       <h1 className="text-ink text-3xl font-semibold">{t('state.offline')}</h1>
       <p className="text-muted mt-3 text-sm">{t('state.offlineHint')}</p>
       <div className="mt-6 flex flex-wrap gap-3">

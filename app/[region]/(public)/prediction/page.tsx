@@ -27,6 +27,22 @@ const TABS = [
   { id: 'ended', key: 'prediction.tab.ended', search: '?status=ended', statuses: ['ended'] },
 ] as const;
 
+/** Status-specific heroes; "all" / "activeUpcoming" keep the delivered page banner. */
+const TAB_HERO: Partial<Record<(typeof TABS)[number]['id'], { desktop: string; mobile: string }>> = {
+  active: {
+    desktop: '/prediction/event-in-progress-desktop.webp',
+    mobile: '/prediction/event-in-progress-mobile.webp',
+  },
+  upcoming: {
+    desktop: '/prediction/event-upcoming-desktop.webp',
+    mobile: '/prediction/event-upcoming-mobile.webp',
+  },
+  ended: {
+    desktop: '/prediction/event-ended-desktop.webp',
+    mobile: '/prediction/event-ended-mobile.webp',
+  },
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -59,6 +75,10 @@ export default async function PredictionPage({
 
   const requested = typeof query.status === 'string' ? query.status : '';
   const tab = TABS.find((option) => option.id === requested)?.id ?? TABS[0].id;
+  const hero = TAB_HERO[tab] ?? {
+    desktop: '/banners/pages/prediction-desktop.webp',
+    mobile: '/banners/pages/prediction-mobile.webp',
+  };
   const statuses: readonly string[] = TABS.find((option) => option.id === tab)?.statuses ?? [];
   const fixtures = prediction.filter((fixture) => statuses.includes(fixture.status));
   const base = regionPath(region, '/prediction');
@@ -68,10 +88,10 @@ export default async function PredictionPage({
       <div>
         <section data-part="banner-section" aria-hidden className="page-hero game-banner">
           <picture>
-            <source media="(max-width: 768px)" srcSet="/banners/pages/prediction-mobile.webp" />
+            <source media="(max-width: 768px)" srcSet={hero.mobile} />
             <img
               className="banner-section-img hover-grow"
-              src="/banners/pages/prediction-desktop.webp"
+              src={hero.desktop}
               alt=""
               loading="lazy"
               decoding="async"

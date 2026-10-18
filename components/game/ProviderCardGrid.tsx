@@ -65,14 +65,21 @@ export function ProviderCardGrid({
               onClick={() => setRevealed(true)}
               className="game-card"
             >
-              <div className="game-card__visual">
-                <span
-                  aria-hidden
-                  className="game-card__img game-placeholder text-11 leading-[normal] font-semibold tracking-wide text-white/85"
-                  style={{ '--tone': String(toneFromString(provider.id)) } as React.CSSProperties}
-                >
-                  {provider.id}
-                </span>
+              <div
+                className="game-card__visual"
+                style={{
+                  backgroundImage: 'url(/games/card-bg.webp)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <img
+                  src={`/providers/${provider.id}.webp`}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="game-card__img"
+                />
                 {config.underMaintenance ? (
                   <span className="game-card__label">{t('card.underMaintenance')}</span>
                 ) : provider.isNew ? (

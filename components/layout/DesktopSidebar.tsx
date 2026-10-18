@@ -80,9 +80,13 @@ export function DesktopSidebar({ region }: { region: string }) {
             aria-label={t('ui.collapseNav')}
             className="flex size-[145px] flex-col items-center justify-center gap-2"
           >
-            <span className="text-ink text-xl leading-[19px] font-bold tracking-wide">
-              {brand.logo.text}
-            </span>
+            <img
+              src={brand.logo.src}
+              alt={brand.logo.alt}
+              width={112}
+              height={36}
+              className="h-auto w-[112px]"
+            />
             <span className="text-muted text-xs">{t('ui.menu')}</span>
           </button>
         </div>

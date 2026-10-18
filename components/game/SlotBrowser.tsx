@@ -287,7 +287,8 @@ export function SlotBrowser({
       ) : null}
 
       {items.length === 0 && !busy ? (
-        <div className="lobby-empty" data-lobby-empty>
+        <div className="lobby-empty flex-col" data-lobby-empty>
+          <img src="/illus/empty.webp" alt="" width={56} height={56} className="mb-2" />
           <p>
             {query ? (
               <>

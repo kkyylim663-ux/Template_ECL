@@ -17,7 +17,7 @@ export const brand = {
 
   logo: {
     /** Served from `public/`. Swap the file, keep the path. */
-    src: '/brand/logo.svg',
+    src: '/brand/logo.png',
     /** Wordmark rendered next to the mark; also the fallback if the file is missing. */
     text: 'BRAND',
     alt: 'BRAND logo',

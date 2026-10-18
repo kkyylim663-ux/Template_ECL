@@ -8,6 +8,7 @@ type ModalRequest = {
   variant: ModalVariant;
   title: string;
   body?: string;
+  image?: { desktop: string; mobile: string };
   confirmLabel?: string;
   cancelLabel?: string;
   onConfirm?: () => void;
@@ -21,7 +22,7 @@ type ModalApi = {
   alert: (title: string, body?: string) => void;
   status: (title: string, body?: string) => void;
   message: (title: string, body?: string) => void;
-  rules: (title: string, body?: string) => void;
+  rules: (title: string, body?: string, image?: { desktop: string; mobile: string }) => void;
   /** Stays open until `close()`; the caller decides when work finished. */
   loading: (title?: string) => void;
   close: () => void;
@@ -56,7 +57,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       alert: (title, body) => show({ variant: 'alert', title, body }),
       status: (title, body) => show({ variant: 'status', title, body }),
       message: (title, body) => show({ variant: 'message', title, body }),
-      rules: (title, body) => show({ variant: 'rules', title, body }),
+      rules: (title, body, image) => show({ variant: 'rules', title, body, image }),
       loading: (title = t('modal.working')) => show({ variant: 'loading', title }),
       confirm: (title, body, onConfirm, confirmLabel = t('action.confirm'), cancelLabel) =>
         show({ variant: 'alert', title, body, onConfirm, confirmLabel, cancelLabel }),
@@ -101,7 +102,18 @@ export function ModalProvider({ children }: { children: ReactNode }) {
           ) : null
         }
       >
-        {request?.body ? <p>{request.body}</p> : null}
+        {request?.image ? (
+          <picture>
+            <source media="(max-width: 768px)" srcSet={request.image.mobile} />
+            <img
+              src={request.image.desktop}
+              alt=""
+              className="w-full rounded-[var(--radius-panel)]"
+            />
+          </picture>
+        ) : request?.body ? (
+          <p>{request.body}</p>
+        ) : null}
       </Modal>
     </ModalContext.Provider>
   );

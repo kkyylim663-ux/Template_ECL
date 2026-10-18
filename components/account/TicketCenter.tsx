@@ -247,7 +247,11 @@ export function TicketCenter({
         <div className="content-container">
           <div className="card-wrapper">
             <div className="card-icon" aria-hidden>
-              <Icon name="ticket" size={56} className="text-accent" />
+              <img
+                src="/tickets/ticket-main.webp"
+                alt=""
+                className="size-[56px] max-desktop:size-[100px]"
+              />
             </div>
             <div className="ticket-card">
               <div className="card-header">
@@ -301,7 +305,7 @@ export function TicketCenter({
                 <span className="btn-text-bottom">{t('tickets.depositBtnBottom')}</span>
               </span>
               <span className="btn-arrow" aria-hidden>
-                <Icon name="chevronRight" size={29} />
+                <img src="/tickets/ticket-arrow.webp" alt="" width={29} height={29} />
               </span>
             </Link>
             <button
@@ -317,7 +321,7 @@ export function TicketCenter({
                 <span className="btn-green-bottom">{t('tickets.useBottom')}</span>
               </span>
               <span className="btn-arrow" aria-hidden>
-                <Icon name="chevronRight" size={29} />
+                <img src="/tickets/ticket-arrow.webp" alt="" width={29} height={29} />
               </span>
             </button>
           </div>
@@ -544,7 +548,15 @@ export function TicketCenter({
                 aria-pressed={selected}
                 onClick={() => setPicked(event.id)}
               >
-                <span className="modal-event-card game-placeholder" aria-hidden />
+                <img
+                  className="modal-event-card"
+                  src={
+                    event.id === 'prediction'
+                      ? '/tickets/ticket-prediction.png'
+                      : '/tickets/ticket-number-event.png'
+                  }
+                  alt=""
+                />
                 <span className="selected-badge">{t('tickets.selected')}</span>
                 <span className="modal-event-item__label">
                   {t(`tickets.pickEvent.${event.id}`)}

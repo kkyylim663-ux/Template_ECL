@@ -283,6 +283,14 @@ export function PredictionBoard({
                     className="pd-card__btn pd-card__btn--rules"
                     title={t('prediction.rulesTitle')}
                     body={t('prediction.rules')}
+                    image={
+                      fixture.league === 'NBA'
+                        ? {
+                            desktop: '/rules/nba-mini-en.webp',
+                            mobile: '/rules/nba-mini-mobile-en.webp',
+                          }
+                        : { desktop: '/rules/main-en.webp', mobile: '/rules/mini-en.webp' }
+                    }
                   />
                 </div>
               </article>

@@ -1,6 +1,4 @@
 import Link from 'next/link';
-import type { IconName } from '@/components/ui/Icon';
-import { Icon } from '@/components/ui/Icon';
 import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 
@@ -9,7 +7,8 @@ type Entry = {
   /** Keys inside the `home` namespace. */
   titleKey: string;
   href: string;
-  icon: IconName;
+  /** Artwork slug under `public/home/entry-<art>.webp`. */
+  art: string;
   /** Gradient modifier: `.home-popular__card--<tone>`. */
   tone: 'number' | 'ranking' | 'prediction' | 'achievement';
 };
@@ -19,28 +18,28 @@ const ENTRIES: Entry[] = [
     id: 'numbergame',
     titleKey: 'entry.numberGame',
     href: '/numbergame',
-    icon: 'numbers',
+    art: 'number-game',
     tone: 'number',
   },
   {
     id: 'ranking',
     titleKey: 'entry.ranking',
     href: '/ranking-board',
-    icon: 'trophy',
+    art: 'ranking',
     tone: 'ranking',
   },
   {
     id: 'prediction',
     titleKey: 'entry.prediction',
     href: '/prediction',
-    icon: 'prediction',
+    art: 'prediction',
     tone: 'prediction',
   },
   {
     id: 'personal',
     titleKey: 'entry.personal',
     href: '/account/achievement',
-    icon: 'achievement',
+    art: 'achievement',
     tone: 'achievement',
   },
 ];
@@ -60,12 +59,15 @@ export async function EntryCards({ region }: { region: string }) {
         <li key={entry.id} data-entry={entry.id} className="desktop:flex-1">
           <Link
             href={regionPath(region, entry.href)}
-            className={`entry-card entry-card--${entry.tone} text-ink flex h-[70px] items-center justify-between rounded-[var(--radius-panel)] px-4 desktop:px-3`}
+            style={{
+              backgroundImage: `url(/home/entry-${entry.art}.webp)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+            className={`entry-card entry-card--${entry.tone} text-ink flex h-[95px] items-center justify-between rounded-[var(--radius-panel)] px-4 desktop:px-3`}
           >
             <span className="flex items-center">
-              <span className="grid size-[70px] shrink-0 place-items-center">
-                <Icon name={entry.icon} size={44} />
-              </span>
+              <span className="grid size-[70px] shrink-0 place-items-center" />
               <span className="text-15 leading-[normal] font-medium desktop:text-lg leading-[normal]">
                 {t(entry.titleKey)}
               </span>
