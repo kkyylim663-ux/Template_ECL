@@ -1,7 +1,8 @@
 // MOCK-ONLY: 网关订单与结果记录的演示库。订单写 .mock-data/deposit-orders.json（目录已 .gitignore），每次调用重读文件——Next 会给路由和页面各建模块图，缓存副本会漏掉另一个图刚写的订单。接后台后整个文件删除：建单与网关回调换成真实接口（T59 的联动在那之后）。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 
 /** The three rulings the mock gateway can hand down (the reference's `pg_deposit_*` set). */
 export type DepositOutcome = 'success' | 'failed' | 'processing';
@@ -108,5 +109,5 @@ export function createOrderStore({
 }
 
 export const orderStore = createOrderStore({
-  file: process.env.MOCK_ORDERS_FILE || join(process.cwd(), '.mock-data', 'deposit-orders.json'),
+  file: process.env.MOCK_ORDERS_FILE || mockDataFile('deposit-orders.json'),
 });

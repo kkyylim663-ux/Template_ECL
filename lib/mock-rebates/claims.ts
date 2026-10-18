@@ -4,7 +4,8 @@
 // 由提交成功的客户端用同一幂等键入账（lib/rebate-claim.ts）。接后台后整个文件删除，换成 a/claimRebate(V2)。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/rebate-claims.json';
 
 export type RebateClaim = {
@@ -109,5 +110,5 @@ export function createRebateClaimStore({
 }
 
 export const rebateClaimStore = createRebateClaimStore({
-  file: process.env.MOCK_REBATE_CLAIMS_FILE || join(process.cwd(), '.mock-data', 'rebate-claims.json'),
+  file: process.env.MOCK_REBATE_CLAIMS_FILE || mockDataFile('rebate-claims.json'),
 });

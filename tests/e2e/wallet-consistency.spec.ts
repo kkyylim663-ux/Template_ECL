@@ -58,7 +58,7 @@ test.describe('wallet figures agree everywhere', () => {
   test('a maintenance wallet is labelled and cannot be transferred to', async ({ page }) => {
     await page.goto('/my/account/transfer');
     await expect(page.locator('.transfer-credit__tag').first()).toHaveText('Under maintenance');
-    await page.getByLabel('To').selectOption({ label: 'Jili (Under maintenance)' });
+    await page.getByLabel('To', { exact: true }).selectOption({ label: 'Jili (Under maintenance)' });
     await page.getByLabel(/Amount/).fill('1');
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await expect(page.getByRole('alert').filter({ hasText: 'under maintenance' })).toBeVisible();

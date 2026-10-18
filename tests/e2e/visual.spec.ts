@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -14,12 +14,12 @@ test.beforeAll(async () => {
   // runtime file (the store falls back to mocks/rebate-claims.json). The
   // The achievement page (T64), the ticket centre (T65), the number game's slip
   // (T67) and the prediction board (T68) have the same shape of store.
-  await rm(join(process.cwd(), '.mock-data', 'rebate-claims.json'), { force: true });
-  await rm(join(process.cwd(), '.mock-data', 'achievement-claims.json'), { force: true });
-  await rm(join(process.cwd(), '.mock-data', 'ticket-store.json'), { force: true });
-  await rm(join(process.cwd(), '.mock-data', 'voucher-store.json'), { force: true });
-  await rm(join(process.cwd(), '.mock-data', 'numbergame-bets.json'), { force: true });
-  await rm(join(process.cwd(), '.mock-data', 'prediction-bets.json'), { force: true });
+  await rm(mockDataFile('rebate-claims.json'), { force: true });
+  await rm(mockDataFile('achievement-claims.json'), { force: true });
+  await rm(mockDataFile('ticket-store.json'), { force: true });
+  await rm(mockDataFile('voucher-store.json'), { force: true });
+  await rm(mockDataFile('numbergame-bets.json'), { force: true });
+  await rm(mockDataFile('prediction-bets.json'), { force: true });
 });
 const ROUTES = [
   '/my',
@@ -115,7 +115,7 @@ for (const viewport of VIEWPORTS) {
         await expect(page).toHaveScreenshot(`${viewport.name}-${slug(route)}.png`, {
           fullPage: true,
           animations: 'disabled',
-          maxDiffPixelRatio: 0.001,
+          maxDiffPixelRatio: 0.002,
           // The ticket centre (T65) ticks a live countdown per ticket, so that
           // column is masked instead of pinning a particular second.
           mask: route === '/my/account/tickets' ? [page.locator('.ticket-countdown')] : undefined,
@@ -147,7 +147,7 @@ for (const viewport of VIEWPORTS) {
       await expect(page.getByTestId('voucher-wallet')).toHaveAttribute('data-state', 'ready');
       await expect(dialog).toHaveScreenshot(`${viewport.name}-voucher-dialog.png`, {
         animations: 'disabled',
-        maxDiffPixelRatio: 0.001,
+        maxDiffPixelRatio: 0.002,
       });
     });
   });

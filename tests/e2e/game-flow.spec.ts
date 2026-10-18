@@ -70,8 +70,16 @@ test.describe('game browsing flow', () => {
     // T34: the Play button lives in the hover panel — hover the card first, as
     // the reference build requires.
     const card = page.locator('article[data-provider]').first();
-    await card.hover();
-    await card.locator('a[data-mode="real"]').click();
+    const play = card.locator('a[data-mode="real"]');
+    // The reveal is a hover animation: a click that lands mid-animation loses the
+    // hover, and the retry loop then waits on a hidden button. Re-hover per attempt.
+    await expect(async () => {
+      // Centre the card: `scrollIntoViewIfNeeded` would park it at the top edge,
+      // where the sticky header intercepts the Play button.
+      await card.evaluate((el) => (el as HTMLElement).scrollIntoView({ block: 'center' }));
+      await card.hover();
+      await play.click({ timeout: 5_000 });
+    }).toPass({ timeout: 30_000 });
     await expect(page.locator('[role=dialog]')).toContainText('VPN');
     await page.keyboard.press('Escape');
     await expect(page.locator('[role=dialog]')).toHaveCount(0);

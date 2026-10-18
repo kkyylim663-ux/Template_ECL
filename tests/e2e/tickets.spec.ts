@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -16,7 +16,7 @@ import { signIn } from './session';
  * seed (nothing redeemed, nothing spent) is the state every assertion starts
  * from.
  */
-const STORE = join(process.cwd(), '.mock-data', 'ticket-store.json');
+const STORE = mockDataFile('ticket-store.json');
 
 /** The fixture holds 3 tickets for tk-1 (closing 18 Oct) and 1 for tk-2. */
 const SEEDED_TICKETS = 4;

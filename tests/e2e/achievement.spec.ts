@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test, type Page } from '@playwright/test';
 import { signIn } from './session';
 
@@ -15,7 +15,7 @@ import { signIn } from './session';
  * suite: the seed (no claims at all — the fixture marks its own claimed row) is
  * the state every assertion below starts from.
  */
-const STORE = join(process.cwd(), '.mock-data', 'achievement-claims.json');
+const STORE = mockDataFile('achievement-claims.json');
 
 test.beforeAll(async () => {
   await rm(STORE, { force: true });

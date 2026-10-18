@@ -1,7 +1,8 @@
 // MOCK-ONLY: 成员已绑定银行账户库（Banking Details 页与提现页共用一份）。账户写 .mock-data/bank-accounts.json（目录已 .gitignore），文件不存在时用 mocks/bank-accounts.json 播种；每次调用重读文件——Next 给路由和页面各建模块图，缓存副本会漏掉另一个图刚写的改动。接后台后整个文件删除：读写换成 a/getMyBankAccVerified + a/setBankAccount + 删除接口（T59 的联动也在那之后）。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/bank-accounts.json';
 import { MAX_BOUND_ACCOUNTS, normalizeAccountNumber } from '@/lib/withdrawal-flow';
 
@@ -160,5 +161,5 @@ export function createBankAccountStore({
 
 export const bankAccountStore = createBankAccountStore({
   file:
-    process.env.MOCK_BANK_ACCOUNTS_FILE || join(process.cwd(), '.mock-data', 'bank-accounts.json'),
+    process.env.MOCK_BANK_ACCOUNTS_FILE || mockDataFile('bank-accounts.json'),
 });

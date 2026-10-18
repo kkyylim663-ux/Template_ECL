@@ -1,5 +1,4 @@
-import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { resetStore } from './mock-data';
 import { expect, test, type ConsoleMessage, type Page } from '@playwright/test';
 
 /**
@@ -27,7 +26,7 @@ test.beforeEach(async () => {
   // journey would otherwise start on the first one's leftovers (the rebates page
   // even falls through to the next payable period, T63).
   for (const name of WRITABLE_STORES) {
-    await rm(join(process.cwd(), '.mock-data', name), { force: true });
+    await resetStore(name);
   }
 });
 
@@ -72,6 +71,7 @@ for (const { label, viewport } of VIEWPORTS) {
     await expect(page).toHaveURL(/\/my\/?$/);
     await shot('1-login');
 
+
     // 2 — T61/T62: a member with a balance is told this build does not launch
     // games and the page stays where it was (on a phone the cover needs a tap)
     await page.goto('/my/slots?provider=pragmatic&tab=all');
@@ -86,9 +86,22 @@ for (const { label, viewport } of VIEWPORTS) {
     // 3 — T63: the first claimable rebate credits the wallet once
     await page.goto('/my/account/rebates');
     await expect(page.getByTestId('rebates-state')).toHaveAttribute('data-state', 'ready');
+
+    // The header figure is the wallet service's total assets; every credit below
+    // is asserted as a delta from it, so read it before the first claim and only
+    // once it rendered (`0` is the pre-session state). The guest and the account
+    // seeds are the same, so this read cannot race the session binding either.
+    if (label === 'desktop') await expect.poll(() => money(page, BALANCE)).toBeGreaterThan(0);
+    const balanceStart = label === 'desktop' ? await money(page, BALANCE) : 0;
     await page.getByTestId('rebate-claim').first().click();
     await expect(page.getByText('RM 33.44 has been credited to your main wallet.')).toBeVisible();
     await expect(page.getByTestId('rebate-row').first()).toHaveAttribute('data-status', 'claimed');
+
+    // The credit lands after the wallet service's simulated latency, so poll the
+    // header rather than reading it once. 33.44 is this claim's amount.
+    if (label === 'desktop') {
+      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 33.44, 2);
+    }
     // The fixture's own record (RB-SEED0001) plus this claim.
     await expect(page.getByTestId('rebate-record')).toHaveCount(2);
     await shot('3-rebate-claimed');
@@ -100,6 +113,9 @@ for (const { label, viewport } of VIEWPORTS) {
     await page.getByTestId('achievement-claim').nth(1).click();
     await expect(page.getByText('RM 10.00 has been credited to your main wallet.')).toBeVisible();
     await expect(page.getByTestId('achievement-card').nth(1)).toHaveAttribute('data-status', 'claimed');
+    if (label === 'desktop') {
+      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 43.44, 2);
+    }
     await expect(page.getByTestId('achievement-record')).toHaveCount(1);
     await shot('4-achievement-claimed');
     await page.keyboard.press('Escape');
@@ -119,9 +135,6 @@ for (const { label, viewport } of VIEWPORTS) {
     // 6 — T66: the voucher dialog — from the header on desktop, from the drawer
     // on a phone; WELCOME188 credits the wallet and joins the redeemed list
     await page.goto('/my/account/rebates');
-    // The header figure arrives with the session; read it once it rendered.
-    if (label === 'desktop') await expect.poll(() => money(page, BALANCE)).toBeGreaterThan(0);
-    const balanceBefore = label === 'desktop' ? await money(page, BALANCE) : 0;
     if (label === 'mobile') {
       await page.getByLabel('Open menu').click();
       await page.locator('[data-voucher="drawer"]').click();
@@ -136,7 +149,8 @@ for (const { label, viewport } of VIEWPORTS) {
     await expect(page.getByTestId('voucher-row')).toHaveAttribute('data-code', 'WELCOME188');
     await shot('6-voucher-redeemed');
     if (label === 'desktop') {
-      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceBefore + 188, 2);
+      // The two claims above (33.44 + 10.00) and WELCOME188's own 188.00.
+      await expect.poll(() => money(page, BALANCE)).toBeCloseTo(balanceStart + 231.44, 2);
     }
 
     // 7 — T67: two lines at 1.50 leave the wallet once and reach the bet list

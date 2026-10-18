@@ -6,7 +6,8 @@
 // 接后台后整个文件删除，换成 a/bonusAction（原站自己的兑换接口）。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/voucher-store.json';
 import codes from '@/mocks/voucher-codes.json';
 import {
@@ -147,5 +148,5 @@ export function createVoucherStore({
 
 export const voucherStore = createVoucherStore({
   file:
-    process.env.MOCK_VOUCHER_STORE_FILE || join(process.cwd(), '.mock-data', 'voucher-store.json'),
+    process.env.MOCK_VOUCHER_STORE_FILE || mockDataFile('voucher-store.json'),
 });

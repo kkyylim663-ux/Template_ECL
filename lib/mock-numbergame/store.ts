@@ -6,7 +6,8 @@
 // 余额不在这里校验（钱包在浏览器，客户端先扣），接后台后由账户服务判定。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/numbergame-bets.json';
 import {
   MAX_BET_MINOR,
@@ -127,5 +128,5 @@ export function createNumberGameStore({
 export const numberGameStore = createNumberGameStore({
   file:
     process.env.MOCK_NUMBERGAME_STORE_FILE ||
-    join(process.cwd(), '.mock-data', 'numbergame-bets.json'),
+    mockDataFile('numbergame-bets.json'),
 });

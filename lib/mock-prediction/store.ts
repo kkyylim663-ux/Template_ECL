@@ -7,7 +7,8 @@
 // 余额不在这里校验（钱包在浏览器，客户端先扣），接后台后由账户服务判定。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/prediction-bets.json';
 import { MAX_PICKS, MAX_STAKE_MINOR, MIN_STAKE_MINOR, type PredictionBetDraft } from '@/lib/prediction-rules';
 import type { PredictionFixture } from '@/lib/api/schemas';
@@ -165,5 +166,5 @@ export function createPredictionStore({
 export const predictionStore = createPredictionStore({
   file:
     process.env.MOCK_PREDICTION_STORE_FILE ??
-    join(process.cwd(), '.mock-data', 'prediction-bets.json'),
+    mockDataFile('prediction-bets.json'),
 });

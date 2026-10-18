@@ -33,7 +33,7 @@ test.describe('transfer page', () => {
 
   test('blocks transferring a wallet to itself', async ({ page }) => {
     await page.goto('/my/account/transfer');
-    await page.getByLabel('To').selectOption('main');
+    await page.getByLabel('To', { exact: true }).selectOption('main');
     await page.getByLabel(/Amount/).fill('1');
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
     await expect(page.getByRole('alert').filter({ hasText: 'two different wallets' })).toBeVisible();

@@ -1,7 +1,8 @@
 // MOCK-ONLY: 提现申请库（.mock-data/withdrawal-requests.json，与 banks.ts 同一文件库模式，每次重读）。服务端规则照原站 a/makeWithdrawal：限额（210 低于下限 / 211 高于上限）、未处理单（212）、每日次数（501）、已绑定且已验证的账户（201），外加本构建的流水门（213，原站未给数字码）。余额不在这里判断：钱包是前端 mock（lib/api/wallet.ts），由提交成功后用同一幂等键扣减。同一幂等键只建一笔。接后台后整个文件删除，换成 a/makeWithdrawal(V2)。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 
 /** Daily cap on submitted requests (the reference's 501 "Exceed Daily Limit"); this build's figure. */
 export const MAX_WITHDRAWALS_PER_DAY = 3;
@@ -137,5 +138,5 @@ export function createWithdrawalRequestStore({ file }: { file: string | null }):
 export const withdrawalRequestStore = createWithdrawalRequestStore({
   file:
     process.env.MOCK_WITHDRAWAL_REQUESTS_FILE ||
-    join(process.cwd(), '.mock-data', 'withdrawal-requests.json'),
+    mockDataFile('withdrawal-requests.json'),
 });

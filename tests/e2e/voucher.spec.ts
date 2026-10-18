@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -11,7 +11,7 @@ import { signIn } from './session';
  * before every test: the seed (nothing redeemed) is the state every assertion
  * starts from.
  */
-const STORE = join(process.cwd(), '.mock-data', 'voucher-store.json');
+const STORE = mockDataFile('voucher-store.json');
 const BALANCE = '.account-menu__profile-balance-amount';
 
 test.describe('voucher dialog', () => {

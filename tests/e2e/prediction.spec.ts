@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -14,7 +14,13 @@ import { signIn } from './session';
  * The store's file survives across runs, so it is dropped before every test —
  * each case starts with an empty "Prediction Tickets".
  */
-const STORE = join(process.cwd(), '.mock-data', 'prediction-bets.json');
+const STORE = mockDataFile('prediction-bets.json');
+
+/** The new history row carries its own date — the panel slices the ISO string's UTC day. */
+function placedToday(): string {
+  const iso = new Date().toISOString();
+  return `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
+}
 
 test.describe('prediction', () => {
   test.beforeEach(async ({ context }) => {
@@ -154,7 +160,7 @@ test.describe('prediction', () => {
     await page.locator('#gamecode').selectOption('prediction');
     const row = page.locator('tbody tr').first();
     await expect(row).toContainText('MYR 4.00');
-    await expect(row).toContainText('17/10/2026');
+    await expect(row).toContainText(placedToday());
   });
 
   test('a reload neither re-books the ticket nor charges the stake twice', async ({ page }) => {

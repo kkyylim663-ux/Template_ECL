@@ -48,9 +48,9 @@ test.describe('page metadata (T24)', () => {
     await expect(page).toHaveTitle(/Finance · BRAND/);
   });
 
-  test('titles follow the language cookie', async ({ page, context }) => {
+  test('titles follow the language cookie', async ({ page, context, baseURL }) => {
     await context.addCookies([
-      { name: 'brand_lang', value: 'zh-Hans', url: 'http://127.0.0.1:3000' },
+      { name: 'brand_lang', value: 'zh-Hans', url: baseURL ?? 'http://127.0.0.1:3000' },
     ]);
     await page.goto('/my/slots');
     await expect(page).toHaveTitle(/电子游戏 · BRAND/);

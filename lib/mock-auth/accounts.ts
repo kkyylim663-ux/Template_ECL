@@ -1,7 +1,8 @@
 // MOCK-ONLY: 演示会员库。预设账号来自 mocks/users.json（明文，只读）；注册新建的账号写入 .mock-data/users.json（scrypt 哈希，目录已加入 .gitignore）。接后台后整个文件删除，改调真实注册/登录接口。
 import { randomBytes, scrypt as scryptCallback, timingSafeEqual } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import fixtureUsers from '@/mocks/users.json';
 
 export type WalletOpening = 'seed' | 'zero';
@@ -201,6 +202,6 @@ const fixtures: Account[] = (fixtureUsers as Omit<Account, 'walletOpening'>[]).m
 }));
 
 export const accountStore = createAccountStore({
-  file: process.env.MOCK_USERS_FILE || join(process.cwd(), '.mock-data', 'users.json'),
+  file: process.env.MOCK_USERS_FILE || mockDataFile('users.json'),
   fixtures,
 });

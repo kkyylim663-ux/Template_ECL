@@ -8,8 +8,6 @@ import { signIn } from './session';
  * the second fixture account (`demoplayer`) so the shared `demo_player` sign-in
  * helper keeps working.
  */
-const BASE = process.env.BASE ?? 'http://127.0.0.1:3000';
-
 test.describe('profile', () => {
   test.beforeEach(async ({ context }) => {
     await signIn(context);
@@ -67,7 +65,7 @@ test.describe('profile', () => {
 
   test('changes the password and the new one signs in', async ({ context, page }) => {
     const login = (password: string) =>
-      context.request.post(`${BASE}/api/mock-auth/login`, {
+      context.request.post(`/api/mock-auth/login`, {
         data: { identifier: 'demoplayer', password },
       });
     expect((await login('Test1234!')).ok()).toBe(true);
@@ -84,7 +82,7 @@ test.describe('profile', () => {
 
     // Restore, so the second fixture account keeps its documented password
     // even when several runs share one mock server process.
-    const restore = await context.request.post(`${BASE}/api/mock-auth/change-password`, {
+    const restore = await context.request.post(`/api/mock-auth/change-password`, {
       data: { currentPassword: 'BrandNew123!', newPassword: 'Test1234!' },
     });
     expect(restore.ok()).toBe(true);

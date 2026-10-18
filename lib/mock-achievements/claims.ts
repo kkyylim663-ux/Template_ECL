@@ -5,7 +5,8 @@
 // 由提交成功的客户端用同一幂等键入账（lib/achievement-claim.ts）。接后台后整个文件删除，换成 a/claimAchievement。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/achievement-claims.json';
 
 export type AchievementClaim = {
@@ -111,5 +112,5 @@ export function createAchievementClaimStore({
 export const achievementClaimStore = createAchievementClaimStore({
   file:
     process.env.MOCK_ACHIEVEMENT_CLAIMS_FILE ||
-    join(process.cwd(), '.mock-data', 'achievement-claims.json'),
+    mockDataFile('achievement-claims.json'),
 });

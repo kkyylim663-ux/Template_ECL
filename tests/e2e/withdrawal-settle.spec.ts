@@ -1,7 +1,8 @@
 import { expect, test, type Page } from '@playwright/test';
 import { randomBytes } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { signIn } from './session';
 
 type Row = {
@@ -15,7 +16,7 @@ type Row = {
   createdAt: string;
 };
 
-const FILE = join(process.cwd(), '.mock-data', 'withdrawal-requests.json');
+const FILE = mockDataFile('withdrawal-requests.json');
 
 function readRequests(): Row[] {
   return existsSync(FILE) ? (JSON.parse(readFileSync(FILE, 'utf8')) as Row[]) : [];

@@ -1,5 +1,5 @@
 import { rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mockDataFile } from './mock-data';
 import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
@@ -12,7 +12,13 @@ import { signIn } from './session';
  * The store's file survives across runs, so it is dropped before every test —
  * each case starts with an empty "My Bets".
  */
-const STORE = join(process.cwd(), '.mock-data', 'numbergame-bets.json');
+const STORE = mockDataFile('numbergame-bets.json');
+
+/** The new history row carries its own date — the panel slices the ISO string's UTC day. */
+function placedToday(): string {
+  const iso = new Date().toISOString();
+  return `${iso.slice(8, 10)}/${iso.slice(5, 7)}/${iso.slice(0, 4)}`;
+}
 
 test.describe('number game', () => {
   test.beforeEach(async ({ context }) => {
@@ -107,7 +113,7 @@ test.describe('number game', () => {
     await page.locator('#gamecode').selectOption('numberGame');
     const row = page.locator('tbody tr').first();
     await expect(row).toContainText('MYR 3.00');
-    await expect(row).toContainText('17/10/2026');
+    await expect(row).toContainText(placedToday());
   });
 
   test('a reload neither re-books the slip nor charges the stake twice', async ({ page }) => {

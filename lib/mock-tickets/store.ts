@@ -6,7 +6,8 @@
 // 接后台后整个文件删除，换成 a/redeemTicketCode + a/useTicket。
 import { randomBytes } from 'node:crypto';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { mockDataFile } from '@/lib/mock-data-dir';
 import seed from '@/mocks/ticket-store.json';
 import codes from '@/mocks/ticket-codes.json';
 
@@ -161,5 +162,5 @@ export function createTicketStore({
 }
 
 export const ticketStore = createTicketStore({
-  file: process.env.MOCK_TICKET_STORE_FILE || join(process.cwd(), '.mock-data', 'ticket-store.json'),
+  file: process.env.MOCK_TICKET_STORE_FILE || mockDataFile('ticket-store.json'),
 });
