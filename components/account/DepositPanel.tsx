@@ -8,6 +8,7 @@ import { IconSprite } from '@/components/ui/IconSprite';
 import { PrimaryButton } from '@/components/ui/Field';
 import { useModal } from '@/components/ui/ModalProvider';
 import { formatMinor } from '@/lib/format';
+import { BANK_LOGOS } from '@/lib/banks';
 import { DepositBankForm } from './DepositBankForm';
 import { DepositGatewayForm } from './DepositGatewayForm';
 import {
@@ -241,8 +242,8 @@ export function DepositPanel({
 }
 
 /**
- * Channel cards (`.deposit-banklist__tab`: 144px, a 45px light frame for a logo
- * that is not shipped — a hue placeholder instead).
+ * Channel cards (`.deposit-banklist__tab`: 144px, a 45px light frame; Touch 'n
+ * Go and DuitNow carry pulled artwork, the rest a hue placeholder).
  */
 function ChannelCards({ channels, currency }: { channels: DepositChannel[]; currency: string }) {
   const t = useTranslations('account');
@@ -253,10 +254,20 @@ function ChannelCards({ channels, currency }: { channels: DepositChannel[]; curr
       {channels.map((channel) => (
         <div key={channel.id} className="deposit-banklist__tab">
           <span className="deposit-banklist-icon__container" aria-hidden="true">
-            <span
-              className="deposit-banklist-icon"
-              style={{ '--tone': String(channel.tone) } as CSSProperties}
-            />
+            {BANK_LOGOS.has(channel.id) ? (
+              <img
+                className="deposit-banklist-icon"
+                src={`/banks/${channel.id}.png`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <span
+                className="deposit-banklist-icon"
+                style={{ '--tone': String(channel.tone) } as CSSProperties}
+              />
+            )}
           </span>
           <span className="deposit-banklist__name">{channel.name}</span>
           <span className="deposit-banklist__minmax">

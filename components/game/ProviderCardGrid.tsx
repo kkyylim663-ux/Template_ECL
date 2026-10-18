@@ -9,6 +9,34 @@ import { LaunchGateModal } from './LaunchGateModal';
 import { VpnModal } from './VpnModal';
 import type { VpnDemo } from '@/lib/api';
 
+/**
+ * The studio logos pulled from the original site (`public/providers/<name>.webp`,
+ * 19 tiles: live casino 13, sports 2, esports 4 — the esports strip reuses the
+ * sports pair). BRAND Sports is ECL's own studio, deliberately left out of the
+ * pull, so it keeps the text fallback.
+ */
+const CLUB_LOGOS = new Set([
+  'Evolution Asia',
+  'PP Club',
+  'PT Club',
+  'Winfinity Club',
+  'On Live',
+  'Allbet Club',
+  'DG Club',
+  'SG Club',
+  'Choice Club',
+  'Ezugi Club',
+  'GP Club',
+  'WM Club',
+  'Creedroomz',
+  'Saba Sport',
+  'CMD368 Sports',
+  'Saba-Esports',
+  'Inplay Matrix',
+  'TFGaming',
+  'IA Gaming',
+]);
+
 export type ProviderCard = {
   id: string;
   /** Wears the red "New" corner tag (`.game-card__label.new`). */
@@ -73,7 +101,7 @@ export function ProviderCardGrid({
                   backgroundPosition: 'center',
                 }}
               >
-                {isGameProvider(provider.id) ? (
+                {isGameProvider(provider.id) || CLUB_LOGOS.has(provider.id) ? (
                   <img
                     src={`/providers/${provider.id}.webp`}
                     alt=""
@@ -82,8 +110,7 @@ export function ProviderCardGrid({
                     className="game-card__img"
                   />
                 ) : (
-                  // The clubs (live casino / sports / esports) ship no nameplate
-                  // yet: their own logo set is on the original-site pull list.
+                  // BRAND Sports is the one club without pulled artwork: text.
                   <span
                     aria-hidden
                     className="game-card__img text-11 leading-[normal] font-semibold tracking-wide text-white/85"

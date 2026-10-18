@@ -9158,12 +9158,20 @@ button.profile-verify {
   background-color: var(--color-deposit-logo);
 }
 
-/* The logo is not shipped: a stable hue placeholder keeps the frame's size. */
+/* Fallback tile for the wallets the reference ships no logo for: a stable hue
+   keeps the frame's size. */
 .deposit-banklist-icon {
   width: 100%;
   height: 100%;
   border-radius: var(--radius-5);
   background: linear-gradient(145deg, hsl(var(--tone, 42) 52% 74%), hsl(var(--tone, 42) 45% 52%));
+}
+
+/* The pulled logos ride the same class as an `<img>`: no hue tile underneath,
+   and the 35px inner box letterboxes them. */
+img.deposit-banklist-icon {
+  background: none;
+  object-fit: contain;
 }
 
 .deposit-banklist__name {

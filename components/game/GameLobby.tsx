@@ -32,15 +32,15 @@ function labelForTab(t: ServerTranslate, id: string): string {
 export async function GameLobby({
   region,
   headingKey,
-  tone,
+  icon,
   heroSlug,
   searchParams,
 }: {
   region: string;
   /** Key inside the `games` namespace. */
   headingKey: string;
-  /** Placeholder hue for the page icon. */
-  tone: number;
+  /** Page-title icon slug: `public/icons/icon-<icon>.svg`. */
+  icon: string;
   /** Page-banner slug: `public/banners/pages/<heroSlug>-desktop|mobile.webp`. */
   heroSlug: string;
   searchParams: SearchParams;
@@ -84,11 +84,7 @@ export async function GameLobby({
       </section>
 
       <h1 className="page-title has-space">
-        <span
-          aria-hidden
-          className="page-title__icon game-placeholder"
-          style={{ '--tone': String(tone) } as React.CSSProperties}
-        />
+        <img className="page-title__icon" src={`/icons/icon-${icon}.svg`} alt="" />
         {t(headingKey)}
       </h1>
 

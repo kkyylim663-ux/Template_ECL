@@ -157,7 +157,7 @@ export default async function RankingBoardPage({
               <div className="rb-results">
                 <div className="rb-summary">
                   <div className="rb-stat rb-stat--rank">
-                    <span aria-hidden className="rb-trophy game-placeholder" />
+                    <img className="rb-trophy" src="/prediction/icon-prize.webp" alt="" />
                     <div>
                       <p>{t('ranking.myRanking')}</p>
                       <strong className="rb-stat-value">—</strong>

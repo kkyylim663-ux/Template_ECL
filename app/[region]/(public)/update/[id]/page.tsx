@@ -81,7 +81,7 @@ export default async function UpdateDetailPage({
           data-part="update-detail__back"
           className="page-title"
         >
-          <span aria-hidden className="page-title__icon game-placeholder" />
+          <img className="page-title__icon" src="/icons/icon-update.svg" alt="" />
           {t('pages.update')}
         </Link>
       </div>

@@ -46,10 +46,12 @@ export async function LotteryResultCards({
             className={`lottery-result__card${book.id === activeId ? ' selected' : ''}`}
           >
             <header className={`lottery-result__header result-header-${book.id}`}>
-              <span
-                aria-hidden
-                className="lottery-result__logo game-placeholder"
-                style={{ '--tone': String(toneFor(book.id)) } as React.CSSProperties}
+              <img
+                className="lottery-result__logo"
+                src={`/4d/logo_${book.id}.png`}
+                alt=""
+                loading="lazy"
+                decoding="async"
               />
               <div className="lottery-result__title-wrapper">
                 <p>{book.name}</p>
@@ -98,11 +100,4 @@ export async function LotteryResultCards({
       </div>
     </>
   );
-}
-
-/** Stable per-operator hue for the artwork placeholder (the logos are not shipped). */
-function toneFor(id: string): number {
-  let hash = 0;
-  for (const char of id) hash = (hash * 31 + char.charCodeAt(0)) % 360;
-  return hash;
 }

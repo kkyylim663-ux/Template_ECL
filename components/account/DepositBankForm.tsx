@@ -13,6 +13,7 @@ import {
   quickAmounts,
 } from '@/lib/format';
 import type { DepositBank, DepositMethod } from '@/lib/api/schemas';
+import { BANK_LOGOS } from '@/lib/banks';
 import { DepositPromoPicker } from './DepositPromoPicker';
 import { DepositReceiptUpload } from './DepositReceiptUpload';
 
@@ -179,10 +180,20 @@ export function DepositBankForm({
               }}
             >
               <span className="deposit-banklist-icon__container" aria-hidden="true">
-                <span
-                  className="deposit-banklist-icon"
-                  style={{ '--tone': String(entry.tone) } as CSSProperties}
-                />
+                {BANK_LOGOS.has(entry.id) ? (
+                  <img
+                    className="deposit-banklist-icon"
+                    src={`/banks/${entry.id}.png`}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <span
+                    className="deposit-banklist-icon"
+                    style={{ '--tone': String(entry.tone) } as CSSProperties}
+                  />
+                )}
               </span>
               <span className="deposit-banklist__name">{entry.name}</span>
             </button>

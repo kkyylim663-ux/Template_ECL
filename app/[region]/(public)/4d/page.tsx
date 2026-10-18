@@ -59,7 +59,7 @@ export default async function FourDPage({
         </section>
 
         <h1 className="page-title has-space lottery-page-title">
-          <span aria-hidden className="page-title__icon game-placeholder" />
+          <img className="page-title__icon" src="/icons/icon-lottery-4d.svg" alt="" />
           {t('fourD.title')}
         </h1>
 

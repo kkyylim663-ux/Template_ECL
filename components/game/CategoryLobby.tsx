@@ -9,13 +9,19 @@ export type CategoryLobbyProps = {
   category: 'livecasino' | 'sports' | 'esports';
   /** Heading inside the `games` namespace, e.g. `category.livecasino`. */
   headingKey: string;
-  tone: number;
   /** Page-banner slug: `public/banners/pages/<heroSlug>-desktop|mobile.webp`. */
   heroSlug: string;
   providers: { id: string; isNew: boolean }[];
   /** The reference shows the VPN dialog on livecasino and esports only. */
   vpnNotice?: boolean;
   vpnDemo?: VpnDemo;
+};
+
+/** The menu icon each category page carries in its `form-title`. */
+const ICON_BY_CATEGORY: Record<CategoryLobbyProps['category'], string> = {
+  livecasino: 'live-casino',
+  sports: 'sports',
+  esports: 'esports',
 };
 
 /**
@@ -30,7 +36,6 @@ export async function CategoryLobby({
   region,
   category,
   headingKey,
-  tone,
   heroSlug,
   providers,
   vpnNotice = false,
@@ -55,10 +60,10 @@ export async function CategoryLobby({
       </section>
 
       <h1 className="page-title has-space">
-        <span
-          aria-hidden
-          className="page-title__icon game-placeholder"
-          style={{ '--tone': String(tone) } as React.CSSProperties}
+        <img
+          className="page-title__icon"
+          src={`/icons/icon-${ICON_BY_CATEGORY[category]}.svg`}
+          alt=""
         />
         {t(headingKey)}
       </h1>

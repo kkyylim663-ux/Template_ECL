@@ -68,7 +68,7 @@ export default async function PromotionDetailPage({
         className="page-title has-space promotion-detail__back"
       >
         <Icon name="chevronLeft" size={20} className="mr-[7px]" />
-        <span aria-hidden className="page-title__icon game-placeholder" />
+        <img className="page-title__icon" src="/icons/icon-promotion.svg" alt="" />
         {t('promotionDetail.all')}
       </Link>
 

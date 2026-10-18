@@ -56,7 +56,7 @@ export default async function UpdateListPage({
       </section>
 
       <h1 className="page-title has-space">
-        <span aria-hidden className="page-title__icon game-placeholder" />
+        <img className="page-title__icon" src="/icons/icon-update.svg" alt="" />
         {t('pages.update')}
       </h1>
 

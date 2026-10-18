@@ -30,7 +30,6 @@ export default async function EsportsPage({ params }: { params: Promise<{ region
         region={region}
         category="esports"
         headingKey="category.esports"
-        tone={160}
         heroSlug="esports"
         providers={providers}
         vpnNotice

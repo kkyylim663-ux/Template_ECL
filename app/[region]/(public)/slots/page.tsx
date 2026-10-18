@@ -28,7 +28,7 @@ export default async function SlotsPage({
       <GameLobby
         region={region}
         headingKey="page.slots"
-        tone={42}
+        icon="slots-game"
         heroSlug="slots"
         searchParams={await searchParams}
       />

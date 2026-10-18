@@ -61,7 +61,7 @@ export default async function PromotionPage({
       />
 
       <h1 className="page-title has-space">
-        <span aria-hidden className="page-title__icon game-placeholder" />
+        <img className="page-title__icon" src="/icons/icon-promotion.svg" alt="" />
         {t('pages.promotion')}
       </h1>
 
