@@ -1,10 +1,11 @@
 import { isRegionCode } from '@/config/brand';
+import { captureException } from '@/lib/observability/setup';
 
 /**
- * The reporting seam every boundary funnels through. Today the body writes one
- * structured console line and nothing else — no network, no third party — so a
- * failure is visible in devtools without a backend. T75 swaps the body for
- * Sentry behind this same signature; no boundary changes then.
+ * The reporting seam every boundary funnels through. The body writes one
+ * structured console line — visible in devtools with no backend — and, when
+ * `NEXT_PUBLIC_SENTRY_DSN` is set (T75), forwards the same error to Sentry
+ * behind this same signature.
  */
 export type ErrorSource = 'app' | 'region' | 'public' | 'member' | 'auth' | 'global';
 
@@ -35,6 +36,9 @@ export function reportError(error: unknown, context: ErrorContext = {}): void {
     .join(' ');
 
   console.error(`[report-error] ${describeError(error)}${facts ? ` (${facts})` : ''}`);
+  // Off unless a DSN is configured: without one this returns before the SDK is
+  // imported, so a no-DSN build makes no request at all.
+  captureException(error, context);
 }
 
 /**
