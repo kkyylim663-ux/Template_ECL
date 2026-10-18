@@ -1,3 +1,5 @@
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { callApi } from './client';
 import { ENDPOINTS } from './endpoints';
 import { gameCardId, gameListDataSchema, type GameListData } from './schemas';
@@ -6,10 +8,31 @@ import { gameCardId, gameListDataSchema, type GameListData } from './schemas';
 export type GameCard = {
   id: string;
   name: string;
-  /** Art file name from the fixture; resolved to a URL by lib/game/art.ts. */
+  /** Art file name from the fixture (may carry a `?v2` cache-buster). */
   img: string;
+  /** `public/games/<cover>` when pulled artwork exists there, else null — the
+   * card then falls back to a generated `hot-N` poster. */
+  cover: string | null;
   provider: string;
 };
+
+/**
+ * Pulled covers live in `public/games/<file>` (the tail of each provider's
+ * catalogue). The file set is read once per server process: a fresh `next
+ * start` picks up newly added files, the same way `public/` itself does.
+ */
+let coverFiles: Set<string> | null = null;
+
+function hasCover(file: string): boolean {
+  if (!coverFiles) {
+    try {
+      coverFiles = new Set(readdirSync(join(process.cwd(), 'public', 'games')));
+    } catch {
+      coverFiles = new Set(); // no artwork on disk — every card falls back
+    }
+  }
+  return coverFiles.has(file);
+}
 
 export const DEFAULT_PAGE_SIZE = 24;
 
@@ -74,10 +97,14 @@ export function listProviderGames(list: GameListData, provider: string, tab: str
   for (const id of ids) {
     const detail = details[id];
     if (detail) {
+      // The fixture's `img` may carry a cache-buster (`x.png?v2`); the pulled
+      // files dropped it.
+      const file = detail.img.replace(/\?.*$/, '');
       cards.push({
         id: gameCardId(detail) || id,
         name: detail.name,
         img: detail.img,
+        cover: hasCover(file) ? file : null,
         provider,
       });
     }

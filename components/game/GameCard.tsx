@@ -16,6 +16,10 @@ import { toneFromString } from '@/lib/game/tone';
  * first tap on the tile reveals it (the original's mobile interaction is not in
  * the snapshot — P0's tap-to-reveal is kept, mobile.spec locks it).
  *
+ * Artwork: the pulled cover (`game.cover` -> `public/games/<file>`) when one
+ * exists (only each provider's catalogue tail was pulled from the original),
+ * and the generated `hot-N` poster (keyed off the game id) otherwise.
+ *
  * The click itself is answered by the grid through `onLaunch` (T61): Play Now
  * and Demo both resolve to the reference's pre-launch notice, which needs the
  * session and therefore lives one level up, next to the dialog it opens.
@@ -51,7 +55,11 @@ export function GameCard({
       className="lobby-card group"
     >
       <img
-        src={`/games/hot-${(toneFromString(game.id) % 8) + 1}.webp`}
+        src={
+          game.cover
+            ? `/games/${game.cover}`
+            : `/games/hot-${(toneFromString(game.id) % 8) + 1}.webp`
+        }
         alt=""
         loading="lazy"
         decoding="async"
