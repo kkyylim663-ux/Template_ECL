@@ -5,7 +5,6 @@ import { useState } from 'react';
 import type { GameCard as GameCardData } from '@/lib/api/slots';
 import { providerConfig } from '@/config/providers';
 import { getLaunchHref, LAUNCH_HREF, type LaunchMode } from '@/lib/game/launch';
-import { toneFromString } from '@/lib/game/tone';
 
 /**
  * One game tile (`.gamelist-display__card`): 250px tall (3/4 at <=768px), 15px
@@ -16,9 +15,8 @@ import { toneFromString } from '@/lib/game/tone';
  * first tap on the tile reveals it (the original's mobile interaction is not in
  * the snapshot — P0's tap-to-reveal is kept, mobile.spec locks it).
  *
- * Artwork: the pulled cover (`game.cover` -> `public/games/<file>`) when one
- * exists (only each provider's catalogue tail was pulled from the original),
- * and the generated `hot-N` poster (keyed off the game id) otherwise.
+ * Artwork: the pulled cover (`game.cover` -> `public/games/<file>`); the grid
+ * only carries games whose artwork is on disk (see `listProviderGames`).
  *
  * The click itself is answered by the grid through `onLaunch` (T61): Play Now
  * and Demo both resolve to the reference's pre-launch notice, which needs the
@@ -55,11 +53,7 @@ export function GameCard({
       className="lobby-card group"
     >
       <img
-        src={
-          game.cover
-            ? `/games/${game.cover}`
-            : `/games/hot-${(toneFromString(game.id) % 8) + 1}.webp`
-        }
+        src={`/games/${game.cover}`}
         alt=""
         loading="lazy"
         decoding="async"

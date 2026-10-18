@@ -10,9 +10,9 @@ export type GameCard = {
   name: string;
   /** Art file name from the fixture (may carry a `?v2` cache-buster). */
   img: string;
-  /** `public/games/<cover>` when pulled artwork exists there, else null — the
-   * card then falls back to a generated `hot-N` poster. */
-  cover: string | null;
+  /** `public/games/<cover>` — the pulled artwork. Cards whose cover file is
+   * not on disk never reach the grid (see `listProviderGames`). */
+  cover: string;
   provider: string;
 };
 
@@ -96,18 +96,19 @@ export function listProviderGames(list: GameListData, provider: string, tab: str
 
   for (const id of ids) {
     const detail = details[id];
-    if (detail) {
-      // The fixture's `img` may carry a cache-buster (`x.png?v2`); the pulled
-      // files dropped it.
-      const file = detail.img.replace(/\?.*$/, '');
-      cards.push({
-        id: gameCardId(detail) || id,
-        name: detail.name,
-        img: detail.img,
-        cover: hasCover(file) ? file : null,
-        provider,
-      });
-    }
+    if (!detail) continue;
+    // The fixture's `img` may carry a cache-buster (`x.png?v2`); the pulled
+    // files dropped it. Only cards the build can actually render join the
+    // grid: games without pulled artwork on disk are left out.
+    const file = detail.img.replace(/\?.*$/, '');
+    if (!hasCover(file)) continue;
+    cards.push({
+      id: gameCardId(detail) || id,
+      name: detail.name,
+      img: detail.img,
+      cover: file,
+      provider,
+    });
   }
   return cards;
 }

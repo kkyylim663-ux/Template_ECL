@@ -40,28 +40,33 @@ describe('slots fixture (mocks/slots.gamelist.json)', () => {
     expect(getProviderTabs(list, 'pt')).not.toContain('bbonus');
   });
 
-  it('counts 698 games in pragmatic / all', async () => {
+  it('keeps only the pragmatic / all games whose cover is on disk', async () => {
     const list = await getSlotGameList();
     const result = queryGames(list, { provider: 'pragmatic', tab: 'all' });
 
-    expect(result.providerTabTotal).toBe(698);
-    expect(result.total).toBe(698);
+    // The fixture lists 698; the grid drops the ones without pulled artwork.
+    expect(result.providerTabTotal).toBe(result.total);
+    expect(result.total).toBeGreaterThan(20);
+    expect(result.total).toBeLessThan(698);
   });
 
   it('renders 24 cards first, then adds 24 more per page', async () => {
     const list = await getSlotGameList();
     const cards = listProviderGames(list, 'pragmatic', 'all');
-    expect(cards).toHaveLength(698);
+
+    // Every grid card carries pulled artwork (filtered in listProviderGames).
+    expect(cards.every((card) => card.cover)).toBe(true);
+    expect(cards.length).toBeGreaterThan(DEFAULT_PAGE_SIZE);
 
     const page1 = visibleSlice(cards, 1);
     expect(page1.items).toHaveLength(DEFAULT_PAGE_SIZE);
     expect(page1.hasMore).toBe(true);
 
     const page2 = visibleSlice(cards, 2);
-    expect(page2.items).toHaveLength(DEFAULT_PAGE_SIZE * 2);
+    expect(page2.items).toHaveLength(Math.min(DEFAULT_PAGE_SIZE * 2, cards.length));
 
     const lastPage = visibleSlice(cards, 30);
-    expect(lastPage.items).toHaveLength(698);
+    expect(lastPage.items).toHaveLength(cards.length);
     expect(lastPage.hasMore).toBe(false);
   });
 
