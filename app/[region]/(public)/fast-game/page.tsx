@@ -30,6 +30,7 @@ export default async function FastGamePage({
         region={region}
         headingKey="page.fastGame"
         tone={150}
+        heroSlug="fast-game"
         searchParams={await searchParams}
       />
     </IntlScope>

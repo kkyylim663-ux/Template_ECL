@@ -84,7 +84,18 @@ export default async function NumberGamePage({
   return (
     <IntlScope namespaces={['games']}>
       <div>
-        <section data-part="banner-section" aria-hidden className="page-hero game-placeholder game-banner" />
+        <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/banners/pages/numbergame-mobile.webp" />
+            <img
+              className="banner-section-img hover-grow"
+              src="/banners/pages/numbergame-desktop.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </section>
 
         <h1 className="sr-only">{t('category.numberGame')}</h1>
 

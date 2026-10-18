@@ -32,6 +32,7 @@ export default async function LiveCasinoPage({ params }: { params: Promise<{ reg
         category="livecasino"
         headingKey="category.livecasino"
         tone={8}
+        heroSlug="livecasino"
         providers={providers}
         vpnNotice
         vpnDemo={vpnDemo}

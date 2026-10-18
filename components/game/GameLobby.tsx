@@ -26,20 +26,23 @@ function labelForTab(t: ServerTranslate, id: string): string {
  * order: `banner-section`, the `h1.form-title.large` with its 28px page icon,
  * the studio strip (`.gamelist-wrapper`), the option bar with the category
  * pills and the search pill, then the 6-column card grid. Shared so the two
- * pages cannot drift apart — the difference between them is the icon tone and
- * the heading text only.
+ * pages cannot drift apart — the difference between them is the banner slug, the
+ * icon tone and the heading text.
  */
 export async function GameLobby({
   region,
   headingKey,
   tone,
+  heroSlug,
   searchParams,
 }: {
   region: string;
   /** Key inside the `games` namespace. */
   headingKey: string;
-  /** Placeholder hue for the hero band and the page icon. */
+  /** Placeholder hue for the page icon. */
   tone: number;
+  /** Page-banner slug: `public/banners/pages/<heroSlug>-desktop|mobile.webp`. */
+  heroSlug: string;
   searchParams: SearchParams;
 }) {
   const [{ t }, list] = await Promise.all([getT('games'), getSlotGameList()]);
@@ -67,12 +70,18 @@ export async function GameLobby({
 
   return (
     <div>
-      <section
-        data-part="banner-section"
-        aria-hidden
-        className="page-hero game-placeholder h-40 max-desktop:h-28"
-        style={{ '--tone': String(tone) } as React.CSSProperties}
-      />
+      <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+        <picture>
+          <source media="(max-width: 768px)" srcSet={`/banners/pages/${heroSlug}-mobile.webp`} />
+          <img
+            className="banner-section-img hover-grow"
+            src={`/banners/pages/${heroSlug}-desktop.webp`}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </section>
 
       <h1 className="page-title has-space">
         <span

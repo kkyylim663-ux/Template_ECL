@@ -29,6 +29,7 @@ export default async function SlotsPage({
         region={region}
         headingKey="page.slots"
         tone={42}
+        heroSlug="slots"
         searchParams={await searchParams}
       />
     </IntlScope>

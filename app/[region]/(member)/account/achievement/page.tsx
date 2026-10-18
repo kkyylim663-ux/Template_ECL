@@ -23,11 +23,18 @@ export default async function AchievementPage({ params }: { params: Promise<{ re
 
   return (
     <>
-      <section
-        data-part="banner-section"
-        aria-hidden
-        className="page-hero game-placeholder h-40 max-desktop:h-28"
-      />
+      <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+        <picture>
+          <source media="(max-width: 768px)" srcSet="/banners/pages/achievement-mobile.webp" />
+          <img
+            className="banner-section-img hover-grow"
+            src="/banners/pages/achievement-desktop.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </section>
       <AchievementPanel symbol={symbol} initial={initial} />
     </>
   );

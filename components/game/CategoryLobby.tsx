@@ -10,6 +10,8 @@ export type CategoryLobbyProps = {
   /** Heading inside the `games` namespace, e.g. `category.livecasino`. */
   headingKey: string;
   tone: number;
+  /** Page-banner slug: `public/banners/pages/<heroSlug>-desktop|mobile.webp`. */
+  heroSlug: string;
   providers: { id: string; isNew: boolean }[];
   /** The reference shows the VPN dialog on livecasino and esports only. */
   vpnNotice?: boolean;
@@ -29,6 +31,7 @@ export async function CategoryLobby({
   category,
   headingKey,
   tone,
+  heroSlug,
   providers,
   vpnNotice = false,
   vpnDemo,
@@ -38,12 +41,18 @@ export async function CategoryLobby({
 
   return (
     <div>
-      <section
-        data-part="banner-section"
-        aria-hidden
-        className="page-hero game-placeholder h-40 max-desktop:h-28"
-        style={{ '--tone': String(tone) } as React.CSSProperties}
-      />
+      <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+        <picture>
+          <source media="(max-width: 768px)" srcSet={`/banners/pages/${heroSlug}-mobile.webp`} />
+          <img
+            className="banner-section-img hover-grow"
+            src={`/banners/pages/${heroSlug}-desktop.webp`}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </section>
 
       <h1 className="page-title has-space">
         <span

@@ -42,6 +42,19 @@ export default async function UpdateListPage({
         )}
       />
 
+      <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+        <picture>
+          <source media="(max-width: 768px)" srcSet="/banners/pages/update-mobile.webp" />
+          <img
+            className="banner-section-img hover-grow"
+            src="/banners/pages/update-desktop.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      </section>
+
       <h1 className="page-title has-space">
         <span aria-hidden className="page-title__icon game-placeholder" />
         {t('pages.update')}

@@ -100,11 +100,18 @@ export default async function RankingBoardPage({
   return (
     <IntlScope namespaces={['games']}>
       <div>
-        <section
-          data-part="banner-section"
-          aria-hidden
-          className="page-hero game-placeholder h-40 max-desktop:h-28"
-        />
+        <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/banners/pages/ranking-board-mobile.webp" />
+            <img
+              className="banner-section-img hover-grow"
+              src="/banners/pages/ranking-board-desktop.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </section>
 
         <h1 className="sr-only">{t('ranking.title')}</h1>
 

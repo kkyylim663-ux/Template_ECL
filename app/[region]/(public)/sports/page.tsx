@@ -28,6 +28,7 @@ export default async function SportsPage({ params }: { params: Promise<{ region:
         category="sports"
         headingKey="category.sports"
         tone={205}
+        heroSlug="sports"
         providers={providers}
       />
     </IntlScope>

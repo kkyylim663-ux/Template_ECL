@@ -66,11 +66,18 @@ export default async function PredictionPage({
   return (
     <IntlScope namespaces={['games']}>
       <div>
-        <section
-          data-part="banner-section"
-          aria-hidden
-          className="page-hero game-placeholder h-40 max-desktop:h-28"
-        />
+        <section data-part="banner-section" aria-hidden className="page-hero game-banner">
+          <picture>
+            <source media="(max-width: 768px)" srcSet="/banners/pages/prediction-mobile.webp" />
+            <img
+              className="banner-section-img hover-grow"
+              src="/banners/pages/prediction-desktop.webp"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        </section>
 
         <h1 className="sr-only">{t('category.prediction')}</h1>
 
