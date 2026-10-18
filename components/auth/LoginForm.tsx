@@ -249,7 +249,7 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
               <div className="form-error">{tc(errors.identifier)}</div>
             ) : null}
           </div>
-          <div className="form-group mb-0">
+          <div className="form-group">
             <input
               className="form-control"
               type={showPassword ? 'text' : 'password'}
