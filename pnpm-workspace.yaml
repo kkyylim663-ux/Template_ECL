@@ -1,3 +1,7 @@
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  unrs-resolver: true
 # pnpm 12 reads build-script approval from here, not from package.json.
 # unrs-resolver ships a native binary that eslint-config-next's import resolver uses.
 onlyBuiltDependencies:
