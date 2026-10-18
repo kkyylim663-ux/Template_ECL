@@ -4096,6 +4096,43 @@ html {
   }
 
   /*
+   * The drawer panel is the fourth fixed layer. `inset-x-0` cannot cap it (its
+   * width is the 270px design, not the column), and a bare `left: 0` anchored it
+   * to the viewport — measured at a 500px window: panel at x 0, top bar at x 35,
+   * a 35px overhang into the column's margin. `left` resolves in the zoomed
+   * system like `max-width` does, so the column's own margin is the offset; it
+   * is 0 at every viewport up to the 430px cap.
+   */
+  .app-drawer {
+    left: calc((100% - var(--m-base)) / 2);
+  }
+
+  /*
+   * Closed, the panel's painted box still sits in the column's left margin (its
+   * right edge lands exactly on the column after the -100% slide), so it must
+   * not paint at all once the slide-out is done: `visibility` hides after the
+   * same 300ms the transform runs. Open, the utility's transition-transform is
+   * back in charge and the panel shows immediately.
+   */
+  .app-drawer[aria-hidden='true'] {
+    visibility: hidden;
+    transition:
+      transform 300ms,
+      visibility 0s 300ms;
+  }
+
+  /*
+   * The reference's own mobile scrollbar rule — every scrollbar below 769px
+   * thins to its 5x3 pill (`@media (max-width: 768px) ::-webkit-scrollbar`),
+   * which is why its drawer shows no classic bar. Ours had the desktop default.
+   */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 3px;
+    border-radius: 5px;
+  }
+
+  /*
    * The floating bar's hairline moves from `border` to an overlay, and the 2px it
    * used to occupy move into the padding. A fixed element's own border is the one
    * length `zoom` does not scale — measured: any non-zero `border-width` (0.4 /

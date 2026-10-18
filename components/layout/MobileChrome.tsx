@@ -244,7 +244,7 @@ export function MobileChrome({ region }: { region: string }) {
         aria-label={t('ui.mobileNav')}
         aria-hidden={!drawerOpen}
         inert={!drawerOpen}
-        className={`bg-panel fixed top-[var(--mobile-content-top,56px)] left-0 z-[var(--z-sidebar-panel)] flex h-[calc(100vh-var(--mobile-content-top,56px))] w-[270px] flex-col rounded-r-[15px] pb-32 transition-transform duration-300 ${
+        className={`app-drawer bg-panel fixed top-[var(--mobile-content-top,56px)] z-[var(--z-sidebar-panel)] flex h-[calc(100vh-var(--mobile-content-top,56px))] w-[270px] flex-col rounded-r-[15px] pb-32 transition-transform duration-300 ${
           drawerOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
