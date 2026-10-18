@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { Icon } from '@/components/ui/Icon';
-import { PrimaryButton } from '@/components/ui/Field';
 import { walletService } from '@/lib/api/wallet';
 import { vouchersInfoSchema, type VoucherInfoRow } from '@/lib/api/schemas';
 import { formatDate, formatMinor } from '@/lib/format';
@@ -222,9 +221,11 @@ export function VoucherEntry({
           <p className="voucher-modal__hint">{t('voucher.demoHint', { codes: DEMO_CODES })}</p>
 
           <div className="account-voucher__modal-btn">
-            <PrimaryButton type="submit" className="w-full" disabled={busy}>
+            {/* The reference's submit is its `.btn.btn-primary` pill (41px); the
+                shared PrimaryButton renders 22px tall inside this dialog. */}
+            <button type="submit" className="btn btn-primary w-full disabled:opacity-60" disabled={busy}>
               {t('action.submit')}
-            </PrimaryButton>
+            </button>
           </div>
         </form>
 

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { brand } from '@/config/brand';
 import { getT } from '@/lib/i18n/server';
-import { CONTACT_CHANNELS, FOOTER_GROUPS, SOCIAL_LINKS, regionPath } from '@/config/nav';
+import { FOOTER_GROUPS, SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
 
 /**
@@ -21,9 +21,6 @@ import { Icon } from '@/components/ui/Icon';
  */
 export async function Footer({ region }: { region: string }) {
   const { t } = await getT('nav');
-  const supportChannels = CONTACT_CHANNELS.filter((channel) =>
-    ['livechat', 'phone', 'email'].includes(channel.id),
-  );
 
   return (
     <footer className="hidden desktop:mt-15 desktop:block">
@@ -34,17 +31,36 @@ export async function Footer({ region }: { region: string }) {
 
             {group.id === 'help' ? (
               <ul>
-                {supportChannels.map((channel) => (
-                  <li key={channel.id}>
-                    <a
-                      href={channel.id === 'livechat' ? regionPath(region, '/livechat') : channel.href}
-                      className="text-muted hover:text-accent block text-sm leading-[17px]"
-                      style={{ marginBottom: '16px' }}
-                    >
-                      {channel.valueKey ? t(channel.valueKey) : channel.value}
-                    </a>
-                  </li>
-                ))}
+                {/* The reference's own three lines, in its order: Live Chat,
+                    then the phone, then the email — named, not labelled by the
+                    channel's 24/7 availability (which is what this printed). */}
+                <li>
+                  <Link
+                    href={regionPath(region, '/livechat')}
+                    className="text-muted hover:text-accent block text-sm leading-[17px]"
+                    style={{ marginBottom: '16px' }}
+                  >
+                    {t('support.liveChat')}
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${brand.contact.phone.replace(/\s/g, '')}`}
+                    className="text-muted hover:text-accent block text-sm leading-[17px]"
+                    style={{ marginBottom: '16px' }}
+                  >
+                    {brand.contact.phone}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:${brand.contact.email}`}
+                    className="text-muted hover:text-accent block text-sm leading-[17px]"
+                    style={{ marginBottom: '16px' }}
+                  >
+                    {brand.contact.email}
+                  </a>
+                </li>
               </ul>
             ) : (
               <ul>

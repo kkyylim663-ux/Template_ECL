@@ -67,6 +67,15 @@ export function Modal({
   const panelRef = useRef<HTMLDivElement>(null);
   const style = VARIANT_STYLE[variant];
   const canDismiss = dismissible ?? variant !== 'loading';
+  /**
+   * `onClose` is a fresh closure on every parent render, so taking it as an
+   * effect dependency re-ran the whole block on each keystroke in the dialogs
+   * with a form (the voucher code one) — and its focus step pulled focus out of
+   * the input after the first character. Keep the latest callback in a ref
+   * instead: the effect then runs once per open.
+   */
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
 
   useEffect(() => {
     if (!open) return;
@@ -82,7 +91,7 @@ export function Modal({
       ).filter((node) => node.offsetParent !== null);
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && canDismiss) onClose();
+      if (event.key === 'Escape' && canDismiss) closeRef.current();
       if (event.key !== 'Tab') return;
 
       const nodes = focusable();
@@ -119,7 +128,7 @@ export function Modal({
       // The opener keeps focus after the dialog closes, as it should.
       if (restoreTo && document.contains(restoreTo)) restoreTo.focus();
     };
-  }, [open, canDismiss, onClose]);
+  }, [open, canDismiss]);
 
   if (!open) return null;
 
@@ -138,7 +147,7 @@ export function Modal({
         aria-label={title}
         tabIndex={-1}
         data-variant={variant}
-        className="bg-panel border-line w-full max-w-md rounded-[var(--radius-panel)] border shadow-2xl shadow-black/50 outline-none"
+        className="bg-panel border-line flex max-h-[85vh] w-full max-w-md flex-col rounded-[var(--radius-panel)] border shadow-2xl shadow-black/50 outline-none"
       >
         <div className="flex items-start gap-3 p-5">
           <span className={`mt-0.5 shrink-0 ${style.tint}`}>
@@ -153,7 +162,9 @@ export function Modal({
             <p className="text-muted text-11 tracking-widest uppercase">{t(`modal.${variant}`)}</p>
             <h2 className="text-ink mt-1 text-base font-semibold">{title}</h2>
             {children ? (
-              <div className="text-muted mt-2 max-h-[45vh] overflow-y-auto text-sm leading-relaxed whitespace-pre-line">
+              /* The taller dialogs (voucher + its code list) scroll as a whole:
+                 a fixed 45vh cap left the last block clipped mid-line. */
+              <div className="text-muted mt-2 min-h-0 overflow-y-auto pb-1 text-sm leading-relaxed whitespace-pre-line">
                 {children}
               </div>
             ) : null}

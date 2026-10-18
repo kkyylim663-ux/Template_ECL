@@ -35,7 +35,7 @@ export async function scan(
 
   // The mobile chrome's root (`.app-top-bar`) exists on every route; the public
   // pages' bottom bar does not, so it would cost a 5s wait per member page.
-  const shell = size === 'mobile' ? page.locator('.app-top-bar') : page.locator('.quest-pill');
+  const shell = size === 'mobile' ? page.locator('.app-top-bar') : page.locator('.quest-badge');
   const settled = await shell
     .first()
     .waitFor({ state: 'visible', timeout: 5000 })

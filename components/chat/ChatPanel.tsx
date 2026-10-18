@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
+import { brand } from '@/config/brand';
 
 type ChatMode = 'room' | 'support';
 
@@ -30,7 +31,7 @@ export function ChatPanel({ mode }: { mode: ChatMode }) {
     mode === 'support'
       ? [{ id: 0, author: t('chat.supportTitle'), body: t('chat.supportSeed') }]
       : [
-          { id: 0, author: 'ECLBET Team', body: t('chat.roomSeed2') },
+          { id: 0, author: `${brand.name} Team`, body: t('chat.roomSeed2') },
           { id: 1, author: 'AcePlayer88', body: t('chat.roomSeed1') },
           { id: 2, author: 'LuckyCat', body: t('chat.roomSeed3') },
         ],
@@ -126,20 +127,29 @@ export function ChatPanel({ mode }: { mode: ChatMode }) {
         </div>
       ) : null}
 
+      {/* The reference's compose: the input owns its full-width row and the
+          Send pill sits in a footer row next to the 0/120 counter — side by
+          side with the input it overran the panel's right edge. */}
       <form className="chat-room__compose" onSubmit={send}>
         <label className="sr-only" htmlFor={`chat-input-${mode}`}>
           {t('chat.inputLabel')}
         </label>
-        <input
-          id={`chat-input-${mode}`}
-          className="form-control"
-          value={draft}
-          placeholder={t('chat.placeholder')}
-          onChange={(event) => setDraft(event.target.value)}
-        />
-        <button type="submit" className="btn btn-primary">
-          {t('chat.send')}
-        </button>
+        <div className="chat-text-area__wrapper">
+          <input
+            id={`chat-input-${mode}`}
+            className="chat-text-area"
+            value={draft}
+            maxLength={120}
+            placeholder={t('chat.placeholder')}
+            onChange={(event) => setDraft(event.target.value)}
+          />
+        </div>
+        <div className="chat-footer__word-wrapper">
+          <span className="chat-footer__word">{draft.length}/120</span>
+          <button type="submit" className="btn btn-primary">
+            {t('chat.send')}
+          </button>
+        </div>
       </form>
       <p className="chat-room__note">{t('chat.mockNote')}</p>
     </section>

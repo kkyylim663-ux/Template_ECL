@@ -403,10 +403,12 @@ export function ProfilePanel({ profile, region }: { profile: ProfileView; region
       <IconSprite only={['plus', 'eye', 'eyeOff', 'refresh', 'lock']} />
       {/* The reference's own mobile nav: `mobile-profile__nav` + `.nav-pill2`. */}
       <nav className="mobile-profile__nav" aria-label={t('profile.tabsLabel')}>
-        <span className="pill-tab" aria-selected="true">
+        {/* aria-current, not aria-selected: these are links, and axe rejects
+            aria-selected on the link role (T76 sweep, member routes). */}
+        <span className="pill-tab" aria-current="page">
           {t('profile.tabs.info')}
         </span>
-        <Link className="pill-tab" aria-selected={false} href={regionPath(region, '/account/rebates')}>
+        <Link className="pill-tab" href={regionPath(region, '/account/rebates')}>
           {t('profile.tabs.rebate')}
         </Link>
       </nav>

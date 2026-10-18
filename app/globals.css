@@ -341,12 +341,171 @@ html {
 }
 
 /*
- * Quest pill in the header (`.quest-badge`): green→blue gradient, with a "Live"
- * badge pinned to the top-right and an icon at the right edge. Not wired to a
- * quest system — the panel does not exist in this build.
+ * Quest pill and its panel (T81 follow-up): the reference's own rules — the
+ * pill keeps its green→blue gradient with the "Live" badge pinned top-right,
+ * and `.quest-content` is the five-card dropdown it scales in (live-probed
+ * 2026-10-18). Colours follow the crawl CSS, except the Live badge text, which
+ * keeps T76's AA ink (10px white on #289d82 reads 3.37:1).
  */
-.quest-pill {
+.quest-badge__wrapper {
+  margin-right: 54px;
+  position: relative;
+}
+
+.quest-badge {
+  align-items: center;
   background: linear-gradient(93.89deg, var(--color-success) -2.79%, var(--color-quest-to) 137.65%);
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-height: 41px;
+  min-width: 156px;
+  position: relative;
+}
+
+.quest-text {
+  color: #fff;
+  font-weight: 700;
+  margin-right: 15px;
+}
+
+.quest-live {
+  background: var(--color-success);
+  border-radius: 8px;
+  color: var(--color-ink-on-accent);
+  font-size: 10px;
+  padding: 0.25rem 0.8rem;
+  position: absolute;
+  right: -1rem;
+  top: -0.6rem;
+  z-index: 1;
+}
+
+.quest-icon {
+  position: absolute;
+  right: 1rem;
+}
+
+.quest-content {
+  background: #1e1e1e;
+  border-radius: 25px;
+  margin-top: 2rem;
+  max-height: 87vh;
+  overflow-y: auto;
+  padding: 20px 37px;
+  position: absolute;
+  right: 0;
+  transform: scale(0);
+  transform-origin: 100% 0;
+  transition: all 0.3s;
+  visibility: hidden;
+  z-index: 11;
+}
+
+.quest-content.active {
+  transform: scale(1);
+  visibility: visible;
+}
+
+.quest-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.quest-header__text {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.quest-header__close {
+  align-items: center;
+  background: #3a3b3c;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.quest-body {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.quest-card {
+  background: var(--color-panel);
+  border-radius: 15px;
+  padding: 25px;
+  width: 411px;
+}
+
+.quest-card__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.quest-card__header-title {
+  color: #fff;
+  font-size: 14px;
+}
+
+.quest-card__header-badge {
+  align-items: center;
+  background: #cc3633;
+  border-radius: 15px;
+  color: #fff;
+  display: flex;
+  font-size: 12px;
+  padding: 5px 15px;
+  text-transform: uppercase;
+}
+
+.quest-card__body {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.quest-card__body-left {
+  align-items: center;
+  display: flex;
+}
+
+.quest-card__img {
+  margin-right: 15px;
+  color: #d0d0d0;
+}
+
+.quest-card__status {
+  color: var(--color-muted);
+  font-size: 12px;
+}
+
+.quest-card__status-score {
+  color: #fff;
+  font-weight: 700;
+}
+
+.quest-card__button {
+  align-items: center;
+  background: var(--color-accent);
+  border-radius: 15px;
+  color: #1b1b1b;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-weight: 700;
+  justify-content: center;
+  min-height: 41px;
+  min-width: 82px;
 }
 
 /*
@@ -715,7 +874,10 @@ html {
   cursor: pointer;
 }
 
-.pill-tab[aria-selected='true'] {
+/* The profile's mobile nav marks its current link with aria-current (links
+   cannot carry aria-selected); every other pill row still uses aria-selected. */
+.pill-tab[aria-selected='true'],
+.pill-tab[aria-current='page'] {
   background: var(--color-accent);
   color: #000;
 }
@@ -7123,14 +7285,42 @@ button.profile-verify {
   color: var(--color-accent);
 }
 
+/* The reference's compose block: the input owns a full-width row
+   (`.chat-text-area__wrapper`) and the 0/120 counter + Send pill share the row
+   below it — sitting beside the input, the 41px pill overran the room's right
+   edge (measured at 375: button right 362 vs room right 343). */
 .chat-room__compose {
-  display: flex;
-  gap: 10px;
   margin-top: 14px;
 }
 
-.chat-room__compose .form-control {
-  flex: 1;
+.chat-text-area__wrapper {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.chat-text-area {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #606060;
+  border-radius: 8px;
+  background: #000;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.chat-text-area::placeholder {
+  color: var(--color-muted);
+}
+
+.chat-footer__word-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-footer__word {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
 }
 
 .chat-room__note {
@@ -10591,4 +10781,195 @@ button.profile-verify {
 
 .voucher-wallet__table {
   min-width: 100%;
+}
+
+/* The sign-in card's header, desktop only: the reference left-aligns the title
+   and puts the × at the row's right end (its mobile template keeps the title
+   centred and the × hidden, which the <=768 block already does). */
+@media (min-width: 769px) {
+  .card[data-auth-card='login'] .card-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/*
+ * Chat window (T81 follow-up): the reference's own `.chat-wrapper` — a 400px
+ * panel dropping from the header's chat icon (full-screen <=768px), with the
+ * ChitChat header, the pinned banner, the body and the compose footer. Values
+ * are the crawl CSS's; the emoji picker is its own `.emoji-*` set.
+ */
+.chat-window-anchor {
+  position: relative;
+}
+
+.chat-wrapper {
+  background: #171717;
+  color: #b2b2b2;
+  left: -6rem;
+  position: absolute;
+  top: 3rem;
+  width: 400px;
+  z-index: 12;
+}
+
+.chat-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.chat-header__right-wrapper {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.chat-header__pin {
+  cursor: pointer;
+  display: flex;
+}
+
+.chat-header__rules {
+  background: #5d5d61;
+  border-radius: 15px;
+  color: #fff;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+}
+
+.chat-header__close-wrapper {
+  align-items: center;
+  background: #3a3b3c;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  width: 40px;
+}
+
+.chat-pin__wrapper {
+  align-items: flex-start;
+  background: #5d5d61;
+  border-radius: 5px;
+  display: flex;
+  gap: 7px;
+  left: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 10px 7px 0;
+  position: absolute;
+  right: 0;
+  transform: scale(0);
+  transform-origin: 220px 0;
+  transition: all 0.3s;
+  width: 100%;
+  z-index: 1;
+}
+
+.chat-pin__wrapper.active {
+  transform: scale(1);
+}
+
+.chat-pin__content-wrapper {
+  flex: 1;
+}
+
+.chat-pin__no-msg {
+  display: block;
+  height: 32px;
+}
+
+.chat-body {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 0 1rem 1rem;
+  scroll-behavior: smooth;
+}
+
+.chat-window__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chat-text-area__right {
+  align-items: center;
+  bottom: 0;
+  cursor: pointer;
+  display: flex;
+  font-size: 20px;
+  position: absolute;
+  right: 16px;
+  top: 0;
+}
+
+.emoji-wrapper {
+  background: #000;
+  bottom: 128px;
+  left: 2px;
+  max-height: 392px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 13;
+}
+
+.emoji-header {
+  align-items: center;
+  border-bottom: 1px solid grey;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.emoji-list__wrapper {
+  padding: 16px;
+}
+
+.emoji-list__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  height: 191px;
+  overflow-y: auto;
+}
+
+.emoji-list__inside {
+  align-items: center;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  font-size: 24px;
+  justify-content: center;
+  padding: 8px;
+}
+
+.emoji-list__inside:hover {
+  background: #121a27;
+}
+
+@media (max-width: 768px) {
+  .chat-wrapper {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .chat-body {
+    height: calc(100% - 198px);
+    max-height: none;
+  }
 }

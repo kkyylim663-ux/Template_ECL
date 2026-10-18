@@ -49,7 +49,7 @@ test.describe('keyboard', () => {
   }) => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/my');
-    await expect(page.locator('.quest-pill')).toBeVisible();
+    await expect(page.locator('.quest-badge')).toBeVisible();
 
     const stops: Focus[] = [];
     for (let step = 0; step < 8; step += 1) {
@@ -68,7 +68,7 @@ test.describe('keyboard', () => {
   test('the desktop menu opens by keyboard and closes on Esc', async ({ page }) => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/my');
-    await expect(page.locator('.quest-pill')).toBeVisible();
+    await expect(page.locator('.quest-badge')).toBeVisible();
 
     // The menu is its own post-hydration island (T71): wait for its panel to be
     // in the DOM, or the keypress lands before the click handler exists.
@@ -118,7 +118,7 @@ test.describe('keyboard', () => {
   test('the dialog keeps focus inside, closes on Esc and hands focus back', async ({ page }) => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/my/vip');
-    await expect(page.locator('.quest-pill')).toBeVisible();
+    await expect(page.locator('.quest-badge')).toBeVisible();
 
     const opener = page.locator('[data-voucher="header"]');
     await opener.focus();

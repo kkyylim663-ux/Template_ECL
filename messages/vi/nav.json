@@ -139,5 +139,36 @@
   "region": {
     "my": "Malaysia (MYR)",
     "sg": "Singapore (SGD)"
+  },
+  "quest": {
+    "close": "Đóng nhiệm vụ",
+    "go": "Đi",
+    "ticket": "Vé",
+    "complete": "Hoàn thành",
+    "daily": "HẰNG NGÀY",
+    "special": "Đặc biệt",
+    "weekly": "HẰNG TUẦN",
+    "c1": "Vé Number Game",
+    "c2": "FIFA 2026 - Sự kiện mini",
+    "c3": "Thưởng Sports & Esports",
+    "c4": "Thưởng Live Casino",
+    "c5": "Thưởng Slots"
+  },
+  "chatWindow": {
+    "title": "ChitChat",
+    "rules": "Nội quy",
+    "pin": "Tin ghim",
+    "close": "Đóng trò chuyện",
+    "emoji": "Biểu tượng cảm xúc",
+    "seed1": "Có ai thử vòng quay Số mới chưa?",
+    "seed3": "Chúc mọi người may mắn!",
+    "reply1": "Tuyệt vời — cảm ơn đã chia sẻ.",
+    "reply2": "Thử bảng dự đoán cho trận ngày mai xem.",
+    "you": "Bạn",
+    "inputLabel": "Tin nhắn",
+    "placeholder": "Nhập tin nhắn…",
+    "send": "Gửi",
+    "note": "Phòng demo: tin nhắn chỉ lưu trong tab này và phản hồi là mô phỏng.",
+    "pinned": "Chào mừng đến phòng chat BRAND — hãy giữ không khí thân thiện."
   }
 }

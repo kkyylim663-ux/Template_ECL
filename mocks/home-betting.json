@@ -6,7 +6,7 @@
       {
         "id": "bet-1",
         "type": "slots",
-        "account": "user_****8899",
+        "account": "kkkkk7",
         "betAt": "2026-10-15T09:14:00+08:00",
         "region": "MY",
         "usdBetMinor": 12840
@@ -14,7 +14,7 @@
       {
         "id": "bet-2",
         "type": "live-casino",
-        "account": "user_****1024",
+        "account": "poka321",
         "betAt": "2026-10-15T09:11:00+08:00",
         "region": "MY",
         "usdBetMinor": 9600
@@ -22,7 +22,7 @@
       {
         "id": "bet-3",
         "type": "sports",
-        "account": "user_****7745",
+        "account": "rexe210",
         "betAt": "2026-10-15T09:07:00+08:00",
         "region": "SG",
         "usdBetMinor": 7425
@@ -30,7 +30,7 @@
       {
         "id": "bet-4",
         "type": "esports",
-        "account": "user_****3312",
+        "account": "leesmith",
         "betAt": "2026-10-15T08:58:00+08:00",
         "region": "MY",
         "usdBetMinor": 5210
@@ -38,7 +38,7 @@
       {
         "id": "bet-5",
         "type": "slots",
-        "account": "user_****2098",
+        "account": "zcrj8888",
         "betAt": "2026-10-15T08:52:00+08:00",
         "region": "MY",
         "usdBetMinor": 4880
@@ -46,7 +46,7 @@
       {
         "id": "bet-6",
         "type": "live-casino",
-        "account": "user_****5511",
+        "account": "mrwhat3v3",
         "betAt": "2026-10-15T08:44:00+08:00",
         "region": "SG",
         "usdBetMinor": 3960
@@ -54,7 +54,7 @@
       {
         "id": "bet-7",
         "type": "slots",
-        "account": "user_****6120",
+        "account": "roxner",
         "betAt": "2026-10-15T08:39:00+08:00",
         "region": "MY",
         "usdBetMinor": 3155
@@ -62,7 +62,7 @@
       {
         "id": "bet-8",
         "type": "sports",
-        "account": "user_****4471",
+        "account": "jianzzz",
         "betAt": "2026-10-15T08:31:00+08:00",
         "region": "MY",
         "usdBetMinor": 2740
@@ -70,7 +70,7 @@
       {
         "id": "bet-9",
         "type": "esports",
-        "account": "user_****9083",
+        "account": "acewin7",
         "betAt": "2026-10-15T08:22:00+08:00",
         "region": "SG",
         "usdBetMinor": 1980
@@ -78,23 +78,23 @@
       {
         "id": "bet-10",
         "type": "slots",
-        "account": "user_****1566",
+        "account": "lucky88",
         "betAt": "2026-10-15T08:15:00+08:00",
         "region": "MY",
         "usdBetMinor": 1265
       }
     ],
     "topDailyWinner": [
-      { "rank": 1, "account": "user_****8899", "region": "MY", "usdWinMinor": 1248000 },
-      { "rank": 2, "account": "user_****1024", "region": "MY", "usdWinMinor": 986500 },
-      { "rank": 3, "account": "user_****7745", "region": "SG", "usdWinMinor": 842000 },
-      { "rank": 4, "account": "user_****3312", "region": "MY", "usdWinMinor": 715400 },
-      { "rank": 5, "account": "user_****2098", "region": "MY", "usdWinMinor": 663200 },
-      { "rank": 6, "account": "user_****5511", "region": "SG", "usdWinMinor": 598700 },
-      { "rank": 7, "account": "user_****6120", "region": "MY", "usdWinMinor": 512900 },
-      { "rank": 8, "account": "user_****4471", "region": "MY", "usdWinMinor": 468300 },
-      { "rank": 9, "account": "user_****9083", "region": "SG", "usdWinMinor": 421600 },
-      { "rank": 10, "account": "user_****1566", "region": "MY", "usdWinMinor": 387400 }
+      { "rank": 1, "account": "kkkkk7", "region": "MY", "usdWinMinor": 1248000 },
+      { "rank": 2, "account": "poka321", "region": "MY", "usdWinMinor": 986500 },
+      { "rank": 3, "account": "rexe210", "region": "SG", "usdWinMinor": 842000 },
+      { "rank": 4, "account": "leesmith", "region": "MY", "usdWinMinor": 715400 },
+      { "rank": 5, "account": "zcrj8888", "region": "MY", "usdWinMinor": 663200 },
+      { "rank": 6, "account": "mrwhat3v3", "region": "SG", "usdWinMinor": 598700 },
+      { "rank": 7, "account": "roxner", "region": "MY", "usdWinMinor": 512900 },
+      { "rank": 8, "account": "jianzzz", "region": "MY", "usdWinMinor": 468300 },
+      { "rank": 9, "account": "acewin7", "region": "SG", "usdWinMinor": 421600 },
+      { "rank": 10, "account": "lucky88", "region": "MY", "usdWinMinor": 387400 }
     ]
   }
 }

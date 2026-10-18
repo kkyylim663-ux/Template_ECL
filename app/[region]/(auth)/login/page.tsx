@@ -40,10 +40,14 @@ export default async function LoginPage({
           <CardBack region={region} label={t('login.back')}>
             <Icon name="chevronLeft" size={20} />
           </CardBack>
-          <h1 className="card-title">{t('login.title')}</h1>
-          <Link href={`/${region}`} className="card-close" aria-label={t('login.closeCard')}>
-            {'\u00d7'}
-          </Link>
+          {/* The reference rides the × inside the title (`.card-title > .close-page`),
+              so it shares the title's line instead of dropping to its own row. */}
+          <h1 className="card-title">
+            {t('login.title')}{' '}
+            <Link href={`/${region}`} className="card-close" aria-label={t('login.closeCard')}>
+              {'\u00d7'}
+            </Link>
+          </h1>
         </div>
 
         <div className="card-logo">

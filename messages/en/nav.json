@@ -114,7 +114,7 @@
     "supportNotice": "Support hours"
   },
   "support": {
-    "liveChat": "Live chat",
+    "liveChat": "Live Chat",
     "email": "Email",
     "phone": "Phone",
     "whatsapp": "WhatsApp",
@@ -139,5 +139,36 @@
   "region": {
     "my": "Malaysia (MYR)",
     "sg": "Singapore (SGD)"
+  },
+  "quest": {
+    "close": "Close quests",
+    "go": "Go",
+    "ticket": "Ticket",
+    "complete": "Complete",
+    "daily": "DAILY",
+    "special": "Special",
+    "weekly": "WEEKLY",
+    "c1": "Number Game Ticket",
+    "c2": "FIFA 2026 - Mini Event",
+    "c3": "Sports & Esports Free Bonus",
+    "c4": "Live Casino Free Bonus",
+    "c5": "Slots game Free Bonus"
+  },
+  "chatWindow": {
+    "title": "ChitChat",
+    "rules": "Rules",
+    "pin": "Pinned message",
+    "close": "Close chat",
+    "emoji": "Emoji",
+    "seed1": "Anyone tried the new Number Game draw?",
+    "seed3": "Good luck everyone!",
+    "reply1": "Nice one — thanks for sharing.",
+    "reply2": "Try the prediction board for tomorrow's match.",
+    "you": "You",
+    "inputLabel": "Message",
+    "placeholder": "Type a message…",
+    "send": "Send",
+    "note": "Demo room: messages stay in this browser tab and the replies are simulated.",
+    "pinned": "Welcome to the BRAND chat room — please keep it friendly."
   }
 }

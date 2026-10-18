@@ -4,7 +4,7 @@ import { expect, test } from '@playwright/test';
  * T81 chat rooms. The mobile dock's Chat / Live Chat entries used to be `#`
  * placeholders; they now open two mock pages — the player room (`/my/chat`)
  * and the support room (`/my/livechat`). The desktop header's chat icon opens
- * the support room too.
+ * the reference's own chat window instead (`.chat-wrapper`).
  */
 test.describe('chat rooms', () => {
   test('the mobile dock opens the player room and the support room', async ({ page }) => {
@@ -21,10 +21,31 @@ test.describe('chat rooms', () => {
     await expect(page.locator('.chat-room__chips')).toContainText('Deposit not credited');
   });
 
-  test('the drawer and the desktop header reach the support room', async ({ page }) => {
+  test('the desktop header chat icon opens the ChitChat window', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto('/my');
-    await page.locator('header').getByRole('link', { name: 'Live chat' }).click();
+    await page.locator('header').getByRole('button', { name: 'Live chat' }).click();
+
+    const window_ = page.locator('#chat-window');
+    await expect(window_).toBeVisible();
+    await expect(window_.locator('.chat-header')).toContainText('ChitChat');
+    await expect(window_.locator('.chat-pin__wrapper')).toContainText('Pinned');
+
+    // The window's compose is local: the line lands and a reply follows.
+    await window_.locator('#chat-window-input').fill('hello window');
+    await window_.getByRole('button', { name: 'Send' }).click();
+    await expect(window_.locator('.chat-line--mine')).toContainText('hello window');
+    await expect(window_.locator('.chat-line--mine')).toHaveCount(1, { timeout: 5000 });
+
+    // The close control shuts the panel.
+    await window_.getByRole('button', { name: 'Close chat' }).click();
+    await expect(page.locator('#chat-window')).toHaveCount(0);
+  });
+
+  test('the contact page and the footer reach the support room', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/my/contact');
+    await page.getByRole('link', { name: /live chat/i }).first().click();
     await expect(page).toHaveURL(/\/my\/livechat$/);
   });
 

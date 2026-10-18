@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import { brand } from '@/config/brand';
-import { regionPath } from '@/config/nav';
-import { getT } from '@/lib/i18n/server';
-import { Icon } from '@/components/ui/Icon';
 import { AccountSlotGate, HeaderMenuGate } from './BreakpointChrome';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { QuestBadge } from './QuestBadge';
+import { ChatWindow } from '@/components/chat/ChatWindow';
 
 /**
  * Desktop header, measured from the original (crawl/pages/my.html + main.css):
@@ -17,8 +16,6 @@ import { LanguageSwitcher } from './LanguageSwitcher';
  * P2 does not load images, but the slot keeps the menu's x position identical.
  */
 export async function Header({ region }: { region: string }) {
-  const { t } = await getT('nav');
-
   return (
     <header className="hidden desktop:block">
       <div className="bg-panel-soft fixed inset-x-0 top-0 z-[var(--z-header)] h-[var(--header-height-desktop)]">
@@ -38,29 +35,13 @@ export async function Header({ region }: { region: string }) {
             not have in the header, so they ride along inside it.
           */}
           <div className="ms-auto flex h-[41px] items-center [&>*]:h-[41px] [&>*]:shrink-0 [&>*]:items-center [&>*]:whitespace-nowrap">
-            {/* The reference's header chat icon opens its live chat; ours now
-                opens the mock live-chat page. */}
-            <Link
-              href={regionPath(region, '/livechat')}
-              aria-label={t('ui.chat')}
-              className="relative me-8 block shrink-0"
-            >
-              <Icon name="chat" size={25} className="text-ink" />
-              <span className="bg-danger absolute -top-2 -right-2 size-2 rounded-full" />
-            </Link>
+            {/* The reference's header chat icon opens its chat window (T81
+                follow-up); the drawer / contact / footer entries keep the
+                support-room page. */}
+            <ChatWindow />
 
-            {/* Quest pill: original geometry, no quest panel in this build. */}
-            <a
-              href="#"
-              className="quest-pill relative me-[54px] flex min-h-[41px] min-w-[156px] shrink-0 items-center justify-center rounded-[15px]"
-            >
-              <span className="me-[15px] text-sm font-bold text-white">{t('ui.quest')}</span>
-              <Icon name="trophy" size={20} className="absolute right-4 text-white" />
-              {/* T76: 10px white on the brand green reads 3.37:1; the dark ink is the AA pairing. */}
-              <span className="bg-success text-ink-on-accent absolute -top-[9px] -right-4 z-[1] rounded-lg px-3 py-1 text-10 leading-none">
-                {t('ui.live')}
-              </span>
-            </a>
+            {/* Quest pill: opens the reference's quest panel (5 cards). */}
+            <QuestBadge region={region} />
 
             <div className="me-4 flex h-[41px] items-center gap-4">
               <VoucherEntry region={region} variant="header" />
