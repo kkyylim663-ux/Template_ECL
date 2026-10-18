@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getBanners, getHomeBetting, getSlotGameList, listProviders } from '@/lib/api';
+import { getBanners, getHomeBetting } from '@/lib/api';
 import { AppDownload } from '@/components/home/AppDownload';
 import { BannerCarousel } from '@/components/home/BannerCarousel';
 import { BettingTransaction } from '@/components/home/BettingTransaction';
@@ -24,16 +24,12 @@ export async function generateMetadata({
 /**
  * Home page, in the reference build's block order: hero, mobile category strip,
  * the four quick entries, the provider rail (desktop), the betting block, the
- * sponsor block (desktop) and the app download. Images stay placeholders; every
- * number comes from the mock layer.
+ * sponsor block (desktop) and the app download. Artwork is the pulled
+ * original-site set; every number comes from the mock layer.
  */
 export default async function HomePage({ params }: { params: Promise<{ region: string }> }) {
   const { region } = await params;
-  const [banners, providers, betting] = await Promise.all([
-    getBanners(),
-    getSlotGameList().then((list) => listProviders(list)),
-    getHomeBetting(),
-  ]);
+  const [banners, betting] = await Promise.all([getBanners(), getHomeBetting()]);
 
   return (
     <IntlScope namespaces={['home']}>
@@ -41,7 +37,7 @@ export default async function HomePage({ params }: { params: Promise<{ region: s
       <BannerCarousel banners={banners} region={region} />
       <CategoryStrip region={region} />
       <EntryCards region={region} />
-      <ProviderRail providers={providers} />
+      <ProviderRail />
       <BettingTransaction betting={betting} region={region} />
       <SponsorBlock />
       <AppDownload />

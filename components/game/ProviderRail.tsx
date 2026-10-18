@@ -32,9 +32,10 @@ export function ProviderRail({
               aria-current={isActive ? 'true' : undefined}
               className="lobby-rail__card"
             >
-              {/* Artwork slot: the tile's inner box (10px/20px padding is on it). */}
+              {/* Artwork slot: the original's `slots/<name>.png` set, one per
+                  provider (the tile's 10px/20px inner padding is on it). */}
               <img
-                src={`/providers/${provider.id}.webp`}
+                src={`/providers/rail-slots/${provider.id}.png`}
                 alt=""
                 loading="lazy"
                 decoding="async"
