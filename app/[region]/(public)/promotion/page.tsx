@@ -105,12 +105,18 @@ export default async function PromotionPage({
                   href={regionPath(region, `/promotion/${promotion.id}`)}
                   className="promotion-card"
                 >
-                  {/* Artwork placeholder: hue from the record until real art lands. */}
-                  <span
-                    aria-hidden
-                    className="promotion-card__header game-placeholder block"
-                    style={{ '--tone': String(promotion.tone) } as React.CSSProperties}
-                  />
+                  {promotion.image ? (
+                    <span className="promotion-card__header block">
+                      <img src={promotion.image} alt="" loading="lazy" decoding="async" />
+                    </span>
+                  ) : (
+                    /* Hue from the record until real art lands. */
+                    <span
+                      aria-hidden
+                      className="promotion-card__header game-placeholder block"
+                      style={{ '--tone': String(promotion.tone) } as React.CSSProperties}
+                    />
+                  )}
                   <span className="promotion-card__footer">{promotion.title}</span>
                 </Link>
               </article>

@@ -14,6 +14,7 @@
       "startsAt": "2026-10-01T00:00:00+08:00",
       "endsAt": "2026-12-31T23:59:00+08:00",
       "tone": 42,
+      "image": "/promos/welcome-188.webp",
       "rules": "## How this bonus works\n\nPlaceholder terms. The operator credits the bonus after the first qualifying deposit clears.\n\n### Qualifying deposits\n\n- Minimum deposit: RM 50\n- One claim per account, first deposit only\n- Wallet credit appears within 5 minutes\n\n### Turnover\n\n| Product | Contribution |\n| --- | --- |\n| Slots | 100% |\n| Live casino | 20% |\n| Sports | 15% |\n| 4D | Not counted |\n\n### What voids the bonus\n\nCasino table games do not contribute. Stakes placed on both sides of one market do not count.\n\n### Claiming\n\nOpen the Voucher (Promo Code) dialog and enter the code from your inbox message."
     },
     {
@@ -28,6 +29,7 @@
       "startsAt": "2026-10-01T00:00:00+08:00",
       "endsAt": "2026-11-30T23:59:00+08:00",
       "tone": 165,
+      "image": "/promos/daily-reload-18.webp",
       "rules": "## Daily reload\n\nPlaceholder terms for the daily reload offer.\n\n- One claim per day, per account\n- Minimum deposit RM 50, maximum bonus RM 88\n- Turnover 5x before withdrawal\n\n### Notes\n\nThe bonus expires 7 days after it is credited. Unused bonus balance is removed at that point."
     },
     {
@@ -42,6 +44,7 @@
       "startsAt": "2026-09-01T00:00:00+08:00",
       "endsAt": "2027-01-31T23:59:00+08:00",
       "tone": 205,
+      "image": "/promos/slot-rebate-08.webp",
       "rules": "## Slots rebate\n\nPlaceholder terms. A share of slots turnover returns as cash rebate.\n\n- Credited daily at 04:00 (+08:00)\n- No cap and no turnover requirement\n- Claim from Rebates in the member area\n\n### Exclusions\n\nRebate does not apply to bonus money, jackpot contributions or voided bets."
     },
     {
@@ -56,6 +59,7 @@
       "startsAt": "2026-10-16T00:00:00+08:00",
       "endsAt": "2026-11-02T23:59:00+08:00",
       "tone": 12,
+      "image": "/promos/livecasino-weekend.webp",
       "rules": "## Live casino weekend\n\nPlaceholder terms for the weekend offer.\n\n- Runs Friday 00:00 to Sunday 23:59 (+08:00)\n- Live tables only; slots and sports do not count\n- Turnover 6x within 14 days\n\n### Table limits\n\nBets below RM 1 and above RM 500 per hand do not contribute to turnover."
     },
     {
@@ -70,6 +74,7 @@
       "startsAt": "2026-10-01T00:00:00+08:00",
       "endsAt": "2026-12-31T23:59:00+08:00",
       "tone": 265,
+      "image": "/promos/sports-cashback-5.webp",
       "rules": "## Sports cashback\n\nPlaceholder terms.\n\n- Calculated on net losses for the week\n- Paid every Tuesday before 12:00 (+08:00)\n- Turnover 1x before withdrawal\n\n### Exclusions\n\nVoided, cancelled and cashed-out bets are excluded. Minimum qualifying weekly turnover is RM 200."
     },
     {
@@ -84,6 +89,7 @@
       "startsAt": "2026-10-01T00:00:00+08:00",
       "endsAt": "2026-12-28T23:59:00+08:00",
       "tone": 320,
+      "image": "/promos/freespin-monday.webp",
       "rules": "## Free spins Monday\n\nPlaceholder terms.\n\n- 150 spins, credited in batches of 50\n- Spin value RM 0.20\n- Winnings are bonus money with 20x turnover\n\n### Selected slot\n\nThe slot is announced in the inbox each Monday at 09:00 (+08:00)."
     },
     {
@@ -98,6 +104,7 @@
       "startsAt": "2026-09-15T00:00:00+08:00",
       "endsAt": "2027-03-31T23:59:00+08:00",
       "tone": 150,
+      "image": "/promos/referral-88.webp",
       "rules": "## Referral programme\n\nPlaceholder terms.\n\n- Share your referral code from the member area\n- The friend must deposit at least RM 50\n- Both accounts receive RM 88\n\n### Limits\n\nUp to 10 successful referrals per account each month. Self-referral and duplicate devices are excluded."
     },
     {
@@ -112,6 +119,7 @@
       "startsAt": "2026-10-01T00:00:00+08:00",
       "endsAt": "2027-06-30T23:59:00+08:00",
       "tone": 60,
+      "image": "/promos/vip-weekly-gift.webp",
       "rules": "## VIP weekly gift\n\nPlaceholder terms.\n\n- Available from Silver tier upwards\n- Value scales with tier and weekly turnover\n- Credited every Wednesday before 18:00 (+08:00)\n\n### Tiers\n\nSee the VIP page for the turnover needed to reach each tier."
     }
   ]

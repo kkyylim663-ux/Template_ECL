@@ -111,6 +111,11 @@ export const promotionSchema = z.object({
   endsAt: z.string(),
   /** Hue for the placeholder banner until a real image is dropped in. */
   tone: z.number().int().min(0).max(359),
+  /**
+   * Delivered artwork under `public/promos/`; absent or `null` keeps the
+   * tone placeholder. One file serves both the list card and the detail banner.
+   */
+  image: z.string().nullable().optional(),
   /** Rules body. Markdown subset: headings, lists, tables, bold links. */
   rules: z.string(),
 });

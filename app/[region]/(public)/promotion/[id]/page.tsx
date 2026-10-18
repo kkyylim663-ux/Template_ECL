@@ -85,12 +85,22 @@ export default async function PromotionDetailPage({
             </Link>
           ) : null}
 
-          {/* Artwork placeholder: hue from the record until real art lands. */}
-          <span
-            aria-hidden
-            className="promotion-detail__banner-img game-placeholder block"
-            style={{ '--tone': String(promotion.tone) } as React.CSSProperties}
-          />
+          {promotion.image ? (
+            <img
+              className="promotion-detail__banner-img"
+              src={promotion.image}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            /* Hue from the record until real art lands. */
+            <span
+              aria-hidden
+              className="promotion-detail__banner-img game-placeholder block"
+              style={{ '--tone': String(promotion.tone) } as React.CSSProperties}
+            />
+          )}
 
           {next ? (
             <Link
