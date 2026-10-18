@@ -29,7 +29,8 @@ test.describe('chat rooms', () => {
     const window_ = page.locator('#chat-window');
     await expect(window_).toBeVisible();
     await expect(window_.locator('.chat-header')).toContainText('ChitChat');
-    await expect(window_.locator('.chat-pin__wrapper')).toContainText('Pinned');
+    // The pinned banner carries the pinned message itself.
+    await expect(window_.locator('.chat-pin__wrapper')).toContainText('chat room');
 
     // The window's compose is local: the line lands and a reply follows.
     await window_.locator('#chat-window-input').fill('hello window');
