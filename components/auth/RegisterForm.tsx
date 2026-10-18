@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { Icon } from '@/components/ui/Icon';
@@ -42,7 +41,6 @@ type RemoteError = { field: 'email' | 'emailOtp' | 'mobile' | 'form'; text: stri
 export function RegisterForm({ region }: { region: string }) {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
-  const router = useRouter();
   const [step, setStep] = useState<Step>(1);
   const [values, setValues] = useState({ ...EMPTY });
   const [callingCode, setCallingCode] = useState<RegionCode>(REGION_CODES[0]);
@@ -170,8 +168,8 @@ export function RegisterForm({ region }: { region: string }) {
     };
     walletService.bindAccount(d.sub, d.walletOpening);
     notifySessionChange();
-    router.refresh();
-    router.push(`/${region}`);
+    // Full navigation for the same reason as the login form (stale guest router cache).
+    window.location.assign(`/${region}`);
   }
 
   return (

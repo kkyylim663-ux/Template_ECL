@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { CallingCodePicker } from '@/components/auth/CallingCodePicker';
@@ -50,7 +49,6 @@ const SCHEMAS = {
 export function LoginForm({ next, region }: { next?: string; region: string }) {
   const t = useTranslations('auth');
   const tc = useTranslations('common');
-  const router = useRouter();
   const [method, setMethod] = useState<Method>('username');
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
@@ -109,8 +107,11 @@ export function LoginForm({ next, region }: { next?: string; region: string }) {
     }
 
     window.dispatchEvent(new Event(SESSION_EVENT));
-    router.refresh();
-    router.push(safeNext(next, `/${region}`));
+    // A full navigation, not router.push: the client router cache can still hold
+    // guest-time prefetches (a redirect to /login for every /account link) and the
+    // old guest RSC of the target, so a soft push left the next member page
+    // bouncing to the login form until a manual reload.
+    window.location.assign(safeNext(next, `/${region}`));
   }
 
   return (
