@@ -165,6 +165,8 @@ for (const viewport of VIEWPORTS) {
       await page.goto('/my');
       if (viewport.name === 'mobile') {
         await page.getByLabel('Open menu').click();
+        // Voucher is the Function group's first row, and drawer groups start collapsed.
+        await page.getByLabel('Mobile navigation').getByRole('button', { name: 'Function' }).click();
         await page.locator('[data-voucher="drawer"]').click();
       } else {
         await page.locator('[data-voucher="header"]').click();

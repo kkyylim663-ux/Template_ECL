@@ -52,9 +52,14 @@ export const TARGETS = {
  * components + the fallback) were merged after T71/T72 — this task's own client
  * delta is ~0 (it removes drawer markup and adds attributes). The recomputed
  * caps keep the same "+5% over the last honest measurement" rule.
+ *
+ * T78 (mobile drawer parity): the HTML re-measured at 143,988 B (140.6 KB) —
+ * the drawer rebuild added two shell sprite icons and eleven nav keys (the
+ * drawer's own copy). Cap recomputed with the same rule (rounded up to the
+ * KiB) to 148 KiB. The JS line is unchanged: 171.4 KB gzip, under the 178 cap.
  */
 export const CAPS = {
-  htmlBytes: 140 * 1024,
+  htmlBytes: 148 * 1024,
   jsGzipBytes: 178 * 1024,
 };
 

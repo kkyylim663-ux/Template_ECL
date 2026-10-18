@@ -1,20 +1,56 @@
 'use client';
 
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { Fragment, useEffect, useRef, useState, useTransition } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { brand, REGION_CODES } from '@/config/brand';
-import { CONTACT_CHANNELS, PRIMARY_MENU, SOCIAL_LINKS, regionPath } from '@/config/nav';
+import { brand, type RegionCode } from '@/config/brand';
+import { MOBILE_MENU_GROUPS, MOBILE_SOCIAL_LINKS, regionPath } from '@/config/nav';
 import { Icon } from '@/components/ui/Icon';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { InertLink } from '@/components/ui/InertLink';
 import { VoucherEntry } from '@/components/content/VoucherEntry';
+import {
+  LANG_COOKIE,
+  LANG_COOKIE_MAX_AGE,
+  resolveLocale,
+  type Locale,
+} from '@/lib/i18n/config';
 import { signOutRequest, useSession } from '@/lib/session/useSession';
 
 const BANNER_KEY = 'brand.appBannerDismissed';
 
 /** First two letters of the brand name — the avatar placeholder. */
 const brandInitials = brand.name.slice(0, 2).toUpperCase();
+
+/**
+ * The reference's Region block (`.sidemenu-region` + `.sidebar-child__list-*`):
+ * three flag rows. MY and SG switch region *and* language; VN carries Tiếng Việt
+ * only — this build has no /vn region, so that row switches the language in
+ * place. Language names are endonyms and stay untranslated.
+ */
+const REGION_ROWS: {
+  flag: string;
+  region: RegionCode | null;
+  langs: { code: Locale; label: string }[];
+}[] = [
+  {
+    flag: '/brand/flags/my.svg',
+    region: 'my',
+    langs: [
+      { code: 'en', label: 'English' },
+      { code: 'zh-Hans', label: '中文' },
+    ],
+  },
+  {
+    flag: '/brand/flags/sg.svg',
+    region: 'sg',
+    langs: [
+      { code: 'en', label: 'English' },
+      { code: 'zh-Hans', label: '中文' },
+    ],
+  },
+  { flag: '/brand/flags/vn.svg', region: null, langs: [{ code: 'vi', label: 'Tiếng Việt' }] },
+];
 
 /**
  * Mobile shell (<=768px), measured from crawl/mobile/my_mobileUA.html:
@@ -26,11 +62,20 @@ const brandInitials = brand.name.slice(0, 2).toUpperCase();
  *   with `all .3s`: 56px parent rows (10px/20px, 46x40 icon) over 12px child
  *   rows (15px/35px, 20x20 icon 30px to the right), split by hairline dividers.
  *
+ * The drawer body was rebuilt against the live reference (`.app-header__menu-wrapper`):
+ * member profile row + tasks card, the three `sidemenu` groups (the drawer's own
+ * item sets — see MOBILE_MENU_GROUPS), then Region (flag rows), Social Media,
+ * Download (two badge cards) and Others (Contact / FAQ / Log out for members).
+ * Every section is collapsed-until-tapped like the original's `.sidemenu-child`.
+ *
  * One responsive template: desktop renders none of this (`.desktop:hidden`).
  */
 export function MobileChrome({ region }: { region: string }) {
   const t = useTranslations('nav');
   const tCommon = useTranslations('common');
+  const locale = resolveLocale(useLocale());
+  const router = useRouter();
+  const [, startTransition] = useTransition();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLElement>(null);
@@ -40,8 +85,7 @@ export function MobileChrome({ region }: { region: string }) {
   const [bannerDismissed, setBannerDismissed] = useState(false);
   // All sections start collapsed, as on the original (`.sidemenu-child{display:none}`).
   const [openSection, setOpenSection] = useState<string | null>(null);
-  const router = useRouter();
-  const { member: isMember } = useSession();
+  const { member: isMember, username } = useSession();
 
   // Nothing else is read during render, so the server and the first client pass agree.
   // The top offset is written in the same pass as the read: writing it from a
@@ -98,6 +142,16 @@ export function MobileChrome({ region }: { region: string }) {
     await signOutRequest();
     router.push(regionPath(region, ''));
     router.refresh();
+  }
+
+  // The language buttons in the Region rows: the cookie the server reads, then a
+  // refresh for a language swap in place and a navigation for a region switch.
+  function pickLanguage(code: Locale, nextRegion: RegionCode | null) {
+    document.cookie = `${LANG_COOKIE}=${code}; path=/; max-age=${LANG_COOKIE_MAX_AGE}; samesite=lax`;
+    startTransition(() => {
+      if (nextRegion && nextRegion !== region) router.push(regionPath(nextRegion, ''));
+      else router.refresh();
+    });
   }
 
   return (
@@ -199,7 +253,46 @@ export function MobileChrome({ region }: { region: string }) {
             clear it. The panel is off-screen when closed, so nothing changes. */}
         {drawerOpen ? (
           <nav className="flex-1 overflow-y-auto overflow-x-hidden">
-            {PRIMARY_MENU.map((section) => {
+            {/* Member block (`.sidemenu-username` + `.quest-menu__wrapper`): the
+                profile row and the tasks card; both absent for guests, as on the
+                original. The card's green is approximated from the member
+                screenshot — the live reference only serves the guest drawer. */}
+            {isMember ? (
+              <>
+                <Link
+                  href={regionPath(region, '/account/profile')}
+                  className="flex items-center px-4 pt-2 pb-1"
+                >
+                  <span
+                    className="bg-panel-soft me-3 grid size-10 shrink-0 place-items-center rounded-full"
+                    aria-hidden
+                  >
+                    <Icon name="user" size={22} className="text-muted" />
+                  </span>
+                  <p className="text-ink truncate text-base">
+                    {t('sidebar.hello')}
+                    {username ? `, ${username}` : ''}
+                  </p>
+                  <Icon name="chevronRight" size={18} className="text-muted ms-auto shrink-0" />
+                </Link>
+
+                <div className="px-4 py-2">
+                  <Link
+                    href={regionPath(region, '/account/achievement')}
+                    className="bg-[#1e9e55] text-ink relative flex items-center rounded-[11px] px-5 py-[10px]"
+                  >
+                    <Icon name="achievement" size={20} className="me-5 shrink-0" />
+                    <span className="text-sm font-medium">{t('sidebar.tasks')}</span>
+                    <span className="absolute top-1/2 right-3 -translate-y-1/2 rounded-[15px] bg-[#38d878] px-[10px] py-[2px] text-10 font-semibold text-[#0d2418]">
+                      {t('sidebar.taskNew')}
+                    </span>
+                  </Link>
+                </div>
+              </>
+            ) : null}
+
+            {/* The reference's drawer groups (its own sets, not the desktop menu). */}
+            {MOBILE_MENU_GROUPS.map((section) => {
               const open = openSection === section.id;
               return (
                 <div key={section.id}>
@@ -207,15 +300,15 @@ export function MobileChrome({ region }: { region: string }) {
                     type="button"
                     onClick={() => setOpenSection(open ? null : section.id)}
                     aria-expanded={open}
-                    className="text-muted flex h-14 w-full items-center justify-between px-5"
+                    className="text-muted flex w-full items-center justify-between px-5 py-2.5"
                   >
                     <span className="flex items-center">
                       <Icon
-                        name={section.items[0]?.icon ?? 'home'}
+                        name={section.icon}
                         size={30}
-                        className="me-5 h-[46px] w-10 shrink-0"
+                        className={`me-5 shrink-0 ${section.iconClass}`}
                       />
-                      <span>{t(section.labelKey)}</span>
+                      <span className="text-base">{t(section.labelKey)}</span>
                     </span>
                     <Icon
                       name="chevronDown"
@@ -226,6 +319,14 @@ export function MobileChrome({ region }: { region: string }) {
 
                   {open ? (
                     <ul className="pb-2">
+                      {section.id === 'function' ? (
+                        <li>
+                          {/* Voucher is the Function group's first row on the
+                              reference (`/my/voucher`); here it opens the same
+                              dialog as the header entry. */}
+                          <VoucherEntry region={region} variant="drawer" />
+                        </li>
+                      ) : null}
                       {section.items.map((item) => (
                         <li key={item.href}>
                           <Link
@@ -250,95 +351,104 @@ export function MobileChrome({ region }: { region: string }) {
 
             <div className="drawer-divider" />
 
-            {/* Voucher (Promo Code) — the same dialog the header opens. */}
-            <div className="px-[35px]">
-              <VoucherEntry region={region} variant="drawer" />
-            </div>
-
-            <div className="drawer-divider" />
-
-            {/* Region switch */}
-            <div className="px-[35px]">
-              <p className="text-muted mb-4 text-xs">{t('sidebar.region')}</p>
-              <ul className="flex flex-wrap gap-2">
-                {REGION_CODES.map((code) => {
-                  const active = code === region;
-                  return (
-                    <li key={code}>
-                      <Link
-                        href={`/${code}`}
-                        className={`block rounded-[var(--radius-tag)] border px-3 py-1.5 text-xs ${
-                          active ? 'border-accent text-accent' : 'border-line text-muted'
-                        }`}
-                      >
-                        {t(`region.${code}`)}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            <div className="drawer-divider" />
-
-            {/* Language switch — writes the brand_lang cookie and refreshes. */}
-            <div className="px-[35px]">
-              <p className="text-muted mb-4 text-xs">{t('ui.language')}</p>
-              <LanguageSwitcher variant="inline" />
-            </div>
-
-            <div className="drawer-divider" />
-
-            {/* Support channels */}
-            <div className="px-[35px]">
-              <ul className="space-y-3">
-                {CONTACT_CHANNELS.map((channel) => (
-                  <li key={channel.id}>
-                    <a href={channel.href} className="text-muted flex items-center">
-                      <Icon
-                        name={channel.icon}
-                        size={20}
-                        className="text-accent me-[30px] shrink-0"
-                      />
-                      <span className="min-w-0">
-                        <span className="block">{t(channel.labelKey)}</span>
-                        <span className="text-muted block truncate text-10">
-                          {channel.valueKey ? t(channel.valueKey) : channel.value}
-                        </span>
-                      </span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {isMember ? (
-              <div className="px-[35px]">
-                <button
-                  type="button"
-                  onClick={onSignOut}
-                  className="text-muted flex h-14 w-full items-center"
+            {/* Region — flag rows, each carrying its languages (`.sidebar-child__list-*`). */}
+            <div className="mt-5">
+              <p className="text-muted mb-4 ps-[13px] text-xs">{t('sidebar.region')}</p>
+              {REGION_ROWS.map((row) => (
+                <div
+                  key={row.flag}
+                  className="ms-[15px] flex h-[42px] items-center rounded-[15px] px-[18px]"
                 >
-                  {tCommon('action.logout')}
-                </button>
-              </div>
-            ) : null}
+                  {/* eslint-disable-next-line @next/next/no-img-element -- a 20px svg flag, not content */}
+                  <img src={row.flag} alt="" aria-hidden className="me-5 size-5 shrink-0" />
+                  <span className="flex items-center text-xs">
+                    {row.langs.map((lang, index) => (
+                      <Fragment key={lang.code}>
+                        {index > 0 ? <span className="text-muted mx-[15px]">/</span> : null}
+                        <button
+                          type="button"
+                          onClick={() => pickLanguage(lang.code, row.region)}
+                          aria-pressed={locale === lang.code}
+                          className={`transition-colors ${
+                            locale === lang.code ? 'text-accent' : 'text-muted'
+                          }`}
+                        >
+                          {lang.label}
+                        </button>
+                      </Fragment>
+                    ))}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-            {/* Social: 30x30 icons, the row indented 31px. */}
-            <div className="mt-6 pl-[31px]">
-              <ul className="flex items-center gap-5">
-                {SOCIAL_LINKS.map((social) => (
-                  <li key={social.id}>
+            <div className="drawer-divider" />
+
+            {/* Social Media — the reference's six, in its order, in brand colours. */}
+            <div className="mt-5">
+              <p className="text-muted mb-4 ps-[13px] text-xs">{t('sidebar.socialMedia')}</p>
+              <ul className="flex items-center pl-[31px]">
+                {MOBILE_SOCIAL_LINKS.map((social) => (
+                  <li key={social.id} className="me-[15px]">
                     <a
                       href={social.href}
                       aria-label={social.label}
-                      className="grid size-[30px] place-items-center"
+                      className="block"
+                      style={{ color: social.color }}
                     >
-                      <Icon name={social.id} size={30} className="text-muted" />
+                      <Icon name={social.id} size={25} className="h-[30px] w-[25px]" />
                     </a>
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="drawer-divider" />
+
+            {/* Download — the same two badge cards as the home rail, sideways-scrolling. */}
+            <div className="mt-5">
+              <p className="text-muted mb-4 ps-[13px] text-xs">{t('sidebar.download')}</p>
+              <div className="flex flex-nowrap overflow-x-auto pl-4">
+                {(['sidebar.dlCard1', 'sidebar.dlCard2'] as const).map((key, index) => (
+                  <div
+                    key={key}
+                    className="bg-download-card me-[10px] w-[183px] shrink-0 rounded-[var(--radius-panel)] p-[15px] pb-[25px]"
+                  >
+                    <InertLink className="bg-inset-dark mb-[10px] block rounded-[var(--radius-panel)] p-[10px]">
+                      <span className="game-placeholder block h-[44px] w-full rounded-[10px] text-center text-11 leading-[44px] text-white/70">
+                        {t(index === 0 ? 'sidebar.dlPlay' : 'sidebar.dlStore')}
+                      </span>
+                    </InertLink>
+                    <p className="text-ink mb-1 text-sm font-medium">{t(key)}</p>
+                    <p className="text-ink text-xs">{t('sidebar.dlSub')}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="drawer-divider" />
+
+            {/* Others — Contact / FAQ / Log out (members). */}
+            <div className="mt-5">
+              <p className="text-muted mb-4 ps-[13px] text-xs">{t('sidebar.others')}</p>
+              <Link href={regionPath(region, '/contact')} className="drawer-row">
+                <Icon name="chat" size={20} className="text-accent me-[30px] shrink-0" />
+                {t('sidebar.contact')}
+              </Link>
+              <Link href={regionPath(region, '/faq/gettingstart')} className="drawer-row">
+                <Icon name="question" size={20} className="text-accent me-[30px] shrink-0" />
+                {t('footer.links.faq')}
+              </Link>
+              {isMember ? (
+                <button
+                  type="button"
+                  onClick={onSignOut}
+                  className="drawer-row w-full text-left"
+                >
+                  <Icon name="logout" size={20} className="text-accent me-[30px] shrink-0" />
+                  {tCommon('action.logout')}
+                </button>
+              ) : null}
             </div>
           </nav>
         ) : null}

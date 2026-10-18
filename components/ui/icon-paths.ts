@@ -43,6 +43,10 @@ export const ICON_PATHS = {
   instagram: ['M4 4h16v16H4z', c(12, 12, 4), c(17, 7, 0.8)],
   x: ['M5 4l14 16', 'M19 4 5 20'],
   youtube: ['M3 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3z', 'M11 9.5l5 2.5-5 2.5z'],
+  /** Drawer "Others": FAQ. */
+  question: [c(12, 12, 9), 'M9.6 9.6a2.4 2.4 0 1 1 3.3 2.2c-.8.4-1.1.9-1.1 1.7', c(12, 17, 0.5)],
+  /** Drawer "Others": Log out — door frame with the arrow leaving it. */
+  logout: ['M14 4H7v16h7', 'M11 12h8', 'M16.5 9.5 19 12l-2.5 2.5'],
   menu: ['M4 7h16', 'M4 12h16', 'M4 17h16'],
   close: ['M6 6l12 12', 'M18 6L6 18'],
   search: [c(11, 11, 6), 'M15.5 15.5 21 21'],
@@ -106,6 +110,8 @@ export const SHELL_ICON_NAMES = [
   'instagram',
   'x',
   'youtube',
+  'question',
+  'logout',
   'menu',
   'close',
   'globe',

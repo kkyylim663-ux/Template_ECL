@@ -204,6 +204,90 @@ export const MOBILE_BAR_ITEMS: MenuLink[] = [
   { href: '/account/profile', labelKey: 'bottom.profile', icon: 'user' },
 ];
 
+export type DrawerGroup = {
+  id: string;
+  labelKey: string;
+  icon: IconName;
+  /** Wrapper size of the group icon, per group on the reference's drawer. */
+  iconClass: string;
+  items: MenuLink[];
+};
+
+/**
+ * The mobile drawer's own groups — the reference's `sidemenu` sets, mapped to
+ * this build's routes: Games 6 / Events 4 / Function 13, in its order. They
+ * differ from PRIMARY_MENU (the desktop mega-menu): the drawer carries Personal
+ * achievement and Ticket Center, drops Profile/Banking Details, and the Voucher
+ * entry rides the Function group's first row (the drawer component adds it).
+ */
+export const MOBILE_MENU_GROUPS: DrawerGroup[] = [
+  {
+    id: 'games',
+    labelKey: 'primary.games',
+    icon: 'slots',
+    iconClass: 'h-[36px] w-[30px]',
+    items: [
+      { href: '/esports', labelKey: 'items.esports', icon: 'esports' },
+      { href: '/sports', labelKey: 'items.sports', icon: 'sports' },
+      { href: '/livecasino', labelKey: 'items.livecasino', icon: 'livecasino' },
+      { href: '/slots', labelKey: 'items.slots', icon: 'slots' },
+      { href: '/4d', labelKey: 'items.game4d', icon: 'dice4d' },
+      { href: '/fast-game', labelKey: 'items.fastGame', icon: 'fast' },
+    ],
+  },
+  {
+    id: 'events',
+    labelKey: 'primary.events',
+    icon: 'gift',
+    iconClass: 'h-[46px] w-[40px]',
+    items: [
+      { href: '/prediction', labelKey: 'items.prediction', icon: 'prediction' },
+      { href: '/ranking-board', labelKey: 'items.rankingBoard', icon: 'trophy' },
+      { href: '/numbergame', labelKey: 'items.numberGame', icon: 'numbers' },
+      { href: '/account/achievement', labelKey: 'items.achievement', icon: 'achievement' },
+    ],
+  },
+  {
+    id: 'function',
+    labelKey: 'primary.function',
+    icon: 'user',
+    iconClass: 'h-[46px] w-[40px]',
+    items: [
+      { href: '/account/deposit', labelKey: 'items.deposit', icon: 'wallet' },
+      { href: '/account/withdrawal', labelKey: 'items.withdrawal', icon: 'withdraw' },
+      { href: '/account/transfer', labelKey: 'items.transfer', icon: 'transfer' },
+      { href: '/account/history', labelKey: 'items.history', icon: 'history' },
+      { href: '/account/tickets', labelKey: 'items.tickets', icon: 'ticket' },
+      { href: '/account/pending', labelKey: 'items.pending', icon: 'pending' },
+      { href: '/account/inbox', labelKey: 'items.inbox', icon: 'mail' },
+      { href: '/account/rebates', labelKey: 'items.rebates', icon: 'rebate' },
+      { href: '/vip', labelKey: 'items.vip', icon: 'crown' },
+      { href: '/promotion', labelKey: 'items.promotions', icon: 'gift' },
+      { href: '/update', labelKey: 'items.update', icon: 'news' },
+      { href: '/contact', labelKey: 'support.liveChat', icon: 'chat' },
+      { href: '/sponsor', labelKey: 'items.sponsor', icon: 'sponsor' },
+    ],
+  },
+];
+
+/** Finds a social link's placeholder href (all `#` in this build). */
+const socialHref = (id: string) => brand.social.find((entry) => entry.id === id)?.href ?? '#';
+
+/**
+ * The drawer's Social Media row: the reference's six icons in its order and its
+ * brand colours. WhatsApp is drawer-only — the desktop footer keeps `brand.social`
+ * as-is.
+ */
+export const MOBILE_SOCIAL_LINKS: { id: IconName; label: string; href: string; color: string }[] =
+  [
+    { id: 'facebook', label: 'Facebook', href: socialHref('facebook'), color: '#1877f2' },
+    { id: 'instagram', label: 'Instagram', href: socialHref('instagram'), color: '#e1306c' },
+    { id: 'youtube', label: 'YouTube', href: socialHref('youtube'), color: '#ff0000' },
+    { id: 'telegram', label: 'Telegram', href: socialHref('telegram'), color: '#229ed9' },
+    { id: 'x', label: 'X', href: socialHref('x'), color: '#ebebeb' },
+    { id: 'whatsapp', label: 'WhatsApp', href: brand.contact.whatsapp.href, color: '#25d366' },
+  ];
+
 export function regionPath(region: string, href: string): string {
   return href ? `/${region}${href}` : `/${region}`;
 }

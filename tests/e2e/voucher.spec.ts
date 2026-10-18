@@ -180,6 +180,8 @@ test.describe('voucher dialog', () => {
     await page.goto('/my');
 
     await page.getByLabel('Open menu').click();
+    // Voucher is the Function group's first row, and drawer groups start collapsed.
+    await page.getByLabel('Mobile navigation').getByRole('button', { name: 'Function' }).click();
     await page.locator('[data-voucher="drawer"]').click();
     await expect(page.getByRole('dialog')).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Voucher (Promo Code)' })).toBeVisible();

@@ -77,7 +77,18 @@
   "sidebar": {
     "needHelp": "Cần hỗ trợ?",
     "contact": "Liên hệ",
-    "region": "Khu vực"
+    "region": "Khu vực",
+    "hello": "Xin chào",
+    "tasks": "Nhiệm vụ",
+    "taskNew": "Mới",
+    "socialMedia": "Mạng xã hội",
+    "download": "Tải xuống",
+    "others": "Khác",
+    "dlPlay": "Google Play",
+    "dlStore": "App Store",
+    "dlCard1": "Bắt đầu trò chơi!",
+    "dlCard2": "Cùng bắt đầu trò chơi!",
+    "dlSub": "Chơi tại đây, thắng tại đây"
   },
   "footer": {
     "title": {

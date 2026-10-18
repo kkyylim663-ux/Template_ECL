@@ -112,6 +112,8 @@ test.describe('promotion detail and the voucher dialog (T19)', () => {
     await page.goto('/my/promotion');
 
     await page.getByLabel('Open menu').click();
+    // Voucher is the Function group's first row, and drawer groups start collapsed.
+    await page.getByLabel('Mobile navigation').getByRole('button', { name: 'Function' }).click();
     await page.locator('[data-voucher="drawer"]').click();
     await expect(page.getByRole('dialog')).toBeVisible();
   });

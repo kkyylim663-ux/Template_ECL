@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useCallback, useEffect, useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
+import { Icon } from '@/components/ui/Icon';
 import { PrimaryButton } from '@/components/ui/Field';
 import { walletService } from '@/lib/api/wallet';
 import { vouchersInfoSchema, type VoucherInfoRow } from '@/lib/api/schemas';
@@ -134,9 +135,9 @@ export function VoucherEntry({
         type="button"
         onClick={() => setOpen(true)}
         data-voucher="drawer"
-        className="border-line text-ink/90 flex w-full items-center gap-4 rounded-[8px] border px-3 py-2.5 text-left text-xs"
+        className="drawer-row active:bg-panel-soft w-full text-left"
       >
-        <span className="text-accent shrink-0">◆</span>
+        <Icon name="gift" size={20} className="text-accent me-[30px] shrink-0" />
         {t('voucher.title')}
       </button>
     );

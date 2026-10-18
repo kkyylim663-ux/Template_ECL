@@ -77,7 +77,18 @@
   "sidebar": {
     "needHelp": "需要協助？",
     "contact": "聯絡我們",
-    "region": "地區"
+    "region": "地區",
+    "hello": "你好",
+    "tasks": "任務",
+    "taskNew": "最新",
+    "socialMedia": "社交媒體",
+    "download": "下載",
+    "others": "其他",
+    "dlPlay": "Google Play",
+    "dlStore": "App Store",
+    "dlCard1": "開始遊戲吧！",
+    "dlCard2": "一起開始遊戲吧！",
+    "dlSub": "在此暢玩，贏得精彩"
   },
   "footer": {
     "title": {

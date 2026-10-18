@@ -70,7 +70,7 @@ export function AccountSlot({ region }: { region: string }) {
         </span>
         <span className="text-left">
           <span className="text-ink block text-xs leading-tight font-medium">{username}</span>
-          <span className="text-muted block text-11 leading-tight">
+          <span className="text-muted block text-11 leading-tight" data-testid="header-balance">
             {t('header.balance', { amount: formatMinor(balanceMinor, currency) })}
           </span>
         </span>

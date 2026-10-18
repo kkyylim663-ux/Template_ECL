@@ -35,8 +35,12 @@ const VIEWPORTS = [
   { label: 'mobile', viewport: { width: 375, height: 812 } },
 ] as const;
 
-/** The header's total-assets figure (p4-flow reads it without a hover). */
-const BALANCE = '.account-menu__profile-balance-amount';
+/**
+ * The header slot's total-assets figure. The journey crosses pages outside the
+ * `(family)` shell (achievement, tickets), where `.account-menu__profile-balance-amount`
+ * does not exist — the header's copy is the one figure every page carries.
+ */
+const BALANCE = '[data-testid="header-balance"]';
 
 /** A page's own money line — `.ng-spin__current-credit`, `.pd-slip__credit`… */
 async function money(page: Page, selector: string): Promise<number> {
@@ -137,6 +141,8 @@ for (const { label, viewport } of VIEWPORTS) {
     await page.goto('/my/account/rebates');
     if (label === 'mobile') {
       await page.getByLabel('Open menu').click();
+      // Voucher is the Function group's first row, and drawer groups start collapsed.
+      await page.getByLabel('Mobile navigation').getByRole('button', { name: 'Function' }).click();
       await page.locator('[data-voucher="drawer"]').click();
     } else {
       await page.locator('[data-voucher="header"]').click();
