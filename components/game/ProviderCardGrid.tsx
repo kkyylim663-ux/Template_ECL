@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { getLaunchHref, type LaunchBlock } from '@/lib/game/launch';
-import { providerConfig } from '@/config/providers';
+import { isGameProvider, providerConfig } from '@/config/providers';
 import { toneFromString } from '@/lib/game/tone';
 import { LaunchGateModal } from './LaunchGateModal';
 import { VpnModal } from './VpnModal';
@@ -73,13 +73,24 @@ export function ProviderCardGrid({
                   backgroundPosition: 'center',
                 }}
               >
-                <img
-                  src={`/providers/${provider.id}.webp`}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="game-card__img"
-                />
+                {isGameProvider(provider.id) ? (
+                  <img
+                    src={`/providers/${provider.id}.webp`}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    className="game-card__img"
+                  />
+                ) : (
+                  // The clubs (live casino / sports / esports) ship no nameplate
+                  // yet: their own logo set is on the original-site pull list.
+                  <span
+                    aria-hidden
+                    className="game-card__img text-11 leading-[normal] font-semibold tracking-wide text-white/85"
+                  >
+                    {provider.id}
+                  </span>
+                )}
                 {config.underMaintenance ? (
                   <span className="game-card__label">{t('card.underMaintenance')}</span>
                 ) : provider.isNew ? (
