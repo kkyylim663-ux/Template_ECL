@@ -10,6 +10,31 @@
     "tnc": "Điều khoản & Điều kiện",
     "bettingRules": "Luật cược"
   },
+  "chat": {
+    "roomTitle": "Phòng chat",
+    "roomSubtitle": "Trò chuyện với người chơi khác",
+    "supportTitle": "Chat trực tuyến",
+    "supportSubtitle": "Đội ngũ hỗ trợ trả lời trong vài phút",
+    "online": "Trực tuyến",
+    "pinLabel": "Ghim",
+    "pin": "Chào mừng đến phòng chat ECLBET — hãy giữ không khí thân thiện.",
+    "you": "Bạn",
+    "inputLabel": "Tin nhắn",
+    "placeholder": "Nhập tin nhắn…",
+    "send": "Gửi",
+    "mockNote": "Phòng demo: tin nhắn chỉ lưu trong tab này và phản hồi là mô phỏng.",
+    "roomSeed1": "Có ai thử vòng quay Số mới chưa?",
+    "roomSeed2": "Chào mừng! Khuyến mãi nạp tiền đang diễn ra tuần này.",
+    "roomSeed3": "Chúc mọi người may mắn!",
+    "roomReply1": "Tuyệt vời — cảm ơn đã chia sẻ.",
+    "roomReply2": "Thử bảng dự đoán cho trận ngày mai xem.",
+    "supportSeed": "Xin chào! Hôm nay chúng tôi có thể giúp gì cho bạn?",
+    "supportReply": "Đã nhận thông tin — nhân viên hỗ trợ sẽ phản hồi tại đây. (demo)",
+    "chipDeposit": "Nạp tiền chưa được cộng",
+    "chipWithdrawal": "Trạng thái rút tiền",
+    "chipBonus": "Câu hỏi về khuyến mãi",
+    "chipsLabel": "Câu hỏi nhanh"
+  },
   "root": {
     "title": "Chọn khu vực",
     "note": "T03 chuyển hướng tới /my."

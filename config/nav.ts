@@ -193,14 +193,16 @@ export const CONTACT_CHANNELS: ContactChannel[] = [
 
 /**
  * Mobile bottom bar: the original's five entries and order — Home / Chat /
- * Live Chat / Wallet / Profile. Chat has no widget in this build, so both chat
- * entries are `#` placeholders (same convention as the Play buttons).
+ * Live Chat / Wallet / Profile. The reference's dock opens its own chat panel
+ * and sends Live Chat to the contact page (probed live 2026-10-18); here both
+ * chat entries open the mock rooms, and Wallet opens the wallet page the
+ * reference's dock lands on (`/my/mywallet`).
  */
 export const MOBILE_BAR_ITEMS: MenuLink[] = [
   { href: '', labelKey: 'bottom.home', icon: 'home' },
-  { href: '#', labelKey: 'bottom.chat', icon: 'chat' },
-  { href: '#', labelKey: 'bottom.liveChat', icon: 'chat' },
-  { href: '/account/deposit', labelKey: 'bottom.wallet', icon: 'wallet' },
+  { href: '/chat', labelKey: 'bottom.chat', icon: 'chat' },
+  { href: '/livechat', labelKey: 'bottom.liveChat', icon: 'chat' },
+  { href: '/account/wallet', labelKey: 'bottom.wallet', icon: 'wallet' },
   { href: '/account/profile', labelKey: 'bottom.profile', icon: 'user' },
 ];
 
@@ -264,7 +266,7 @@ export const MOBILE_MENU_GROUPS: DrawerGroup[] = [
       { href: '/vip', labelKey: 'items.vip', icon: 'crown' },
       { href: '/promotion', labelKey: 'items.promotions', icon: 'gift' },
       { href: '/update', labelKey: 'items.update', icon: 'news' },
-      { href: '/contact', labelKey: 'support.liveChat', icon: 'chat' },
+      { href: '/livechat', labelKey: 'support.liveChat', icon: 'chat' },
       { href: '/sponsor', labelKey: 'items.sponsor', icon: 'sponsor' },
     ],
   },

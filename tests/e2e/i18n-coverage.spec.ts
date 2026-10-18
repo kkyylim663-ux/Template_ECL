@@ -50,6 +50,9 @@ const PUBLIC_ROUTES = [
   '/my/login',
   '/my/register',
   '/my/forgot-password',
+  // T81: the two mock chat rooms.
+  '/my/chat',
+  '/my/livechat',
 ];
 
 const MEMBER_ROUTES = [
@@ -63,6 +66,8 @@ const MEMBER_ROUTES = [
   '/my/account/achievement',
   '/my/account/tickets',
   '/my/account/profile',
+  // T81: the wallet page the dock opens.
+  '/my/account/wallet',
 ];
 
 /**
@@ -98,6 +103,8 @@ const ZH_PROBES: Record<string, string> = {
   '/my/login': '登录',
   '/my/register': '注册账号',
   '/my/forgot-password': '重置密码',
+  '/my/chat': '聊天室',
+  '/my/livechat': '在线客服',
 };
 
 for (const route of PUBLIC_ROUTES) {
@@ -136,6 +143,8 @@ const MEMBER_PROBES: Record<string, string> = {
   '/my/account/achievement': '流水奖励',
   '/my/account/tickets': '可用票券',
   '/my/account/profile': '个人资料',
+  // T81: the wallet page's pill row carries the section name.
+  '/my/account/wallet': '钱包',
 };
 
 for (const route of MEMBER_ROUTES) {

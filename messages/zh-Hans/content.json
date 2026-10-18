@@ -10,6 +10,31 @@
     "tnc": "条款与条件",
     "bettingRules": "投注规则"
   },
+  "chat": {
+    "roomTitle": "聊天室",
+    "roomSubtitle": "与其他玩家交流",
+    "supportTitle": "在线客服",
+    "supportSubtitle": "客服将在几分钟内回复",
+    "online": "在线",
+    "pinLabel": "置顶",
+    "pin": "欢迎来到 ECLBET 聊天室——请友善交流。",
+    "you": "我",
+    "inputLabel": "消息",
+    "placeholder": "输入消息…",
+    "send": "发送",
+    "mockNote": "演示聊天室：消息仅停留在当前浏览器标签页，回复为模拟内容。",
+    "roomSeed1": "有人试过新的数字游戏开奖吗？",
+    "roomSeed2": "欢迎！本周充值红利进行中。",
+    "roomSeed3": "祝大家好运！",
+    "roomReply1": "厉害了，感谢分享。",
+    "roomReply2": "可以看看明天赛事预测榜。",
+    "supportSeed": "您好！今天有什么可以帮您？",
+    "supportReply": "已收到您的信息，客服稍后在此回复。（演示）",
+    "chipDeposit": "充值未到账",
+    "chipWithdrawal": "提现状态",
+    "chipBonus": "红利问题",
+    "chipsLabel": "常见问题"
+  },
   "root": {
     "title": "地区选择",
     "note": "T03 会把此地址重定向到 /my。"

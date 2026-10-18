@@ -10,6 +10,31 @@
     "tnc": "Terms & Conditions",
     "bettingRules": "Betting Rules"
   },
+  "chat": {
+    "roomTitle": "Chat Room",
+    "roomSubtitle": "Chat with other players",
+    "supportTitle": "Live Chat",
+    "supportSubtitle": "Our support team replies within minutes",
+    "online": "Online",
+    "pinLabel": "Pinned",
+    "pin": "Welcome to the ECLBET chat room — please keep it friendly.",
+    "you": "You",
+    "inputLabel": "Message",
+    "placeholder": "Type a message…",
+    "send": "Send",
+    "mockNote": "Demo room: messages stay in this browser tab and the replies are simulated.",
+    "roomSeed1": "Anyone tried the new Number Game draw?",
+    "roomSeed2": "Welcome! The deposit bonus is live this week.",
+    "roomSeed3": "Good luck everyone!",
+    "roomReply1": "Nice one — thanks for sharing.",
+    "roomReply2": "Try the prediction board for tomorrow's match.",
+    "supportSeed": "Hi! How can we help you today?",
+    "supportReply": "Thanks for the details — a support agent will reply here shortly. (demo)",
+    "chipDeposit": "Deposit not credited",
+    "chipWithdrawal": "Withdrawal status",
+    "chipBonus": "Bonus question",
+    "chipsLabel": "Quick questions"
+  },
   "root": {
     "title": "Region selector",
     "note": "T03 redirects this to /my."

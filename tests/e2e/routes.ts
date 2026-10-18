@@ -24,6 +24,9 @@ export const PUBLIC_STATIC = [
   'contact',
   'tnc',
   'betting-rules',
+  /** T81's two mock chat rooms. */
+  'chat',
+  'livechat',
 ] as const;
 
 export const FAQ_TOPICS = [
@@ -50,6 +53,8 @@ export const ACCOUNT_PAGES = [
   'achievement',
   'tickets',
   'profile',
+  /** T81's wallet page (the dock's Wallet entry). */
+  'wallet',
   /** T54's deposit sub-pages. */
   'deposit/gateway',
   'deposit/result',

@@ -15,6 +15,8 @@ export interface ProfileEdits {
   nickname?: string;
   email?: string;
   mobile?: string;
+  /** `yyyy-mm-dd`, composed from the profile page's day/month/year selects. */
+  dob?: string;
 }
 
 export function readProfileEdits(): ProfileEdits {
@@ -29,6 +31,7 @@ export function readProfileEdits(): ProfileEdits {
       nickname: typeof edits.nickname === 'string' ? edits.nickname : undefined,
       email: typeof edits.email === 'string' ? edits.email : undefined,
       mobile: typeof edits.mobile === 'string' ? edits.mobile : undefined,
+      dob: typeof edits.dob === 'string' ? edits.dob : undefined,
     };
   } catch {
     return {};

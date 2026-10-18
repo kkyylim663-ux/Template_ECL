@@ -54,12 +54,17 @@ const ROUTES = [
   '/my/login',
   '/my/register',
   '/my/forgot-password',
+  // T81: the two mock chat rooms.
+  '/my/chat',
+  '/my/livechat',
 ];
 
 const MEMBER_ROUTES = [
   '/my/account/deposit',
   '/my/account/withdrawal',
   '/my/account/transfer',
+  // T81: the wallet page the dock opens.
+  '/my/account/wallet',
   '/my/account/history',
   '/my/account/pending',
   '/my/account/inbox',
@@ -103,6 +108,13 @@ async function captureRoute(
 ) {
   if (MEMBER_ROUTES.includes(route)) {
     await signIn(context);
+  }
+  if (route === '/my/account/tickets') {
+    // The ticket centre (T65) ticks a live countdown per ticket whose text
+    // width also sizes its column: the mask hides the tick, but not the
+    // layout it induces ("17h 29m" vs "7h 3m" reflows the table). Freeze the
+    // page clock before the first script runs so the capture is stable.
+    await page.clock.setFixedTime(new Date('2026-10-18T12:00:00+08:00'));
   }
   await page.goto(route);
   if (route.startsWith('/my/account/deposit/gateway')) {

@@ -82,7 +82,7 @@ for (const { label, viewport } of VIEWPORTS) {
     await page.goto('/my/account/profile');
     await page.waitForSelector('[data-profile-hydrated="true"]');
     await page.locator('#profile-nickname').fill('Journey Player');
-    await page.getByRole('button', { name: 'Save changes' }).click();
+    await page.getByRole('button', { name: 'Submit' }).click();
     await expect(page.getByText('Profile updated')).toBeVisible();
     await shot('6-profile');
     await page.getByRole('button', { name: 'OK', exact: true }).click();

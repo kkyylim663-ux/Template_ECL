@@ -2,11 +2,13 @@ import { expect, test } from '@playwright/test';
 import { signIn } from './session';
 
 /**
- * T49 profile. The fixture is read-only, so edits live per browser (reload keeps
- * them) and the password change goes through the mock auth route, whose override
- * makes the new password the one a later sign-in accepts. The password test uses
- * the second fixture account (`demoplayer`) so the shared `demo_player` sign-in
- * helper keeps working.
+ * T49 profile, rebuilt in T81 to the reference's live member view: the hero
+ * (greeting / balance / verify row) plus three collapsible sections. The
+ * fixture is read-only, so the nickname and date of birth live per browser
+ * (reload keeps them) and the password change goes through the mock auth route,
+ * whose override makes the new password the one a later sign-in accepts. The
+ * password test uses the second fixture account (`demoplayer`) so the shared
+ * `demo_player` sign-in helper keeps working.
  */
 test.describe('profile', () => {
   test.beforeEach(async ({ context }) => {
@@ -21,12 +23,12 @@ test.describe('profile', () => {
 
   test('shows the account facts and saves an edit', async ({ page }) => {
     await open(page);
-    const facts = page.locator('.profile-facts');
-    await expect(facts).toContainText('demo_player');
-    await expect(facts).toContainText('Member since');
+    const hero = page.locator('.profile-hero');
+    await expect(hero).toContainText('Hello, demo_player');
+    await expect(hero).toContainText('Verified');
 
     await page.locator('#profile-nickname').fill('Ace Player');
-    await page.getByRole('button', { name: 'Save changes' }).click();
+    await page.getByRole('button', { name: 'Submit' }).click();
     await expect(page.getByText('Profile updated')).toBeVisible();
     await page.getByRole('button', { name: 'OK', exact: true }).click();
 
@@ -34,16 +36,23 @@ test.describe('profile', () => {
     await expect(page.locator('#profile-nickname')).toHaveValue('Ace Player');
   });
 
-  test('validates the editable fields before saving', async ({ page }) => {
+  test('validates the nickname and saves a date of birth', async ({ page }) => {
     await open(page);
-    await page.locator('#profile-email').fill('demo@example');
-    await page.getByRole('button', { name: 'Save changes' }).click();
-    await expect(page.getByText('Enter a valid email address')).toBeVisible();
+    await page.locator('#profile-nickname').fill('A');
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await expect(page.getByText('Enter a nickname')).toBeVisible();
 
-    await page.locator('#profile-email').fill('demo@example.test');
-    await page.locator('#profile-mobile').fill('call me');
-    await page.getByRole('button', { name: 'Save changes' }).click();
-    await expect(page.getByText('Enter a valid mobile number')).toBeVisible();
+    await page.locator('#profile-nickname').fill('Ace Player');
+    await page.getByLabel('Day').selectOption('12');
+    await page.getByLabel('Month').selectOption('04');
+    await page.getByLabel('Year').selectOption('1995');
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await page.getByRole('button', { name: 'OK', exact: true }).click();
+
+    await page.reload();
+    await expect(page.getByLabel('Day')).toHaveValue('12');
+    await expect(page.getByLabel('Month')).toHaveValue('04');
+    await expect(page.getByLabel('Year')).toHaveValue('1995');
   });
 
   test('warns before leaving with unsaved edits', async ({ page }) => {
@@ -71,6 +80,7 @@ test.describe('profile', () => {
     expect((await login('Test1234!')).ok()).toBe(true);
 
     await open(page);
+    await page.getByRole('button', { name: 'Security' }).click();
     await page.locator('#profile-current').fill('Test1234!');
     await page.locator('#profile-new').fill('BrandNew123!');
     await page.locator('#profile-confirm').fill('BrandNew123!');
@@ -90,6 +100,7 @@ test.describe('profile', () => {
 
   test('a wrong current password is refused', async ({ page }) => {
     await open(page);
+    await page.getByRole('button', { name: 'Security' }).click();
     await page.locator('#profile-current').fill('NotMyPassword1');
     await page.locator('#profile-new').fill('BrandNew123!');
     await page.locator('#profile-confirm').fill('BrandNew123!');
@@ -99,7 +110,8 @@ test.describe('profile', () => {
 
   test('the language row switches the site language', async ({ context, page }) => {
     await open(page);
-    await page.locator(".profile-language").getByRole("button", { name: '简体中文' }).click();
+    await page.getByRole('button', { name: 'Security' }).click();
+    await page.locator('.profile-language').getByRole('button', { name: '简体中文' }).click();
     await expect(page.getByRole('heading', { name: '个人资料' })).toBeVisible();
 
     const cookies = await context.cookies();

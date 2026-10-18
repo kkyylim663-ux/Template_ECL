@@ -37,7 +37,7 @@ export async function Footer({ region }: { region: string }) {
                 {supportChannels.map((channel) => (
                   <li key={channel.id}>
                     <a
-                      href={channel.href}
+                      href={channel.id === 'livechat' ? regionPath(region, '/livechat') : channel.href}
                       className="text-muted hover:text-accent block text-sm leading-[17px]"
                       style={{ marginBottom: '16px' }}
                     >

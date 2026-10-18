@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { brand } from '@/config/brand';
+import { regionPath } from '@/config/nav';
 import { getPageContent } from '@/lib/api';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
@@ -35,7 +36,7 @@ export default async function ContactPage({ params }: { params: Promise<{ region
       icon: 'chat',
       title: brand.contact.liveChat.label,
       value: brand.contact.liveChat.availability,
-      href: brand.contact.liveChat.href,
+      href: regionPath(region, '/livechat'),
     },
     {
       id: 'email',

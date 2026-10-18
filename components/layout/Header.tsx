@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { brand } from '@/config/brand';
+import { regionPath } from '@/config/nav';
 import { getT } from '@/lib/i18n/server';
 import { Icon } from '@/components/ui/Icon';
 import { AccountSlotGate, HeaderMenuGate } from './BreakpointChrome';
@@ -37,10 +38,16 @@ export async function Header({ region }: { region: string }) {
             not have in the header, so they ride along inside it.
           */}
           <div className="ms-auto flex h-[41px] items-center [&>*]:h-[41px] [&>*]:shrink-0 [&>*]:items-center [&>*]:whitespace-nowrap">
-            <a href="#" aria-label={t('ui.chat')} className="relative me-8 block shrink-0">
+            {/* The reference's header chat icon opens its live chat; ours now
+                opens the mock live-chat page. */}
+            <Link
+              href={regionPath(region, '/livechat')}
+              aria-label={t('ui.chat')}
+              className="relative me-8 block shrink-0"
+            >
               <Icon name="chat" size={25} className="text-ink" />
               <span className="bg-danger absolute -top-2 -right-2 size-2 rounded-full" />
-            </a>
+            </Link>
 
             {/* Quest pill: original geometry, no quest panel in this build. */}
             <a

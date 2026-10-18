@@ -6526,6 +6526,619 @@ details.accordionItem[open] .accordion-icon {
   text-align: right !important;
 }
 
+/*
+ * Profile page. The reference's live member view: a centred two-pill nav on
+ * phones (`mobile-profile__nav` + `.nav-pill2`), then the account hero —
+ * greeting, avatar with the tier chip, the balance row (refresh / visibility /
+ * the deposit plus) and the two-cell verify row — and three collapsible
+ * sections drawn with the shared `.accordionItem` chrome.
+ */
+.mobile-profile__nav {
+  display: none;
+}
+
+.profile-hero {
+  margin-bottom: 18px;
+}
+
+.profile-hero__hello {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.profile-hero__identity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.profile-hero__avatar {
+  display: grid;
+  place-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  background: var(--color-panel-soft);
+  color: var(--color-muted);
+}
+
+.profile-hero__tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.profile-hero__balance {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+}
+
+.profile-hero__currency {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.profile-hero__amount {
+  color: var(--color-ink);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-hero__icon-btn {
+  display: grid;
+  place-items: center;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.profile-hero__icon-btn:hover {
+  color: var(--color-accent);
+}
+
+.profile-hero__plus {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-left: auto;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #000;
+}
+
+.profile-hero__verify {
+  display: flex;
+  overflow: hidden;
+  margin-top: 12px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+}
+
+.profile-verify {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 10px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+button.profile-verify {
+  cursor: pointer;
+}
+
+.profile-verify + .profile-verify {
+  border-left: 1px solid var(--color-line);
+}
+
+.profile-verify__x {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: #171818;
+  color: var(--color-danger-text);
+  font-size: var(--text-10);
+}
+
+.profile-page .accordionItem {
+  margin-bottom: 12px;
+  padding: 0;
+  border-bottom: 0;
+}
+
+.profile-page .accordionItemHeading {
+  width: 100%;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+  text-align: left;
+}
+
+.profile-page .accordionItemContent {
+  /* The shared accordion rules hide closed sections under `.generalPage`; the
+     profile page needs its own pair so only the open section shows. */
+  display: none;
+  padding: 18px 4px 8px;
+}
+
+.profile-page .accordionItemContent.selected {
+  display: block;
+}
+
+.profile-value {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0 2px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.profile-inline-action {
+  margin-left: auto;
+  /* T76: the soft green reads 3.6:1 on the #353537 card; the bright one passes. */
+  color: var(--color-success-bright);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.profile-dob {
+  display: flex;
+  gap: 10px;
+}
+
+.profile-dob select {
+  flex: 1;
+  height: 42px;
+  padding: 0 12px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.profile-submit-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.profile-submit {
+  padding: 8px 4px;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-submit:hover {
+  color: var(--color-accent);
+}
+
+.profile-bank {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/*
+ * Wallet page (T81). Ported from the reference's own stylesheet (`mywallet`):
+ * the `.mobile-nav` finance pills, the `.mobile-banking-header` total strip,
+ * the `.walletBalance` block (main wallet card, per-wallet rows with OUT / IN,
+ * the total row, the green transfer-all button) and the `.wallet-ticket` row.
+ */
+.mobile-nav__link-wrapper {
+  overflow-x: auto;
+  padding-top: 13px;
+}
+
+.mobile-nav__link-container {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 458px;
+  margin: 0 20px 0 11px;
+  padding: 5px 6.5px;
+  border-radius: 20px;
+  background: var(--color-line-soft);
+  white-space: nowrap;
+}
+
+.mobile-nav__link {
+  margin-right: 10px;
+  padding: 12px 24px;
+  border-radius: 17px;
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  text-decoration: none;
+}
+
+.mobile-nav__link.selected {
+  background: #47494b;
+  color: var(--color-ink);
+}
+
+.mobile-banking-header {
+  margin-bottom: 13px;
+  padding-top: 21px;
+}
+
+.mobile-banking-header__title {
+  margin-bottom: 14px;
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 500;
+}
+
+.mobile-banking-header__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-banking-header__balance {
+  color: var(--color-ink);
+  font-size: var(--text-base);
+  font-weight: 700;
+}
+
+.wallet-balance__refresh {
+  display: grid;
+  place-items: center;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.wallet-balance__refresh:hover {
+  color: var(--color-accent);
+}
+
+.mobile-banking-header__action {
+  margin-left: auto;
+}
+
+.btn-small {
+  padding: 10px 18px;
+  font-size: var(--text-sm);
+}
+
+.myTransferContainer .walletBalance .header {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+  text-align: center;
+}
+
+.myTransferContainer .walletBalance .header .walletTitle {
+  padding-bottom: 16px;
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.myTransferContainer .walletBalance .header .mainWalletBalance {
+  color: var(--color-ink);
+}
+
+.myTransferContainer .walletBalance .header .mainWalletBalance .currency {
+  padding-right: 4px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.myTransferContainer .walletBalance .header .mainWalletBalance .amount {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.myTransferContainer .walletBalance .content {
+  padding: 16px 15px;
+}
+
+.myTransferContainer .walletBalance .content .wallet {
+  margin-bottom: 8px;
+}
+
+.myTransferContainer .walletBalance .content .wallet .walletName {
+  display: inline-block;
+  width: 120px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.myTransferContainer .walletBalance .content .wallet .details {
+  display: inline-block;
+  width: calc(100% - 128px);
+  margin-left: 8px;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.myTransferContainer .walletBalance .content .wallet .details .balance {
+  padding-right: 24px;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 36px;
+}
+
+.myTransferContainer .walletBalance .content .wallet .details .out {
+  padding: 0 13px 0 0;
+  border: 0;
+  background: none;
+  color: var(--color-accent);
+  font-size: var(--text-xs);
+  line-height: 36px;
+  cursor: pointer;
+}
+
+.myTransferContainer .walletBalance .content .wallet .details .in {
+  padding: 0 12px;
+  border: 0;
+  border-radius: 15px;
+  background: #289d82;
+  /* T76's AA ruling: white on the brand green reads 3.37:1, the dark ink passes. */
+  color: var(--color-ink-on-accent);
+  font-size: var(--text-xs);
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.myTransferContainer .walletBalance .content .wallet .details .out:disabled,
+.myTransferContainer .walletBalance .content .wallet .details .in:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.myTransferContainer .walletBalance .totalBanlance {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+}
+
+.myTransferContainer .walletBalance .totalBanlance .total {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 19px;
+}
+
+.myTransferContainer .walletBalance .totalBanlance .balance {
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 17px;
+}
+
+.transferAllBalanceToMain {
+  display: block;
+  margin: 0 auto;
+  padding: 12px 24px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--color-success);
+  /* T76's AA ruling, same green as the IN chip. */
+  color: var(--color-ink-on-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.wallet-ticket__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 34px;
+}
+
+.wallet-ticket--left__wrapper {
+  display: flex;
+  align-items: center;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.wallet-ticket--left__ticket {
+  display: flex;
+  align-items: center;
+  width: 150px;
+  margin-right: 10px;
+}
+
+.wallet-ticket--left__icon {
+  margin-right: 10px;
+}
+
+.wallet-ticket__number {
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+
+.wallet-ticket--go {
+  display: inline-block;
+  min-width: 35px;
+  padding: 5px 10px;
+  border-radius: 11px;
+  background: #cc3633;
+  color: #fff;
+  font-size: var(--text-10);
+  text-align: center;
+}
+
+/*
+ * Chat pages (T81): the mock player room and the live-chat support room share
+ * one panel — a header with the online dot, the pinned line (room only), the
+ * message list with the simulated reply, quick questions (support only) and
+ * the compose row.
+ */
+.chat-room {
+  max-width: 720px;
+  margin: 20px auto 40px;
+  padding: 20px;
+  border-radius: 15px;
+  background: var(--color-panel-soft);
+}
+
+.chat-room__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.chat-room__icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-line-soft);
+  color: var(--color-accent);
+}
+
+.chat-room__titles {
+  flex: 1;
+}
+
+.chat-room__title {
+  color: var(--color-ink);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.chat-room__subtitle {
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.chat-room__online {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* T76's bright green keeps 12px text AA on the panel. */
+  color: var(--color-success-bright);
+  font-size: var(--text-xs);
+}
+
+.chat-room__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+}
+
+.chat-room__pin {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--color-line-soft);
+  color: var(--color-muted);
+  font-size: var(--text-xs);
+}
+
+.chat-room__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 320px;
+  max-height: 420px;
+  margin-top: 16px;
+  padding: 4px 2px;
+  overflow-y: auto;
+}
+
+.chat-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.chat-line--mine {
+  align-items: flex-end;
+}
+
+.chat-line__author {
+  color: var(--color-muted);
+  font-size: var(--text-10);
+}
+
+.chat-line__bubble {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+
+.chat-line--mine .chat-line__bubble {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.chat-room__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.chat-room__chip {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--color-line-soft);
+  color: var(--color-ink);
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.chat-room__chip:hover {
+  color: var(--color-accent);
+}
+
+.chat-room__compose {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.chat-room__compose .form-control {
+  flex: 1;
+}
+
+.chat-room__note {
+  margin-top: 10px;
+  color: var(--color-muted);
+  font-size: var(--text-10);
+}
+
 /* Transfer: form card 596px + credit-to-game card 397px, 19px apart. */
 .transfer-container {
   display: flex;
@@ -7722,8 +8335,11 @@ details.accordionItem[open] .accordion-icon {
     border-bottom-left-radius: 23px;
   }
 
+  /* The reference's live rendering keeps its 96vw table at 100% (DataTables
+     wins over the stylesheet's 450px): the date column wraps and the subject
+     takes the rest, so nothing runs past the right edge. */
   .inbox-table {
-    width: 450px;
+    width: 100%;
   }
 
   .pending-table__wrapper {
@@ -7906,7 +8522,14 @@ details.accordionItem[open] .accordion-icon {
   }
 
   .inbox-table-datetime {
-    width: 143px;
+    width: 84px;
+  }
+
+  /* The reference's mobile profile tab row: centred, 10px down. */
+  .mobile-profile__nav {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
   }
 
   .inbox-table thead th,

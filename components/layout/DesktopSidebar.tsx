@@ -106,7 +106,7 @@ export function DesktopSidebar({ region }: { region: string }) {
             {CONTACT_CHANNELS.filter((channel) => channel.id === 'livechat').map((channel) => (
               <PanelRow
                 key={channel.id}
-                href={channel.href}
+                href={regionPath(region, '/livechat')}
                 label={t(channel.labelKey)}
                 icon={channel.icon}
                 onNavigate={() => setOpen(false)}

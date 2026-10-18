@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getPageContent } from '@/lib/api';
+import { regionPath } from '@/config/nav';
 import { IntlScope } from '@/lib/i18n/scope';
 import { getT } from '@/lib/i18n/server';
 import { brand } from '@/config/brand';
@@ -82,7 +83,7 @@ export default async function AboutPage({ params }: { params: Promise<{ region: 
           <div>
             <p className="linkTitle">{t('about.service')}</p>
             <div className="content inline">
-              <a href={brand.contact.liveChat.href} aria-label={brand.contact.liveChat.label}>
+              <a href={regionPath(region, '/livechat')} aria-label={brand.contact.liveChat.label}>
                 <Icon name="chat" size={25} />
               </a>
               <a href={brand.contact.telegram.href} aria-label={brand.contact.telegram.label}>

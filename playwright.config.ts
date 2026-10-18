@@ -29,6 +29,8 @@ const SUITES: Record<string, { port: number; specs: string[] }> = {
       'a11y.spec.ts',
       'keyboard.spec.ts',
       'mobile.spec.ts',
+      // T81: the two mock chat rooms (public pages + the dock entries).
+      'chat.spec.ts',
       'screenshots.spec.ts',
       'seo.spec.ts',
       'i18n.spec.ts',
@@ -74,6 +76,8 @@ const SUITES: Record<string, { port: number; specs: string[] }> = {
       'withdrawal-settle.spec.ts',
       'banking-details.spec.ts',
       'profile.spec.ts',
+      // T81: the wallet page the dock opens.
+      'wallet.spec.ts',
       'inbox.spec.ts',
       'history.spec.ts',
       'pending.spec.ts',
