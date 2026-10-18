@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Noto_Sans, Roboto, Rubik } from 'next/font/google';
+import { Noto_Sans, Roboto, Rubik, Rye } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { brand } from '@/config/brand';
 import { fontPreloadHrefs } from '@/lib/font-preloads';
@@ -50,6 +50,20 @@ const roboto = Roboto({
   variable: '--font-roboto',
   display: 'swap',
   preload: false,
+});
+
+/**
+ * Dusk Saloon display face (STYLE-GUIDE §4): the brand wordmark and the big
+ * titles — one weight, latin only. On home it lands in the first viewport (the
+ * hero headline), so it keeps next/font's own preload like Rubik; on the other
+ * routes the hand-built preload list in `lib/font-preloads.ts` picks it up from
+ * the built stylesheet.
+ */
+const rye = Rye({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-rye',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -112,7 +126,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${rubik.variable} ${noto.variable} ${roboto.variable} motion-safe:scroll-smooth`}
+      className={`${rubik.variable} ${noto.variable} ${roboto.variable} ${rye.variable} motion-safe:scroll-smooth`}
       // VIEWPORT_SCRIPT sets --m-scale / --fs-fix on <html> before React hydrates.
       suppressHydrationWarning
     >

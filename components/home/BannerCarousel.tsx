@@ -57,7 +57,8 @@ export function BannerCarousel({ banners, region }: { banners: Banner[]; region:
         onBlurCapture={() => setPaused(false)}
         className="home-banner-container"
       >
-        <div className="h-full overflow-hidden rounded-[var(--radius-panel)]">
+        {/* Dusk Saloon: 1px brass frame on the strip (STYLE-GUIDE §9 轮播). */}
+        <div className="border-brass-edge h-full overflow-hidden rounded-[var(--radius-panel)] border">
           <div
             className="flex h-full transition-transform duration-500 motion-reduce:transition-none"
             style={{ transform: `translateX(-${index * 100}%)` }}
@@ -72,21 +73,54 @@ export function BannerCarousel({ banners, region }: { banners: Banner[]; region:
                   data-active={active}
                   // Off-screen slides leave the tab order and the accessibility tree.
                   {...(active ? {} : { inert: true })}
-                  className="hero-slide h-full w-full shrink-0"
+                  className="hero-slide relative h-full w-full shrink-0"
                 >
+                  {/*
+                    The delivered artwork sits behind the text; the gradient
+                    placeholder stays for slides the image set has not reached.
+                    Decorative — the link's own text carries the meaning, and
+                    the phone crop re-composes the same scene (server pressure:
+                    slide 1 loads eagerly, the rest when the strip reaches them).
+                  */}
+                  {banner.image ? (
+                    <picture>
+                      {banner.imageMobile ? (
+                        <source media="(max-width: 768px)" srcSet={banner.imageMobile} />
+                      ) : null}
+                      <img
+                        src={banner.image}
+                        alt=""
+                        loading={active ? 'eager' : 'lazy'}
+                        decoding="async"
+                        className="absolute inset-0 size-full object-cover"
+                      />
+                    </picture>
+                  ) : (
+                    <span className="game-placeholder absolute inset-0" aria-hidden="true" />
+                  )}
+                  <span className="hero-scrim absolute inset-0" aria-hidden="true" />
                   <Link
                     href={href}
                     onClick={(event) => {
                       if (href === '#') event.preventDefault();
                     }}
-                    className="game-placeholder data-[active=true]:border-accent flex h-full flex-col justify-center rounded-[var(--radius-panel)] border-2 border-transparent p-6 max-desktop:ps-20 desktop:p-10"
+                    className="relative flex h-full flex-col justify-center rounded-[var(--radius-panel)] py-5 ps-10 pe-10 desktop:p-10"
                   >
                     <span className="block max-w-lg">
-                      <span className="text-ink block text-lg font-semibold desktop:text-3xl">
+                      {/*
+                        Overlay text is code, never baked into the artwork
+                        (STYLE-GUIDE §11.3): Rye with the gold gradient for the
+                        title, white subtitle, the orange-gold CTA pill.
+                      */}
+                      <span className="hero-title block text-2xl desktop:text-4xl">
                         {banner.title}
                       </span>
-                      <span className="text-ink/85 mt-1.5 block text-xs desktop:mt-3 desktop:text-base">
+                      <span className="text-ink mt-1.5 block text-xs desktop:mt-3 desktop:text-base">
                         {banner.subtitle}
+                      </span>
+                      <span className="hero-cta mt-3 desktop:mt-5">
+                        {t('entry.playNow')}
+                        <Icon name="chevronRight" size={14} className="shrink-0" />
                       </span>
                     </span>
                   </Link>

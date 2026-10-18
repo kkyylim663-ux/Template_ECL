@@ -63,6 +63,13 @@ export const bannerSchema = z.object({
   href: z.string(),
   /** Hue for the placeholder artwork until real images are dropped in. */
   tone: z.number().int().min(0).max(359),
+  /**
+   * Delivered artwork under `public/`; absent or `null` keeps the gradient
+   * placeholder. `imageMobile` is the recomposed phone crop and falls back to
+   * `image` while the phone set is not delivered yet.
+   */
+  image: z.string().nullable().optional(),
+  imageMobile: z.string().nullable().optional(),
   order: z.number().int(),
 });
 export type Banner = z.infer<typeof bannerSchema>;
